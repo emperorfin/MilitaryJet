@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Compose Email Authentication</string>
+
+    <string name="password_requirement_characters">At least 8 characters</string>
+    <string name="password_requirement_capital">At least 1 upper-case letter</string>
+    <string name="password_requirement_digit">At least 1 digit</string>
+    <string name="password_requirement_satisfied">%s, satisfied</string>
+    <string name="password_requirement_needed">%s, needed</string>
+
+    <string name="message_error_something_went_wrong">Something went wrong!</string>
+
+    <string name="label_sign_in_to_account">Sign In to your account</string>
+    <string name="label_sign_up_for_account">Sign Up for an account</string>
+
+    <string name="label_email">Email Address</string>
+    <string name="label_password">Password</string>
+
+    <string name="content_description_show_password">Show Password</string>
+    <string name="content_description_hide_password">Hide Password</string>
+
+    <string name="action_sign_in">Sign In</string>
+    <string name="action_sign_up">Sign Up</string>
+    <string name="action_need_account">Need an account?</string>
+    <string name="action_already_have_account">Already have an account?</string>
+
+    <string name="error_title">Whoops</string>
+    <string name="error_action">OK</string>
+
+    <!--  For Preview  -->
+    <string name="preview_message">Just a preview message</string>
+</resources>

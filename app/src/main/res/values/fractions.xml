@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  121% = 1.21  -->
+    <item name="weight_test" format="fraction" type="fraction">121%</item>
+    <!--  100% = 1.0  -->
+    <item name="weight_1" format="fraction" type="fraction">100%</item>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  DP  -->
+    <dimen name="padding_all_6">6dp</dimen>
+    <dimen name="padding_top_16">16dp</dimen>
+    <dimen name="padding_all_8">8dp</dimen>
+    <dimen name="padding_all_16">16dp</dimen>
+    <dimen name="padding_horizontal_32">32dp</dimen>
+
+    <dimen name="card_elevation_4">4dp</dimen>
+    <dimen name="surface_elevation_8">8dp</dimen>
+
+    <dimen name="height_16_spacer">16dp</dimen>
+    <dimen name="height_12_spacer">12dp</dimen>
+    <dimen name="height_32_spacer">32dp</dimen>
+    <dimen name="height_40_spacer">40dp</dimen>
+
+    <dimen name="size_12">12dp</dimen>
+    <dimen name="width_8">8dp</dimen>
+
+<!--    <item name="weight_test" format="float" type="dimen">1.0</item>-->
+    <!--  121% = 1.21  -->
+<!--    <item name="weight_test" format="fraction" type="dimen">121%</item>-->
+<!--    <dimen name="weight_test">8.3</dimen>-->
+
+    <!--  SP  -->
+
+</resources>
