@@ -3,7 +3,7 @@ package emperorfin.android.composeemailauthentication.ui.screens.authentication.
 import androidx.annotation.StringRes
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_IN
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirements
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement
 
 
 /**
@@ -17,7 +17,7 @@ data class AuthenticationUiState(
     val authenticationMode: AuthenticationMode = SIGN_IN,
     val email: String? = null,
     val password: String? = null,
-    val passwordRequirements: List<PasswordRequirements> = emptyList(),
+    val passwordRequirements: List<PasswordRequirement> = emptyList(),
     val isLoading: Boolean = FALSE,
 //    val error: String? = null
     @StringRes val error: Int? = null
@@ -36,7 +36,7 @@ data class AuthenticationUiState(
         return password?.isNotEmpty() == TRUE &&
                 email?.isNotEmpty() == TRUE &&
                 (authenticationMode == SIGN_IN || passwordRequirements.containsAll(
-                    PasswordRequirements.values().toList()
+                    PasswordRequirement.values().toList()
                 ))
 
     }

@@ -3,6 +3,7 @@ package emperorfin.android.composeemailauthentication.ui.screens.authentication.
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -12,6 +13,7 @@ import emperorfin.android.composeemailauthentication.R
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_IN
 import emperorfin.android.composeemailauthentication.ui.res.theme.ComposeEmailAuthenticationTheme
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATION_TITLE
 
 
 /**
@@ -27,6 +29,8 @@ fun AuthenticationTitle(
 ) {
 
     Text(
+        modifier = Modifier
+            .testTag(tag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE),
         text = stringResource(
             id = if (authenticationMode == SIGN_IN) {
                 R.string.label_sign_in_to_account

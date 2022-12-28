@@ -10,7 +10,7 @@ import emperorfin.android.composeemailauthentication.R
  */
 
 
-enum class PasswordRequirements(@StringRes val label: Int) {
+enum class PasswordRequirement(@StringRes val label: Int) {
 
     EIGHT_CHARACTERS(R.string.password_requirement_characters),
     CAPITAL_LETTER(R.string.password_requirement_capital),

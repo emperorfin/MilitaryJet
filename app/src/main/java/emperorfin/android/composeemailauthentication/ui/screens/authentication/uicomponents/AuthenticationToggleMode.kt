@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,6 +16,7 @@ import emperorfin.android.composeemailauthentication.R
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_IN
 import emperorfin.android.composeemailauthentication.ui.res.theme.ComposeEmailAuthenticationTheme
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
 
 
 /**
@@ -38,6 +40,7 @@ fun AuthenticationToggleMode(
     ) {
         TextButton(
             modifier = Modifier
+                .testTag(TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON)
                 .background(color = MaterialTheme.colorScheme.surface)
                 .padding(all = dimensionResource(id = R.dimen.padding_all_8)),
 //            onClick = toggleAuthentication // OR

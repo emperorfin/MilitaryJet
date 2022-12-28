@@ -4,6 +4,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import emperorfin.android.composeemailauthentication.R
@@ -11,6 +12,7 @@ import emperorfin.android.composeemailauthentication.ui.screens.authentication.e
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_IN
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_UP
 import emperorfin.android.composeemailauthentication.ui.res.theme.ComposeEmailAuthenticationTheme
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
 
 
 /**
@@ -26,9 +28,9 @@ fun AuthenticationButton(
     enableAuthentication: Boolean,
     onAuthenticate: () -> Unit
 ) {
-    
+
     Button(
-        modifier = modifier,
+        modifier = modifier.testTag(TAG_AUTHENTICATION_AUTHENTICATE_BUTTON),
         onClick = {
             onAuthenticate()
         },

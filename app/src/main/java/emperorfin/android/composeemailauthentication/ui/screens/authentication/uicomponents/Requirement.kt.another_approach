@@ -35,7 +35,7 @@ import emperorfin.android.composeemailauthentication.ui.screens.authentication.u
 
 /**
  * @Author: Francis Nwokelo (emperorfin)
- * @Date: November, 2022.
+ * @Date: Tuesday 06th December, 2022.
  */
 
 
@@ -71,14 +71,14 @@ fun Requirement(
             .padding(
                 all = dimensionResource(id = R.dimen.padding_all_6)
             )
-            .semantics(mergeDescendants = TRUE) {
-//            this.text = AnnotatedString(requirementStatus) // Or
-                text = AnnotatedString(requirementStatus)
-                testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT + message
-
-                textColorArgb = tint.toArgb()
-            },
-        verticalAlignment = Alignment.CenterVertically
+//            .semantics(mergeDescendants = TRUE) {
+////            this.text = AnnotatedString(requirementStatus) // Or
+//                text = AnnotatedString(requirementStatus)
+//                testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT + message
+//
+//                textColorArgb = tint.toArgb()
+//            },
+        ,verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             modifier = Modifier
@@ -104,9 +104,9 @@ fun Requirement(
 
         Text(
             modifier = Modifier
-                .clearAndSetSemantics {  },
-//                .testTag(tag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT + requirementStatus)
-//                .semantics { textColorArgb = tint.toArgb() },
+//                .clearAndSetSemantics {  },
+                .testTag(tag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT + requirementStatus)
+                .semantics { textColorArgb = tint.toArgb() },
             text = message,
             fontSize = FONT_SIZE_SP_12,
             color = tint

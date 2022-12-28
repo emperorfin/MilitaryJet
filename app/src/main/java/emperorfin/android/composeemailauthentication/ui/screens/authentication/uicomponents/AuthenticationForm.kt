@@ -9,15 +9,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import emperorfin.android.composeemailauthentication.R
 import emperorfin.android.composeemailauthentication.ui.res.fractionResource
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_IN
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_UP
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirements
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement
 import emperorfin.android.composeemailauthentication.ui.res.theme.ComposeEmailAuthenticationTheme
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_FORM_CONTENT_AREA
 
 
 /**
@@ -35,7 +38,7 @@ fun AuthenticationForm(
     onEmailChanged: (email: String) -> Unit,
     password: String?,
     onPasswordChanged: (password: String) -> Unit,
-    completedPasswordRequirements: List<PasswordRequirements>,
+    completedPasswordRequirements: List<PasswordRequirement>,
     enableAuthentication: Boolean,
     onAuthenticate: () -> Unit
 ) {
@@ -43,7 +46,8 @@ fun AuthenticationForm(
     val passwordInputFocusRequester = FocusRequester()
 
     Column(
-        modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally
+        modifier = modifier.testTag(tag = TAG_AUTHENTICATION_FORM_CONTENT_AREA),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(
             modifier = Modifier.height(

@@ -12,10 +12,10 @@ import emperorfin.android.composeemailauthentication.ui.screens.authentication.e
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.events.AuthenticationEvent.ErrorDismissedEvent
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_IN
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_UP
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirements
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirements.EIGHT_CHARACTERS
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirements.CAPITAL_LETTER
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirements.NUMBER
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement.EIGHT_CHARACTERS
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement.CAPITAL_LETTER
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement.NUMBER
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -120,7 +120,7 @@ class AuthenticationViewModel : ViewModel() {
 
     private fun updatePassword(password: String) {
 
-        val requirements = mutableListOf<PasswordRequirements>()
+        val requirements = mutableListOf<PasswordRequirement>()
 
         if (password.length > PASSWORD_REQUIREMENT_MORE_THAN_SEVEN_CHARS) {
             requirements.add(EIGHT_CHARACTERS)
@@ -149,11 +149,12 @@ class AuthenticationViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             // Simulates network request
             delay(timeMillis = DELAY_TIME_MILLIS_2000L)
+//            delay(timeMillis = 1L)
 
             withContext(Dispatchers.Main) {
                 uiState.value = uiState.value.copy(
                     isLoading = FALSE,
-                    error = R.string.message_error_something_went_wrong
+                    error = R.string.error_message_something_went_wrong
                 )
             }
         }

@@ -6,6 +6,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.stateholders.AuthenticationUiState
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.events.AuthenticationEvent
@@ -15,6 +16,7 @@ import emperorfin.android.composeemailauthentication.ui.screens.authentication.e
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.events.AuthenticationEvent.ErrorDismissedEvent
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.events.AuthenticationEvent.AuthenticationToggleModeEvent
 import emperorfin.android.composeemailauthentication.ui.res.theme.ComposeEmailAuthenticationTheme
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_PROGRESS
 
 
 /**
@@ -34,7 +36,9 @@ fun AuthenticationContent(
         modifier = modifier, contentAlignment = Alignment.Center
     ) {
         if (uiState.isLoading) {
-            CircularProgressIndicator()
+            CircularProgressIndicator(
+                modifier = Modifier.testTag(tag = TAG_AUTHENTICATION_PROGRESS)
+            )
         } else {
             AuthenticationForm(
                 modifier = Modifier.fillMaxSize(),

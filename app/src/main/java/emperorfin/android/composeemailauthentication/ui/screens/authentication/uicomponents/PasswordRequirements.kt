@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirements
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement
 
 
 /**
@@ -16,11 +16,13 @@ import emperorfin.android.composeemailauthentication.ui.screens.authentication.e
 @Composable
 fun PasswordRequirements(
     modifier: Modifier = Modifier,
-    satisfiedRequirements: List<PasswordRequirements>
+    satisfiedRequirements: List<PasswordRequirement>
 ) {
     
-    Column(modifier = modifier) {
-        PasswordRequirements.values().forEach { requirement ->
+    Column(
+        modifier = modifier
+    ) {
+        PasswordRequirement.values().forEach { requirement ->
             Requirement(
                 message = stringResource(id = requirement.label),
                 satisfied = satisfiedRequirements.contains(requirement)
