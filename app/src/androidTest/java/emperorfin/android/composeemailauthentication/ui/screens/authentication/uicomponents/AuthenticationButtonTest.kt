@@ -15,6 +15,7 @@ import emperorfin.android.composeemailauthentication.ui.screens.authentication.u
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.Assert.assertTrue
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 
@@ -167,6 +168,45 @@ class AuthenticationButtonTest {
     }
 
     @Test
+    fun sign_In_Action_Displayed_3() {
+
+        val uiState = AuthenticationUiState(
+            authenticationMode = SIGN_IN
+        )
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationButton(
+                    authenticationMode = uiState.authenticationMode,
+                    enableAuthentication = TRUE,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_in),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .apply {
+                assertIsDisplayed()
+
+                assertTextEquals(
+                    mContext.getString(R.string.action_sign_in),
+                    includeEditableText = FALSE
+                )
+            }
+
+    }
+
+    @Test
     fun sign_Up_Action_Displayed() {
 
         val uiState = AuthenticationUiState(
@@ -226,6 +266,45 @@ class AuthenticationButtonTest {
                 includeEditableText = FALSE
             )
             .assertIsDisplayed()
+
+    }
+
+    @Test
+    fun sign_Up_Action_Displayed_3() {
+
+        val uiState = AuthenticationUiState(
+            authenticationMode = SIGN_UP
+        )
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationButton(
+                    authenticationMode = uiState.authenticationMode,
+                    enableAuthentication = TRUE,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_up),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .apply {
+                assertIsDisplayed()
+
+                assertTextEquals(
+                    mContext.getString(R.string.action_sign_up),
+                    includeEditableText = FALSE
+                )
+            }
 
     }
 
@@ -340,6 +419,82 @@ class AuthenticationButtonTest {
     }
 
     @Test
+    fun sign_In_Authentication_Callback_Triggered_4() {
+
+        val uiState = AuthenticationUiState(
+            authenticationMode = SIGN_IN
+        )
+
+        val onAuthenticate: () -> Unit = mock()
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationButton(
+                    authenticationMode = uiState.authenticationMode,
+                    enableAuthentication = TRUE,
+                    onAuthenticate = onAuthenticate
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_in),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        verify(
+            mock = onAuthenticate
+        ).invoke()
+
+    }
+
+    @Test
+    fun sign_In_Authentication_Callback_Triggered_4_WithoutMockito() {
+
+        val uiState = AuthenticationUiState(
+            authenticationMode = SIGN_IN
+        )
+
+        var isClicked = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationButton(
+                    authenticationMode = uiState.authenticationMode,
+                    enableAuthentication = TRUE,
+                    onAuthenticate = {
+                        isClicked = TRUE
+                    }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_in),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        assertTrue(isClicked)
+
+    }
+
+    @Test
     fun sign_Up_Authentication_Callback_Triggered() {
 
         val uiState = AuthenticationUiState(
@@ -415,6 +570,82 @@ class AuthenticationButtonTest {
         verify(
             mock = onAuthenticate
         ).invoke()
+
+    }
+
+    @Test
+    fun sign_Up_Authentication_Callback_Triggered_3() {
+
+        val uiState = AuthenticationUiState(
+            authenticationMode = SIGN_UP
+        )
+
+        val onAuthenticate: () -> Unit = mock()
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationButton(
+                    authenticationMode = uiState.authenticationMode,
+                    enableAuthentication = TRUE,
+                    onAuthenticate = onAuthenticate
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_up),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        verify(
+            mock = onAuthenticate
+        ).invoke()
+
+    }
+
+    @Test
+    fun sign_Up_Authentication_Callback_Triggered_3_WithoutMockito() {
+
+        val uiState = AuthenticationUiState(
+            authenticationMode = SIGN_UP
+        )
+
+        var isClicked = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationButton(
+                    authenticationMode = uiState.authenticationMode,
+                    enableAuthentication = TRUE,
+                    onAuthenticate = {
+                        isClicked = TRUE
+                    }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_up),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        assertTrue(isClicked)
 
     }
 
@@ -544,6 +775,44 @@ class AuthenticationButtonTest {
     }
 
     @Test
+    fun sign_In_Button_Disabled_5() {
+
+        val uiState = AuthenticationUiState(
+            authenticationMode = SIGN_IN
+        )
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationButton(
+                    authenticationMode = uiState.authenticationMode,
+                    enableAuthentication = FALSE,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_in),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .apply {
+                assertIsDisplayed()
+
+                assert(
+                    matcher = isNotEnabled()
+                )
+            }
+
+    }
+
+    @Test
     fun sign_In_Button_Enabled() {
 
         val uiState = AuthenticationUiState(
@@ -637,6 +906,42 @@ class AuthenticationButtonTest {
     }
 
     @Test
+    fun sign_In_Button_Enabled_4() {
+
+        val uiState = AuthenticationUiState(
+            authenticationMode = SIGN_IN
+        )
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationButton(
+                    authenticationMode = uiState.authenticationMode,
+                    enableAuthentication = TRUE,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_in),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .apply {
+                assertIsDisplayed()
+
+                assertIsEnabled()
+            }
+
+    }
+
+    @Test
     fun sign_Up_Button_Disabled() {
 
         val uiState = AuthenticationUiState(
@@ -726,6 +1031,42 @@ class AuthenticationButtonTest {
             )
             .assertIsDisplayed()
             .assertIsNotEnabled()
+
+    }
+
+    @Test
+    fun sign_Up_Button_Disabled_4() {
+
+        val uiState = AuthenticationUiState(
+            authenticationMode = SIGN_UP
+        )
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationButton(
+                    authenticationMode = uiState.authenticationMode,
+                    enableAuthentication = FALSE,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_up),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .apply {
+                assertIsDisplayed()
+
+                assertIsNotEnabled()
+            }
 
     }
 
@@ -855,6 +1196,45 @@ class AuthenticationButtonTest {
             .assert(
                 matcher = isEnabled()
             )
+
+    }
+
+    @Test
+    fun sign_Up_Button_Enabled_5() {
+
+        val uiState = AuthenticationUiState(
+            authenticationMode = SIGN_UP
+        )
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationButton(
+                    authenticationMode = uiState.authenticationMode,
+                    enableAuthentication = TRUE,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_up),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .apply {
+                assertIsDisplayed()
+
+//            assertIsEnabled() // Or
+                assert(
+                    matcher = isEnabled()
+                )
+            }
 
     }
 

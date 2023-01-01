@@ -133,8 +133,10 @@ fun AuthenticationForm(
 
         Spacer(
             modifier = Modifier.weight(
-//                        weight = 1f
-                weight = fractionResource(id = R.fraction.weight_1)
+                weight = WEIGHT_1
+                // Works well at runtime but throws a render problem error message with
+                // Resources$NotFoundException at design time while using @Preview
+//                weight = fractionResource(id = R.fraction.weight_1)
             )
         )
 
@@ -170,5 +172,7 @@ private fun AuthenticationFormPreview() {
 }
 
 private const val TRUE: Boolean = true
+
+private const val WEIGHT_1: Float = 1f
 
 private val NULL = null

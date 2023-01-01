@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import emperorfin.android.composeemailauthentication.ui.res.theme.ComposeEmailAuthenticationTheme
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement
 
 
@@ -31,3 +33,15 @@ fun PasswordRequirements(
     }
     
 }
+
+@Composable
+@Preview(showBackground = TRUE)
+private fun PasswordRequirementsPreview() {
+
+    ComposeEmailAuthenticationTheme {
+        PasswordRequirements(satisfiedRequirements = emptyList())
+    }
+
+}
+
+private const val TRUE: Boolean = true

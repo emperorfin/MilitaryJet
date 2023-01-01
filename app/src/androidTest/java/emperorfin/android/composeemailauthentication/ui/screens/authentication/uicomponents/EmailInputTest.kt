@@ -20,6 +20,8 @@ import emperorfin.android.composeemailauthentication.ui.screens.authentication.e
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.stateholders.AuthenticationUiState
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_EMAIL
 import emperorfin.android.composeemailauthentication.ui.utils.KeyboardHelper
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -1326,6 +1328,62 @@ class EmailInputTest {
 
     }
 
+    @OptIn(ExperimentalTestApi::class)
+    @Test
+    fun email_Changed_Callback_Triggered_4_WithoutMockito() {
+
+        val emailAddress = "contact@email.co"
+        val appendedText = ".uk"
+        var emailAddressNew = ""
+
+        var isClicked = FALSE
+
+        val onEmailChanged: (email: String) -> Unit = { email ->
+            emailAddressNew = email
+
+            isClicked = TRUE
+        }
+
+        val uiState = AuthenticationUiState(
+            email = emailAddress
+        )
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                EmailInput(
+                    email = uiState.email,
+                    onEmailChanged = onEmailChanged,
+                    onNextClicked = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_INPUT_EMAIL
+                ).and(
+                    other = hasText(
+                        mContext.getString(R.string.label_email)
+                    )
+                )
+            )
+            .apply {
+                performTextInputSelection(
+                    selection = TextRange(emailAddress.length)
+                )
+
+                performTextInput(
+                    text = appendedText
+                )
+            }
+
+        assertTrue(isClicked)
+
+//        assertThat(emailAddress + appendedText).isEqualTo(emailAddressNew) // Or
+        assertEquals(emailAddress + appendedText, emailAddressNew)
+    }
+
     @Test
     fun next_Clicked_Callback_Triggered() {
 
@@ -1448,6 +1506,49 @@ class EmailInputTest {
         verify(
             mock = onNextClicked
         ).invoke()
+
+    }
+
+    @Test
+    fun next_Clicked_Callback_Triggered_3_WithoutMockito() {
+
+        val uiState = AuthenticationUiState()
+
+        var isClicked = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                EmailInput(
+                    email = uiState.email,
+                    onEmailChanged = { },
+                    onNextClicked = {
+                        isClicked = TRUE
+                    }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_INPUT_EMAIL
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_email),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .apply {
+                // Optional
+                performTextInput(
+                    text = INPUT_CONTENT_EMAIL
+                )
+
+                performImeAction()
+            }
+
+        assertTrue(isClicked)
 
     }
 

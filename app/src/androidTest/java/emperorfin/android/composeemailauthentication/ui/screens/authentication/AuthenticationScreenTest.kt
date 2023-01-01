@@ -4312,6 +4312,137 @@ class AuthenticationScreenTest {
 
     }
 
+    @Test
+    fun sign_Up_No_Password_Requirement_Satisfied_By_Default_4() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
     /**
      * For this test case to pass when it should, the code in the file
      * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt
@@ -4591,6 +4722,140 @@ class AuthenticationScreenTest {
 
     }
 
+    /**
+     * For this test case to pass when it should, the code in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt
+     * would need to be changed to be like the one in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
+     */
+    @Test
+    fun sign_Up_No_Password_Requirement_Satisfied_By_Default_AnotherApproach_4() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_characters),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_capital),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_digit),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+    }
+
     @Test
     fun sign_Up_Only_At_Least_Eight_Characters_Satisfied() {
 
@@ -4816,6 +5081,147 @@ class AuthenticationScreenTest {
                     includeEditableText = FALSE
                 )
             )
+
+    }
+
+    @Test
+    fun sign_Up_Only_At_Least_Eight_Characters_Satisfied_3() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_INPUT_PASSWORD
+                )
+            )
+            .performTextInput(
+                text = "password"
+            )
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_satisfied_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
 
     }
 
@@ -5059,6 +5465,153 @@ class AuthenticationScreenTest {
 
     }
 
+    /**
+     * For this test case to pass when it should, the code in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt
+     * would need to be changed to be like the one in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
+     */
+    @Test
+    fun sign_Up_Only_At_Least_Eight_Characters_Satisfied_AnotherApproach_3() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_INPUT_PASSWORD
+                )
+            )
+            .performTextInput(
+                text = "password"
+            )
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_satisfied_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
     @Test
     fun sign_Up_Only_At_Least_One_Uppercase_Letter_Satisfied() {
 
@@ -5284,6 +5837,147 @@ class AuthenticationScreenTest {
                     includeEditableText = FALSE
                 )
             )
+
+    }
+
+    @Test
+    fun sign_Up_Only_At_Least_One_Uppercase_Letter_Satisfied_3() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_INPUT_PASSWORD
+                )
+            )
+            .performTextInput(
+                text = "Pass"
+            )
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_satisfied_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
 
     }
 
@@ -5521,6 +6215,150 @@ class AuthenticationScreenTest {
 
     }
 
+    /**
+     * For this test case to pass when it should, the code in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt
+     * would need to be changed to be like the one in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
+     */
+    @Test
+    fun sign_Up_Only_At_Least_One_Uppercase_Letter_Satisfied_AnotherApproach_3() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_INPUT_PASSWORD
+                )
+            )
+            .performTextInput(
+                text = "Pass"
+            )
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_characters),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_satisfied_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_capital),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_digit),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+    }
+
     @Test
     fun sign_Up_Only_At_Least_One_Digit_Satisfied() {
 
@@ -5746,6 +6584,147 @@ class AuthenticationScreenTest {
                     includeEditableText = FALSE
                 )
             )
+
+    }
+
+    @Test
+    fun sign_Up_Only_At_Least_One_Digit_Satisfied_3() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_INPUT_PASSWORD
+                )
+            )
+            .performTextInput(
+                text = "1pass"
+            )
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_satisfied_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
 
     }
 
@@ -5983,6 +6962,150 @@ class AuthenticationScreenTest {
 
     }
 
+    /**
+     * For this test case to pass when it should, the code in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt
+     * would need to be changed to be like the one in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
+     */
+    @Test
+    fun sign_Up_Only_At_Least_One_Digit_Satisfied_AnotherApproach_3() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_INPUT_PASSWORD
+                )
+            )
+            .performTextInput(
+                text = "1pass"
+            )
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_characters),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_capital),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_satisfied_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_digit),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+    }
+
     @Test
     fun sign_Up_All_Password_Requirements_Satisfied() {
 
@@ -6208,6 +7331,147 @@ class AuthenticationScreenTest {
                     includeEditableText = FALSE
                 )
             )
+
+    }
+
+    @Test
+    fun sign_Up_All_Password_Requirements_Satisfied_3() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_INPUT_PASSWORD
+                )
+            )
+            .performTextInput(
+                text = INPUT_CONTENT_PASSWORD
+            )
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_satisfied_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_satisfied_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_satisfied_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
 
     }
 
@@ -6442,6 +7706,150 @@ class AuthenticationScreenTest {
                     includeEditableText = FALSE
                 )
             )
+
+    }
+
+    /**
+     * For this test case to pass when it should, the code in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt
+     * would need to be changed to be like the one in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
+     */
+    @Test // todo
+    fun sign_Up_All_Password_Requirements_Satisfied_AnotherApproach_3() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_INPUT_PASSWORD
+                )
+            )
+            .performTextInput(
+                text = INPUT_CONTENT_PASSWORD
+            )
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_satisfied_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_characters),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_satisfied_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_capital),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_satisfied_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_digit),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
 
     }
 

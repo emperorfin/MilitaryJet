@@ -2,6 +2,8 @@ package emperorfin.android.composeemailauthentication.ui.screens.authentication.
 
 import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasTestTag
+import androidx.compose.ui.test.hasTextExactly
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
@@ -9,6 +11,10 @@ import androidx.test.platform.app.InstrumentationRegistry
 import emperorfin.android.composeemailauthentication.test.R
 import emperorfin.android.composeemailauthentication.ui.res.theme.ComposeEmailAuthenticationTheme
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement.EIGHT_CHARACTERS
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement.CAPITAL_LETTER
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement.NUMBER
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -39,6 +45,13 @@ import org.junit.Test
  * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
  */
 class PasswordRequirementsTest {
+
+    private companion object {
+
+        private const val TRUE: Boolean = true
+        private const val FALSE: Boolean = false
+
+    }
 
     /**
      * Use this when resources are coming from the main source set, whether directly
@@ -152,6 +165,620 @@ class PasswordRequirementsTest {
                 )
                 .assertIsDisplayed()
         }
+
+    }
+
+    @Test
+    fun no_Password_Requirement_Satisfied() {
+
+        val satisfiedRequirements = emptyList<PasswordRequirement>()
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                PasswordRequirements(satisfiedRequirements = satisfiedRequirements)
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    /**
+     * For this test case to pass when it should, the code in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt
+     * would need to be changed to be like the one in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
+     */
+    @Test
+    fun no_Password_Requirement_Satisfied_AnotherApproach() {
+
+        val satisfiedRequirements = emptyList<PasswordRequirement>()
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                PasswordRequirements(satisfiedRequirements = satisfiedRequirements)
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
+    fun only_At_Least_Eight_Characters_Satisfied() {
+
+        val satisfiedRequirements: List<PasswordRequirement> = listOf(EIGHT_CHARACTERS)
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                PasswordRequirements(satisfiedRequirements = satisfiedRequirements)
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_satisfied_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    /**
+     * For this test case to pass when it should, the code in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt
+     * would need to be changed to be like the one in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
+     */
+    @Test
+    fun only_At_Least_Eight_Characters_Satisfied_AnotherApproach() {
+
+        val satisfiedRequirements: List<PasswordRequirement> = listOf(EIGHT_CHARACTERS)
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                PasswordRequirements(satisfiedRequirements = satisfiedRequirements)
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_satisfied_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
+    fun only_At_Least_One_Uppercase_Letter_Satisfied() {
+
+        val satisfiedRequirements: List<PasswordRequirement> = listOf(CAPITAL_LETTER)
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                PasswordRequirements(satisfiedRequirements = satisfiedRequirements)
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_satisfied_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    /**
+     * For this test case to pass when it should, the code in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt
+     * would need to be changed to be like the one in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
+     */
+    @Test
+    fun only_At_Least_One_Uppercase_Letter_Satisfied_AnotherApproach() {
+
+        val satisfiedRequirements: List<PasswordRequirement> = listOf(CAPITAL_LETTER)
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                PasswordRequirements(satisfiedRequirements = satisfiedRequirements)
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_satisfied_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
+    fun only_At_Least_One_Digit_Satisfied() {
+
+        val satisfiedRequirements: List<PasswordRequirement> = listOf(NUMBER)
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                PasswordRequirements(satisfiedRequirements = satisfiedRequirements)
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_satisfied_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    /**
+     * For this test case to pass when it should, the code in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt
+     * would need to be changed to be like the one in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
+     */
+    @Test
+    fun only_At_Least_One_Digit_Satisfied_AnotherApproach() {
+
+        val satisfiedRequirements: List<PasswordRequirement> = listOf(NUMBER)
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                PasswordRequirements(satisfiedRequirements = satisfiedRequirements)
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_satisfied_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
+    fun all_Password_Requirements_Satisfied() {
+
+        val satisfiedRequirements: List<PasswordRequirement> = listOf(
+            EIGHT_CHARACTERS, CAPITAL_LETTER, NUMBER
+        )
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                PasswordRequirements(satisfiedRequirements = satisfiedRequirements)
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_satisfied_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_satisfied_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_satisfied_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    /**
+     * For this test case to pass when it should, the code in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt
+     * would need to be changed to be like the one in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
+     */
+    @Test
+    fun all_Password_Requirements_Satisfied_AnotherApproach() {
+
+        val satisfiedRequirements: List<PasswordRequirement> = listOf(
+            EIGHT_CHARACTERS, CAPITAL_LETTER, NUMBER
+        )
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                PasswordRequirements(satisfiedRequirements = satisfiedRequirements)
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_satisfied_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_satisfied_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_satisfied_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
 
     }
 

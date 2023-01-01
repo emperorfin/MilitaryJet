@@ -14,6 +14,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.test.platform.app.InstrumentationRegistry
+import com.google.common.truth.Truth.assertThat
 import emperorfin.android.composeemailauthentication.test.R
 import emperorfin.android.composeemailauthentication.ui.extensions.semanticsmatcher.*
 import emperorfin.android.composeemailauthentication.ui.res.theme.ComposeEmailAuthenticationTheme
@@ -22,6 +23,9 @@ import emperorfin.android.composeemailauthentication.ui.screens.authentication.s
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON_PASSWORD_HIDDEN
+import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -1573,6 +1577,62 @@ class PasswordInputTest {
 
     }
 
+    @OptIn(ExperimentalTestApi::class)
+    @Test
+    fun password_Changed_Callback_Triggered_2_WithoutMockito() {
+
+        val password = "passworD"
+        val appendedText = "12345"
+        var passwordNew = ""
+
+        var isClicked = FALSE
+
+        val onPasswordChanged: (password: String) -> Unit = {
+            passwordNew = it
+
+            isClicked = TRUE
+        }
+
+        val uiState = AuthenticationUiState(
+            password = password
+        )
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                PasswordInput(
+                    // Optional since test doesn't fail when it should pass
+                    passwordVisualTransformation = VisualTransformation.None,
+                    password = uiState.password,
+                    onPasswordChanged = onPasswordChanged,
+                    onDoneClicked = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_INPUT_PASSWORD
+                )
+            )
+            .apply {
+                // Optional since test doesn't fail when it should pass
+                performTextInputSelection(
+                    selection = TextRange(index = password.length)
+                )
+
+                performTextInput(
+                    text = appendedText
+                )
+            }
+
+        assertTrue(isClicked)
+
+//        assertThat(password + appendedText).isEqualTo(passwordNew) // Or
+        assertEquals(password + appendedText, passwordNew)
+
+    }
+
     @Test
     fun done_Clicked_Callback_Triggered() {
 
@@ -1650,6 +1710,43 @@ class PasswordInputTest {
         verify(
             mock = onDoneClicked
         ).invoke()
+
+    }
+
+    @Test
+    fun done_Clicked_Callback_Triggered_2_WithoutMockito() {
+
+        val uiState = AuthenticationUiState()
+
+        var isClicked = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                PasswordInput(
+                    password = uiState.password,
+                    onPasswordChanged = { },
+                    onDoneClicked = {
+                        isClicked = TRUE
+                    }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_INPUT_PASSWORD
+                )
+            )
+            .apply {
+                performTextInput(
+                    text = INPUT_CONTENT_PASSWORD
+                )
+
+                performImeAction()
+            }
+
+        assertTrue(isClicked)
 
     }
 

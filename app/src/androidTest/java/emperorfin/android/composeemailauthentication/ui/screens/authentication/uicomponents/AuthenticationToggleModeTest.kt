@@ -12,6 +12,7 @@ import emperorfin.android.composeemailauthentication.ui.screens.authentication.e
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_IN
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -48,6 +49,7 @@ class AuthenticationToggleModeTest {
     private companion object {
 
         private const val FALSE: Boolean = false
+        private const val TRUE: Boolean = true
 
     }
 
@@ -421,6 +423,43 @@ class AuthenticationToggleModeTest {
     }
 
     @Test
+    fun sign_In_Authentication_Toggle_Mode_Triggered_3_WithoutMockito() {
+
+        val uiState = AuthenticationUiState(
+            authenticationMode = SIGN_UP
+        )
+
+        var isClicked = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationToggleMode(
+                    authenticationMode = uiState.authenticationMode,
+                    toggleAuthentication = {
+                        isClicked = TRUE
+                    }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_already_have_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        assertTrue(isClicked)
+
+    }
+
+    @Test
     fun sign_Up_Authentication_Toggle_Mode_Triggered() {
 
         val uiState = AuthenticationUiState(
@@ -527,6 +566,43 @@ class AuthenticationToggleModeTest {
         verify(
             mock = toggleAuthentication
         ).invoke()
+
+    }
+
+    @Test
+    fun sign_Up_Authentication_Toggle_Mode_Triggered_3_WithoutMockito() {
+
+        val uiState = AuthenticationUiState(
+            authenticationMode = SIGN_IN
+        )
+
+        var isClicked = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationToggleMode(
+                    authenticationMode = uiState.authenticationMode,
+                    toggleAuthentication = {
+                        isClicked = TRUE
+                    }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        assertTrue(isClicked)
 
     }
 

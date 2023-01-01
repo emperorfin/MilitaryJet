@@ -14,6 +14,7 @@ import emperorfin.android.composeemailauthentication.ui.res.theme.ComposeEmailAu
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_ERROR_DIALOG
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_ERROR_DIALOG_CONFIRM_BUTTON
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -48,6 +49,9 @@ import org.mockito.kotlin.verify
 class AuthenticationErrorDialogTest {
 
     private companion object {
+
+        private const val TRUE: Boolean = true
+        private const val FALSE: Boolean = false
 
         @StringRes private const val MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE: Int =
             emperorfin.android.composeemailauthentication.R.string.test_error_message
@@ -189,6 +193,34 @@ class AuthenticationErrorDialogTest {
     }
 
     @Test
+    fun dialog_Text_Displayed_4() {
+
+        @StringRes val errorMessageRes: Int = MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationErrorDialog(
+                    error = errorMessageRes,
+                    onDismissError = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_ERROR_DIALOG
+                ).and(
+                    other = hasAlertDialogText(
+                        alertDialogText = mContext.getString(R.string.test_error_message)
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
     fun dialog_Title_Displayed() {
 
         composeTestRule.setContent {
@@ -241,6 +273,32 @@ class AuthenticationErrorDialogTest {
             )
             .assert(
                 matcher = hasAlertDialogTitle
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
+    fun dialog_Title_Displayed_3() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationErrorDialog(
+                    error = MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE,
+                    onDismissError = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_ERROR_DIALOG
+                ).and(
+                    other = hasAlertDialogTitle(
+                        alertDialogTitle = mContext.getString(R.string.error_title)
+                    )
+                )
             )
             .assertIsDisplayed()
 
@@ -305,6 +363,32 @@ class AuthenticationErrorDialogTest {
     }
 
     @Test
+    fun dialog_Confirm_Button_Text_Displayed_3() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationErrorDialog(
+                    error = MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE,
+                    onDismissError = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_ERROR_DIALOG
+                ).and(
+                    other = hasAlertDialogConfirmButtonText(
+                        alertDialogConfirmButtonText = mContext.getString(R.string.error_action_ok)
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
     fun dialog_Dismiss_Error_Callback_Triggered() {
 
         val onDismissError: () -> Unit = mock()
@@ -329,6 +413,34 @@ class AuthenticationErrorDialogTest {
         verify(
             mock = onDismissError
         ).invoke()
+
+    }
+
+    @Test
+    fun dialog_Dismiss_Error_Callback_Triggered_WithoutMockito() {
+
+        var isClicked = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationErrorDialog(
+                    error = MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE,
+                    onDismissError = {
+                        isClicked = TRUE
+                    }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_ERROR_DIALOG_CONFIRM_BUTTON
+                )
+            )
+            .performClick()
+
+        assertTrue(isClicked)
 
     }
 
