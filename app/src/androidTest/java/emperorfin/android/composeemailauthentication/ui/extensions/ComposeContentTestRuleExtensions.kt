@@ -13,40 +13,50 @@ import androidx.compose.ui.test.junit4.ComposeContentTestRule
 fun ComposeContentTestRule.waitUntilNodeCount(
     matcher: SemanticsMatcher,
     count: Int,
-    timeoutMillis: Long = TIMEOUT_MILLIS_1000L
+    timeoutMillis: Long = TIMEOUT_MILLIS_1000L,
+    useUnmergedTree: Boolean = FALSE
 ) {
 
     this.waitUntil(timeoutMillis = timeoutMillis) {
-        this.onAllNodes(matcher = matcher).fetchSemanticsNodes().size == count
+        this.onAllNodes(
+            matcher = matcher,
+            useUnmergedTree = useUnmergedTree
+        ).fetchSemanticsNodes().size == count
     }
 
 }
 
 fun ComposeContentTestRule.waitUntilExists(
     matcher: SemanticsMatcher,
-    timeoutMillis: Long = TIMEOUT_MILLIS_1000L
+    timeoutMillis: Long = TIMEOUT_MILLIS_1000L,
+    useUnmergedTree: Boolean = FALSE
 ) {
 
     return this.waitUntilNodeCount(
         matcher = matcher,
         count = ONE,
-        timeoutMillis = timeoutMillis
+        timeoutMillis = timeoutMillis,
+        useUnmergedTree = useUnmergedTree
     )
 
 }
 
 fun ComposeContentTestRule.waitUntilDoesNotExist(
     matcher: SemanticsMatcher,
-    timeoutMillis: Long = TIMEOUT_MILLIS_1000L
+    timeoutMillis: Long = TIMEOUT_MILLIS_1000L,
+    useUnmergedTree: Boolean = FALSE
 ) {
 
     return this.waitUntilNodeCount(
         matcher = matcher,
         count = ZERO,
-        timeoutMillis = timeoutMillis
+        timeoutMillis = timeoutMillis,
+        useUnmergedTree = useUnmergedTree
     )
 
 }
+
+private const val FALSE: Boolean = false
 
 private const val ZERO: Int = 0
 private const val ONE: Int = 1

@@ -27,6 +27,17 @@ import org.junit.Test
 
 
 /**
+ * Important:
+ *
+ * - Try not to run all the test cases by running this test class as some tests might fail. If you do
+ * and some tests fail, try running them one after the other. If a test fails, check the test
+ * function's KDoc/comment (if any) on possible solution to make the test pass when it should.
+ * - If you try to run a test and it fails, check the test function's KDoc/comment (if any) on
+ * possible solution to make the test pass when it should.
+ * - Test cases with "_AnotherApproachX" (where X may or may not contain a number) suffixed in their
+ * function names might fail. A little changes would need to be made for them to pass. Kindly take a
+ * look at the function's KDoc/comment on how to make the test pass when it should.
+ *
  * Notes:
  *
  * - If you ever need to pass a resource (e.g. a string resource) into a composable during testing,

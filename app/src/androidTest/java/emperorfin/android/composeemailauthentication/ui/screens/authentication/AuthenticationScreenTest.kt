@@ -19,6 +19,7 @@ import emperorfin.android.composeemailauthentication.ui.screens.authentication.s
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.AuthenticationContent
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_CONTENT
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_EMAIL
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD
@@ -31,7 +32,6 @@ import emperorfin.android.composeemailauthentication.ui.utils.KeyboardHelper
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.util.*
 
 
 /**
@@ -41,6 +41,25 @@ import java.util.*
 
 
 /**
+ * Requirement:
+ *
+ * - The number 1 requirement for all the test cases in this class to pass when they should is to
+ * call ".semantics(mergeDescendants = true){}" without quotes on the Modifier object of the Box
+ * composable inside of [AuthenticationContent]. This was commented out since, in my opinion, not a
+ * good practice.
+ * - For a clean version of this class, see [AuthenticationScreenTest2]
+ *
+ * Important:
+ *
+ * - Try not to run all the test cases by running this test class as some tests might fail. If you do
+ * and some tests fail, try running them one after the other. If a test fails, check the test
+ * function's KDoc/comment (if any) on possible solution to make the test pass when it should.
+ * - If you try to run a test and it fails, check the test function's KDoc/comment (if any) on
+ * possible solution to make the test pass when it should.
+ * - Test cases with "_AnotherApproachX" (where X may or may not contain a number) suffixed in their
+ * function names might fail. A little changes would need to be made for them to pass. Kindly take a
+ * look at the function's KDoc/comment on how to make the test pass when it should.
+ *
  * Useful Docs:
  *
  * - Compose [ComposeContentTestRule.waitUntil] test API as an alternative to Espresso's Idling
@@ -76,6 +95,9 @@ class AuthenticationScreenTest {
 
         private const val INPUT_CONTENT_EMAIL: String = "contact@email.com"
         private const val INPUT_CONTENT_PASSWORD: String = "passworD1"
+        private const val INPUT_CONTENT_PASSWORD_PASSWORD: String = "password"
+        private const val INPUT_CONTENT_PASSWORD_PASS: String = "Pass"
+        private const val INPUT_CONTENT_PASSWORD_1PASS: String = "1pass"
 
         private const val MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE =
             emperorfin.android.composeemailauthentication.R.string.test_error_message
@@ -146,6 +168,128 @@ class AuthenticationScreenTest {
     }
 
     @Test
+    fun sign_In_Mode_Displayed_By_Default() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_CONTENT
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
+    fun sign_Up_Mode_Displayed_After_Toggled() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_CONTENT
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_CONTENT
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
     fun sign_In_Title_Displayed_By_Default() {
 
         composeTestRule.setContent {
@@ -200,7 +344,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -384,7 +532,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -746,7 +898,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -841,7 +997,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -930,7 +1090,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -1031,7 +1195,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -1080,7 +1248,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -1181,7 +1353,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -1230,7 +1406,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -1325,7 +1505,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -1374,7 +1558,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -1457,7 +1645,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -1522,7 +1714,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -1571,7 +1767,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -1640,7 +1840,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -1649,6 +1853,150 @@ class AuthenticationScreenTest {
             // AuthenticationErrorDialog composable is the same for both SignIn and SignUp modes.
             .onNodeWithTag(
                 TAG_AUTHENTICATION_ERROR_DIALOG
+            )
+            .assertIsDisplayed()
+
+    }
+
+    /**
+     * NOTE:
+     *
+     * For this test case to pass when it should, whatever time delay that's used in the
+     * authenticate() function in app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/stateholders/AuthenticationViewModel.kt,
+     * the time delay used in this test case should be more than it.
+     *
+     * E.g., if 2000L milliseconds is used in the ViewModel, its recommended to wait for at least
+     * 2500L milliseconds in the test case.
+     *
+     * Compose waitUntil test API as an alternative to Espresso's Idling Resources
+     * ( https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473 ).
+     *
+     * Since a Repository (which a ViewModel would depend on for network or disk I/O call) or a
+     * ViewModel (for time consuming task) takes some amount of time to fetch data or compute an
+     * operation, the Compose waitUntil() test API shouldn't be used for this kind of scenario. Use
+     * test doubles ( https://developer.android.com/training/testing/fundamentals/test-doubles )
+     * instead.
+     *
+     * Assuming you want to test a part of the app the involves a network operation, the Repository
+     * should be injectable in the ViewModel so that a fake Repository can be injected into the
+     * ViewModel during testing in order to simulate the network operation.
+     *
+     * If you load data in a background thread, the test framework might execute the next operation
+     * too soon, making your test fail. The worst situation is when this happens only a small
+     * percentage of the time, making the test flaky.
+     *
+     * So this is where test doubles is really necessary as loading data is usually fast, especially
+     * when using fake data, so why waste time with idling resources. If you don’t want to modify
+     * your code under test to expose when it’s busy, one option is to waitUntil() a certain
+     * condition is met, instead of waiting for an arbitrary amount of time.
+     *
+     * But this should be used as a last resort when installing an Idling Resource is not practical
+     * or you don’t want to modify your production code. Using it before every test statement should
+     * be considered a smell, as it pollutes the test code unnecessarily, making it harder to
+     * maintain.
+     *
+     * But wait..., when you have hundreds or thousands of UI tests, you want tests to be as fast as
+     * possible. Also, sometimes emulators or devices misbehave and jank, making that operation take
+     * a bit longer than than the operation, breaking your build. When you have hundreds of tests
+     * this becomes a huge issue.
+     *
+     * When should you use waitUntil() then? A good use case for it is loading data from an
+     * observable (with LiveData, Kotlin Flow or RxJava). When your UI needs to receive multiple
+     * updates before you consider it idle, you might want to simplify synchronization using
+     * waitUntil().
+     *
+     * There is an open issue ( https://issuetracker.google.com/226934294 ) to introduce a more
+     * sophisticated version of this helper in the future but for now, happy… wait for it… testing!
+     *
+     * For more info, see https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473
+     */
+    @Test
+    fun sign_In_Error_Alert_Dialog_Displayed_After_Error_3() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_CONTENT
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithTag(
+                TAG_AUTHENTICATION_INPUT_EMAIL
+            )
+            .performTextInput(text = INPUT_CONTENT_EMAIL)
+
+        composeTestRule
+            .onNodeWithTag(
+                TAG_AUTHENTICATION_INPUT_PASSWORD
+            )
+            .performTextInput(text = INPUT_CONTENT_PASSWORD)
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_in),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        composeTestRule.waitUntilExists(
+            matcher = hasTestTag(
+                testTag = TAG_AUTHENTICATION_ERROR_DIALOG
+            ),
+            timeoutMillis = TIMEOUT_MILLIS_2500L,
+            useUnmergedTree = TRUE // Optional.
+        )
+
+        composeTestRule
+            .onNode(
+                // Multiple matchers aren't necessary since the content (i.e. the title) of the
+                // AuthenticationErrorDialog composable is the same for both SignIn and SignUp modes.
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_ERROR_DIALOG
+                ),
+                useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
@@ -1714,7 +2062,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -1723,6 +2075,200 @@ class AuthenticationScreenTest {
                 // Multiple matchers aren't necessary since the content (i.e. the title) of the
                 // AuthenticationErrorDialog composable is the same for both SignIn and SignUp modes.
                 TAG_AUTHENTICATION_ERROR_DIALOG
+            )
+            .assertIsDisplayed()
+
+    }
+
+    /**
+     * NOTE:
+     *
+     * For this test case to pass when it should, whatever time delay that's used in the
+     * authenticate() function in app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/stateholders/AuthenticationViewModel.kt,
+     * the time delay used in this test case should be more than it.
+     *
+     * E.g., if 2000L milliseconds is used in the ViewModel, its recommended to wait for at least
+     * 2500L milliseconds in the test case.
+     *
+     * Compose waitUntil test API as an alternative to Espresso's Idling Resources
+     * ( https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473 ).
+     *
+     * Since a Repository (which a ViewModel would depend on for network or disk I/O call) or a
+     * ViewModel (for time consuming task) takes some amount of time to fetch data or compute an
+     * operation, the Compose waitUntil() test API shouldn't be used for this kind of scenario. Use
+     * test doubles ( https://developer.android.com/training/testing/fundamentals/test-doubles )
+     * instead.
+     *
+     * Assuming you want to test a part of the app the involves a network operation, the Repository
+     * should be injectable in the ViewModel so that a fake Repository can be injected into the
+     * ViewModel during testing in order to simulate the network operation.
+     *
+     * If you load data in a background thread, the test framework might execute the next operation
+     * too soon, making your test fail. The worst situation is when this happens only a small
+     * percentage of the time, making the test flaky.
+     *
+     * So this is where test doubles is really necessary as loading data is usually fast, especially
+     * when using fake data, so why waste time with idling resources. If you don’t want to modify
+     * your code under test to expose when it’s busy, one option is to waitUntil() a certain
+     * condition is met, instead of waiting for an arbitrary amount of time.
+     *
+     * But this should be used as a last resort when installing an Idling Resource is not practical
+     * or you don’t want to modify your production code. Using it before every test statement should
+     * be considered a smell, as it pollutes the test code unnecessarily, making it harder to
+     * maintain.
+     *
+     * But wait..., when you have hundreds or thousands of UI tests, you want tests to be as fast as
+     * possible. Also, sometimes emulators or devices misbehave and jank, making that operation take
+     * a bit longer than than the operation, breaking your build. When you have hundreds of tests
+     * this becomes a huge issue.
+     *
+     * When should you use waitUntil() then? A good use case for it is loading data from an
+     * observable (with LiveData, Kotlin Flow or RxJava). When your UI needs to receive multiple
+     * updates before you consider it idle, you might want to simplify synchronization using
+     * waitUntil().
+     *
+     * There is an open issue ( https://issuetracker.google.com/226934294 ) to introduce a more
+     * sophisticated version of this helper in the future but for now, happy… wait for it… testing!
+     *
+     * For more info, see https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473
+     */
+    @Test
+    fun sign_Up_Error_Alert_Dialog_Displayed_After_Error_3() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_CONTENT
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_CONTENT
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithTag(
+                TAG_AUTHENTICATION_INPUT_EMAIL
+            )
+            .performTextInput(text = INPUT_CONTENT_EMAIL)
+
+        composeTestRule
+            .onNodeWithTag(
+                TAG_AUTHENTICATION_INPUT_PASSWORD
+            )
+            .performTextInput(text = INPUT_CONTENT_PASSWORD)
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_up),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        composeTestRule.waitUntilExists(
+            matcher = hasTestTag(
+                testTag = TAG_AUTHENTICATION_ERROR_DIALOG
+            ),
+            timeoutMillis = TIMEOUT_MILLIS_2500L,
+            useUnmergedTree = TRUE // Optional.
+        )
+
+        composeTestRule
+            .onNode(
+                // Multiple matchers aren't necessary since the content (i.e. the title) of the
+                // AuthenticationErrorDialog composable is the same for both SignIn and SignUp modes.
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_ERROR_DIALOG
+                ),
+                useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
@@ -1773,7 +2319,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -1837,6 +2387,104 @@ class AuthenticationScreenTest {
             .onNode(
                 matcher = hasTestTag(
                     testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            // Multiple matchers aren't necessary since the CircularProgressIndicator composable is
+            // the same for both SignIn and SignUp modes.
+            .onNodeWithTag(
+                TAG_AUTHENTICATION_PROGRESS
+            )
+            .assertDoesNotExist()
+
+    }
+
+    @Test
+    fun sign_Up_Progress_Indicator_Not_Displayed_By_Default_3() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_CONTENT
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_CONTENT
                 ).and(
                     other = hasTextExactly(
                         mContext.getString(R.string.label_sign_up_for_account),
@@ -1970,7 +2618,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -2144,7 +2796,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -2193,7 +2849,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -2244,6 +2904,15 @@ class AuthenticationScreenTest {
 
     }
 
+    /**
+     * This is not a proper way of testing a particular behaviour on an actual screen composable. No
+     * matter the length of the loading delay, it doesn't affect this test since the UI state (from
+     * the ViewModel) is manually provided (and that the loading parameter not set to true).
+     *
+     * So what this means is that the screen's actual loading state (as a result of showing the
+     * progress indicator) isn't even tested before testing for when the screen is not in a loading
+     * state (as a result of the progress indicator disappearing).
+     */
     @Test
     fun sign_In_Progress_Indicator_Not_Displayed_After_Loading() {
 
@@ -2270,6 +2939,15 @@ class AuthenticationScreenTest {
 
     }
 
+    /**
+     * This is not a proper way of testing a particular behaviour on an actual screen composable. No
+     * matter the length of the loading delay, it doesn't affect this test since the UI state (from
+     * the ViewModel) is manually provided (and that the loading parameter not set to true).
+     *
+     * So what this means is that the screen's actual loading state (as a result of showing the
+     * progress indicator) isn't even tested before testing for when the screen is not in a loading
+     * state (as a result of the progress indicator disappearing).
+     */
     @Test
     fun sign_In_Progress_Indicator_Not_Displayed_After_Loading_2() {
 
@@ -2307,7 +2985,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -2346,6 +3028,312 @@ class AuthenticationScreenTest {
 
     }
 
+    /**
+     * NOTE:
+     *
+     * For this test case to pass when it should, whatever time delay that's used in the
+     * authenticate() function in app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/stateholders/AuthenticationViewModel.kt,
+     * the time delay used in this test case should be more than it.
+     *
+     * E.g., if 2000L milliseconds is used in the ViewModel, its recommended to wait for at least
+     * 2500L milliseconds in the test case.
+     *
+     * Compose waitUntil test API as an alternative to Espresso's Idling Resources
+     * ( https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473 ).
+     *
+     * Since a Repository (which a ViewModel would depend on for network or disk I/O call) or a
+     * ViewModel (for time consuming task) takes some amount of time to fetch data or compute an
+     * operation, the Compose waitUntil() test API shouldn't be used for this kind of scenario. Use
+     * test doubles ( https://developer.android.com/training/testing/fundamentals/test-doubles )
+     * instead.
+     *
+     * Assuming you want to test a part of the app the involves a network operation, the Repository
+     * should be injectable in the ViewModel so that a fake Repository can be injected into the
+     * ViewModel during testing in order to simulate the network operation.
+     *
+     * If you load data in a background thread, the test framework might execute the next operation
+     * too soon, making your test fail. The worst situation is when this happens only a small
+     * percentage of the time, making the test flaky.
+     *
+     * So this is where test doubles is really necessary as loading data is usually fast, especially
+     * when using fake data, so why waste time with idling resources. If you don’t want to modify
+     * your code under test to expose when it’s busy, one option is to waitUntil() a certain
+     * condition is met, instead of waiting for an arbitrary amount of time.
+     *
+     * But this should be used as a last resort when installing an Idling Resource is not practical
+     * or you don’t want to modify your production code. Using it before every test statement should
+     * be considered a smell, as it pollutes the test code unnecessarily, making it harder to
+     * maintain.
+     *
+     * But wait..., when you have hundreds or thousands of UI tests, you want tests to be as fast as
+     * possible. Also, sometimes emulators or devices misbehave and jank, making that operation take
+     * a bit longer than than the operation, breaking your build. When you have hundreds of tests
+     * this becomes a huge issue.
+     *
+     * When should you use waitUntil() then? A good use case for it is loading data from an
+     * observable (with LiveData, Kotlin Flow or RxJava). When your UI needs to receive multiple
+     * updates before you consider it idle, you might want to simplify synchronization using
+     * waitUntil().
+     *
+     * There is an open issue ( https://issuetracker.google.com/226934294 ) to introduce a more
+     * sophisticated version of this helper in the future but for now, happy… wait for it… testing!
+     *
+     * For more info, see https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473
+     */
+    @Test
+    fun sign_In_Progress_Indicator_Not_Displayed_After_Loading_3() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_CONTENT
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithTag(
+                TAG_AUTHENTICATION_INPUT_EMAIL
+            )
+            .performTextInput(text = INPUT_CONTENT_EMAIL)
+
+        composeTestRule
+            .onNodeWithTag(
+                TAG_AUTHENTICATION_INPUT_PASSWORD
+            )
+            .performTextInput(text = INPUT_CONTENT_PASSWORD)
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_in),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        composeTestRule.waitUntilDoesNotExist(
+            matcher = hasTestTag(
+                testTag = TAG_AUTHENTICATION_PROGRESS
+            ),
+            timeoutMillis = TIMEOUT_MILLIS_2500L,
+            useUnmergedTree = TRUE // Optional.
+        )
+
+        composeTestRule
+            .onNode(
+                // Multiple matchers aren't necessary since the CircularProgressIndicator composable is
+                // the same for both SignIn and SignUp modes.
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PROGRESS
+                ),
+                useUnmergedTree = TRUE // Optional.
+            )
+            .assertDoesNotExist()
+
+    }
+
+    /**
+     * NOTE:
+     *
+     * For this test case to pass when it should, whatever time delay that's used in the
+     * authenticate() function in app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/stateholders/AuthenticationViewModel.kt,
+     * the time delay used in this test case should be more than it.
+     *
+     * E.g., if 2000L milliseconds is used in the ViewModel, its recommended to wait for at least
+     * 2500L milliseconds in the test case.
+     *
+     * Compose waitUntil test API as an alternative to Espresso's Idling Resources
+     * ( https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473 ).
+     *
+     * Since a Repository (which a ViewModel would depend on for network or disk I/O call) or a
+     * ViewModel (for time consuming task) takes some amount of time to fetch data or compute an
+     * operation, the Compose waitUntil() test API shouldn't be used for this kind of scenario. Use
+     * test doubles ( https://developer.android.com/training/testing/fundamentals/test-doubles )
+     * instead.
+     *
+     * Assuming you want to test a part of the app the involves a network operation, the Repository
+     * should be injectable in the ViewModel so that a fake Repository can be injected into the
+     * ViewModel during testing in order to simulate the network operation.
+     *
+     * If you load data in a background thread, the test framework might execute the next operation
+     * too soon, making your test fail. The worst situation is when this happens only a small
+     * percentage of the time, making the test flaky.
+     *
+     * So this is where test doubles is really necessary as loading data is usually fast, especially
+     * when using fake data, so why waste time with idling resources. If you don’t want to modify
+     * your code under test to expose when it’s busy, one option is to waitUntil() a certain
+     * condition is met, instead of waiting for an arbitrary amount of time.
+     *
+     * But this should be used as a last resort when installing an Idling Resource is not practical
+     * or you don’t want to modify your production code. Using it before every test statement should
+     * be considered a smell, as it pollutes the test code unnecessarily, making it harder to
+     * maintain.
+     *
+     * But wait..., when you have hundreds or thousands of UI tests, you want tests to be as fast as
+     * possible. Also, sometimes emulators or devices misbehave and jank, making that operation take
+     * a bit longer than than the operation, breaking your build. When you have hundreds of tests
+     * this becomes a huge issue.
+     *
+     * When should you use waitUntil() then? A good use case for it is loading data from an
+     * observable (with LiveData, Kotlin Flow or RxJava). When your UI needs to receive multiple
+     * updates before you consider it idle, you might want to simplify synchronization using
+     * waitUntil().
+     *
+     * There is an open issue ( https://issuetracker.google.com/226934294 ) to introduce a more
+     * sophisticated version of this helper in the future but for now, happy… wait for it… testing!
+     *
+     * For more info, see https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473
+     */
+    @Test
+    fun sign_In_Progress_Indicator_Not_Displayed_After_Loading_4() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_CONTENT
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithTag(
+                TAG_AUTHENTICATION_INPUT_EMAIL
+            )
+            .performTextInput(text = INPUT_CONTENT_EMAIL)
+
+        composeTestRule
+            .onNodeWithTag(
+                TAG_AUTHENTICATION_INPUT_PASSWORD
+            )
+            .performTextInput(text = INPUT_CONTENT_PASSWORD)
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_in),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        composeTestRule
+            // Multiple matchers aren't necessary since the CircularProgressIndicator composable is
+            // the same for both SignIn and SignUp modes.
+            .onNodeWithTag(
+                TAG_AUTHENTICATION_PROGRESS,
+                useUnmergedTree = TRUE // Optional.
+            )
+            .assertIsDisplayed()
+
+        composeTestRule.waitUntilDoesNotExist(
+            matcher = hasTestTag(
+                testTag = TAG_AUTHENTICATION_PROGRESS
+            ),
+            timeoutMillis = TIMEOUT_MILLIS_2500L,
+            useUnmergedTree = TRUE // Optional.
+        )
+
+        composeTestRule
+            .onNode(
+                // Multiple matchers aren't necessary since the CircularProgressIndicator composable is
+                // the same for both SignIn and SignUp modes.
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PROGRESS
+                ),
+                useUnmergedTree = TRUE // Optional.
+            )
+            .assertDoesNotExist()
+
+    }
+
+    /**
+     * This is not a proper way of testing a particular behaviour on an actual screen composable. No
+     * matter the length of the loading delay, it doesn't affect this test since the UI state (from
+     * the ViewModel) is manually provided (and that the loading parameter not set to true).
+     *
+     * So what this means is that the screen's actual loading state (as a result of showing the
+     * progress indicator) isn't even tested before testing for when the screen is not in a loading
+     * state (as a result of the progress indicator disappearing).
+     */
     @Test
     fun sign_Up_Progress_Indicator_Not_Displayed_After_Loading() {
 
@@ -2373,6 +3361,15 @@ class AuthenticationScreenTest {
 
     }
 
+    /**
+     * This is not a proper way of testing a particular behaviour on an actual screen composable. No
+     * matter the length of the loading delay, it doesn't affect this test since the UI state (from
+     * the ViewModel) is manually provided (and that the loading parameter not set to true).
+     *
+     * So what this means is that the screen's actual loading state (as a result of showing the
+     * progress indicator) isn't even tested before testing for when the screen is not in a loading
+     * state (as a result of the progress indicator disappearing).
+     */
     @Test
     fun sign_Up_Progress_Indicator_Not_Displayed_After_Loading_2() {
 
@@ -2411,7 +3408,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -2445,6 +3446,209 @@ class AuthenticationScreenTest {
             // the same for both SignIn and SignUp modes.
             .onNodeWithTag(
                 TAG_AUTHENTICATION_PROGRESS
+            )
+            .assertDoesNotExist()
+
+    }
+
+    /**
+     * NOTE:
+     *
+     * For this test case to pass when it should, whatever time delay that's used in the
+     * authenticate() function in app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/stateholders/AuthenticationViewModel.kt,
+     * the time delay used in this test case should be more than it.
+     *
+     * E.g., if 2000L milliseconds is used in the ViewModel, its recommended to wait for at least
+     * 2500L milliseconds in the test case.
+     *
+     * Compose waitUntil test API as an alternative to Espresso's Idling Resources
+     * ( https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473 ).
+     *
+     * Since a Repository (which a ViewModel would depend on for network or disk I/O call) or a
+     * ViewModel (for time consuming task) takes some amount of time to fetch data or compute an
+     * operation, the Compose waitUntil() test API shouldn't be used for this kind of scenario. Use
+     * test doubles ( https://developer.android.com/training/testing/fundamentals/test-doubles )
+     * instead.
+     *
+     * Assuming you want to test a part of the app the involves a network operation, the Repository
+     * should be injectable in the ViewModel so that a fake Repository can be injected into the
+     * ViewModel during testing in order to simulate the network operation.
+     *
+     * If you load data in a background thread, the test framework might execute the next operation
+     * too soon, making your test fail. The worst situation is when this happens only a small
+     * percentage of the time, making the test flaky.
+     *
+     * So this is where test doubles is really necessary as loading data is usually fast, especially
+     * when using fake data, so why waste time with idling resources. If you don’t want to modify
+     * your code under test to expose when it’s busy, one option is to waitUntil() a certain
+     * condition is met, instead of waiting for an arbitrary amount of time.
+     *
+     * But this should be used as a last resort when installing an Idling Resource is not practical
+     * or you don’t want to modify your production code. Using it before every test statement should
+     * be considered a smell, as it pollutes the test code unnecessarily, making it harder to
+     * maintain.
+     *
+     * But wait..., when you have hundreds or thousands of UI tests, you want tests to be as fast as
+     * possible. Also, sometimes emulators or devices misbehave and jank, making that operation take
+     * a bit longer than than the operation, breaking your build. When you have hundreds of tests
+     * this becomes a huge issue.
+     *
+     * When should you use waitUntil() then? A good use case for it is loading data from an
+     * observable (with LiveData, Kotlin Flow or RxJava). When your UI needs to receive multiple
+     * updates before you consider it idle, you might want to simplify synchronization using
+     * waitUntil().
+     *
+     * There is an open issue ( https://issuetracker.google.com/226934294 ) to introduce a more
+     * sophisticated version of this helper in the future but for now, happy… wait for it… testing!
+     *
+     * For more info, see https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473
+     */
+    @Test
+    fun sign_Up_Progress_Indicator_Not_Displayed_After_Loading_3() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_CONTENT
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_CONTENT
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithTag(
+                TAG_AUTHENTICATION_INPUT_EMAIL
+            )
+            .performTextInput(text = INPUT_CONTENT_EMAIL)
+
+        composeTestRule
+            .onNodeWithTag(
+                TAG_AUTHENTICATION_INPUT_PASSWORD
+            )
+            .performTextInput(text = INPUT_CONTENT_PASSWORD)
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_up),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        composeTestRule
+            // Multiple matchers aren't necessary since the CircularProgressIndicator composable is
+            // the same for both SignIn and SignUp modes.
+            .onNodeWithTag(
+                TAG_AUTHENTICATION_PROGRESS,
+                useUnmergedTree = TRUE // Optional.
+            )
+            .assertIsDisplayed()
+
+        composeTestRule.waitUntilDoesNotExist(
+            matcher = hasTestTag(
+                testTag = TAG_AUTHENTICATION_PROGRESS
+            ),
+            timeoutMillis = TIMEOUT_MILLIS_2500L,
+            useUnmergedTree = TRUE // Optional.
+        )
+
+        composeTestRule
+            .onNode(
+                // Multiple matchers aren't necessary since the CircularProgressIndicator composable is
+                // the same for both SignIn and SignUp modes.
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_PROGRESS
+                ),
+                useUnmergedTree = TRUE // Optional.
             )
             .assertDoesNotExist()
 
@@ -2498,7 +3702,11 @@ class AuthenticationScreenTest {
 
         composeTestRule
             .onNodeWithTag(
-                TAG_AUTHENTICATION_FORM_CONTENT_AREA
+                TAG_AUTHENTICATION_FORM_CONTENT_AREA,
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertExists()
 
@@ -2545,7 +3753,11 @@ class AuthenticationScreenTest {
 
         composeTestRule
             .onNodeWithTag(
-                TAG_AUTHENTICATION_FORM_CONTENT_AREA
+                TAG_AUTHENTICATION_FORM_CONTENT_AREA,
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertExists()
 
@@ -2724,7 +3936,11 @@ class AuthenticationScreenTest {
         composeTestRule.waitUntil(timeoutMillis = TIMEOUT_MILLIS_2500L) {
             composeTestRule
                 .onAllNodesWithTag(
-                    TAG_AUTHENTICATION_FORM_CONTENT_AREA
+                    TAG_AUTHENTICATION_FORM_CONTENT_AREA,
+                    // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                    // was added to the modifier in the Box composable in
+                    // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                    useUnmergedTree = TRUE
                 )
                 .fetchSemanticsNodes().size == 1
         }
@@ -2824,7 +4040,11 @@ class AuthenticationScreenTest {
 
         composeTestRule
             .onNodeWithTag(
-                TAG_AUTHENTICATION_FORM_CONTENT_AREA
+                TAG_AUTHENTICATION_FORM_CONTENT_AREA,
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertExists()
 
@@ -2910,14 +4130,22 @@ class AuthenticationScreenTest {
         composeTestRule.waitUntil(timeoutMillis = TIMEOUT_MILLIS_2500L) {
             composeTestRule
                 .onAllNodesWithTag(
-                    TAG_AUTHENTICATION_FORM_CONTENT_AREA
+                    TAG_AUTHENTICATION_FORM_CONTENT_AREA,
+                    // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                    // was added to the modifier in the Box composable in
+                    // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                    useUnmergedTree = TRUE
                 )
                 .fetchSemanticsNodes().size == 1
         }
 
         composeTestRule
             .onNodeWithTag(
-                TAG_AUTHENTICATION_FORM_CONTENT_AREA
+                TAG_AUTHENTICATION_FORM_CONTENT_AREA,
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertExists()
 
@@ -3011,7 +4239,11 @@ class AuthenticationScreenTest {
 
         composeTestRule
             .onNodeWithTag(
-                TAG_AUTHENTICATION_FORM_CONTENT_AREA
+                TAG_AUTHENTICATION_FORM_CONTENT_AREA,
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertExists()
 
@@ -3103,7 +4335,11 @@ class AuthenticationScreenTest {
 
         composeTestRule
             .onNodeWithTag(
-                TAG_AUTHENTICATION_FORM_CONTENT_AREA
+                TAG_AUTHENTICATION_FORM_CONTENT_AREA,
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertExists()
 
@@ -3190,12 +4426,20 @@ class AuthenticationScreenTest {
             matcher = hasTestTag(
                 testTag = TAG_AUTHENTICATION_FORM_CONTENT_AREA
             ),
-            timeoutMillis = TIMEOUT_MILLIS_2500L
+            timeoutMillis = TIMEOUT_MILLIS_2500L,
+            // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+            // was added to the modifier in the Box composable in
+            // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+            useUnmergedTree = TRUE
         )
 
         composeTestRule
             .onNodeWithTag(
-                TAG_AUTHENTICATION_FORM_CONTENT_AREA
+                TAG_AUTHENTICATION_FORM_CONTENT_AREA,
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertExists()
 
@@ -3283,7 +4527,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -3328,7 +4576,11 @@ class AuthenticationScreenTest {
             matcher = hasTestTag(
                 testTag = TAG_AUTHENTICATION_FORM_CONTENT_AREA
             ),
-            timeoutMillis = TIMEOUT_MILLIS_2500L
+            timeoutMillis = TIMEOUT_MILLIS_2500L,
+            // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+            // was added to the modifier in the Box composable in
+            // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+            useUnmergedTree = TRUE
         )
 
         // Or
@@ -3353,14 +4605,22 @@ class AuthenticationScreenTest {
 //                    includeEditableText = FALSE
 //                )
 //            ),
-//            timeoutMillis = TIMEOUT_MILLIS_2500L
+//            timeoutMillis = TIMEOUT_MILLIS_2500L,
+//            // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+//            // was added to the modifier in the Box composable in
+//            // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+//            useUnmergedTree = TRUE
 //        )
 
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
                     testTag = TAG_AUTHENTICATION_FORM_CONTENT_AREA
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertExists()
 
@@ -3386,9 +4646,167 @@ class AuthenticationScreenTest {
 //                        mContext.getString(R.string.label_sign_in_to_account),
 //                        includeEditableText = FALSE
 //                    )
+//                ),
+//                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+//                // was added to the modifier in the Box composable in
+//                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+//                useUnmergedTree = TRUE
+//            )
+//            .assertExists()
+
+    }
+
+    /**
+     * NOTE:
+     *
+     * For this test case to pass when it should, whatever time delay that's used in the
+     * authenticate() function in app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/stateholders/AuthenticationViewModel.kt,
+     * the time delay used in this test case should be more than it.
+     *
+     * E.g., if 2000L milliseconds is used in the ViewModel, its recommended to wait for at least
+     * 2500L milliseconds in the test case.
+     *
+     * Compose waitUntil test API as an alternative to Espresso's Idling Resources
+     * ( https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473 ).
+     *
+     * Since a Repository (which a ViewModel would depend on for network or disk I/O call) or a
+     * ViewModel (for time consuming task) takes some amount of time to fetch data or compute an
+     * operation, the Compose waitUntil() test API shouldn't be used for this kind of scenario. Use
+     * test doubles ( https://developer.android.com/training/testing/fundamentals/test-doubles )
+     * instead.
+     *
+     * Assuming you want to test a part of the app the involves a network operation, the Repository
+     * should be injectable in the ViewModel so that a fake Repository can be injected into the
+     * ViewModel during testing in order to simulate the network operation.
+     *
+     * If you load data in a background thread, the test framework might execute the next operation
+     * too soon, making your test fail. The worst situation is when this happens only a small
+     * percentage of the time, making the test flaky.
+     *
+     * So this is where test doubles is really necessary as loading data is usually fast, especially
+     * when using fake data, so why waste time with idling resources. If you don’t want to modify
+     * your code under test to expose when it’s busy, one option is to waitUntil() a certain
+     * condition is met, instead of waiting for an arbitrary amount of time.
+     *
+     * But this should be used as a last resort when installing an Idling Resource is not practical
+     * or you don’t want to modify your production code. Using it before every test statement should
+     * be considered a smell, as it pollutes the test code unnecessarily, making it harder to
+     * maintain.
+     *
+     * But wait..., when you have hundreds or thousands of UI tests, you want tests to be as fast as
+     * possible. Also, sometimes emulators or devices misbehave and jank, making that operation take
+     * a bit longer than than the operation, breaking your build. When you have hundreds of tests
+     * this becomes a huge issue.
+     *
+     * When should you use waitUntil() then? A good use case for it is loading data from an
+     * observable (with LiveData, Kotlin Flow or RxJava). When your UI needs to receive multiple
+     * updates before you consider it idle, you might want to simplify synchronization using
+     * waitUntil().
+     *
+     * There is an open issue ( https://issuetracker.google.com/226934294 ) to introduce a more
+     * sophisticated version of this helper in the future but for now, happy… wait for it… testing!
+     *
+     * For more info, see https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473
+     */
+    @Test
+    fun sign_In_Ui_Components_Displayed_After_Loading_11() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_CONTENT
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithTag(
+                TAG_AUTHENTICATION_INPUT_EMAIL
+            )
+            .performTextInput(text = INPUT_CONTENT_EMAIL)
+
+        composeTestRule
+            .onNodeWithTag(
+                TAG_AUTHENTICATION_INPUT_PASSWORD
+            )
+            .performTextInput(text = INPUT_CONTENT_PASSWORD)
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_in),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        composeTestRule.waitUntilExists(
+            matcher = hasTestTag(
+                testTag = TAG_AUTHENTICATION_CONTENT
+            ),
+            timeoutMillis = TIMEOUT_MILLIS_2500L
+        )
+
+        // TODO: This would fail the test but worked a while ago before being commented out.
+//        composeTestRule
+//            .onNode(
+//                matcher = hasTestTag(
+//                    testTag = TAG_AUTHENTICATION_CONTENT
+//                ).and(
+//                    other = hasTextExactly(
+//                        mContext.getString(R.string.label_sign_in_to_account),
+//                        includeEditableText = FALSE
+//                    )
 //                )
 //            )
 //            .assertExists()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_CONTENT
+                )
+            )
+            .assertExists()
 
     }
 
@@ -3436,12 +4854,68 @@ class AuthenticationScreenTest {
 
         composeTestRule
             .onNodeWithTag(
-                TAG_AUTHENTICATION_FORM_CONTENT_AREA
+                TAG_AUTHENTICATION_FORM_CONTENT_AREA,
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertExists()
 
     }
 
+    /**
+     * NOTE:
+     *
+     * For this test case to pass when it should, whatever time delay that's used in the
+     * authenticate() function in app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/stateholders/AuthenticationViewModel.kt,
+     * the time delay used in this test case should be more than it.
+     *
+     * E.g., if 2000L milliseconds is used in the ViewModel, its recommended to wait for at least
+     * 2500L milliseconds in the test case.
+     *
+     * Compose waitUntil test API as an alternative to Espresso's Idling Resources
+     * ( https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473 ).
+     *
+     * Since a Repository (which a ViewModel would depend on for network or disk I/O call) or a
+     * ViewModel (for time consuming task) takes some amount of time to fetch data or compute an
+     * operation, the Compose waitUntil() test API shouldn't be used for this kind of scenario. Use
+     * test doubles ( https://developer.android.com/training/testing/fundamentals/test-doubles )
+     * instead.
+     *
+     * Assuming you want to test a part of the app the involves a network operation, the Repository
+     * should be injectable in the ViewModel so that a fake Repository can be injected into the
+     * ViewModel during testing in order to simulate the network operation.
+     *
+     * If you load data in a background thread, the test framework might execute the next operation
+     * too soon, making your test fail. The worst situation is when this happens only a small
+     * percentage of the time, making the test flaky.
+     *
+     * So this is where test doubles is really necessary as loading data is usually fast, especially
+     * when using fake data, so why waste time with idling resources. If you don’t want to modify
+     * your code under test to expose when it’s busy, one option is to waitUntil() a certain
+     * condition is met, instead of waiting for an arbitrary amount of time.
+     *
+     * But this should be used as a last resort when installing an Idling Resource is not practical
+     * or you don’t want to modify your production code. Using it before every test statement should
+     * be considered a smell, as it pollutes the test code unnecessarily, making it harder to
+     * maintain.
+     *
+     * But wait..., when you have hundreds or thousands of UI tests, you want tests to be as fast as
+     * possible. Also, sometimes emulators or devices misbehave and jank, making that operation take
+     * a bit longer than than the operation, breaking your build. When you have hundreds of tests
+     * this becomes a huge issue.
+     *
+     * When should you use waitUntil() then? A good use case for it is loading data from an
+     * observable (with LiveData, Kotlin Flow or RxJava). When your UI needs to receive multiple
+     * updates before you consider it idle, you might want to simplify synchronization using
+     * waitUntil().
+     *
+     * There is an open issue ( https://issuetracker.google.com/226934294 ) to introduce a more
+     * sophisticated version of this helper in the future but for now, happy… wait for it… testing!
+     *
+     * For more info, see https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473
+     */
     @Test
     fun sign_Up_Ui_Components_Displayed_After_Loading_2() {
 
@@ -3478,17 +4952,77 @@ class AuthenticationScreenTest {
                 matcher = hasTestTag(
                     testTag = TAG_AUTHENTICATION_FORM_CONTENT_AREA
                 ),
-                timeoutMillis = TIMEOUT_MILLIS_2500L
+                timeoutMillis = TIMEOUT_MILLIS_2500L,
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
 
         composeTestRule
             .onNodeWithTag(
-                TAG_AUTHENTICATION_FORM_CONTENT_AREA
+                TAG_AUTHENTICATION_FORM_CONTENT_AREA,
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertExists()
 
     }
 
+    /**
+     * NOTE:
+     *
+     * For this test case to pass when it should, whatever time delay that's used in the
+     * authenticate() function in app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/stateholders/AuthenticationViewModel.kt,
+     * the time delay used in this test case should be more than it.
+     *
+     * E.g., if 2000L milliseconds is used in the ViewModel, its recommended to wait for at least
+     * 2500L milliseconds in the test case.
+     *
+     * Compose waitUntil test API as an alternative to Espresso's Idling Resources
+     * ( https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473 ).
+     *
+     * Since a Repository (which a ViewModel would depend on for network or disk I/O call) or a
+     * ViewModel (for time consuming task) takes some amount of time to fetch data or compute an
+     * operation, the Compose waitUntil() test API shouldn't be used for this kind of scenario. Use
+     * test doubles ( https://developer.android.com/training/testing/fundamentals/test-doubles )
+     * instead.
+     *
+     * Assuming you want to test a part of the app the involves a network operation, the Repository
+     * should be injectable in the ViewModel so that a fake Repository can be injected into the
+     * ViewModel during testing in order to simulate the network operation.
+     *
+     * If you load data in a background thread, the test framework might execute the next operation
+     * too soon, making your test fail. The worst situation is when this happens only a small
+     * percentage of the time, making the test flaky.
+     *
+     * So this is where test doubles is really necessary as loading data is usually fast, especially
+     * when using fake data, so why waste time with idling resources. If you don’t want to modify
+     * your code under test to expose when it’s busy, one option is to waitUntil() a certain
+     * condition is met, instead of waiting for an arbitrary amount of time.
+     *
+     * But this should be used as a last resort when installing an Idling Resource is not practical
+     * or you don’t want to modify your production code. Using it before every test statement should
+     * be considered a smell, as it pollutes the test code unnecessarily, making it harder to
+     * maintain.
+     *
+     * But wait..., when you have hundreds or thousands of UI tests, you want tests to be as fast as
+     * possible. Also, sometimes emulators or devices misbehave and jank, making that operation take
+     * a bit longer than than the operation, breaking your build. When you have hundreds of tests
+     * this becomes a huge issue.
+     *
+     * When should you use waitUntil() then? A good use case for it is loading data from an
+     * observable (with LiveData, Kotlin Flow or RxJava). When your UI needs to receive multiple
+     * updates before you consider it idle, you might want to simplify synchronization using
+     * waitUntil().
+     *
+     * There is an open issue ( https://issuetracker.google.com/226934294 ) to introduce a more
+     * sophisticated version of this helper in the future but for now, happy… wait for it… testing!
+     *
+     * For more info, see https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473
+     */
     @Test
     fun sign_Up_Ui_Components_Displayed_After_Loading_3() {
 
@@ -3519,7 +5053,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -3569,7 +5107,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -3615,14 +5157,527 @@ class AuthenticationScreenTest {
                 matcher = hasTestTag(
                     testTag = TAG_AUTHENTICATION_FORM_CONTENT_AREA
                 ),
+                timeoutMillis = TIMEOUT_MILLIS_2500L,
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+
+        composeTestRule
+            .onNodeWithTag(
+                TAG_AUTHENTICATION_FORM_CONTENT_AREA,
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertExists()
+
+    }
+
+    /**
+     * NOTE:
+     *
+     * For this test case to pass when it should, whatever time delay that's used in the
+     * authenticate() function in app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/stateholders/AuthenticationViewModel.kt,
+     * the time delay used in this test case should be more than it.
+     *
+     * E.g., if 2000L milliseconds is used in the ViewModel, its recommended to wait for at least
+     * 2500L milliseconds in the test case.
+     *
+     * Compose waitUntil test API as an alternative to Espresso's Idling Resources
+     * ( https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473 ).
+     *
+     * Since a Repository (which a ViewModel would depend on for network or disk I/O call) or a
+     * ViewModel (for time consuming task) takes some amount of time to fetch data or compute an
+     * operation, the Compose waitUntil() test API shouldn't be used for this kind of scenario. Use
+     * test doubles ( https://developer.android.com/training/testing/fundamentals/test-doubles )
+     * instead.
+     *
+     * Assuming you want to test a part of the app the involves a network operation, the Repository
+     * should be injectable in the ViewModel so that a fake Repository can be injected into the
+     * ViewModel during testing in order to simulate the network operation.
+     *
+     * If you load data in a background thread, the test framework might execute the next operation
+     * too soon, making your test fail. The worst situation is when this happens only a small
+     * percentage of the time, making the test flaky.
+     *
+     * So this is where test doubles is really necessary as loading data is usually fast, especially
+     * when using fake data, so why waste time with idling resources. If you don’t want to modify
+     * your code under test to expose when it’s busy, one option is to waitUntil() a certain
+     * condition is met, instead of waiting for an arbitrary amount of time.
+     *
+     * But this should be used as a last resort when installing an Idling Resource is not practical
+     * or you don’t want to modify your production code. Using it before every test statement should
+     * be considered a smell, as it pollutes the test code unnecessarily, making it harder to
+     * maintain.
+     *
+     * But wait..., when you have hundreds or thousands of UI tests, you want tests to be as fast as
+     * possible. Also, sometimes emulators or devices misbehave and jank, making that operation take
+     * a bit longer than than the operation, breaking your build. When you have hundreds of tests
+     * this becomes a huge issue.
+     *
+     * When should you use waitUntil() then? A good use case for it is loading data from an
+     * observable (with LiveData, Kotlin Flow or RxJava). When your UI needs to receive multiple
+     * updates before you consider it idle, you might want to simplify synchronization using
+     * waitUntil().
+     *
+     * There is an open issue ( https://issuetracker.google.com/226934294 ) to introduce a more
+     * sophisticated version of this helper in the future but for now, happy… wait for it… testing!
+     *
+     * For more info, see https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473
+     */
+    @Test
+    fun sign_Up_Ui_Components_Displayed_After_Loading_4() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_CONTENT
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_CONTENT
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithTag(
+                TAG_AUTHENTICATION_INPUT_EMAIL
+            )
+            .performTextInput(text = INPUT_CONTENT_EMAIL)
+
+        composeTestRule
+            .onNodeWithTag(
+                TAG_AUTHENTICATION_INPUT_PASSWORD
+            )
+            .performTextInput(text = INPUT_CONTENT_PASSWORD)
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_up),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        composeTestRule
+            .waitUntilExists(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_CONTENT
+                ),
                 timeoutMillis = TIMEOUT_MILLIS_2500L
             )
 
         composeTestRule
             .onNodeWithTag(
-                TAG_AUTHENTICATION_FORM_CONTENT_AREA
+                TAG_AUTHENTICATION_CONTENT
             )
             .assertExists()
+
+    }
+
+    @Test
+    fun sign_In_Email_Text_Field_Is_Focused_When_Clicked() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_INPUT_EMAIL
+                )
+            )
+            .apply {
+                performClick()
+
+                assertIsFocused()
+            }
+
+    }
+
+    @Test
+    fun sign_In_Password_Text_Field_Is_Focused_When_Clicked() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_INPUT_PASSWORD
+                )
+            )
+            .apply {
+                performClick()
+
+                assertIsFocused()
+            }
+
+    }
+
+    @Test
+    fun sign_Up_Email_Text_Field_Is_Focused_When_Clicked() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_INPUT_EMAIL
+                )
+            )
+            .apply {
+                performClick()
+
+                assertIsFocused()
+            }
+
+    }
+
+    @Test
+    fun sign_Up_Password_Text_Field_Is_Focused_When_Clicked() {
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .performClick()
+
+        // Optional but recommended.
+        // This is just to confirm the screen since components like EmailInput (others are
+        // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+        // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+        // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+        // So it best to uniquely identify a component when used in more than one screen or modes.
+        // TODO:
+        //  To uniquely identify a composable which is being used in multiple screens, its best to
+        //  assign each screen a screen tag to be used as sub-tags for the composable.
+        //  That way, when a screen that is being tested with the composable passes, you are sure
+        //  that the composable was uniquely identified for that particular screen and not just any
+        //  screen. This means that that particular screen is properly tested.
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_INPUT_PASSWORD
+                )
+            )
+            .apply {
+                performClick()
+
+                assertIsFocused()
+            }
 
     }
 
@@ -3724,7 +5779,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -3783,7 +5842,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -3833,7 +5896,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -3892,7 +5959,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -3966,7 +6037,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -4016,7 +6091,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -4196,7 +6275,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -4246,7 +6329,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -4342,7 +6429,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -4392,7 +6483,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -4474,7 +6569,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_characters),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -4488,7 +6587,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_capital),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -4502,7 +6605,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_digit),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -4534,7 +6641,11 @@ class AuthenticationScreenTest {
                 matcher = hasTestTag(
                     testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_needed_characters)
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -4548,7 +6659,11 @@ class AuthenticationScreenTest {
                 matcher = hasTestTag(
                     testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_needed_capital)
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -4562,7 +6677,11 @@ class AuthenticationScreenTest {
                 matcher = hasTestTag(
                     testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_needed_digit)
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -4609,7 +6728,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -4659,7 +6782,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -4673,7 +6800,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_characters),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -4692,7 +6823,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_capital),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -4711,7 +6846,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_digit),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -4758,7 +6897,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -4808,7 +6951,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -4822,7 +6969,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_characters),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -4836,7 +6987,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_capital),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -4850,7 +7005,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_digit),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -4878,7 +7037,7 @@ class AuthenticationScreenTest {
                 )
             )
             .performTextInput(
-                text = "password"
+                text = INPUT_CONTENT_PASSWORD_PASSWORD
             )
 
         composeTestRule
@@ -4958,7 +7117,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -5008,7 +7171,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -5019,7 +7186,7 @@ class AuthenticationScreenTest {
                 )
             )
             .performTextInput(
-                text = "password"
+                text = INPUT_CONTENT_PASSWORD_PASSWORD
             )
 
         composeTestRule
@@ -5114,7 +7281,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -5164,7 +7335,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -5175,7 +7350,7 @@ class AuthenticationScreenTest {
                 )
             )
             .performTextInput(
-                text = "password"
+                text = INPUT_CONTENT_PASSWORD_PASSWORD
             )
 
         composeTestRule
@@ -5253,7 +7428,7 @@ class AuthenticationScreenTest {
                 )
             )
             .performTextInput(
-                text = "password"
+                text = INPUT_CONTENT_PASSWORD_PASSWORD
             )
 
         composeTestRule
@@ -5339,7 +7514,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -5389,7 +7568,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -5400,7 +7583,7 @@ class AuthenticationScreenTest {
                 )
             )
             .performTextInput(
-                text = "password"
+                text = INPUT_CONTENT_PASSWORD_PASSWORD
             )
 
         composeTestRule
@@ -5501,7 +7684,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -5551,7 +7738,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -5562,7 +7753,7 @@ class AuthenticationScreenTest {
                 )
             )
             .performTextInput(
-                text = "password"
+                text = INPUT_CONTENT_PASSWORD_PASSWORD
             )
 
         composeTestRule
@@ -5634,7 +7825,7 @@ class AuthenticationScreenTest {
                 )
             )
             .performTextInput(
-                text = "Pass"
+                text = INPUT_CONTENT_PASSWORD_PASS
             )
 
         composeTestRule
@@ -5714,7 +7905,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -5764,7 +7959,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -5775,7 +7974,7 @@ class AuthenticationScreenTest {
                 )
             )
             .performTextInput(
-                text = "Pass"
+                text = INPUT_CONTENT_PASSWORD_PASS
             )
 
         composeTestRule
@@ -5870,7 +8069,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -5920,7 +8123,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -5931,7 +8138,7 @@ class AuthenticationScreenTest {
                 )
             )
             .performTextInput(
-                text = "Pass"
+                text = INPUT_CONTENT_PASSWORD_PASS
             )
 
         composeTestRule
@@ -6009,7 +8216,7 @@ class AuthenticationScreenTest {
                 )
             )
             .performTextInput(
-                text = "Pass"
+                text = INPUT_CONTENT_PASSWORD_PASS
             )
 
         composeTestRule
@@ -6017,7 +8224,11 @@ class AuthenticationScreenTest {
                 matcher = hasTestTag(
                     testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_needed_characters)
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -6031,7 +8242,11 @@ class AuthenticationScreenTest {
                 matcher = hasTestTag(
                     testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_satisfied_capital)
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -6045,7 +8260,11 @@ class AuthenticationScreenTest {
                 matcher = hasTestTag(
                     testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_needed_digit)
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -6092,7 +8311,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -6142,7 +8365,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -6153,7 +8380,7 @@ class AuthenticationScreenTest {
                 )
             )
             .performTextInput(
-                text = "Pass"
+                text = INPUT_CONTENT_PASSWORD_PASS
             )
 
         composeTestRule
@@ -6166,7 +8393,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_characters),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -6185,7 +8416,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_capital),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -6204,7 +8439,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_digit),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -6251,7 +8490,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -6301,7 +8544,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -6312,7 +8559,7 @@ class AuthenticationScreenTest {
                 )
             )
             .performTextInput(
-                text = "Pass"
+                text = INPUT_CONTENT_PASSWORD_PASS
             )
 
         composeTestRule
@@ -6325,7 +8572,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_characters),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -6339,7 +8590,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_capital),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -6353,7 +8608,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_digit),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -6381,7 +8640,7 @@ class AuthenticationScreenTest {
                 )
             )
             .performTextInput(
-                text = "1pass"
+                text = INPUT_CONTENT_PASSWORD_1PASS
             )
 
         composeTestRule
@@ -6461,7 +8720,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -6511,7 +8774,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -6522,7 +8789,7 @@ class AuthenticationScreenTest {
                 )
             )
             .performTextInput(
-                text = "1pass"
+                text = INPUT_CONTENT_PASSWORD_1PASS
             )
 
         composeTestRule
@@ -6617,7 +8884,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -6667,7 +8938,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -6678,7 +8953,7 @@ class AuthenticationScreenTest {
                 )
             )
             .performTextInput(
-                text = "1pass"
+                text = INPUT_CONTENT_PASSWORD_1PASS
             )
 
         composeTestRule
@@ -6756,7 +9031,7 @@ class AuthenticationScreenTest {
                 )
             )
             .performTextInput(
-                text = "1pass"
+                text = INPUT_CONTENT_PASSWORD_1PASS
             )
 
         composeTestRule
@@ -6764,7 +9039,11 @@ class AuthenticationScreenTest {
                 matcher = hasTestTag(
                     testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_needed_characters)
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -6778,7 +9057,11 @@ class AuthenticationScreenTest {
                 matcher = hasTestTag(
                     testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_needed_capital)
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -6792,7 +9075,11 @@ class AuthenticationScreenTest {
                 matcher = hasTestTag(
                     testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_satisfied_digit)
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -6839,7 +9126,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -6889,7 +9180,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -6900,7 +9195,7 @@ class AuthenticationScreenTest {
                 )
             )
             .performTextInput(
-                text = "1pass"
+                text = INPUT_CONTENT_PASSWORD_1PASS
             )
 
         composeTestRule
@@ -6913,7 +9208,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_characters),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -6932,7 +9231,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_capital),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -6951,7 +9254,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_digit),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -6998,7 +9305,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -7048,7 +9359,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -7059,7 +9374,7 @@ class AuthenticationScreenTest {
                 )
             )
             .performTextInput(
-                text = "1pass"
+                text = INPUT_CONTENT_PASSWORD_1PASS
             )
 
         composeTestRule
@@ -7072,7 +9387,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_characters),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -7086,7 +9405,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_capital),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -7100,7 +9423,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_digit),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -7208,7 +9535,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -7258,7 +9589,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -7364,7 +9699,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -7414,7 +9753,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -7511,7 +9854,11 @@ class AuthenticationScreenTest {
                 matcher = hasTestTag(
                     testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_satisfied_characters)
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -7525,7 +9872,11 @@ class AuthenticationScreenTest {
                 matcher = hasTestTag(
                     testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_satisfied_capital)
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -7539,7 +9890,11 @@ class AuthenticationScreenTest {
                 matcher = hasTestTag(
                     testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_satisfied_digit)
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -7586,7 +9941,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -7636,7 +9995,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -7660,7 +10023,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_characters),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -7679,7 +10046,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_capital),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -7698,7 +10069,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_digit),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assert(
                 matcher = hasTextExactly(
@@ -7715,7 +10090,7 @@ class AuthenticationScreenTest {
      * would need to be changed to be like the one in the file
      * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
      */
-    @Test // todo
+    @Test
     fun sign_Up_All_Password_Requirements_Satisfied_AnotherApproach_3() {
 
         composeTestRule.setContent {
@@ -7745,7 +10120,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -7795,7 +10174,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -7819,7 +10202,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_characters),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -7833,7 +10220,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_capital),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -7847,7 +10238,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.password_requirement_digit),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -7883,7 +10278,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -7999,7 +10398,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -8049,7 +10452,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -8164,7 +10571,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -8214,7 +10625,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -8268,7 +10683,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -8308,7 +10727,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -8350,7 +10773,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -8408,7 +10835,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -8462,7 +10893,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -8532,7 +10967,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -8602,7 +11041,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -8660,7 +11103,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -8726,7 +11173,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -8784,7 +11235,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -8850,7 +11305,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -8916,7 +11375,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -8982,7 +11445,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -9012,6 +11479,10 @@ class AuthenticationScreenTest {
 
     }
 
+    /**
+     * If test fails when it should pass, try a re-run. Or use the following improved test case:
+     * [sign_In_Password_Input_Soft_Keyboard_Shown_When_Next_Ime_Action_Clicked_From_Email_Input_3]
+     */
     @Test
     fun sign_In_Password_Input_Soft_Keyboard_Shown_When_Next_Ime_Action_Clicked_From_Email_Input_2() {
 
@@ -9046,7 +11517,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -9160,7 +11635,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -9278,7 +11757,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -9328,7 +11811,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -9370,7 +11857,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -9420,7 +11911,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -9478,7 +11973,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -9528,7 +12027,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -9582,7 +12085,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -9632,7 +12139,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -9702,7 +12213,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -9752,7 +12267,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -9822,7 +12341,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -9872,7 +12395,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -9930,7 +12457,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -9980,7 +12511,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -10046,7 +12581,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -10096,7 +12635,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -10154,7 +12697,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -10204,7 +12751,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -10270,7 +12821,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -10320,7 +12875,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -10386,7 +12945,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -10436,7 +12999,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -10502,7 +13069,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -10552,7 +13123,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -10616,7 +13191,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -10666,7 +13245,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -10780,7 +13363,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_in_to_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 
@@ -10830,7 +13417,11 @@ class AuthenticationScreenTest {
                         mContext.getString(R.string.label_sign_up_for_account),
                         includeEditableText = FALSE
                     )
-                )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
             )
             .assertIsDisplayed()
 

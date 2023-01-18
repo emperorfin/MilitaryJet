@@ -17,6 +17,7 @@ object Tags {
     const val TAG_AUTHENTICATION_ERROR_DIALOG: String = "ui.screens.authentication.uicomponents.authentication-error-dialog"
     const val TAG_AUTHENTICATION_ERROR_DIALOG_CONFIRM_BUTTON: String = "ui.screens.authentication.uicomponents.authentication-error-dialog-confirm-button"
     const val TAG_AUTHENTICATION_PROGRESS: String = "ui.screens.authentication.uicomponents.authentication-progress"
+    const val TAG_AUTHENTICATION_CONTENT: String = "ui.screens.authentication.uicomponents.authentication-content"
     const val TAG_AUTHENTICATION_FORM_CONTENT_AREA: String = "ui.screens.authentication.uicomponents.authentication-form-content-area"
     const val TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON: String = "ui.screens.authentication.uicomponents.authentication-input-password-trailing-icon"
     const val TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON_PASSWORD_HIDDEN: String = "ui.screens.authentication.uicomponents.authentication-input-password-trailing-icon-password-hidden-"
