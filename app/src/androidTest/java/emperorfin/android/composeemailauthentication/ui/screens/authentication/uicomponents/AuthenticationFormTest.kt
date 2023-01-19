@@ -1,16 +1,14 @@
 package emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents
 
 import android.content.Context
-import androidx.compose.ui.test.assert
-import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.hasTestTag
-import androidx.compose.ui.test.hasTextExactly
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import emperorfin.android.composeemailauthentication.test.R
 import emperorfin.android.composeemailauthentication.ui.res.theme.ComposeEmailAuthenticationTheme
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_IN
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_UP
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.stateholders.AuthenticationUiState
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags
@@ -65,14 +63,13 @@ class AuthenticationFormTest {
         private const val TRUE: Boolean = true
         private const val FALSE: Boolean = false
 
+        private const val INPUT_CONTENT_EMAIL_EMPTY: String = ""
         private const val INPUT_CONTENT_EMAIL: String = "contact@email.com"
+        private const val INPUT_CONTENT_PASSWORD_EMPTY: String = ""
         private const val INPUT_CONTENT_PASSWORD: String = "passworD1"
         private const val INPUT_CONTENT_PASSWORD_PASSWORD: String = "password"
         private const val INPUT_CONTENT_PASSWORD_PASS: String = "Pass"
         private const val INPUT_CONTENT_PASSWORD_1PASS: String = "1pass"
-
-        private const val MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE =
-            emperorfin.android.composeemailauthentication.R.string.test_error_message
 
     }
 
@@ -127,202 +124,1549 @@ class AuthenticationFormTest {
 
     }
 
-//    @Test
-//    fun sign_In_Mode_Displayed() {
-//
-//        val uiState = AuthenticationUiState(
-//            authenticationMode = AuthenticationMode.SIGN_IN, // same as default value
-//        )
-//
-//        composeTestRule.setContent {
-//            ComposeEmailAuthenticationTheme {
-//                AuthenticationForm(
-//                    authenticationMode = uiState.authenticationMode,
-//                    onToggleMode = { },
-//                    email = uiState.email,
-//                    onEmailChanged = { },
-//                    password = uiState.password,
-//                    onPasswordChanged = { },
-//                    completedPasswordRequirements = emptyList(),
-//                    enableAuthentication = FALSE,
-//                    onAuthenticate = { }
-//                )
-//            }
-//        }
-//
-//        composeTestRule
-//            .onNode(
-//                matcher = hasTestTag(
-//                    testTag = TAG_AUTHENTICATION_FORM_CONTENT_AREA
-//                ).and(
-//                    // Optional but recommended.
-//                    // This is just to confirm the screen since components like EmailInput (others are
-//                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
-//                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
-//                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
-//                    // So it best to uniquely identify a component when used in more than one screen or modes.
-//                    // TODO:
-//                    //  To uniquely identify a composable which is being used in multiple screens, its best to
-//                    //  assign each screen a screen tag to be used as sub-tags for the composable.
-//                    //  That way, when a screen that is being tested with the composable passes, you are sure
-//                    //  that the composable was uniquely identified for that particular screen and not just any
-//                    //  screen. This means that that particular screen is properly tested.
-//                    other = hasTextExactly(
-//                        mContext.getString(R.string.label_sign_in_to_account),
-//                        includeEditableText = FALSE
-//                    )
-//                )
-//            )
-//            .assertIsDisplayed()
-//
-//        composeTestRule
-//            .onNode(
-//                matcher = hasTestTag(
-//                    testTag = TAG_AUTHENTICATION_FORM_CONTENT_AREA
-//                )
-//            )
-//            .assertIsDisplayed()
-//
-//        composeTestRule
-//            .onNode(
-//                matcher = hasTextExactly(
-//                    mContext.getString(R.string.label_sign_in_to_account),
-//                    includeEditableText = FALSE
-//                )
-//            )
-//            .assertIsDisplayed()
-//
-//        composeTestRule
-//            .onNode(
-//                matcher = hasTestTag(
-//                    testTag = TAG_AUTHENTICATION_FORM_CONTENT_AREA
-//                ).and(
-//                    other = hasTextExactly(
-//                        mContext.getString(R.string.label_sign_in_to_account),
-//                        includeEditableText = FALSE
-//                    )
-//                )
-//            )
-//            .assertIsDisplayed()
-//
-////        composeTestRule
-////            .onNode(
-////                matcher = hasTestTag(
-////                    testTag = TAG_AUTHENTICATION_FORM_CONTENT_AREA
-////                ).and(
-////                    other = hasTestTag(
-////                        testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-////                    )
-////                )
-////            )
-////            .assertIsDisplayed()
-//
-//        composeTestRule
-//            .onNode(
-//                matcher = hasTestTag(
-//                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-//                ),
-//                useUnmergedTree = true
-//            )
-//            .assertIsDisplayed()
-//
-//        composeTestRule
-//            .onNode(
-//                matcher = hasTestTag(
-//                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-//                ).and(
-//                    other = hasTextExactly(
-//                        mContext.getString(R.string.label_sign_in_to_account),
-//                        includeEditableText = FALSE
-//                    )
-//                ),
-//                useUnmergedTree = true
-//            )
-//            .assertIsDisplayed()
-//
-////        composeTestRule
-////            .onNode(
-////                matcher = hasTestTag(
-////                    testTag = TAG_AUTHENTICATION_FORM_CONTENT_AREA
-////                ).and(
-////                    other = hasTestTag(
-////                        testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-////                    )
-////                ),
-////                useUnmergedTree = true
-////            )
-////            .assertIsDisplayed()
-//
-//        composeTestRule
-//            .onNode(
-//                matcher = hasTestTag(
-//                    testTag = TAG_AUTHENTICATION_FORM_CONTENT_AREA
-//                )
-//            )
-//            .assert(
-//                matcher = hasTestTag(
-//                    testTag = TAG_AUTHENTICATION_FORM_CONTENT_AREA
-//                ).and(
-//                    other = hasTextExactly(
-//                        mContext.getString(R.string.label_sign_in_to_account),
-//                        includeEditableText = FALSE
-//                    )
-//                )
-//            )
-//
-//        composeTestRule
-//            .onNode(
-//                matcher = hasTestTag(
-//                    testTag = TAG_AUTHENTICATION_FORM_CONTENT_AREA
-//                )
-//            )
-//            .assert(
-//                matcher = hasTestTag(
-//                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-//                ).and(
-//                    other = hasTextExactly(
-//                        mContext.getString(R.string.label_sign_in_to_account),
-//                        includeEditableText = FALSE
-//                    )
-//                )
-//            )
-//            .assertIsDisplayed()
-//
-//        composeTestRule
-//            .onNode(
-//                matcher = hasTestTag(
-//                    testTag = TAG_AUTHENTICATION_FORM_CONTENT_AREA
-//                )
-//            )
-//            .assert(
-//                matcher = hasTestTag(
-//                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-//                ).and(
-//                    other = hasTextExactly(
-//                        mContext.getString(R.string.label_sign_in_to_account),
-//                        includeEditableText = FALSE
-//                    )
-//                )
-//            )
-//
-//        composeTestRule
-//            .onNode(
-//                matcher = hasTestTag(
-//                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE //TAG_AUTHENTICATION_FORM_CONTENT_AREA
-//                )/*.and(
-//                    hasTestTag(
-//                        TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-//                    )
-//                )*/
-//            )
-//            .assert(
-//                matcher = hasTextExactly(
-//                    mContext.getString(R.string.label_sign_in_to_account),
-//                    includeEditableText = FALSE
-//                )
-//            )
-////            .assertIsDisplayed()
-//
-//    }
+    @Test
+    fun sign_In_Mode_Displayed() {
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_IN,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL_EMPTY,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_EMPTY,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = emptyList(),
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_FORM_CONTENT_AREA
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
+    fun sign_In_Mode_Displayed_2() {
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_IN,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL_EMPTY,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_EMPTY,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = emptyList(),
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_FORM_CONTENT_AREA
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
+    fun sign_Up_Mode_Displayed() {
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_UP,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL_EMPTY,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_EMPTY,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = emptyList(),
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_FORM_CONTENT_AREA
+                )
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
+    fun sign_In_Title_Displayed() {
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_IN,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL_EMPTY,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_EMPTY,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = emptyList(),
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_in_to_account),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
+    fun sign_Up_Title_Displayed() {
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_UP,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL_EMPTY,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_EMPTY,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = emptyList(),
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.label_sign_up_for_account),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
+    fun sign_In_Disabled_Button_Displayed() {
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_IN,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL_EMPTY,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_EMPTY,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = emptyList(),
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_in),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .apply {
+                assertIsDisplayed()
+
+                assertIsNotEnabled()
+            }
+
+    }
+
+    @Test
+    fun sign_Up_Disabled_Button_Displayed() {
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_UP,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL_EMPTY,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_EMPTY,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = emptyList(),
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_up),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .apply {
+                assertIsDisplayed()
+
+                assertIsNotEnabled()
+            }
+
+    }
+
+    @Test
+    fun sign_In_Enabled_Button_Displayed() {
+
+        val enableAuthentication: Boolean = TRUE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_IN,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = emptyList(),
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_in),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .apply {
+                assertIsDisplayed()
+
+                assertIsEnabled()
+            }
+
+    }
+
+    @Test
+    fun sign_Up_Enabled_Button_Displayed() {
+
+        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(
+            PasswordRequirement.EIGHT_CHARACTERS,
+            PasswordRequirement.CAPITAL_LETTER,
+            PasswordRequirement.NUMBER
+        )
+
+        val enableAuthentication: Boolean = TRUE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_UP,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = satisfiedPasswordRequirements,
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_up),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .apply {
+                assertIsDisplayed()
+
+                assertIsEnabled()
+            }
+
+    }
+
+    @Test
+    fun sign_In_Button_Disabled_When_Email_Input_Has_No_Content() {
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_IN,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL_EMPTY,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = emptyList(),
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_in),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .apply {
+                assertIsDisplayed()
+
+                assertIsNotEnabled()
+            }
+
+    }
+
+    @Test
+    fun sign_In_Button_Disabled_When_Password_Input_Has_No_Content() {
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_IN,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_EMPTY,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = emptyList(),
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_in),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .apply {
+                assertIsDisplayed()
+
+                assertIsNotEnabled()
+            }
+
+    }
+
+    @Test
+    fun sign_Up_Button_Disabled_When_Email_Input_Has_No_Content() {
+
+        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(
+            PasswordRequirement.EIGHT_CHARACTERS,
+            PasswordRequirement.CAPITAL_LETTER,
+            PasswordRequirement.NUMBER
+        )
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_UP,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL_EMPTY,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = satisfiedPasswordRequirements,
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_up),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .apply {
+                assertIsDisplayed()
+
+                assertIsNotEnabled()
+            }
+
+    }
+
+    @Test
+    fun sign_Up_Button_Disabled_When_Password_Input_Has_No_Content() {
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_UP,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_EMPTY,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = emptyList(),
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_sign_up),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .apply {
+                assertIsDisplayed()
+
+                assertIsNotEnabled()
+            }
+
+    }
+
+    @Test
+    fun need_Account_Button_Displayed() {
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_IN,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL_EMPTY,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_EMPTY,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = emptyList(),
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_need_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
+    fun already_Have_Account_Button_Displayed() {
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_UP,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL_EMPTY,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_EMPTY,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = emptyList(),
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                ).and(
+                    // Optional but recommended.
+                    // This is just to confirm the screen since components like EmailInput (others are
+                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
+                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
+                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
+                    // So it best to uniquely identify a component when used in more than one screen or modes.
+                    // TODO:
+                    //  To uniquely identify a composable which is being used in multiple screens, its best to
+                    //  assign each screen a screen tag to be used as sub-tags for the composable.
+                    //  That way, when a screen that is being tested with the composable passes, you are sure
+                    //  that the composable was uniquely identified for that particular screen and not just any
+                    //  screen. This means that that particular screen is properly tested.
+                    other = hasTextExactly(
+                        mContext.getString(R.string.action_already_have_account),
+                        includeEditableText = FALSE
+                    )
+                )
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
+    fun sign_Up_No_Password_Requirement_Satisfied() {
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_UP,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL_EMPTY,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_EMPTY,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = emptyList(),
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    /**
+     * For this test case to pass when it should, the code in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt
+     * would need to be changed to be like the one in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
+     */
+    @Test
+    fun sign_Up_No_Password_Requirement_Satisfied_AnotherApproach() {
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_UP,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL_EMPTY,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_EMPTY,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = emptyList(),
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
+    fun sign_Up_Only_At_Least_Eight_Characters_Satisfied() {
+
+        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(PasswordRequirement.EIGHT_CHARACTERS)
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_UP,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_PASSWORD,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = satisfiedPasswordRequirements,
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_satisfied_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    /**
+     * For this test case to pass when it should, the code in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt
+     * would need to be changed to be like the one in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
+     */
+    @Test
+    fun sign_Up_Only_At_Least_Eight_Characters_Satisfied_AnotherApproach() {
+
+        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(PasswordRequirement.EIGHT_CHARACTERS)
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_UP,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_PASSWORD,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = satisfiedPasswordRequirements,
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_satisfied_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
+    fun sign_Up_Only_At_Least_One_Uppercase_Letter_Satisfied() {
+
+        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(PasswordRequirement.CAPITAL_LETTER)
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_UP,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_PASS,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = satisfiedPasswordRequirements,
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_satisfied_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    /**
+     * For this test case to pass when it should, the code in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt
+     * would need to be changed to be like the one in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
+     */
+    @Test
+    fun sign_Up_Only_At_Least_One_Uppercase_Letter_Satisfied_AnotherApproach() {
+
+        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(PasswordRequirement.CAPITAL_LETTER)
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_UP,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_PASS,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = satisfiedPasswordRequirements,
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_satisfied_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
+    fun sign_Up_Only_At_Least_One_Digit_Satisfied() {
+
+        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(PasswordRequirement.NUMBER)
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_UP,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_1PASS,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = satisfiedPasswordRequirements,
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_needed_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_satisfied_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    /**
+     * For this test case to pass when it should, the code in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt
+     * would need to be changed to be like the one in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
+     */
+    @Test
+    fun sign_Up_Only_At_Least_One_Digit_Satisfied_AnotherApproach() {
+
+        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(PasswordRequirement.NUMBER)
+
+        val enableAuthentication: Boolean = FALSE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_UP,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD_1PASS,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = satisfiedPasswordRequirements,
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_needed_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_satisfied_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    @Test
+    fun sign_Up_All_Password_Requirements_Satisfied() {
+
+        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(
+            PasswordRequirement.EIGHT_CHARACTERS,
+            PasswordRequirement.CAPITAL_LETTER,
+            PasswordRequirement.NUMBER
+        )
+
+        val enableAuthentication: Boolean = TRUE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_UP,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = satisfiedPasswordRequirements,
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_satisfied_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_satisfied_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.password_requirement_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.test_password_requirement_satisfied_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
+
+    /**
+     * For this test case to pass when it should, the code in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt
+     * would need to be changed to be like the one in the file
+     * app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
+     */
+    @Test
+    fun sign_Up_All_Password_Requirements_Satisfied_AnotherApproach() {
+
+        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(
+            PasswordRequirement.EIGHT_CHARACTERS,
+            PasswordRequirement.CAPITAL_LETTER,
+            PasswordRequirement.NUMBER
+        )
+
+        val enableAuthentication: Boolean = TRUE
+
+        composeTestRule.setContent {
+            ComposeEmailAuthenticationTheme {
+                AuthenticationForm(
+                    authenticationMode = SIGN_UP,
+                    onToggleMode = { },
+                    email = INPUT_CONTENT_EMAIL,
+                    onEmailChanged = { },
+                    password = INPUT_CONTENT_PASSWORD,
+                    onPasswordChanged = { },
+                    completedPasswordRequirements = satisfiedPasswordRequirements,
+                    enableAuthentication = enableAuthentication,
+                    onAuthenticate = { }
+                )
+            }
+        }
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_satisfied_characters)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_characters),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_satisfied_capital)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_capital),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(
+                matcher = hasTestTag(
+                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                            mContext.getString(R.string.test_password_requirement_satisfied_digit)
+                ).and(
+                    other = hasTextExactly(
+                        mContext.getString(R.string.password_requirement_digit),
+                        includeEditableText = FALSE
+                    )
+                ),
+                // The argument was added because .testTag(tag = TAG_AUTHENTICATION_CONTENT).semantics(mergeDescendants = true){}
+                // was added to the modifier in the Box composable in
+                // app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/AuthenticationContent.kt
+                useUnmergedTree = TRUE
+            )
+            .assertIsDisplayed()
+
+    }
 
 }
