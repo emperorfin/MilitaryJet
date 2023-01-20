@@ -40,13 +40,22 @@ import org.junit.Test
 
 
 /**
+ * The tests in this class are a subset of the ones in the [AuthenticationScreenTest] class but with
+ * the tests in this class focused on testing the [AuthenticationContent] composable instead of
+ * [AuthenticationScreen] composable.
+ *
+ * Also, the other tests in the [AuthenticationScreenTest] class that are excluded in this class are
+ * the ones that includes things like performing click and text input operations. Such tests shouldn't
+ * be included in a non-screen composable test class as, in my opinion, it's not a good compose UI
+ * test practice.
+ *
  * Requirement:
  *
  * - The number 1 requirement for all the test cases in this class to pass when they should is to
  * call ".semantics(mergeDescendants = true){}" without quotes on the Modifier object of the Box
  * composable inside of [AuthenticationContent]. This was commented out since, in my opinion, not a
  * good practice.
- * - For a clean version of this class, see [AuthenticationContentTest2] (coming soon).
+ * - For a clean version of this class, see [AuthenticationContentTest2].
  *
  * Important:
  *
@@ -791,7 +800,7 @@ class AuthenticationContentTest {
     fun already_Have_Account_Button_Displayed() {
 
         val uiState = AuthenticationUiState(
-            authenticationMode = SIGN_UP,  // Same as default value
+            authenticationMode = SIGN_UP,
         )
 
         composeTestRule.setContent {
