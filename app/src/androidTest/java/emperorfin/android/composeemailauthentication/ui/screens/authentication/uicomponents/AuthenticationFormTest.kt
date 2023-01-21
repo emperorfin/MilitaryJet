@@ -7,15 +7,16 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import emperorfin.android.composeemailauthentication.test.R
 import emperorfin.android.composeemailauthentication.ui.res.theme.ComposeEmailAuthenticationTheme
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.AuthenticationScreen
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.AuthenticationScreenTest
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_IN
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_UP
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.stateholders.AuthenticationUiState
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_CONTENT
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_FORM_CONTENT_AREA
-import org.junit.Assert.*
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -28,6 +29,16 @@ import org.junit.Test
 
 
 /**
+ * The tests in this class are a subset of the ones in the [AuthenticationContentTest] class but with
+ * the tests in this class focused on testing the [AuthenticationForm] composable instead of
+ * [AuthenticationContent] composable.
+ *
+ * Also, the other tests in the [AuthenticationContentTest] class that are excluded in this class are
+ * the ones that includes testing for error dialog (and error state) and progress indicator (and
+ * loading state). These tests are excluded in this class since the [AuthenticationForm] composable
+ * which is under test doesn't include the error dialog and progress indicator composables
+ * (or components).
+ *
  * Important:
  *
  * - Try not to run all the test cases by running this test class as some tests might fail. If you do
@@ -399,7 +410,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
                 ).and(
                     // Optional but recommended.
                     // This is just to confirm the screen since components like EmailInput (others are
@@ -451,7 +462,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
                 ).and(
                     // Optional but recommended.
                     // This is just to confirm the screen since components like EmailInput (others are
@@ -503,7 +514,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
                 ).and(
                     // Optional but recommended.
                     // This is just to confirm the screen since components like EmailInput (others are
@@ -561,7 +572,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
                 ).and(
                     // Optional but recommended.
                     // This is just to confirm the screen since components like EmailInput (others are
@@ -613,7 +624,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
                 ).and(
                     // Optional but recommended.
                     // This is just to confirm the screen since components like EmailInput (others are
@@ -665,7 +676,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
                 ).and(
                     // Optional but recommended.
                     // This is just to confirm the screen since components like EmailInput (others are
@@ -723,7 +734,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
                 ).and(
                     // Optional but recommended.
                     // This is just to confirm the screen since components like EmailInput (others are
@@ -775,7 +786,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
                 ).and(
                     // Optional but recommended.
                     // This is just to confirm the screen since components like EmailInput (others are
@@ -827,7 +838,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
                 ).and(
                     // Optional but recommended.
                     // This is just to confirm the screen since components like EmailInput (others are
@@ -875,7 +886,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
                 ).and(
                     // Optional but recommended.
                     // This is just to confirm the screen since components like EmailInput (others are
@@ -923,7 +934,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.password_requirement_characters)
                 ).and(
                     other = hasTextExactly(
@@ -938,7 +949,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.password_requirement_capital)
                 ).and(
                     other = hasTextExactly(
@@ -953,7 +964,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.password_requirement_digit)
                 ).and(
                     other = hasTextExactly(
@@ -997,7 +1008,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_needed_characters)
                 ).and(
                     other = hasTextExactly(
@@ -1015,7 +1026,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_needed_capital)
                 ).and(
                     other = hasTextExactly(
@@ -1033,7 +1044,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_needed_digit)
                 ).and(
                     other = hasTextExactly(
@@ -1076,7 +1087,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.password_requirement_characters)
                 ).and(
                     other = hasTextExactly(
@@ -1091,7 +1102,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.password_requirement_capital)
                 ).and(
                     other = hasTextExactly(
@@ -1106,7 +1117,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.password_requirement_digit)
                 ).and(
                     other = hasTextExactly(
@@ -1152,7 +1163,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_satisfied_characters)
                 ).and(
                     other = hasTextExactly(
@@ -1167,7 +1178,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_needed_capital)
                 ).and(
                     other = hasTextExactly(
@@ -1182,7 +1193,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_needed_digit)
                 ).and(
                     other = hasTextExactly(
@@ -1222,7 +1233,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.password_requirement_characters)
                 ).and(
                     other = hasTextExactly(
@@ -1237,7 +1248,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.password_requirement_capital)
                 ).and(
                     other = hasTextExactly(
@@ -1252,7 +1263,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.password_requirement_digit)
                 ).and(
                     other = hasTextExactly(
@@ -1298,7 +1309,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_needed_characters)
                 ).and(
                     other = hasTextExactly(
@@ -1316,7 +1327,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_satisfied_capital)
                 ).and(
                     other = hasTextExactly(
@@ -1334,7 +1345,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_needed_digit)
                 ).and(
                     other = hasTextExactly(
@@ -1377,7 +1388,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.password_requirement_characters)
                 ).and(
                     other = hasTextExactly(
@@ -1392,7 +1403,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.password_requirement_capital)
                 ).and(
                     other = hasTextExactly(
@@ -1407,7 +1418,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.password_requirement_digit)
                 ).and(
                     other = hasTextExactly(
@@ -1453,7 +1464,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_needed_characters)
                 ).and(
                     other = hasTextExactly(
@@ -1471,7 +1482,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_needed_capital)
                 ).and(
                     other = hasTextExactly(
@@ -1489,7 +1500,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_satisfied_digit)
                 ).and(
                     other = hasTextExactly(
@@ -1536,7 +1547,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.password_requirement_characters)
                 ).and(
                     other = hasTextExactly(
@@ -1551,7 +1562,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.password_requirement_capital)
                 ).and(
                     other = hasTextExactly(
@@ -1566,7 +1577,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.password_requirement_digit)
                 ).and(
                     other = hasTextExactly(
@@ -1616,7 +1627,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_satisfied_characters)
                 ).and(
                     other = hasTextExactly(
@@ -1634,7 +1645,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_satisfied_capital)
                 ).and(
                     other = hasTextExactly(
@@ -1652,7 +1663,7 @@ class AuthenticationFormTest {
         composeTestRule
             .onNode(
                 matcher = hasTestTag(
-                    testTag = Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
+                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
                             mContext.getString(R.string.test_password_requirement_satisfied_digit)
                 ).and(
                     other = hasTextExactly(
