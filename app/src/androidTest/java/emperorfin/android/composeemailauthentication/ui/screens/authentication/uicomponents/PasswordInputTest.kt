@@ -14,7 +14,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.test.platform.app.InstrumentationRegistry
-import com.google.common.truth.Truth.assertThat
 import emperorfin.android.composeemailauthentication.test.R
 import emperorfin.android.composeemailauthentication.ui.extensions.semanticsmatcher.*
 import emperorfin.android.composeemailauthentication.ui.res.theme.ComposeEmailAuthenticationTheme
@@ -23,7 +22,6 @@ import emperorfin.android.composeemailauthentication.ui.screens.authentication.s
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON_PASSWORD_HIDDEN
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -40,6 +38,8 @@ import org.mockito.kotlin.verify
 
 
 /**
+ * For a clean version of this class, see [PasswordInputTest2]
+ *
  * Important:
  *
  * - Try not to run all the test cases by running this test class as some tests might fail. If you do
@@ -427,7 +427,7 @@ class PasswordInputTest {
     }
 
     @Test
-    fun input_Trailing_Icon_Click_Label_Exists_By_Default() {
+    fun input_Trailing_Icon_Click_Label_To_Show_Password_Exists_By_Default() {
 
         val uiState = AuthenticationUiState()
 
@@ -456,7 +456,7 @@ class PasswordInputTest {
     }
 
     @Test
-    fun input_Trailing_Icon_Click_Label_Exists_By_Default_2() {
+    fun input_Trailing_Icon_Click_Label_To_Show_Password_Exists_By_Default_2() {
 
         val uiState = AuthenticationUiState()
 
@@ -487,7 +487,7 @@ class PasswordInputTest {
     }
 
     @Test
-    fun input_Trailing_Icon_Click_Label_Changed_When_Trailing_Icon_Clicked() {
+    fun input_Trailing_Icon_Click_Label_Changed_To_Hide_Password_When_Trailing_Icon_Clicked() {
 
         val uiState = AuthenticationUiState()
 
@@ -553,7 +553,7 @@ class PasswordInputTest {
     }
 
     @Test
-    fun input_Trailing_Icon_Click_Label_Changed_When_Trailing_Icon_Clicked_2() {
+    fun input_Trailing_Icon_Click_Label_Changed_To_Hide_Password_When_Trailing_Icon_Clicked_2() {
 
         val uiState = AuthenticationUiState()
 
@@ -632,7 +632,7 @@ class PasswordInputTest {
     }
 
     @Test
-    fun input_Trailing_Icon_Click_Label_Changed_When_Trailing_Icon_Clicked_3() {
+    fun input_Trailing_Icon_Click_Label_Changed_To_Hide_Password_When_Trailing_Icon_Clicked_3() {
 
         val uiState = AuthenticationUiState()
 
@@ -727,7 +727,7 @@ class PasswordInputTest {
     }
 
     @Test
-    fun input_Trailing_Icon_Image_Vector_Displayed_By_Default() {
+    fun input_Trailing_Icon_Image_Vector_To_Show_Password_Displayed_By_Default() {
 
         val uiState = AuthenticationUiState()
 
@@ -754,7 +754,7 @@ class PasswordInputTest {
     }
 
     @Test
-    fun input_Trailing_Icon_Image_Vector_Displayed_By_Default_2() {
+    fun input_Trailing_Icon_Image_Vector_To_Show_Password_Displayed_By_Default_2() {
 
         val uiState = AuthenticationUiState()
 
@@ -783,7 +783,7 @@ class PasswordInputTest {
     }
 
     @Test
-    fun input_Trailing_Icon_Image_Vector_Changed_When_Trailing_Icon_Clicked() {
+    fun input_Trailing_Icon_Image_Vector_Changed_To_Hide_Password_When_Trailing_Icon_Clicked() {
 
         val uiState = AuthenticationUiState()
 
@@ -843,7 +843,7 @@ class PasswordInputTest {
     }
 
     @Test
-    fun input_Trailing_Icon_Image_Vector_Changed_When_Trailing_Icon_Clicked_2() {
+    fun input_Trailing_Icon_Image_Vector_Changed_To_Hide_Password_When_Trailing_Icon_Clicked_2() {
 
         val uiState = AuthenticationUiState()
 
@@ -916,7 +916,7 @@ class PasswordInputTest {
     }
 
     @Test
-    fun input_Trailing_Icon_Image_Vector_Changed_When_Trailing_Icon_Clicked_3() {
+    fun input_Trailing_Icon_Image_Vector_Changed_To_Hide_Password_When_Trailing_Icon_Clicked_3() {
 
         val uiState = AuthenticationUiState()
 
@@ -1963,10 +1963,10 @@ class PasswordInputTest {
      * test approach.
      *
      * This is a useful test if you want to quickly cover test cases such as the following:
-     * [input_Trailing_Icon_Click_Label_Exists_By_Default],
-     * [input_Trailing_Icon_Click_Label_Changed_When_Trailing_Icon_Clicked],
-     * [input_Trailing_Icon_Image_Vector_Displayed_By_Default],
-     * [input_Trailing_Icon_Image_Vector_Changed_When_Trailing_Icon_Clicked],
+     * [input_Trailing_Icon_Click_Label_To_Show_Password_Exists_By_Default],
+     * [input_Trailing_Icon_Click_Label_Changed_To_Hide_Password_When_Trailing_Icon_Clicked],
+     * [input_Trailing_Icon_Image_Vector_To_Show_Password_Displayed_By_Default],
+     * [input_Trailing_Icon_Image_Vector_Changed_To_Hide_Password_When_Trailing_Icon_Clicked],
      * [input_Trailing_Icon_Content_Description_For_Hidden_Password_Exists_By_Default]
      *
      * But I wouldn't recommend this testing approach as it's not test granularity. Test granularity
@@ -2008,6 +2008,13 @@ class PasswordInputTest {
 
     }
 
+    @Test
+    fun input_Toggling_Between_Password_Visual_Transformation_From_When_Enabled_To_Disabled_To_Enabled() {
+        /**
+         * TODO: See already implemented corresponding (clean) test function in [PasswordInputTest2]
+         */
+    }
+
     /**
      * For this test to pass, from the file app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/PasswordInput.kt ,
      * uncomment the testTag(tag = TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON_PASSWORD_HIDDEN + isPasswordHidden)
@@ -2016,10 +2023,10 @@ class PasswordInputTest {
      * test approach.
      *
      * This is a useful test if you want to quickly cover test cases such as the following:
-     * [input_Trailing_Icon_Click_Label_Exists_By_Default],
-     * [input_Trailing_Icon_Click_Label_Changed_When_Trailing_Icon_Clicked],
-     * [input_Trailing_Icon_Image_Vector_Displayed_By_Default],
-     * [input_Trailing_Icon_Image_Vector_Changed_When_Trailing_Icon_Clicked],
+     * [input_Trailing_Icon_Click_Label_To_Show_Password_Exists_By_Default],
+     * [input_Trailing_Icon_Click_Label_Changed_To_Hide_Password_When_Trailing_Icon_Clicked],
+     * [input_Trailing_Icon_Image_Vector_To_Show_Password_Displayed_By_Default],
+     * [input_Trailing_Icon_Image_Vector_Changed_To_Hide_Password_When_Trailing_Icon_Clicked],
      * [input_Trailing_Icon_Content_Description_For_Hidden_Password_Exists_By_Default]
      *
      * But I wouldn't recommend this testing approach as it's not test granularity. Test granularity
