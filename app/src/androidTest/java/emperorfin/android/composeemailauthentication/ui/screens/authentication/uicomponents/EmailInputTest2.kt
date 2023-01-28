@@ -61,6 +61,8 @@ class EmailInputTest2 {
 
         private const val INPUT_CONTENT_EMAIL_EMPTY: String = ""
         private const val INPUT_CONTENT_EMAIL: String = "contact@email.com"
+        private const val INPUT_CONTENT_EMAIL_PREFIXED: String = "contact@email.co"
+        private const val INPUT_CONTENT_EMAIL_SUFFIXED: String = ".uk"
 
     }
 
@@ -131,12 +133,7 @@ class EmailInputTest2 {
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.label_email),
-                includeEditableText = FALSE
-            )
-        )
+        onNodeWithEmailInput()
             .assertIsDisplayed()
 
     }
@@ -160,6 +157,7 @@ class EmailInputTest2 {
     }
 
     private fun onNodeWithEmailInputAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
         useUnmergedTree: Boolean = FALSE,
         otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
@@ -173,6 +171,29 @@ class EmailInputTest2 {
                 ),
                 useUnmergedTree = useUnmergedTree
             )
+
+    }
+
+    private fun onNodeWithEmailInput(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        // Works
+//        return onNodeWithEmailInputAnd(
+//            otherMatcher = hasText(
+//                mContext.getString(R.string.label_email)
+//            ),
+//            useUnmergedTree = useUnmergedTree
+//        )
+
+        // Recommended
+        return onNodeWithEmailInputAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.label_email),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
 
     }
 
@@ -314,8 +335,8 @@ class EmailInputTest2 {
     @Test
     fun email_Changed_Callback_Triggered() {
 
-        val emailAddress = "contact@email.co"
-        val appendedText = ".uk"
+        val emailAddress = INPUT_CONTENT_EMAIL_PREFIXED
+        val appendedText = INPUT_CONTENT_EMAIL_SUFFIXED
 
         val onEmailChanged: (email: String) -> Unit = mock()
 
@@ -324,11 +345,7 @@ class EmailInputTest2 {
             onEmailChanged = onEmailChanged
         )
 
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasText(
-                mContext.getString(R.string.label_email)
-            )
-        )
+        onNodeWithEmailInput()
             .apply {
                 performTextInputSelection(
                     selection = TextRange(emailAddress.length)
@@ -349,8 +366,8 @@ class EmailInputTest2 {
     @Test
     fun email_Changed_Callback_Triggered_WithoutMockito() {
 
-        val emailAddress = "contact@email.co"
-        val appendedText = ".uk"
+        val emailAddress = INPUT_CONTENT_EMAIL_PREFIXED
+        val appendedText = INPUT_CONTENT_EMAIL_SUFFIXED
         var emailAddressNew = ""
 
         var isClicked = FALSE
@@ -366,11 +383,7 @@ class EmailInputTest2 {
             onEmailChanged = onEmailChanged
         )
 
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasText(
-                mContext.getString(R.string.label_email)
-            )
-        )
+        onNodeWithEmailInput()
             .apply {
                 performTextInputSelection(
                     selection = TextRange(emailAddress.length)
@@ -397,12 +410,7 @@ class EmailInputTest2 {
             onNextClicked = onNextClicked
         )
 
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.label_email),
-                includeEditableText = FALSE
-            )
-        )
+        onNodeWithEmailInput()
             .apply {
                 // Optional
                 performTextInput(
@@ -430,12 +438,7 @@ class EmailInputTest2 {
             }
         )
 
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.label_email),
-                includeEditableText = FALSE
-            )
-        )
+        onNodeWithEmailInput()
             .apply {
                 // Optional
                 performTextInput(

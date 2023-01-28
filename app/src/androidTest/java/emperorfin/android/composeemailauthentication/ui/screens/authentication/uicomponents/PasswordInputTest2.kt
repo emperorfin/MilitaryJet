@@ -175,19 +175,21 @@ class PasswordInputTest2 {
     }
 
     private fun onNodeWithPasswordInput(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
+        useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordInputAnd(
             otherMatcher = hasTextExactly(
                 mContext.getString(R.string.label_password),
                 includeEditableText = FALSE
-            )
+            ),
+            useUnmergedTree = useUnmergedTree
         )
 
     }
 
     private fun onNodeWithPasswordInputAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
         useUnmergedTree: Boolean = FALSE,
         otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
@@ -205,7 +207,8 @@ class PasswordInputTest2 {
     }
 
     private fun onNodeWithPasswordInputTrailingIconWhenPasswordHidden(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return composeTestRule
@@ -219,13 +222,15 @@ class PasswordInputTest2 {
                             R.string.content_description_password_input_trailing_icon_password_hidden
                         )
                     )
-                )
+                ),
+                useUnmergedTree = useUnmergedTree
             )
 
     }
 
     private fun onNodeWithPasswordInputTrailingIconWhenPasswordShown(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return composeTestRule
@@ -239,13 +244,14 @@ class PasswordInputTest2 {
                             R.string.content_description_password_input_trailing_icon_password_shown
                         )
                     )
-                )
+                ),
+                useUnmergedTree = useUnmergedTree
             )
 
     }
 
     private fun onNodeWithPasswordInputTrailingIconClickLabelToShowPassword(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
+        useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordInputAnd(
@@ -253,13 +259,14 @@ class PasswordInputTest2 {
                 trailingIconClickLabel = mContext.getString(
                     R.string.content_description_show_password
                 )
-            )
+            ),
+            useUnmergedTree = useUnmergedTree
         )
 
     }
 
     private fun onNodeWithPasswordInputTrailingIconClickLabelToHidePassword(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
+        useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordInputAnd(
@@ -267,37 +274,40 @@ class PasswordInputTest2 {
                 trailingIconClickLabel = mContext.getString(
                     R.string.content_description_hide_password
                 )
-            )
+            ),
+            useUnmergedTree = useUnmergedTree
         )
 
     }
 
     private fun onNodeWithPasswordInputTrailingIconImageVectorToShowPassword(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
+        useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordInputAnd(
             otherMatcher = hasTextFieldTrailingIconImageVector(
                 trailingIconImageVector = Icons.Default.Visibility
-            )
+            ),
+            useUnmergedTree = useUnmergedTree
         )
 
     }
 
     private fun onNodeWithPasswordInputTrailingIconImageVectorToHidePassword(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
+        useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordInputAnd(
             otherMatcher = hasTextFieldTrailingIconImageVector(
                 trailingIconImageVector = Icons.Default.VisibilityOff
-            )
+            ),
+            useUnmergedTree = useUnmergedTree
         )
 
     }
 
     private fun onNodeWithPasswordInputTrailingIconContentDescriptionWhenPasswordShown(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
+        useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordInputAnd(
@@ -305,13 +315,14 @@ class PasswordInputTest2 {
                 trailingIconContentDescription = mContext.getString(
                     R.string.content_description_password_input_trailing_icon_password_shown
                 )
-            )
+            ),
+            useUnmergedTree = useUnmergedTree
         )
 
     }
 
     private fun onNodeWithPasswordInputTrailingIconContentDescriptionWhenPasswordHidden(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
+        useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordInputAnd(
@@ -319,67 +330,73 @@ class PasswordInputTest2 {
                 trailingIconContentDescription = mContext.getString(
                     R.string.content_description_password_input_trailing_icon_password_hidden
                 )
-            )
+            ),
+            useUnmergedTree = useUnmergedTree
         )
 
     }
 
     private fun onNodeWithPasswordInputWhenPasswordVisualTransformationDisabled(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
+        useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordInputAnd(
             otherMatcher = hasTextFieldVisualTransformation(
                 visualTransformation = VisualTransformation.None
-            )
+            ),
+            useUnmergedTree = useUnmergedTree
         )
 
     }
 
     private fun onNodeWithPasswordInputWhenPasswordVisualTransformationEnabled(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
+        useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordInputAnd(
             otherMatcher = hasTextFieldVisualTransformation(
                 visualTransformation = PasswordVisualTransformation()
-            )
+            ),
+            useUnmergedTree = useUnmergedTree
         )
 
     }
 
     private fun onNodeWithPasswordInputSingleLineTrue(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
+        useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordInputAnd(
             otherMatcher = hasTextFieldSingleLine(
                 singleLine = TRUE
-            )
+            ),
+            useUnmergedTree = useUnmergedTree
         )
 
     }
 
     private fun onNodeWithPasswordInputKeyboardOptionsKeyboardTypePassword(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
+        useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordInputAnd(
             otherMatcher = hasTextFieldKeyboardOptionsKeyboardType(
                 keyboardOptionsKeyboardType = KeyboardType.Password
-            )
+            ),
+            useUnmergedTree = useUnmergedTree
         )
 
     }
 
     private fun onNodeWithPasswordInputKeyboardOptionsImeActionDone(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
+        useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordInputAnd(
             otherMatcher = hasTextFieldKeyboardOptionsImeAction(
                 keyboardOptionsImeAction = ImeAction.Done
-            )
+            ),
+            useUnmergedTree = useUnmergedTree
         )
 
     }
