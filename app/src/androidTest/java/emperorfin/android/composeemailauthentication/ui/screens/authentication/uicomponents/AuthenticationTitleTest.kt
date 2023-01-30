@@ -24,6 +24,8 @@ import org.junit.Test
 
 
 /**
+ * For a clean version of this class, see [AuthenticationTitleTest2]
+ *
  * Notes:
  *
  * - If you ever need to pass a resource (e.g. a string resource) into a composable during testing,
