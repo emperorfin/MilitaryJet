@@ -95,6 +95,9 @@ fun hasAlertDialogTitle(alertDialogTitle: String): SemanticsMatcher =
 fun hasAlertDialogText(alertDialogText: String): SemanticsMatcher =
     SemanticsMatcher.expectValue(AlertDialogTextSemantics, alertDialogText)
 
+/**
+ * TODO: Rename [hasAlertDialogConfirmButtonText] to hasAlertDialogConfirmButtonAction
+ */
 fun hasAlertDialogConfirmButtonText(alertDialogConfirmButtonText: String): SemanticsMatcher =
     SemanticsMatcher.expectValue(AlertDialogConfirmButtonTextSemantics, alertDialogConfirmButtonText)
 
