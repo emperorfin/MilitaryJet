@@ -118,9 +118,9 @@ class AuthenticationErrorDialogTest2 {
     }
 
     private fun setContentAsAuthenticationErrorDialog(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        composeTestRule: ComposeContentTestRule,
         @StringRes error: Int,
-        onDismissError: () -> Unit = { }
+        onDismissError: () -> Unit
     ) {
 
         composeTestRule.setContent {

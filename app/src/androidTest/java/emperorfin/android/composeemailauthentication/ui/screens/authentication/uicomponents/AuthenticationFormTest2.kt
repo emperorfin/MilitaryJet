@@ -133,12 +133,12 @@ class AuthenticationFormTest2 {
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
     private fun setContentAsAuthenticationForm(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        composeTestRule: ComposeContentTestRule,
         authenticationMode: AuthenticationMode,
-        email: String? = NULL,
-        password: String? = NULL,
-        passwordRequirements: List<PasswordRequirement> = emptyList(),
-        enableAuthentication: Boolean = FALSE
+        email: String?,
+        password: String?,
+        passwordRequirements: List<PasswordRequirement>,
+        enableAuthentication: Boolean
     ) {
 
         composeTestRule.setContent {

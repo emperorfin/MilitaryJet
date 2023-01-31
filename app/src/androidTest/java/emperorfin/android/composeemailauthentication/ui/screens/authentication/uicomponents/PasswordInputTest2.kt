@@ -121,11 +121,11 @@ class PasswordInputTest2 {
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
     private fun setContentAsPasswordInput(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        passwordVisualTransformation: VisualTransformation = PasswordVisualTransformation(),
-        password: String? = NULL,
-        onPasswordChanged: (password: String) -> Unit = { },
-        onDoneClicked: () -> Unit = { }
+        composeTestRule: ComposeContentTestRule,
+        passwordVisualTransformation: VisualTransformation,
+        password: String?,
+        onPasswordChanged: (password: String) -> Unit,
+        onDoneClicked: () -> Unit
     ) {
 
         composeTestRule.setContent {

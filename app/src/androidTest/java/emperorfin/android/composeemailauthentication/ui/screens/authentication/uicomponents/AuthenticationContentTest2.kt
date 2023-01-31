@@ -141,13 +141,13 @@ class AuthenticationContentTest2 {
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
     private fun setContentAsAuthenticationContent(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        composeTestRule: ComposeContentTestRule,
         authenticationMode: AuthenticationMode,
-        email: String? = NULL,
-        password: String? = NULL,
-        passwordRequirements: List<PasswordRequirement> = emptyList(),
-        isLoading: Boolean = FALSE,
-        @StringRes error: Int? = NULL
+        email: String?,
+        password: String?,
+        passwordRequirements: List<PasswordRequirement>,
+        isLoading: Boolean,
+        @StringRes error: Int?
     ) {
 
         val uiState = AuthenticationUiState(
@@ -1063,8 +1063,13 @@ class AuthenticationContentTest2 {
 //        )
 
         setContentAsAuthenticationContent(
+            composeTestRule = composeTestRule,
             authenticationMode = SIGN_IN,
-            isLoading = TRUE
+            isLoading = TRUE,
+            email = NULL,
+            password = NULL,
+            passwordRequirements = emptyList(),
+            error = NULL
         )
 
         assertAuthenticationContentIsDisplayed()
@@ -1098,8 +1103,13 @@ class AuthenticationContentTest2 {
 //        )
 
         setContentAsAuthenticationContent(
+            composeTestRule = composeTestRule,
             authenticationMode = SIGN_UP,
-            isLoading = TRUE
+            isLoading = TRUE,
+            email = NULL,
+            password = NULL,
+            passwordRequirements = emptyList(),
+            error = NULL
         )
 
         assertAuthenticationContentIsDisplayed()

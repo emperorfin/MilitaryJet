@@ -110,7 +110,7 @@ class AuthenticationTitleTest2 {
     }
 
     private fun setContentAsAuthenticationTitle(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        composeTestRule: ComposeContentTestRule,
         authenticationMode: AuthenticationMode
     ) {
 

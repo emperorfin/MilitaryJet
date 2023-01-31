@@ -107,10 +107,10 @@ class EmailInputTest2 {
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
     private fun setContentAsEmailInput(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        email: String? = NULL,
-        onEmailChanged: (email: String) -> Unit = { },
-        onNextClicked: () -> Unit = { }
+        composeTestRule: ComposeContentTestRule,
+        email: String?,
+        onEmailChanged: (email: String) -> Unit,
+        onNextClicked: () -> Unit
     ) {
 
         composeTestRule.setContent {

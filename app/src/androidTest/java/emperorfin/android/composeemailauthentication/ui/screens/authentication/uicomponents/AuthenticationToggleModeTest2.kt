@@ -118,7 +118,7 @@ class AuthenticationToggleModeTest2 {
     }
 
     private fun setContentAsAuthenticationToggleMode(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        composeTestRule: ComposeContentTestRule,
         authenticationMode: AuthenticationMode,
         toggleAuthentication: () -> Unit
     ) {

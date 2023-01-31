@@ -98,10 +98,10 @@ class AuthenticationButtonTest2 {
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
     private fun setContentAsAuthenticationButton(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        composeTestRule: ComposeContentTestRule,
         authenticationMode: AuthenticationMode,
         enableAuthentication: Boolean,
-        onAuthenticate: () -> Unit = { }
+        onAuthenticate: () -> Unit
     ) {
 
         composeTestRule.setContent {
