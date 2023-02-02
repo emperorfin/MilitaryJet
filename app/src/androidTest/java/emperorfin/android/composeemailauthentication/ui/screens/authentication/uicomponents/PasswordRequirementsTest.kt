@@ -27,6 +27,8 @@ import org.junit.Test
 
 
 /**
+ * For a clean version of this class, see [PasswordRequirementsTest2]
+ *
  * Important:
  *
  * - Try not to run all the test cases by running this test class as some tests might fail. If you do

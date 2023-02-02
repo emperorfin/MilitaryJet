@@ -3,10 +3,12 @@ package emperorfin.android.composeemailauthentication.ui.screens.authentication.
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import emperorfin.android.composeemailauthentication.ui.res.theme.ComposeEmailAuthenticationTheme
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENTS
 
 
 /**
@@ -22,7 +24,7 @@ fun PasswordRequirements(
 ) {
     
     Column(
-        modifier = modifier
+        modifier = modifier.testTag(tag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENTS)
     ) {
         PasswordRequirement.values().forEach { requirement ->
             Requirement(

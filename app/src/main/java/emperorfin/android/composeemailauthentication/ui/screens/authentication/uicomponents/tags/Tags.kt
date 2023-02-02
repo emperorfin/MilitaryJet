@@ -21,6 +21,7 @@ object Tags {
     const val TAG_AUTHENTICATION_FORM_CONTENT_AREA: String = "ui.screens.authentication.uicomponents.authentication-form-content-area"
     const val TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON: String = "ui.screens.authentication.uicomponents.authentication-input-password-trailing-icon"
     const val TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON_PASSWORD_HIDDEN: String = "ui.screens.authentication.uicomponents.authentication-input-password-trailing-icon-password-hidden-"
+    const val TAG_AUTHENTICATION_PASSWORD_REQUIREMENTS: String = "ui.screens.authentication.uicomponents.authentication-password-requirements"
     const val TAG_AUTHENTICATION_PASSWORD_REQUIREMENT: String = "ui.screens.authentication.uicomponents.authentication-password-requirement-"
     const val TAG_AUTHENTICATION_PASSWORD_REQUIREMENT_ICON: String = "ui.screens.authentication.uicomponents.authentication-password-requirement-icon"
     const val TAG_AUTHENTICATION_PASSWORD_REQUIREMENT_TEXT: String = "ui.screens.authentication.uicomponents.authentication-password-requirement-text"
