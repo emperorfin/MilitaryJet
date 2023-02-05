@@ -39,6 +39,12 @@ import emperorfin.android.composeemailauthentication.ui.screens.authentication.u
  */
 
 
+// TODO: Rename this composable from Requirement to PasswordRequirement and this should reflect in
+//  occurrences such as in utility function names such as setContentAsRequirement() (to
+//  setContentAsPasswordRequirement()) in
+//  app/src/androidTest/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/RequirementTest2.kt
+//  Also, the following file name should changes accordingly:
+//  app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
 @Composable
 fun Requirement(
     modifier: Modifier = Modifier,
