@@ -1,6 +1,7 @@
 package emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents
 
 import android.content.Context
+import androidx.annotation.StringRes
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -11,8 +12,6 @@ import emperorfin.android.composeemailauthentication.ui.screens.authentication.e
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_IN
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_UP
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.stateholders.AuthenticationUiState
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
 import org.junit.Assert.*
 import org.junit.Before
@@ -54,6 +53,11 @@ class AuthenticationButtonTest2 {
 
         private const val TRUE: Boolean = true
         private const val FALSE: Boolean = false
+
+        @StringRes
+        private const val ACTION_SIGN_IN: Int = R.string.action_sign_in
+        @StringRes
+        private const val ACTION_SIGN_UP: Int = R.string.action_sign_up
 
     }
 
@@ -97,6 +101,28 @@ class AuthenticationButtonTest2 {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
+    private fun setContentAsAuthenticationButtonAndAssertItIsDisplayed(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        authenticationMode: AuthenticationMode,
+        enableAuthentication: Boolean,
+        onAuthenticate: () -> Unit = { }
+    ) {
+
+        setContentAsAuthenticationButton(
+            composeTestRule = composeTestRule,
+            authenticationMode = authenticationMode,
+            enableAuthentication = enableAuthentication,
+            onAuthenticate = onAuthenticate
+        )
+
+        if (authenticationMode == SIGN_IN) {
+            assertAuthenticationButtonForSignInIsDisplayed()
+        } else if (authenticationMode == SIGN_UP) {
+            assertAuthenticationButtonForSignUpIsDisplayed()
+        }
+
+    }
+
     private fun setContentAsAuthenticationButton(
         composeTestRule: ComposeContentTestRule,
         authenticationMode: AuthenticationMode,
@@ -116,45 +142,20 @@ class AuthenticationButtonTest2 {
 
     }
 
-    private fun setContentAsAuthenticationButtonAndAssertItIsDisplayed(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        authenticationMode: AuthenticationMode,
-        enableAuthentication: Boolean,
-        onAuthenticate: () -> Unit = { }
-    ) {
-
-        setContentAsAuthenticationButton(
-            composeTestRule = composeTestRule,
-            authenticationMode = authenticationMode,
-            enableAuthentication = enableAuthentication,
-            onAuthenticate = onAuthenticate
-        )
-
-        if (authenticationMode == SIGN_IN) {
-            assertAuthenticationButtonForSignInActionIsDisplayed()
-        } else if (authenticationMode == SIGN_UP) {
-            assertAuthenticationButtonForSignUpActionIsDisplayed()
-        }
-
-    }
-
     /**
      * This should be called in all test cases immediately after composing the [AuthenticationButton]
      * composable in the [ComposeContentTestRule.setContent] whenever the [AuthenticationMode] is
      * [SIGN_IN]
      */
-    private fun assertAuthenticationButtonForSignInActionIsDisplayed(
+    private fun assertAuthenticationButtonForSignInIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
-        onNodeWithAuthenticationButtonForSignInAction()
+        onNodeWithAuthenticationButtonForSignIn()
             .apply {
                 assertIsDisplayed()
 
-                assertTextEquals(
-                    mContext.getString(R.string.action_sign_in),
-                    includeEditableText = FALSE
-                )
+                assertTextEqualsSignIn(this)
             }
 
     }
@@ -164,19 +165,38 @@ class AuthenticationButtonTest2 {
      * composable in the [ComposeContentTestRule.setContent] whenever the [AuthenticationMode] is
      * [SIGN_UP]
      */
-    private fun assertAuthenticationButtonForSignUpActionIsDisplayed(
+    private fun assertAuthenticationButtonForSignUpIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
-        onNodeWithAuthenticationButtonForSignUpAction()
+        onNodeWithAuthenticationButtonForSignUp()
             .apply {
                 assertIsDisplayed()
 
-                assertTextEquals(
-                    mContext.getString(R.string.action_sign_up),
-                    includeEditableText = FALSE
-                )
+                assertTextEqualsSignUp(this)
             }
+
+    }
+
+    private fun onNodeWithAuthenticationButtonForSignIn(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithAuthenticationButtonAnd(
+            otherMatcher = hasTextExactlySignIn(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithAuthenticationButtonForSignUp(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithAuthenticationButtonAnd(
+            otherMatcher = hasTextExactlySignUp(),
+            useUnmergedTree = useUnmergedTree
+        )
 
     }
 
@@ -188,9 +208,7 @@ class AuthenticationButtonTest2 {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
-                ).and(
+                matcher = hasTestTagAuthenticationButton().and(
                     other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
@@ -198,30 +216,53 @@ class AuthenticationButtonTest2 {
 
     }
 
-    private fun onNodeWithAuthenticationButtonForSignInAction(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    // Before using a semantics matcher, check the implementation of the utility functions in this
+    // section if it's already available to avoid duplication.
+    // The function names make the check easier.
+    private fun hasTestTagAuthenticationButton(): SemanticsMatcher {
 
-        return onNodeWithAuthenticationButtonAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.action_sign_in),
-                includeEditableText = FALSE
-            ),
-            useUnmergedTree = useUnmergedTree
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
         )
 
     }
 
-    private fun onNodeWithAuthenticationButtonForSignUpAction(
-        useUnmergedTree: Boolean = FALSE
+    private fun hasTextExactlySignUp(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(ACTION_SIGN_UP),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlySignIn(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(ACTION_SIGN_IN),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun assertTextEqualsSignUp(
+        semanticsNodeInteraction: SemanticsNodeInteraction
     ): SemanticsNodeInteraction {
 
-        return onNodeWithAuthenticationButtonAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.action_sign_up),
-                includeEditableText = FALSE
-            ),
-            useUnmergedTree = useUnmergedTree
+        return semanticsNodeInteraction.assertTextEquals(
+            mContext.getString(ACTION_SIGN_UP),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun assertTextEqualsSignIn(
+        semanticsNodeInteraction: SemanticsNodeInteraction
+    ): SemanticsNodeInteraction {
+
+        return semanticsNodeInteraction.assertTextEquals(
+            mContext.getString(ACTION_SIGN_IN),
+            includeEditableText = FALSE
         )
 
     }
@@ -268,7 +309,7 @@ class AuthenticationButtonTest2 {
             onAuthenticate = onAuthenticate
         )
 
-        onNodeWithAuthenticationButtonForSignInAction()
+        onNodeWithAuthenticationButtonForSignIn()
             .performClick()
 
         verify(
@@ -290,7 +331,7 @@ class AuthenticationButtonTest2 {
             }
         )
 
-        onNodeWithAuthenticationButtonForSignInAction()
+        onNodeWithAuthenticationButtonForSignIn()
             .performClick()
 
         assertTrue(isClicked)
@@ -308,7 +349,7 @@ class AuthenticationButtonTest2 {
             onAuthenticate = onAuthenticate
         )
 
-        onNodeWithAuthenticationButtonForSignUpAction()
+        onNodeWithAuthenticationButtonForSignUp()
             .performClick()
 
         verify(
@@ -330,7 +371,7 @@ class AuthenticationButtonTest2 {
             }
         )
 
-        onNodeWithAuthenticationButtonForSignUpAction()
+        onNodeWithAuthenticationButtonForSignUp()
             .performClick()
 
         assertTrue(isClicked)
@@ -345,7 +386,7 @@ class AuthenticationButtonTest2 {
             enableAuthentication = FALSE
         )
 
-        onNodeWithAuthenticationButtonForSignInAction()
+        onNodeWithAuthenticationButtonForSignIn()
             .apply {
                 assertIsDisplayed()
 
@@ -364,7 +405,7 @@ class AuthenticationButtonTest2 {
             enableAuthentication = TRUE
         )
 
-        onNodeWithAuthenticationButtonForSignInAction()
+        onNodeWithAuthenticationButtonForSignIn()
             .apply {
                 assertIsDisplayed()
 
@@ -381,7 +422,7 @@ class AuthenticationButtonTest2 {
             enableAuthentication = FALSE
         )
 
-        onNodeWithAuthenticationButtonForSignUpAction()
+        onNodeWithAuthenticationButtonForSignUp()
             .apply {
                 assertIsDisplayed()
 
@@ -398,7 +439,7 @@ class AuthenticationButtonTest2 {
             enableAuthentication = TRUE
         )
 
-        onNodeWithAuthenticationButtonForSignUpAction()
+        onNodeWithAuthenticationButtonForSignUp()
             .apply {
                 assertIsDisplayed()
 
