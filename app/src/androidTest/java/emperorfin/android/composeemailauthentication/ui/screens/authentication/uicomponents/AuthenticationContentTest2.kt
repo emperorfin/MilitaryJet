@@ -7,9 +7,10 @@ import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import emperorfin.android.composeemailauthentication.test.R
+import emperorfin.android.composeemailauthentication.ui.extensions.semanticsmatcher.hasAlertDialogTitle
+import emperorfin.android.composeemailauthentication.ui.extensions.semanticsmatcher.hasCircularProgressIndicatorColorArgb
 import emperorfin.android.composeemailauthentication.ui.res.theme.ComposeEmailAuthenticationTheme
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.AuthenticationScreen
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.AuthenticationScreenTest
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.AuthenticationScreenTest2
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_IN
@@ -23,9 +24,6 @@ import emperorfin.android.composeemailauthentication.ui.screens.authentication.u
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATION_TITLE
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_ERROR_DIALOG
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_EMAIL
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_PROGRESS
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
@@ -98,6 +96,17 @@ class AuthenticationContentTest2 {
         private const val MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE =
             emperorfin.android.composeemailauthentication.R.string.test_error_message
 
+        /**
+         * To easily find out the ARGB of a color to be used as the expected value during assertion,
+         * there are two approaches to do this:
+         *
+         * - you can either call toArgb() on the color object and then logcat the returned value or
+         * - you can just use any random assertion expected value, run the test case (which should
+         * fail) and then get and use (as the correct assertion expected value) the assertion actual
+         * value from the failed test error message (simplest approach).
+         */
+        private const val COLOR_ARGB_CIRCULAR_PROGRESS_INDICATOR_PRESET_COLOR: Int = -11576430
+
     }
 
     /**
@@ -140,6 +149,37 @@ class AuthenticationContentTest2 {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
+    private fun setContentAsAuthenticationContentAndAssertItIsDisplayed(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        authenticationMode: AuthenticationMode,
+        email: String? = NULL,
+        password: String? = NULL,
+        passwordRequirements: List<PasswordRequirement> = emptyList(),
+        isLoading: Boolean = FALSE,
+        @StringRes error: Int? = NULL
+    ) {
+
+        setContentAsAuthenticationContent(
+            composeTestRule = composeTestRule,
+            authenticationMode = authenticationMode,
+            email = email,
+            password = password,
+            passwordRequirements = passwordRequirements,
+            isLoading = isLoading,
+            error = error
+
+        )
+
+        assertAuthenticationContentIsDisplayed(composeTestRule)
+
+        if (authenticationMode == SIGN_IN) {
+            assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
+        } else if (authenticationMode == SIGN_UP) {
+            assertAuthenticationTitleAndTextExactlySignUpForAnAccountIsDisplayed()
+        }
+
+    }
+
     private fun setContentAsAuthenticationContent(
         composeTestRule: ComposeContentTestRule,
         authenticationMode: AuthenticationMode,
@@ -167,37 +207,6 @@ class AuthenticationContentTest2 {
                 )
             }
         }
-
-    }
-
-    /**
-     * This should be called in all test cases immediately after composing the [AuthenticationContent]
-     * composable in the [ComposeContentTestRule.setContent]
-     */
-    private fun assertAuthenticationContentIsDisplayed(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
-    ) {
-
-        onNodeWithAuthenticationContent()
-            .assertIsDisplayed()
-
-    }
-
-    private fun assertSignInTitleIsDisplayed(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
-    ) {
-
-        onNodeWithSignInTitle()
-            .assertIsDisplayed()
-
-    }
-
-    private fun assertSignUpTitleIsDisplayed(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
-    ) {
-
-        onNodeWithSignUpTitle()
-            .assertIsDisplayed()
 
     }
 
@@ -235,506 +244,714 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun setContentAsAuthenticationContentAndAssertItIsDisplayed(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        authenticationMode: AuthenticationMode,
-        email: String? = NULL,
-        password: String? = NULL,
-        passwordRequirements: List<PasswordRequirement> = emptyList(),
-        isLoading: Boolean = FALSE,
-        @StringRes error: Int? = NULL
+    /**
+     * This should be called in all test cases immediately after composing the [AuthenticationContent]
+     * composable in the [ComposeContentTestRule.setContent]
+     */
+    private fun assertAuthenticationContentIsDisplayed(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
-        setContentAsAuthenticationContent(
-            composeTestRule = composeTestRule,
-            authenticationMode = authenticationMode,
-            email = email,
-            password = password,
-            passwordRequirements = passwordRequirements,
-            isLoading = isLoading,
-            error = error
-
-        )
-
-        assertAuthenticationContentIsDisplayed(composeTestRule)
-
-        if (authenticationMode == SIGN_IN) {
-            assertSignInTitleIsDisplayed()
-        } else if (authenticationMode == SIGN_UP) {
-            assertSignUpTitleIsDisplayed()
-        }
+        onNodeWithAuthenticationContent()
+            .assertIsDisplayed()
 
     }
+
+    private fun assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule
+    ) {
+
+        onNodeWithAuthenticationTitleAndTextExactlySignInToYourAccount()
+            .assertIsDisplayed()
+
+    }
+
+    private fun assertAuthenticationTitleAndTextExactlySignUpForAnAccountIsDisplayed(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule
+    ) {
+
+        onNodeWithAuthenticationTitleAndTextExactlySignUpForAnAccount()
+            .assertIsDisplayed()
+
+    }
+
+    // ------- FOR ..._AnotherApproach()
+
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastEightCharactersNeededAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.password_requirement_characters),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.password_requirement_capital),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneDigitNeededAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.password_requirement_digit),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharacters(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.password_requirement_characters),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAndTextExactlyAtLeastOneUppercaseLetter(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.password_requirement_capital),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAndTextExactlyAtLeastOneDigit(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.password_requirement_digit),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    // ------- /FOR ..._AnotherApproach()
 
     private fun onNodeWithAuthenticationContent(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
+        val thisTextCouldBeAnything = ""
+
+        return onNodeWithAuthenticationContentAnd(
+            otherMatcher = hasTextExactly(
+                thisTextCouldBeAnything,
+                includeEditableText = FALSE
+            ).not(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithAuthenticationTitleAndTextExactlySignInToYourAccount(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithAuthenticationTitleAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.label_sign_in_to_account),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithAuthenticationTitleAndTextExactlySignUpForAnAccount(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithAuthenticationTitleAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.label_sign_up_for_account),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithAuthenticationButtonAndTextExactlySignIn(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithAuthenticationButtonAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.action_sign_in),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithAuthenticationButtonAndTextExactlySignUp(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithAuthenticationButtonAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.action_sign_up),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithAuthenticationToggleModeAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.action_need_account),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithAuthenticationToggleModeAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.action_already_have_account),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithAuthenticationErrorDialogAnd(
+            otherMatcher = hasAlertDialogTitle(
+                alertDialogTitle = mContext.getString(R.string.error_title)
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithCircularProgressIndicatorAnd(
+            otherMatcher = hasCircularProgressIndicatorColorArgb(
+                circularProgressIndicatorColorInArgb = COLOR_ARGB_CIRCULAR_PROGRESS_INDICATOR_PRESET_COLOR
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastEightCharactersAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.test_password_requirement_needed_characters),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.test_password_requirement_needed_capital),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneDigitAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.test_password_requirement_needed_digit),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfied(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastEightCharactersAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.test_password_requirement_satisfied_characters),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.test_password_requirement_satisfied_capital),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitSatisfied(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneDigitAnd(
+            otherMatcher = hasTextExactly(
+                mContext.getString(R.string.test_password_requirement_satisfied_digit),
+                includeEditableText = FALSE
+            ),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    // ------- FOR ..._AnotherApproach()
+
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersNeededAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
+    ): SemanticsNodeInteraction {
+
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_CONTENT
+                matcher = hasTestTagsPasswordRequirementAndAtLeastEightCharactersNeeded().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithSignInTitle(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-                ).and(
-                    // Optional but recommended.
-                    // This is just to confirm the screen since components like EmailInput (others are
-                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
-                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
-                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
-                    // So it best to uniquely identify a component when used in more than one screen or modes.
-                    // TODO:
-                    //  To uniquely identify a composable which is being used in multiple screens, its best to
-                    //  assign each screen a screen tag to be used as sub-tags for the composable.
-                    //  That way, when a screen that is being tested with the composable passes, you are sure
-                    //  that the composable was uniquely identified for that particular screen and not just any
-                    //  screen. This means that that particular screen is properly tested.
-                    other = hasTextExactly(
-                        mContext.getString(R.string.label_sign_in_to_account),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetterNeeded().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithSignUpTitle(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithPasswordRequirementAtLeastOneDigitNeededAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-                ).and(
-                    // Optional but recommended.
-                    // This is just to confirm the screen since components like EmailInput (others are
-                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
-                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
-                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
-                    // So it best to uniquely identify a component when used in more than one screen or modes.
-                    // TODO:
-                    //  To uniquely identify a composable which is being used in multiple screens, its best to
-                    //  assign each screen a screen tag to be used as sub-tags for the composable.
-                    //  That way, when a screen that is being tested with the composable passes, you are sure
-                    //  that the composable was uniquely identified for that particular screen and not just any
-                    //  screen. This means that that particular screen is properly tested.
-                    other = hasTextExactly(
-                        mContext.getString(R.string.label_sign_up_for_account),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagsPasswordRequirementAndAtLeastOneDigitNeeded().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithSignInButton(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
-                ).and(
-                    // Optional but recommended.
-                    // This is just to confirm the screen since components like EmailInput (others are
-                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
-                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
-                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
-                    // So it best to uniquely identify a component when used in more than one screen or modes.
-                    // TODO:
-                    //  To uniquely identify a composable which is being used in multiple screens, its best to
-                    //  assign each screen a screen tag to be used as sub-tags for the composable.
-                    //  That way, when a screen that is being tested with the composable passes, you are sure
-                    //  that the composable was uniquely identified for that particular screen and not just any
-                    //  screen. This means that that particular screen is properly tested.
-                    other = hasTextExactly(
-                        mContext.getString(R.string.action_sign_in),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagsPasswordRequirementAndAtLeastEightCharactersSatisfied().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithSignUpButton(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
-                ).and(
-                    // Optional but recommended.
-                    // This is just to confirm the screen since components like EmailInput (others are
-                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
-                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
-                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
-                    // So it best to uniquely identify a component when used in more than one screen or modes.
-                    // TODO:
-                    //  To uniquely identify a composable which is being used in multiple screens, its best to
-                    //  assign each screen a screen tag to be used as sub-tags for the composable.
-                    //  That way, when a screen that is being tested with the composable passes, you are sure
-                    //  that the composable was uniquely identified for that particular screen and not just any
-                    //  screen. This means that that particular screen is properly tested.
-                    other = hasTextExactly(
-                        mContext.getString(R.string.action_sign_up),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetterSatisfied().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithNeedAccountButton(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
-                ).and(
-                    // Optional but recommended.
-                    // This is just to confirm the screen since components like EmailInput (others are
-                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
-                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
-                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
-                    // So it best to uniquely identify a component when used in more than one screen or modes.
-                    // TODO:
-                    //  To uniquely identify a composable which is being used in multiple screens, its best to
-                    //  assign each screen a screen tag to be used as sub-tags for the composable.
-                    //  That way, when a screen that is being tested with the composable passes, you are sure
-                    //  that the composable was uniquely identified for that particular screen and not just any
-                    //  screen. This means that that particular screen is properly tested.
-                    other = hasTextExactly(
-                        mContext.getString(R.string.action_need_account),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagsPasswordRequirementAndAtLeastOneDigitSatisfied().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithAlreadyHaveAccountButton(
-        useUnmergedTree: Boolean = FALSE
+    // ------- /FOR ..._AnotherApproach()
+
+    private fun onNodeWithAuthenticationContentAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
-                ).and(
-                    // Optional but recommended.
-                    // This is just to confirm the screen since components like EmailInput (others are
-                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
-                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
-                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
-                    // So it best to uniquely identify a component when used in more than one screen or modes.
-                    // TODO:
-                    //  To uniquely identify a composable which is being used in multiple screens, its best to
-                    //  assign each screen a screen tag to be used as sub-tags for the composable.
-                    //  That way, when a screen that is being tested with the composable passes, you are sure
-                    //  that the composable was uniquely identified for that particular screen and not just any
-                    //  screen. This means that that particular screen is properly tested.
-                    other = hasTextExactly(
-                        mContext.getString(R.string.action_already_have_account),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagAuthenticationContent().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithErrorDialog(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithAuthenticationTitleAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                // Multiple matchers aren't necessary since the content (i.e. the title) of the
-                // AuthenticationErrorDialog composable is the same for both SignIn and SignUp modes.
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_ERROR_DIALOG
+                matcher = hasTestTagAuthenticationTitle().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithProgressIndicator(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithAuthenticationButtonAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                // Multiple matchers aren't necessary since the CircularProgressIndicator composable is
-                // the same for both SignIn and SignUp modes.
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PROGRESS
+                matcher = hasTestTagAuthenticationButton().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfEightCharsNeeded(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithAuthenticationToggleModeAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.password_requirement_characters)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.test_password_requirement_needed_characters),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagAuthenticationToggleMode().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfOneUppercaseLetterNeeded(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithAuthenticationErrorDialogAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.password_requirement_capital)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.test_password_requirement_needed_capital),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagAuthenticationErrorDialog().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfOneDigitNeeded(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithCircularProgressIndicatorAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.password_requirement_digit)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.test_password_requirement_needed_digit),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagCircularProgressIndicator().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfEightCharsNeededAnotherApproach(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.test_password_requirement_needed_characters)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.password_requirement_characters),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagsPasswordRequirementAndAtLeastEightCharacters().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfOneUppercaseLetterNeededAnotherApproach(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.test_password_requirement_needed_capital)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.password_requirement_capital),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetter().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfOneDigitNeededAnotherApproach(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithPasswordRequirementAtLeastOneDigitAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.test_password_requirement_needed_digit)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.password_requirement_digit),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagsPasswordRequirementAndAtLeastOneDigit().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfEightCharsSatisfied(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasTestTagAuthenticationContent(): SemanticsMatcher {
 
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.password_requirement_characters)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.test_password_requirement_satisfied_characters),
-                        includeEditableText = FALSE
-                    )
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_CONTENT
+        )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfOneUppercaseLetterSatisfied(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasTestTagAuthenticationTitle(): SemanticsMatcher {
 
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.password_requirement_capital)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.test_password_requirement_satisfied_capital),
-                        includeEditableText = FALSE
-                    )
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+        )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfOneDigitSatisfied(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasTestTagAuthenticationButton(): SemanticsMatcher {
 
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.password_requirement_digit)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.test_password_requirement_satisfied_digit),
-                        includeEditableText = FALSE
-                    )
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+        )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfEightCharsSatisfiedAnotherApproach(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasTestTagAuthenticationToggleMode(): SemanticsMatcher {
 
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.test_password_requirement_satisfied_characters)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.password_requirement_characters),
-                        includeEditableText = FALSE
-                    )
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+        )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfOneUppercaseLetterSatisfiedAnotherApproach(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasTestTagAuthenticationErrorDialog(): SemanticsMatcher {
 
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.test_password_requirement_satisfied_capital)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.password_requirement_capital),
-                        includeEditableText = FALSE
-                    )
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_ERROR_DIALOG
+        )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfOneDigitSatisfiedAnotherApproach(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasTestTagCircularProgressIndicator(): SemanticsMatcher {
 
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.test_password_requirement_satisfied_digit)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.password_requirement_digit),
-                        includeEditableText = FALSE
-                    )
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_PROGRESS
+        )
+
+    }
+
+    // ------- FOR ..._AnotherApproach()
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastEightCharactersNeeded():
+            SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(R.string.test_password_requirement_needed_characters)
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetterNeeded():
+            SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(R.string.test_password_requirement_needed_capital)
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastOneDigitNeeded(): SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(R.string.test_password_requirement_needed_digit)
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastEightCharactersSatisfied():
+            SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(R.string.test_password_requirement_satisfied_characters)
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetterSatisfied():
+            SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(R.string.test_password_requirement_satisfied_capital)
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastOneDigitSatisfied(): SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(R.string.test_password_requirement_satisfied_digit)
+        )
+
+    }
+
+    // ------- /FOR ..._AnotherApproach()
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastEightCharacters(): SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(R.string.password_requirement_characters)
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetter(): SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(R.string.password_requirement_capital)
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastOneDigit(): SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(R.string.password_requirement_digit)
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAnd(
+        otherTestTag: String
+    ): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT + otherTestTag
+        )
 
     }
 
@@ -794,7 +1011,7 @@ class AuthenticationContentTest2 {
 
         setContentAsAuthenticationContentAndAssertItIsDisplayed(authenticationMode = SIGN_IN)
 
-        onNodeWithSignInButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .apply {
                 assertIsDisplayed()
 
@@ -808,7 +1025,7 @@ class AuthenticationContentTest2 {
 
         setContentAsAuthenticationContentAndAssertItIsDisplayed(authenticationMode = SIGN_UP)
 
-        onNodeWithSignUpButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .apply {
                 assertIsDisplayed()
 
@@ -826,7 +1043,7 @@ class AuthenticationContentTest2 {
             password = INPUT_CONTENT_PASSWORD
         )
 
-        onNodeWithSignInButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .apply {
                 assertIsDisplayed()
 
@@ -851,7 +1068,7 @@ class AuthenticationContentTest2 {
             passwordRequirements = satisfiedPasswordRequirements
         )
 
-        onNodeWithSignUpButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .apply {
                 assertIsDisplayed()
 
@@ -868,7 +1085,7 @@ class AuthenticationContentTest2 {
             password = INPUT_CONTENT_PASSWORD
         )
 
-        onNodeWithSignInButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .apply {
                 assertIsDisplayed()
 
@@ -885,7 +1102,7 @@ class AuthenticationContentTest2 {
             email = INPUT_CONTENT_EMAIL
         )
 
-        onNodeWithSignInButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .apply {
                 assertIsDisplayed()
 
@@ -909,7 +1126,7 @@ class AuthenticationContentTest2 {
             passwordRequirements = satisfiedPasswordRequirements
         )
 
-        onNodeWithSignUpButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .apply {
                 assertIsDisplayed()
 
@@ -926,7 +1143,7 @@ class AuthenticationContentTest2 {
             email = INPUT_CONTENT_EMAIL
         )
 
-        onNodeWithSignUpButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .apply {
                 assertIsDisplayed()
 
@@ -942,7 +1159,7 @@ class AuthenticationContentTest2 {
             authenticationMode = SIGN_IN
         )
 
-        onNodeWithNeedAccountButton()
+        onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount()
             .assertIsDisplayed()
 
     }
@@ -954,7 +1171,7 @@ class AuthenticationContentTest2 {
             authenticationMode = SIGN_UP
         )
 
-        onNodeWithAlreadyHaveAccountButton()
+        onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount()
             .assertIsDisplayed()
 
     }
@@ -966,7 +1183,7 @@ class AuthenticationContentTest2 {
             authenticationMode = SIGN_IN
         )
 
-        onNodeWithErrorDialog()
+        onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops()
             .assertDoesNotExist()
 
     }
@@ -979,7 +1196,7 @@ class AuthenticationContentTest2 {
             error = MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE
         )
 
-        onNodeWithErrorDialog()
+        onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops()
             .assertIsDisplayed()
 
     }
@@ -992,7 +1209,7 @@ class AuthenticationContentTest2 {
             authenticationMode = SIGN_UP
         )
 
-        onNodeWithErrorDialog()
+        onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops()
             .assertDoesNotExist()
 
     }
@@ -1006,7 +1223,7 @@ class AuthenticationContentTest2 {
             error = MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE
         )
 
-        onNodeWithErrorDialog()
+        onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops()
             .assertIsDisplayed()
 
     }
@@ -1020,7 +1237,7 @@ class AuthenticationContentTest2 {
             password = INPUT_CONTENT_PASSWORD // Optional but recommended
         )
 
-        onNodeWithProgressIndicator()
+        onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor()
             .assertDoesNotExist()
 
     }
@@ -1034,7 +1251,7 @@ class AuthenticationContentTest2 {
             password = INPUT_CONTENT_PASSWORD // Optional but recommended
         )
 
-        onNodeWithProgressIndicator()
+        onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor()
             .assertDoesNotExist()
 
     }
@@ -1054,7 +1271,7 @@ class AuthenticationContentTest2 {
 
         /**
          * This would fail the test when it should pass since the function
-         * [setContentAsAuthenticationContentAndAssertItIsDisplayed] calls [assertSignInTitleIsDisplayed].
+         * [setContentAsAuthenticationContentAndAssertItIsDisplayed] calls [assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed].
          * See this test case's KDoc.
          */
 //        setContentAsAuthenticationContentAndAssertItIsDisplayed(
@@ -1074,7 +1291,7 @@ class AuthenticationContentTest2 {
 
         assertAuthenticationContentIsDisplayed()
 
-        onNodeWithProgressIndicator()
+        onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor()
             .assertIsDisplayed()
 
     }
@@ -1094,7 +1311,7 @@ class AuthenticationContentTest2 {
 
         /**
          * This would fail the test when it should pass since the function
-         * [setContentAsAuthenticationContentAndAssertItIsDisplayed] calls [assertSignInTitleIsDisplayed].
+         * [setContentAsAuthenticationContentAndAssertItIsDisplayed] calls [assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed].
          * See this test case's KDoc.
          */
 //        setContentAsAuthenticationContentAndAssertItIsDisplayed(
@@ -1114,7 +1331,7 @@ class AuthenticationContentTest2 {
 
         assertAuthenticationContentIsDisplayed()
 
-        onNodeWithProgressIndicator()
+        onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor()
             .assertIsDisplayed()
 
     }
@@ -1126,17 +1343,17 @@ class AuthenticationContentTest2 {
             authenticationMode = SIGN_UP
         )
 
-        onNodeWithPasswordRequirementOfEightCharsNeeded(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterNeeded(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitNeeded(
+        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
@@ -1156,17 +1373,17 @@ class AuthenticationContentTest2 {
             authenticationMode = SIGN_UP
         )
 
-        onNodeWithPasswordRequirementOfEightCharsNeededAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterNeededAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitNeededAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -1185,17 +1402,17 @@ class AuthenticationContentTest2 {
             passwordRequirements = satisfiedPasswordRequirements
         )
 
-        onNodeWithPasswordRequirementOfEightCharsSatisfied(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfied(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterNeeded(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitNeeded(
+        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
@@ -1220,17 +1437,17 @@ class AuthenticationContentTest2 {
             passwordRequirements = satisfiedPasswordRequirements
         )
 
-        onNodeWithPasswordRequirementOfEightCharsSatisfiedAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharacters(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterNeededAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitNeededAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -1249,17 +1466,17 @@ class AuthenticationContentTest2 {
             passwordRequirements = satisfiedPasswordRequirements
         )
 
-        onNodeWithPasswordRequirementOfEightCharsNeeded(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterSatisfied(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitNeeded(
+        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
@@ -1284,17 +1501,17 @@ class AuthenticationContentTest2 {
             passwordRequirements = satisfiedPasswordRequirements
         )
 
-        onNodeWithPasswordRequirementOfEightCharsNeededAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterSatisfiedAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAndTextExactlyAtLeastOneUppercaseLetter(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitNeededAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -1313,17 +1530,17 @@ class AuthenticationContentTest2 {
             passwordRequirements = satisfiedPasswordRequirements
         )
 
-        onNodeWithPasswordRequirementOfEightCharsNeeded(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterNeeded(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitSatisfied(
+        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitSatisfied(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
@@ -1348,17 +1565,17 @@ class AuthenticationContentTest2 {
             passwordRequirements = satisfiedPasswordRequirements
         )
 
-        onNodeWithPasswordRequirementOfEightCharsNeededAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterNeededAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitSatisfiedAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAndTextExactlyAtLeastOneDigit(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -1381,17 +1598,17 @@ class AuthenticationContentTest2 {
             passwordRequirements = satisfiedPasswordRequirements
         )
 
-        onNodeWithPasswordRequirementOfEightCharsSatisfied(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfied(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterSatisfied(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitSatisfied(
+        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitSatisfied(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
@@ -1420,17 +1637,17 @@ class AuthenticationContentTest2 {
             passwordRequirements = satisfiedPasswordRequirements
         )
 
-        onNodeWithPasswordRequirementOfEightCharsSatisfiedAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharacters(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterSatisfiedAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAndTextExactlyAtLeastOneUppercaseLetter(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitSatisfiedAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAndTextExactlyAtLeastOneDigit(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()

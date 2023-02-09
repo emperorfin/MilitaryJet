@@ -3,12 +3,16 @@ package emperorfin.android.composeemailauthentication.ui.screens.authentication.
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
+import emperorfin.android.composeemailauthentication.ui.fortesting.circularProgressIndicatorColorArgb
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.stateholders.AuthenticationUiState
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.events.AuthenticationEvent
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.events.AuthenticationEvent.EmailChangedEvent
@@ -41,8 +45,16 @@ fun AuthenticationContent(
         contentAlignment = Alignment.Center
     ) {
         if (uiState.isLoading) {
+            val defaultPresetColor: Color = ProgressIndicatorDefaults.circularColor
+
             CircularProgressIndicator(
-                modifier = Modifier.testTag(tag = TAG_AUTHENTICATION_PROGRESS)
+                modifier = Modifier
+                    .testTag(tag = TAG_AUTHENTICATION_PROGRESS)
+                    .semantics{
+                        circularProgressIndicatorColorArgb = defaultPresetColor.toArgb()
+                    },
+                // This is optional if just for testing purposes with the preset color.
+                color = defaultPresetColor
             )
         } else {
             AuthenticationForm(

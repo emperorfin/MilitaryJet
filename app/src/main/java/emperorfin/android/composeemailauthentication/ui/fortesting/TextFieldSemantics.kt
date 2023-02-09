@@ -99,3 +99,11 @@ val AlertDialogConfirmButtonTextSemantics = SemanticsPropertyKey<String>("AlertD
 var SemanticsPropertyReceiver.alertDialogTitle by AlertDialogTitleSemantics
 var SemanticsPropertyReceiver.alertDialogText by AlertDialogTextSemantics
 var SemanticsPropertyReceiver.alertDialogConfirmButtonText by AlertDialogConfirmButtonTextSemantics
+
+
+// CIRCULAR PROGRESS INDICATOR
+val CircularProgressIndicatorColorArgbSemantics = SemanticsPropertyKey<Int>("CircularProgressIndicatorColorArgbSemantics")
+val CircularProgressIndicatorColorResSemantics = SemanticsPropertyKey<Int>("CircularProgressIndicatorColorResSemantics")
+
+var SemanticsPropertyReceiver.circularProgressIndicatorColorArgb by CircularProgressIndicatorColorArgbSemantics
+var SemanticsPropertyReceiver.circularProgressIndicatorColorRes by CircularProgressIndicatorColorResSemantics

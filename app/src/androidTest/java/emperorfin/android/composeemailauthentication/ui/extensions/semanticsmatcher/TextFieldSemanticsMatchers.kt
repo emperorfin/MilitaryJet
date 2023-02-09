@@ -28,6 +28,15 @@ fun hasTextFieldLeadingIconImageVector(leadingIconImageVector: ImageVector): Sem
 fun hasTextFieldLeadingIconContentDescription(leadingIconContentDescription: String): SemanticsMatcher =
     SemanticsMatcher.expectValue(TextFieldLeadingIconContentDescriptionSemantics, leadingIconContentDescription)
 
+/**
+ * To easily find out the ARGB of a color to be used as the expected value during assertion,
+ * there are two approaches to do this:
+ *
+ * - you can either call toArgb() on the color object and then logcat the returned value or
+ * - you can just use any random assertion expected value, run the test case (which should
+ * fail) and then get and use (as the correct assertion expected value) the assertion actual
+ * value from the failed test error message (simplest approach).
+ */
 fun hasTextFieldLeadingIconTintArgb(leadingIconTintInArgb: Int): SemanticsMatcher =
     SemanticsMatcher.expectValue(TextFieldLeadingIconTintArgbSemantics, leadingIconTintInArgb)
 
@@ -44,6 +53,15 @@ fun hasTextFieldTrailingIconImageVector(trailingIconImageVector: ImageVector): S
 fun hasTextFieldTrailingIconContentDescription(trailingIconContentDescription: String): SemanticsMatcher =
     SemanticsMatcher.expectValue(TextFieldTrailingIconContentDescriptionSemantics, trailingIconContentDescription)
 
+/**
+ * To easily find out the ARGB of a color to be used as the expected value during assertion,
+ * there are two approaches to do this:
+ *
+ * - you can either call toArgb() on the color object and then logcat the returned value or
+ * - you can just use any random assertion expected value, run the test case (which should
+ * fail) and then get and use (as the correct assertion expected value) the assertion actual
+ * value from the failed test error message (simplest approach).
+ */
 fun hasTextFieldTrailingIconTintArgb(trailingIconTintInArgb: Int): SemanticsMatcher =
     SemanticsMatcher.expectValue(TextFieldTrailingIconTintArgbSemantics, trailingIconTintInArgb)
 
@@ -73,6 +91,15 @@ fun hasIconImageVector(iconImageVector: ImageVector): SemanticsMatcher =
 fun hasIconContentDescription(iconContentDescription: String): SemanticsMatcher =
     SemanticsMatcher.expectValue(IconContentDescriptionSemantics, iconContentDescription)
 
+/**
+ * To easily find out the ARGB of a color to be used as the expected value during assertion,
+ * there are two approaches to do this:
+ *
+ * - you can either call toArgb() on the color object and then logcat the returned value or
+ * - you can just use any random assertion expected value, run the test case (which should
+ * fail) and then get and use (as the correct assertion expected value) the assertion actual
+ * value from the failed test error message (simplest approach).
+ */
 fun hasIconTintArgb(iconTintInArgb: Int): SemanticsMatcher =
     SemanticsMatcher.expectValue(IconTintArgbSemantics, iconTintInArgb)
 
@@ -81,6 +108,15 @@ fun hasIconTintRes(@IntegerRes iconTintRes: Int): SemanticsMatcher =
 
 
 // TEXT
+/**
+ * To easily find out the ARGB of a color to be used as the expected value during assertion,
+ * there are two approaches to do this:
+ *
+ * - you can either call toArgb() on the color object and then logcat the returned value or
+ * - you can just use any random assertion expected value, run the test case (which should
+ * fail) and then get and use (as the correct assertion expected value) the assertion actual
+ * value from the failed test error message (simplest approach).
+ */
 fun hasTextColorArgb(textColorInArgb: Int): SemanticsMatcher =
     SemanticsMatcher.expectValue(TextColorArgbSemantics, textColorInArgb)
 
@@ -100,4 +136,21 @@ fun hasAlertDialogText(alertDialogText: String): SemanticsMatcher =
  */
 fun hasAlertDialogConfirmButtonText(alertDialogConfirmButtonText: String): SemanticsMatcher =
     SemanticsMatcher.expectValue(AlertDialogConfirmButtonTextSemantics, alertDialogConfirmButtonText)
+
+
+// CIRCULAR PROGRESS INDICATOR
+/**
+ * To easily find out the ARGB of a color to be used as the expected value during assertion,
+ * there are two approaches to do this:
+ *
+ * - you can either call toArgb() on the color object and then logcat the returned value or
+ * - you can just use any random assertion expected value, run the test case (which should
+ * fail) and then get and use (as the correct assertion expected value) the assertion actual
+ * value from the failed test error message (simplest approach).
+ */
+fun hasCircularProgressIndicatorColorArgb(circularProgressIndicatorColorInArgb: Int): SemanticsMatcher =
+    SemanticsMatcher.expectValue(CircularProgressIndicatorColorArgbSemantics, circularProgressIndicatorColorInArgb)
+
+fun hasCircularProgressIndicatorColorRes(@IntegerRes circularProgressIndicatorColorRes: Int): SemanticsMatcher =
+    SemanticsMatcher.expectValue(CircularProgressIndicatorColorResSemantics, circularProgressIndicatorColorRes)
 
