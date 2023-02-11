@@ -107,6 +107,39 @@ class AuthenticationContentTest2 {
          */
         private const val COLOR_ARGB_CIRCULAR_PROGRESS_INDICATOR_PRESET_COLOR: Int = -11576430
 
+        @StringRes
+        private const val STRING_RES_AT_LEAST_EIGHT_CHARACTERS: Int = R.string.password_requirement_characters
+        @StringRes
+        private const val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER: Int = R.string.password_requirement_capital
+        @StringRes
+        private const val STRING_RES_AT_LEAST_ONE_DIGIT: Int = R.string.password_requirement_digit
+        @StringRes
+        private const val STRING_RES_AT_LEAST_EIGHT_CHARACTERS_NEEDED: Int = R.string.test_password_requirement_needed_characters
+        @StringRes
+        private const val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_NEEDED: Int = R.string.test_password_requirement_needed_capital
+        @StringRes
+        private const val STRING_RES_AT_LEAST_ONE_DIGIT_NEEDED: Int = R.string.test_password_requirement_needed_digit
+        @StringRes
+        private const val STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED: Int = R.string.test_password_requirement_satisfied_characters
+        @StringRes
+        private const val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_SATISFIED: Int = R.string.test_password_requirement_satisfied_capital
+        @StringRes
+        private const val STRING_RES_AT_LEAST_ONE_DIGIT_SATISFIED: Int = R.string.test_password_requirement_satisfied_digit
+        @StringRes
+        private const val STRING_RES_WHOOPS: Int = R.string.error_title
+        @StringRes
+        private const val STRING_RES_NEED_AN_ACCOUNT: Int = R.string.action_need_account
+        @StringRes
+        private const val STRING_RES_ALREADY_HAVE_AN_ACCOUNT: Int = R.string.action_already_have_account
+        @StringRes
+        private const val STRING_RES_SIGN_IN: Int = R.string.action_sign_in
+        @StringRes
+        private const val STRING_RES_SIGN_UP: Int = R.string.action_sign_up
+        @StringRes
+        private const val STRING_RES_SIGN_IN_TO_YOUR_ACCOUNT: Int = R.string.label_sign_in_to_account
+        @StringRes
+        private const val STRING_RES_SIGN_UP_FOR_AN_ACCOUNT: Int = R.string.label_sign_up_for_account
+
     }
 
     /**
@@ -282,10 +315,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordRequirementAtLeastEightCharactersNeededAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.password_requirement_characters),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlyAtLeastEightCharacters(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -296,10 +326,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.password_requirement_capital),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlyAtLeastOneUppercaseLetter(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -310,10 +337,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordRequirementAtLeastOneDigitNeededAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.password_requirement_digit),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlyAtLeastOneDigit(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -324,10 +348,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.password_requirement_characters),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlyAtLeastEightCharacters(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -338,10 +359,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.password_requirement_capital),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlyAtLeastOneUppercaseLetter(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -352,10 +370,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.password_requirement_digit),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlyAtLeastOneDigit(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -384,10 +399,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithAuthenticationTitleAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.label_sign_in_to_account),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlySignInToYourAccount(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -398,10 +410,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithAuthenticationTitleAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.label_sign_up_for_account),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlySignUpForAnAccount(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -412,10 +421,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithAuthenticationButtonAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.action_sign_in),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlySignIn(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -426,10 +432,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithAuthenticationButtonAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.action_sign_up),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlySignUp(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -440,10 +443,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithAuthenticationToggleModeAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.action_need_account),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlyNeedAnAccount(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -454,10 +454,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithAuthenticationToggleModeAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.action_already_have_account),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlyAlreadyHaveAnAccount(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -468,9 +465,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithAuthenticationErrorDialogAnd(
-            otherMatcher = hasAlertDialogTitle(
-                alertDialogTitle = mContext.getString(R.string.error_title)
-            ),
+            otherMatcher = hasAlertDialogTitleWhoops(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -481,9 +476,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithCircularProgressIndicatorAnd(
-            otherMatcher = hasCircularProgressIndicatorColorArgb(
-                circularProgressIndicatorColorInArgb = COLOR_ARGB_CIRCULAR_PROGRESS_INDICATOR_PRESET_COLOR
-            ),
+            otherMatcher = hasCircularProgressIndicatorColorArgbPresetColor(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -494,10 +487,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordRequirementAtLeastEightCharactersAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.test_password_requirement_needed_characters),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlyAtLeastEightCharactersNeeded(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -508,10 +498,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.test_password_requirement_needed_capital),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlyAtLeastOneUppercaseLetterNeeded(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -522,10 +509,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordRequirementAtLeastOneDigitAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.test_password_requirement_needed_digit),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlyAtLeastOneDigitNeeded(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -536,10 +520,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordRequirementAtLeastEightCharactersAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.test_password_requirement_satisfied_characters),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlyAtLeastEightCharactersSatisfied(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -550,10 +531,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.test_password_requirement_satisfied_capital),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlyAtLeastOneUppercaseLetterSatisfied(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -564,10 +542,7 @@ class AuthenticationContentTest2 {
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordRequirementAtLeastOneDigitAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.test_password_requirement_satisfied_digit),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlyAtLeastOneDigitSatisfied(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -871,7 +846,7 @@ class AuthenticationContentTest2 {
             SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(R.string.test_password_requirement_needed_characters)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS_NEEDED)
         )
 
     }
@@ -880,7 +855,7 @@ class AuthenticationContentTest2 {
             SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(R.string.test_password_requirement_needed_capital)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_NEEDED)
         )
 
     }
@@ -888,7 +863,7 @@ class AuthenticationContentTest2 {
     private fun hasTestTagsPasswordRequirementAndAtLeastOneDigitNeeded(): SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(R.string.test_password_requirement_needed_digit)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT_NEEDED)
         )
 
     }
@@ -897,7 +872,7 @@ class AuthenticationContentTest2 {
             SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(R.string.test_password_requirement_satisfied_characters)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED)
         )
 
     }
@@ -906,7 +881,7 @@ class AuthenticationContentTest2 {
             SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(R.string.test_password_requirement_satisfied_capital)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_SATISFIED)
         )
 
     }
@@ -914,7 +889,7 @@ class AuthenticationContentTest2 {
     private fun hasTestTagsPasswordRequirementAndAtLeastOneDigitSatisfied(): SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(R.string.test_password_requirement_satisfied_digit)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT_SATISFIED)
         )
 
     }
@@ -924,7 +899,7 @@ class AuthenticationContentTest2 {
     private fun hasTestTagsPasswordRequirementAndAtLeastEightCharacters(): SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(R.string.password_requirement_characters)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS)
         )
 
     }
@@ -932,7 +907,7 @@ class AuthenticationContentTest2 {
     private fun hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetter(): SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(R.string.password_requirement_capital)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER)
         )
 
     }
@@ -940,7 +915,7 @@ class AuthenticationContentTest2 {
     private fun hasTestTagsPasswordRequirementAndAtLeastOneDigit(): SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(R.string.password_requirement_digit)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT)
         )
 
     }
@@ -951,6 +926,161 @@ class AuthenticationContentTest2 {
 
         return hasTestTag(
             testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT + otherTestTag
+        )
+
+    }
+
+    // Before using a semantics matcher, check the implementation of the utility functions in this
+    // section if it's already available to avoid duplication.
+    // The function names make the check easier.
+
+    private fun hasTextExactlyAtLeastEightCharacters(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastOneUppercaseLetter(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastOneDigit(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlySignInToYourAccount(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_SIGN_IN_TO_YOUR_ACCOUNT),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlySignUpForAnAccount(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_SIGN_UP_FOR_AN_ACCOUNT),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlySignIn(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_SIGN_IN),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlySignUp(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_SIGN_UP),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyNeedAnAccount(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_NEED_AN_ACCOUNT),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAlreadyHaveAnAccount(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_ALREADY_HAVE_AN_ACCOUNT),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasAlertDialogTitleWhoops(): SemanticsMatcher {
+
+        return hasAlertDialogTitle(
+            alertDialogTitle = mContext.getString(STRING_RES_WHOOPS)
+        )
+
+    }
+
+    private fun hasCircularProgressIndicatorColorArgbPresetColor(): SemanticsMatcher {
+
+        return hasCircularProgressIndicatorColorArgb(
+            circularProgressIndicatorColorInArgb = COLOR_ARGB_CIRCULAR_PROGRESS_INDICATOR_PRESET_COLOR
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastEightCharactersNeeded(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS_NEEDED),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastOneUppercaseLetterNeeded(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_NEEDED),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastOneDigitNeeded(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT_NEEDED),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastEightCharactersSatisfied(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastOneUppercaseLetterSatisfied(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_SATISFIED),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastOneDigitSatisfied(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT_SATISFIED),
+            includeEditableText = FALSE
         )
 
     }
