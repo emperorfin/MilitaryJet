@@ -59,6 +59,13 @@ class AuthenticationErrorDialogTest2 {
         private const val MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE: Int =
             emperorfin.android.composeemailauthentication.R.string.test_error_message
 
+        @StringRes
+        private const val STRING_RES_OK: Int = R.string.error_action_ok
+        @StringRes
+        private const val STRING_RES_SOME_ERROR: Int = R.string.test_error_message
+        @StringRes
+        private const val STRING_RES_WHOOPS: Int = R.string.error_title
+
     }
 
     /**
@@ -113,7 +120,7 @@ class AuthenticationErrorDialogTest2 {
             onDismissError = onDismissError
         )
 
-        assertAuthenticationErrorDialogForTitleIsDisplayed()
+        assertAuthenticationErrorDialogAndAlertDialogTitleWhoopsIsDisplayed()
 
     }
 
@@ -138,67 +145,54 @@ class AuthenticationErrorDialogTest2 {
      * This should be called in all test cases immediately after composing the [AuthenticationErrorDialog]
      * composable in the [ComposeContentTestRule.setContent].
      */
-    private fun assertAuthenticationErrorDialogForTitleIsDisplayed(
+    private fun assertAuthenticationErrorDialogAndAlertDialogTitleWhoopsIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
-        onNodeWithAuthenticationErrorDialogForTitle()
+        onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops()
             .assertIsDisplayed()
 
     }
 
-    private fun onNodeWithAuthenticationErrorDialogAnd(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        useUnmergedTree: Boolean = FALSE,
-        otherMatcher: SemanticsMatcher
-    ): SemanticsNodeInteraction {
-
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_ERROR_DIALOG
-                ).and(
-                    other = otherMatcher
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
-
-    }
-
-    private fun onNodeWithAuthenticationErrorDialogForTitle(
+    private fun onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithAuthenticationErrorDialogAnd(
-            otherMatcher = hasAlertDialogTitle(
-                alertDialogTitle = mContext.getString(R.string.error_title)
-            ),
+            otherMatcher = hasAlertDialogTitleWhoops(),
             useUnmergedTree = useUnmergedTree
         )
 
     }
 
-    private fun onNodeWithAuthenticationErrorDialogForText(
+    private fun onNodeWithAuthenticationErrorDialogAndAlertDialogTextSomeError(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithAuthenticationErrorDialogAnd(
-            otherMatcher = hasAlertDialogText(
-                alertDialogText = mContext.getString(R.string.test_error_message)
-            ),
+            otherMatcher = hasAlertDialogTextSomeError(),
             useUnmergedTree = useUnmergedTree
         )
 
     }
 
-    private fun onNodeWithAuthenticationErrorDialogForConfirmButtonText(
+    private fun onNodeWithAuthenticationErrorDialogAndAlertDialogConfirmButtonTextOk(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithAuthenticationErrorDialogAnd(
-            otherMatcher = hasAlertDialogConfirmButtonText(
-                alertDialogConfirmButtonText = mContext.getString(R.string.error_action_ok)
-            ),
+            otherMatcher = hasAlertDialogConfirmButtonTextOk(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithAuthenticationErrorDialogConfirmButtonAndTextExactlyOk(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithAuthenticationErrorDialogConfirmButtonAnd(
+            otherMatcher = hasTextExactlyOk(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -212,9 +206,7 @@ class AuthenticationErrorDialogTest2 {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_ERROR_DIALOG_CONFIRM_BUTTON
-                ).and(
+                matcher = hasTestTagAuthenticationErrorDialogConfirmButton().and(
                     other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
@@ -222,16 +214,71 @@ class AuthenticationErrorDialogTest2 {
 
     }
 
-    private fun onNodeWithAuthenticationErrorDialogConfirmButtonForOkAction(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithAuthenticationErrorDialogAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
-        return onNodeWithAuthenticationErrorDialogConfirmButtonAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.error_action_ok),
-                includeEditableText = FALSE
-            ),
-            useUnmergedTree = useUnmergedTree
+        return composeTestRule
+            .onNode(
+                matcher = hasTestTagAuthenticationErrorDialog().and(
+                    other = otherMatcher
+                ),
+                useUnmergedTree = useUnmergedTree
+            )
+
+    }
+
+    private fun hasTestTagAuthenticationErrorDialogConfirmButton(): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_ERROR_DIALOG_CONFIRM_BUTTON
+        )
+
+    }
+
+    private fun hasTestTagAuthenticationErrorDialog(): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_ERROR_DIALOG
+        )
+
+    }
+
+    // Before using a semantics matcher, check the implementation of the utility functions in this
+    // section if it's already available to avoid duplication.
+    // The function names make the check easier.
+
+    private fun hasAlertDialogTitleWhoops(): SemanticsMatcher {
+
+        return hasAlertDialogTitle(
+            alertDialogTitle = mContext.getString(STRING_RES_WHOOPS)
+        )
+
+    }
+
+    private fun hasAlertDialogTextSomeError(): SemanticsMatcher {
+
+        return hasAlertDialogText(
+            alertDialogText = mContext.getString(STRING_RES_SOME_ERROR)
+        )
+
+    }
+
+    private fun hasAlertDialogConfirmButtonTextOk(): SemanticsMatcher {
+
+        return hasAlertDialogConfirmButtonText(
+            alertDialogConfirmButtonText = mContext.getString(STRING_RES_OK)
+        )
+
+    }
+
+    private fun hasTextExactlyOk(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_OK),
+            includeEditableText = FALSE
         )
 
     }
@@ -265,7 +312,7 @@ class AuthenticationErrorDialogTest2 {
             onDismissError = { }
         )
 
-        onNodeWithAuthenticationErrorDialogForText()
+        onNodeWithAuthenticationErrorDialogAndAlertDialogTextSomeError()
             .assertIsDisplayed()
 
     }
@@ -278,7 +325,7 @@ class AuthenticationErrorDialogTest2 {
             onDismissError = { }
         )
 
-        onNodeWithAuthenticationErrorDialogForConfirmButtonText()
+        onNodeWithAuthenticationErrorDialogAndAlertDialogConfirmButtonTextOk()
             .assertIsDisplayed()
 
     }
@@ -293,7 +340,7 @@ class AuthenticationErrorDialogTest2 {
             onDismissError = onDismissError
         )
 
-        onNodeWithAuthenticationErrorDialogConfirmButtonForOkAction()
+        onNodeWithAuthenticationErrorDialogConfirmButtonAndTextExactlyOk()
             .performClick()
 
         verify(
@@ -314,7 +361,7 @@ class AuthenticationErrorDialogTest2 {
             }
         )
 
-        onNodeWithAuthenticationErrorDialogConfirmButtonForOkAction()
+        onNodeWithAuthenticationErrorDialogConfirmButtonAndTextExactlyOk()
             .performClick()
 
         assertTrue(isClicked)
