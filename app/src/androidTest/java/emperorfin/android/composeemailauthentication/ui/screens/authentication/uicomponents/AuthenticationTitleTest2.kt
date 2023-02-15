@@ -1,6 +1,7 @@
 package emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents
 
 import android.content.Context
+import androidx.annotation.StringRes
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -48,6 +49,13 @@ class AuthenticationTitleTest2 {
     private companion object {
 
         private const val FALSE: Boolean = false
+
+        private const val THIS_STRING_MUST_BE_EMPTY: String = ""
+
+        @StringRes
+        private const val STRING_RES_SIGN_IN_TO_YOUR_ACCOUNT: Int = R.string.label_sign_in_to_account
+        @StringRes
+        private const val STRING_RES_SIGN_UP_FOR_AN_ACCOUNT: Int = R.string.label_sign_up_for_account
 
     }
 
@@ -102,9 +110,9 @@ class AuthenticationTitleTest2 {
         )
 
         if (authenticationMode == SIGN_IN) {
-            assertAuthenticationTitleForSignInTitleIsDisplayed()
+            assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
         } else if (authenticationMode == SIGN_UP) {
-            assertAuthenticationTitleForSignUpTitleIsDisplayed()
+            assertAuthenticationTitleAndTextExactlySignUpForAnAccountIsDisplayed()
         }
 
     }
@@ -127,13 +135,13 @@ class AuthenticationTitleTest2 {
     /**
      * This should be called in all test cases immediately after composing the [AuthenticationTitle]
      * composable in the [ComposeContentTestRule.setContent] whenever the [AuthenticationMode] is
-     * [SIGN_UP]
+     * [SIGN_IN]
      */
-    private fun assertAuthenticationTitleForSignUpTitleIsDisplayed(
+    private fun assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
-        onNodeWithAuthenticationTitleForSignUpTitle()
+        onNodeWithAuthenticationTitleAndTextExactlySignInToYourAccount()
             .assertIsDisplayed()
 
     }
@@ -141,40 +149,34 @@ class AuthenticationTitleTest2 {
     /**
      * This should be called in all test cases immediately after composing the [AuthenticationTitle]
      * composable in the [ComposeContentTestRule.setContent] whenever the [AuthenticationMode] is
-     * [SIGN_IN]
+     * [SIGN_UP]
      */
-    private fun assertAuthenticationTitleForSignInTitleIsDisplayed(
+    private fun assertAuthenticationTitleAndTextExactlySignUpForAnAccountIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
-        onNodeWithAuthenticationTitleForSignInTitle()
+        onNodeWithAuthenticationTitleAndTextExactlySignUpForAnAccount()
             .assertIsDisplayed()
 
     }
 
-    private fun onNodeWithAuthenticationTitleForSignUpTitle(
+    private fun onNodeWithAuthenticationTitleAndTextExactlySignInToYourAccount(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithAuthenticationTitleAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.label_sign_up_for_account),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlySignInToYourAccount(),
             useUnmergedTree = useUnmergedTree
         )
 
     }
 
-    private fun onNodeWithAuthenticationTitleForSignInTitle(
+    private fun onNodeWithAuthenticationTitleAndTextExactlySignUpForAnAccount(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithAuthenticationTitleAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.label_sign_in_to_account),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlySignUpForAnAccount(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -188,13 +190,49 @@ class AuthenticationTitleTest2 {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-                ).and(
+                matcher = hasTestTagAuthenticationTitle().and(
                     other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
+
+    }
+
+    private fun hasTestTagAuthenticationTitle(): SemanticsMatcher {
+
+        return hasTestTagsAuthenticationTitleAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+        )
+
+    }
+
+    private fun hasTestTagsAuthenticationTitleAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE + otherTestTag
+        )
+
+    }
+
+    // Before using a semantics matcher, check the implementation of the utility functions in this
+    // section if it's already available to avoid duplication.
+    // The function names make the check easier.
+
+    private fun hasTextExactlySignInToYourAccount(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_SIGN_IN_TO_YOUR_ACCOUNT),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlySignUpForAnAccount(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_SIGN_UP_FOR_AN_ACCOUNT),
+            includeEditableText = FALSE
+        )
 
     }
 
