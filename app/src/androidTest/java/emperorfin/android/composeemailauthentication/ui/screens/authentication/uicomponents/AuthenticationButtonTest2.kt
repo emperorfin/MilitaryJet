@@ -54,6 +54,8 @@ class AuthenticationButtonTest2 {
         private const val TRUE: Boolean = true
         private const val FALSE: Boolean = false
 
+        private const val THIS_STRING_MUST_BE_EMPTY: String = ""
+
         @StringRes
         private const val STRING_RES_SIGN_IN: Int = R.string.action_sign_in
         @StringRes
@@ -218,8 +220,16 @@ class AuthenticationButtonTest2 {
 
     private fun hasTestTagAuthenticationButton(): SemanticsMatcher {
 
+        return hasTestTagsAuthenticationButtonAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+        )
+
+    }
+
+    private fun hasTestTagsAuthenticationButtonAnd(otherTestTag: String): SemanticsMatcher {
+
         return hasTestTag(
-            testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+            testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON + otherTestTag
         )
 
     }
