@@ -1,6 +1,7 @@
 package emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents
 
 import android.content.Context
+import androidx.annotation.StringRes
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -11,8 +12,6 @@ import emperorfin.android.composeemailauthentication.ui.screens.authentication.e
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_IN
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.AuthenticationMode.SIGN_UP
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.stateholders.AuthenticationUiState
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
 import org.junit.Assert.*
 import org.junit.Before
@@ -54,6 +53,13 @@ class AuthenticationToggleModeTest2 {
 
         private const val FALSE: Boolean = false
         private const val TRUE: Boolean = true
+
+        private const val THIS_STRING_MUST_BE_EMPTY: String = ""
+
+        @StringRes
+        private const val STRING_RES_NEED_AN_ACCOUNT: Int = R.string.action_need_account
+        @StringRes
+        private const val STRING_RES_ALREADY_HAVE_AN_ACCOUNT: Int = R.string.action_already_have_account
 
     }
 
@@ -110,9 +116,9 @@ class AuthenticationToggleModeTest2 {
         )
 
         if (authenticationMode == SIGN_IN) {
-            assertAuthenticationToggleModeForNeedAccountActionIsDisplayed()
+            assertAuthenticationToggleModeAndTextExactlyNeedAnAccountIsDisplayed()
         } else if (authenticationMode == SIGN_UP) {
-            assertAuthenticationToggleModeForAlreadyHaveAccountActionIsDisplayed()
+            assertAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccountIsDisplayed()
         }
 
     }
@@ -137,13 +143,13 @@ class AuthenticationToggleModeTest2 {
     /**
      * This should be called in all test cases immediately after composing the [AuthenticationToggleMode]
      * composable in the [ComposeContentTestRule.setContent] whenever the [AuthenticationMode] is
-     * [SIGN_UP]
+     * [SIGN_IN]
      */
-    private fun assertAuthenticationToggleModeForAlreadyHaveAccountActionIsDisplayed(
+    private fun assertAuthenticationToggleModeAndTextExactlyNeedAnAccountIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
-        onNodeWithAuthenticationToggleModeForAlreadyHaveAccountAction()
+        onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount()
             .assertIsDisplayed()
 
     }
@@ -151,40 +157,34 @@ class AuthenticationToggleModeTest2 {
     /**
      * This should be called in all test cases immediately after composing the [AuthenticationToggleMode]
      * composable in the [ComposeContentTestRule.setContent] whenever the [AuthenticationMode] is
-     * [SIGN_IN]
+     * [SIGN_UP]
      */
-    private fun assertAuthenticationToggleModeForNeedAccountActionIsDisplayed(
+    private fun assertAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccountIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
-        onNodeWithAuthenticationToggleModeForNeedAccountAction()
+        onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount()
             .assertIsDisplayed()
 
     }
 
-    private fun onNodeWithAuthenticationToggleModeForAlreadyHaveAccountAction(
+    private fun onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithAuthenticationToggleModeAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.action_already_have_account),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlyNeedAnAccount(),
             useUnmergedTree = useUnmergedTree
         )
 
     }
 
-    private fun onNodeWithAuthenticationToggleModeForNeedAccountAction(
+    private fun onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithAuthenticationToggleModeAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.action_need_account),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextExactlyAlreadyHaveAnAccount(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -198,13 +198,49 @@ class AuthenticationToggleModeTest2 {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
-                ).and(
+                matcher = hasTestTagAuthenticationToggleMode().and(
                     other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
+
+    }
+
+    private fun hasTestTagAuthenticationToggleMode(): SemanticsMatcher {
+
+        return hasTestTagsAuthenticationToggleModeAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+        )
+
+    }
+
+    private fun hasTestTagsAuthenticationToggleModeAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON + otherTestTag
+        )
+
+    }
+
+    // Before using a semantics matcher, check the implementation of the utility functions in this
+    // section if it's already available to avoid duplication.
+    // The function names make the check easier.
+
+    private fun hasTextExactlyNeedAnAccount(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_NEED_AN_ACCOUNT),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAlreadyHaveAnAccount(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_ALREADY_HAVE_AN_ACCOUNT),
+            includeEditableText = FALSE
+        )
 
     }
 
@@ -249,7 +285,7 @@ class AuthenticationToggleModeTest2 {
             toggleAuthentication = toggleAuthentication
         )
 
-        onNodeWithAuthenticationToggleModeForAlreadyHaveAccountAction()
+        onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount()
             .performClick()
 
         verify(
@@ -270,7 +306,7 @@ class AuthenticationToggleModeTest2 {
             }
         )
 
-        onNodeWithAuthenticationToggleModeForAlreadyHaveAccountAction()
+        onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount()
             .performClick()
 
         assertTrue(isClicked)
@@ -287,7 +323,7 @@ class AuthenticationToggleModeTest2 {
             toggleAuthentication = toggleAuthentication
         )
 
-        onNodeWithAuthenticationToggleModeForNeedAccountAction()
+        onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount()
             .performClick()
 
         verify(
@@ -308,7 +344,7 @@ class AuthenticationToggleModeTest2 {
             }
         )
 
-        onNodeWithAuthenticationToggleModeForNeedAccountAction()
+        onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount()
             .performClick()
 
         assertTrue(isClicked)
