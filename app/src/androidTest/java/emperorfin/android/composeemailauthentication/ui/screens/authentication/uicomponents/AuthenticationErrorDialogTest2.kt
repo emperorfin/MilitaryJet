@@ -12,6 +12,7 @@ import emperorfin.android.composeemailauthentication.ui.extensions.semanticsmatc
 import emperorfin.android.composeemailauthentication.ui.extensions.semanticsmatcher.hasAlertDialogTitle
 import emperorfin.android.composeemailauthentication.ui.res.theme.ComposeEmailAuthenticationTheme
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_ERROR_DIALOG
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_ERROR_DIALOG_CONFIRM_BUTTON
 import org.junit.Assert.*
@@ -54,6 +55,8 @@ class AuthenticationErrorDialogTest2 {
 
         private const val TRUE: Boolean = true
         private const val FALSE: Boolean = false
+
+        private const val THIS_STRING_MUST_BE_EMPTY: String = ""
 
         @StringRes
         private const val MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE: Int =
@@ -232,16 +235,33 @@ class AuthenticationErrorDialogTest2 {
 
     private fun hasTestTagAuthenticationErrorDialogConfirmButton(): SemanticsMatcher {
 
-        return hasTestTag(
-            testTag = TAG_AUTHENTICATION_ERROR_DIALOG_CONFIRM_BUTTON
+        return hasTestTagsAuthenticationErrorDialogConfirmButtonAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
         )
 
     }
 
     private fun hasTestTagAuthenticationErrorDialog(): SemanticsMatcher {
 
+        return hasTestTagsAuthenticationErrorDialogAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+        )
+
+    }
+
+    private fun hasTestTagsAuthenticationErrorDialogConfirmButtonAnd(otherTestTag: String):
+            SemanticsMatcher {
+
         return hasTestTag(
-            testTag = TAG_AUTHENTICATION_ERROR_DIALOG
+            testTag = TAG_AUTHENTICATION_ERROR_DIALOG_CONFIRM_BUTTON + otherTestTag
+        )
+
+    }
+
+    private fun hasTestTagsAuthenticationErrorDialogAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_ERROR_DIALOG + otherTestTag
         )
 
     }
