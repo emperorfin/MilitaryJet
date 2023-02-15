@@ -87,6 +87,8 @@ class AuthenticationContentTest2 {
 
         private val NULL = null
 
+        private const val THIS_STRING_MUST_BE_EMPTY: String = ""
+
         private const val INPUT_CONTENT_EMAIL: String = "contact@email.com"
         private const val INPUT_CONTENT_PASSWORD: String = "passworD1"
         private const val INPUT_CONTENT_PASSWORD_PASSWORD: String = "password"
@@ -794,48 +796,48 @@ class AuthenticationContentTest2 {
 
     private fun hasTestTagAuthenticationContent(): SemanticsMatcher {
 
-        return hasTestTag(
-            testTag = TAG_AUTHENTICATION_CONTENT
+        return hasTestTagsAuthenticationContentAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
         )
 
     }
 
     private fun hasTestTagAuthenticationTitle(): SemanticsMatcher {
 
-        return hasTestTag(
-            testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
+        return hasTestTagsAuthenticationTitleAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
         )
 
     }
 
     private fun hasTestTagAuthenticationButton(): SemanticsMatcher {
 
-        return hasTestTag(
-            testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
+        return hasTestTagsAuthenticationButtonAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
         )
 
     }
 
     private fun hasTestTagAuthenticationToggleMode(): SemanticsMatcher {
 
-        return hasTestTag(
-            testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
+        return hasTestTagsAuthenticationToggleModeAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
         )
 
     }
 
     private fun hasTestTagAuthenticationErrorDialog(): SemanticsMatcher {
 
-        return hasTestTag(
-            testTag = TAG_AUTHENTICATION_ERROR_DIALOG
+        return hasTestTagsAuthenticationErrorDialogAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
         )
 
     }
 
     private fun hasTestTagCircularProgressIndicator(): SemanticsMatcher {
 
-        return hasTestTag(
-            testTag = TAG_AUTHENTICATION_PROGRESS
+        return hasTestTagsCircularProgressIndicatorAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
         )
 
     }
@@ -920,9 +922,55 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun hasTestTagsPasswordRequirementAnd(
-        otherTestTag: String
-    ): SemanticsMatcher {
+    private fun hasTestTagsAuthenticationContentAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_CONTENT + otherTestTag
+        )
+
+    }
+
+    private fun hasTestTagsAuthenticationTitleAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE + otherTestTag
+        )
+
+    }
+
+    private fun hasTestTagsAuthenticationButtonAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON + otherTestTag
+        )
+
+    }
+
+    private fun hasTestTagsAuthenticationToggleModeAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON + otherTestTag
+        )
+
+    }
+
+    private fun hasTestTagsAuthenticationErrorDialogAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_ERROR_DIALOG + otherTestTag
+        )
+
+    }
+
+    private fun hasTestTagsCircularProgressIndicatorAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_PROGRESS + otherTestTag
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAnd(otherTestTag: String): SemanticsMatcher {
 
         return hasTestTag(
             testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT + otherTestTag
