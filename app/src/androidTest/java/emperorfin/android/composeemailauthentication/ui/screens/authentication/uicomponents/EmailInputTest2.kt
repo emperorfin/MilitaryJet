@@ -1,6 +1,7 @@
 package emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents
 
 import android.content.Context
+import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.ui.test.*
@@ -14,7 +15,6 @@ import emperorfin.android.composeemailauthentication.test.R
 import emperorfin.android.composeemailauthentication.ui.extensions.semanticsmatcher.*
 import emperorfin.android.composeemailauthentication.ui.res.theme.ComposeEmailAuthenticationTheme
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.stateholders.AuthenticationUiState
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_EMAIL
 import org.junit.Assert.*
 import org.junit.Before
@@ -59,10 +59,15 @@ class EmailInputTest2 {
 
         private val NULL = null
 
+        private const val THIS_STRING_MUST_BE_EMPTY: String = ""
+
         private const val INPUT_CONTENT_EMAIL_EMPTY: String = ""
         private const val INPUT_CONTENT_EMAIL: String = "contact@email.com"
         private const val INPUT_CONTENT_EMAIL_PREFIXED: String = "contact@email.co"
         private const val INPUT_CONTENT_EMAIL_SUFFIXED: String = ".uk"
+
+        @StringRes
+        private const val STRING_RES_EMAIL_ADDRESS: Int = R.string.label_email
 
     }
 
@@ -106,6 +111,24 @@ class EmailInputTest2 {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
+    private fun setContentAsEmailInputAndAssertItIsDisplayed(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        email: String? = NULL,
+        onEmailChanged: (email: String) -> Unit = { },
+        onNextClicked: () -> Unit = { }
+    ) {
+
+        setContentAsEmailInput(
+            composeTestRule = composeTestRule,
+            email = email,
+            onEmailChanged = onEmailChanged,
+            onNextClicked= onNextClicked
+        )
+
+        assertEmailInputAndTextExactlyEmailAddressIsDisplayed()
+
+    }
+
     private fun setContentAsEmailInput(
         composeTestRule: ComposeContentTestRule,
         email: String?,
@@ -129,30 +152,32 @@ class EmailInputTest2 {
      * This should be called in all test cases immediately after composing the [EmailInput]
      * composable in the [ComposeContentTestRule.setContent]
      */
-    private fun assertEmailInputIsDisplayed(
+    private fun assertEmailInputAndTextExactlyEmailAddressIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsDisplayed()
 
     }
 
-    private fun setContentAsEmailInputAndAssertItIsDisplayed(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        email: String? = NULL,
-        onEmailChanged: (email: String) -> Unit = { },
-        onNextClicked: () -> Unit = { }
-    ) {
+    private fun onNodeWithEmailInputAndTextExactlyEmailAddress(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
 
-        setContentAsEmailInput(
-            composeTestRule = composeTestRule,
-            email = email,
-            onEmailChanged = onEmailChanged,
-            onNextClicked= onNextClicked
+        // Works
+//        return onNodeWithEmailInputAnd(
+//            otherMatcher = hasText(
+//                mContext.getString(STRING_RES_EMAIL_ADDRESS)
+//            ),
+//            useUnmergedTree = useUnmergedTree
+//        )
+
+        // Recommended
+        return onNodeWithEmailInputAnd(
+            otherMatcher = hasTextExactlyEmailAddress(),
+            useUnmergedTree = useUnmergedTree
         )
-
-        assertEmailInputIsDisplayed()
 
     }
 
@@ -164,9 +189,7 @@ class EmailInputTest2 {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_INPUT_EMAIL
-                ).and(
+                matcher = hasTestTagEmailInput().and(
                     other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
@@ -174,25 +197,31 @@ class EmailInputTest2 {
 
     }
 
-    private fun onNodeWithEmailInput(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasTestTagEmailInput(): SemanticsMatcher {
 
-        // Works
-//        return onNodeWithEmailInputAnd(
-//            otherMatcher = hasText(
-//                mContext.getString(R.string.label_email)
-//            ),
-//            useUnmergedTree = useUnmergedTree
-//        )
+        return hasTestTagsEmailInputAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+        )
 
-        // Recommended
-        return onNodeWithEmailInputAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.label_email),
-                includeEditableText = FALSE
-            ),
-            useUnmergedTree = useUnmergedTree
+    }
+
+    private fun hasTestTagsEmailInputAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_INPUT_EMAIL + otherTestTag
+        )
+
+    }
+
+    // Before using a semantics matcher, check the implementation of the utility functions in this
+    // section if it's already available to avoid duplication.
+    // The function names make the check easier.
+
+    private fun hasTextExactlyEmailAddress(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_EMAIL_ADDRESS),
+            includeEditableText = FALSE
         )
 
     }
@@ -345,7 +374,7 @@ class EmailInputTest2 {
             onEmailChanged = onEmailChanged
         )
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 performTextInputSelection(
                     selection = TextRange(emailAddress.length)
@@ -383,7 +412,7 @@ class EmailInputTest2 {
             onEmailChanged = onEmailChanged
         )
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 performTextInputSelection(
                     selection = TextRange(emailAddress.length)
@@ -410,7 +439,7 @@ class EmailInputTest2 {
             onNextClicked = onNextClicked
         )
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 // Optional
                 performTextInput(
@@ -438,7 +467,7 @@ class EmailInputTest2 {
             }
         )
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 // Optional
                 performTextInput(
