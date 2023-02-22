@@ -1,10 +1,12 @@
 package emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents
 
 import android.content.Context
+import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -18,7 +20,6 @@ import emperorfin.android.composeemailauthentication.test.R
 import emperorfin.android.composeemailauthentication.ui.extensions.semanticsmatcher.*
 import emperorfin.android.composeemailauthentication.ui.res.theme.ComposeEmailAuthenticationTheme
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.stateholders.AuthenticationUiState
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON_PASSWORD_HIDDEN
@@ -73,10 +74,36 @@ class PasswordInputTest2 {
 
         private val NULL = null
 
+        private const val THIS_STRING_MUST_BE_EMPTY: String = ""
+
         private const val INPUT_CONTENT_PASSWORD_EMPTY: String = ""
         private const val INPUT_CONTENT_PASSWORD: String = "passworD1"
         private const val INPUT_CONTENT_PREFIXED: String = "passworD"
         private const val INPUT_CONTENT_SUFFIXED: String = "12345"
+
+        @StringRes
+        private const val STRING_RES_PASSWORD: Int = R.string.label_password
+        @StringRes
+        private const val STRING_RES_PASSWORD_SHOW: Int = R.string.content_description_show_password
+        private const val STRING_RES_PASSWORD_HIDE: Int = R.string.content_description_hide_password
+        @StringRes
+        private const val STRING_RES_TRAILING_ICON_INDICATES_PASSWORD_SHOWN: Int =
+            R.string.content_description_password_input_trailing_icon_password_shown
+        @StringRes
+        private const val STRING_RES_TRAILING_ICON_INDICATES_PASSWORD_HIDDEN: Int =
+            R.string.content_description_password_input_trailing_icon_password_hidden
+
+        private val IMAGE_VECTOR_ICONS_DEFAULT_VISIBILITY: ImageVector = Icons.Default.Visibility
+        private val IMAGE_VECTOR_ICONS_DEFAULT_VISIBILITY_OFF: ImageVector = Icons.Default.VisibilityOff
+
+        private val VISUAL_TRANSFORMATION_NONE: VisualTransformation = VisualTransformation.None
+        private val VISUAL_TRANSFORMATION_PASSWORD: VisualTransformation = PasswordVisualTransformation()
+
+        private const val SINGLE_LINE_TRUE: Boolean = TRUE
+
+        private val KEYBOARD_TYPE_PASSWORD: KeyboardType = KeyboardType.Password
+
+        private val IME_ACTION_DONE: ImeAction = ImeAction.Done
 
     }
 
@@ -120,6 +147,26 @@ class PasswordInputTest2 {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
+    private fun setContentAsPasswordInputAndAssertItIsDisplayed(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        passwordVisualTransformation: VisualTransformation = VISUAL_TRANSFORMATION_PASSWORD,
+        password: String? = NULL,
+        onPasswordChanged: (password: String) -> Unit = { },
+        onDoneClicked: () -> Unit = { }
+    ) {
+
+        setContentAsPasswordInput(
+            passwordVisualTransformation = passwordVisualTransformation,
+            composeTestRule = composeTestRule,
+            password = password,
+            onPasswordChanged = onPasswordChanged,
+            onDoneClicked= onDoneClicked
+        )
+
+        assertPasswordInputAndTextExactlyPasswordIsDisplayed()
+
+    }
+
     private fun setContentAsPasswordInput(
         composeTestRule: ComposeContentTestRule,
         passwordVisualTransformation: VisualTransformation,
@@ -145,46 +192,184 @@ class PasswordInputTest2 {
      * This should be called in all test cases immediately after composing the [PasswordInput]
      * composable in the [ComposeContentTestRule.setContent]
      */
-    private fun assertPasswordInputIsDisplayed(
+    private fun assertPasswordInputAndTextExactlyPasswordIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsDisplayed()
 
     }
 
-    private fun setContentAsPasswordInputAndAssertItIsDisplayed(
+    private fun onNodeWithPasswordInputTrailingIconAndContentDescriptionExactlyTrailingIconIndicatesPasswordHidden(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        passwordVisualTransformation: VisualTransformation = PasswordVisualTransformation(),
-        password: String? = NULL,
-        onPasswordChanged: (password: String) -> Unit = { },
-        onDoneClicked: () -> Unit = { }
-    ) {
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
 
-        setContentAsPasswordInput(
-            passwordVisualTransformation = passwordVisualTransformation,
-            composeTestRule = composeTestRule,
-            password = password,
-            onPasswordChanged = onPasswordChanged,
-            onDoneClicked= onDoneClicked
+        return onNodeWithPasswordInputTrailingIconAnd(
+            otherMatcher = hasContentDescriptionExactlyTrailingIconIndicatesPasswordHidden(),
+            useUnmergedTree = useUnmergedTree
         )
-
-        assertPasswordInputIsDisplayed()
 
     }
 
-    private fun onNodeWithPasswordInput(
+    private fun onNodeWithPasswordInputTrailingIconAndContentDescriptionExactlyTrailingIconIndicatesPasswordShown(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordInputTrailingIconAnd(
+            otherMatcher = hasContentDescriptionExactlyTrailingIconIndicatesPasswordShown(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordInputAndTextFieldTrailingIconClickLabelShowPassword(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
         return onNodeWithPasswordInputAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.label_password),
-                includeEditableText = FALSE
-            ),
+            otherMatcher = hasTextFieldTrailingIconClickLabelShowPassword(),
             useUnmergedTree = useUnmergedTree
         )
+
+    }
+
+    private fun onNodeWithPasswordInputAndTextFieldTrailingIconClickLabelHidePassword(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordInputAnd(
+            otherMatcher = hasTextFieldTrailingIconClickLabelHidePassword(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordInputAndTextFieldTrailingIconImageVectorIconsDefaultVisibility(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordInputAnd(
+            otherMatcher = hasTextFieldTrailingIconImageVectorIconsDefaultVisibility(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordInputAndTextFieldTrailingIconImageVectorIconsDefaultVisibilityOff(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordInputAnd(
+            otherMatcher = hasTextFieldTrailingIconImageVectorIconsDefaultVisibilityOff(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordInputAndTextFieldTrailingIconContentDescriptionTrailingIconIndicatesPasswordShown(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordInputAnd(
+            otherMatcher = hasTextFieldTrailingIconContentDescriptionTrailingIconIndicatesPasswordShown(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordInputAndTextFieldTrailingIconContentDescriptionTrailingIconIndicatesPasswordHidden(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordInputAnd(
+            otherMatcher = hasTextFieldTrailingIconContentDescriptionTrailingIconIndicatesPasswordHidden(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordInputAndTextFieldVisualTransformationNone(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordInputAnd(
+            otherMatcher = hasTextFieldVisualTransformationNone(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordInputAndTextFieldVisualTransformationPassword(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordInputAnd(
+            otherMatcher = hasTextFieldVisualTransformationPassword(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordInputAndTextFieldSingleLineTrue(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordInputAnd(
+            otherMatcher = hasTextFieldSingleLineTrue(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordInputAndTextFieldKeyboardOptionsKeyboardTypePassword(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordInputAnd(
+            otherMatcher = hasTextFieldKeyboardOptionsKeyboardTypePassword(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordInputAndTextFieldKeyboardOptionsImeActionDone(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordInputAnd(
+            otherMatcher = hasTextFieldKeyboardOptionsImeActionDone(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordInputAndTextExactlyPassword(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordInputAnd(
+            otherMatcher = hasTextExactlyPassword(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordInputTrailingIconAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
+    ): SemanticsNodeInteraction {
+
+        return composeTestRule
+            .onNode(
+                matcher = hasTestTagPasswordInputTrailingIcon().and(
+                    other = otherMatcher
+                ),
+                useUnmergedTree = useUnmergedTree
+            )
 
     }
 
@@ -196,9 +381,7 @@ class PasswordInputTest2 {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_INPUT_PASSWORD
-                ).and(
+                matcher = hasTestTagPasswordInput().and(
                     other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
@@ -206,197 +389,167 @@ class PasswordInputTest2 {
 
     }
 
-    private fun onNodeWithPasswordInputTrailingIconWhenPasswordHidden(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasTestTagPasswordInputTrailingIcon(): SemanticsMatcher {
 
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON
-                ).and(
-                    // This semantics matcher is from the Compose test library.
-                    other = hasContentDescriptionExactly(
-                        mContext.getString(
-                            R.string.content_description_password_input_trailing_icon_password_hidden
-                        )
-                    )
-                ),
-                useUnmergedTree = useUnmergedTree
+        return hasTestTagsPasswordInputTrailingIconAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+        )
+
+    }
+
+    private fun hasTestTagPasswordInput(): SemanticsMatcher {
+
+        return hasTestTagsPasswordInputAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+        )
+
+    }
+
+    private fun hasTestTagsPasswordInputTrailingIconAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON + otherTestTag
+        )
+
+    }
+
+    private fun hasTestTagsPasswordInputAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_INPUT_PASSWORD + otherTestTag
+        )
+
+    }
+
+    // Before using a semantics matcher, check the implementation of the utility functions in this
+    // section if it's already available to avoid duplication.
+    // The function names make the check easier.
+
+    private fun hasTextExactlyPassword(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_PASSWORD),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextFieldTrailingIconClickLabelShowPassword(): SemanticsMatcher {
+
+        return hasTextFieldTrailingIconClickLabel(
+            trailingIconClickLabel = mContext.getString(
+                STRING_RES_PASSWORD_SHOW
             )
+        )
 
     }
 
-    private fun onNodeWithPasswordInputTrailingIconWhenPasswordShown(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasTextFieldTrailingIconClickLabelHidePassword(): SemanticsMatcher {
 
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON
-                ).and(
-                    // This semantics matcher is from the Compose test library.
-                    other = hasContentDescriptionExactly(
-                        mContext.getString(
-                            R.string.content_description_password_input_trailing_icon_password_shown
-                        )
-                    )
-                ),
-                useUnmergedTree = useUnmergedTree
+        return hasTextFieldTrailingIconClickLabel(
+            trailingIconClickLabel = mContext.getString(
+                STRING_RES_PASSWORD_HIDE
             )
-
-    }
-
-    private fun onNodeWithPasswordInputTrailingIconClickLabelToShowPassword(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        return onNodeWithPasswordInputAnd(
-            otherMatcher = hasTextFieldTrailingIconClickLabel(
-                trailingIconClickLabel = mContext.getString(
-                    R.string.content_description_show_password
-                )
-            ),
-            useUnmergedTree = useUnmergedTree
         )
 
     }
 
-    private fun onNodeWithPasswordInputTrailingIconClickLabelToHidePassword(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasContentDescriptionExactlyTrailingIconIndicatesPasswordShown(): SemanticsMatcher {
 
-        return onNodeWithPasswordInputAnd(
-            otherMatcher = hasTextFieldTrailingIconClickLabel(
-                trailingIconClickLabel = mContext.getString(
-                    R.string.content_description_hide_password
-                )
-            ),
-            useUnmergedTree = useUnmergedTree
+        // This semantics matcher is from the Compose test library.
+        return hasContentDescriptionExactly(
+            mContext.getString(
+                STRING_RES_TRAILING_ICON_INDICATES_PASSWORD_SHOWN
+            )
         )
 
     }
 
-    private fun onNodeWithPasswordInputTrailingIconImageVectorToShowPassword(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasContentDescriptionExactlyTrailingIconIndicatesPasswordHidden(): SemanticsMatcher {
 
-        return onNodeWithPasswordInputAnd(
-            otherMatcher = hasTextFieldTrailingIconImageVector(
-                trailingIconImageVector = Icons.Default.Visibility
-            ),
-            useUnmergedTree = useUnmergedTree
+        // This semantics matcher is from the Compose test library.
+        return hasContentDescriptionExactly(
+            mContext.getString(
+                STRING_RES_TRAILING_ICON_INDICATES_PASSWORD_HIDDEN
+            )
         )
 
     }
 
-    private fun onNodeWithPasswordInputTrailingIconImageVectorToHidePassword(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasTextFieldKeyboardOptionsImeActionDone(): SemanticsMatcher {
 
-        return onNodeWithPasswordInputAnd(
-            otherMatcher = hasTextFieldTrailingIconImageVector(
-                trailingIconImageVector = Icons.Default.VisibilityOff
-            ),
-            useUnmergedTree = useUnmergedTree
+        return hasTextFieldKeyboardOptionsImeAction(
+            keyboardOptionsImeAction = IME_ACTION_DONE
         )
 
     }
 
-    private fun onNodeWithPasswordInputTrailingIconContentDescriptionWhenPasswordShown(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasTextFieldKeyboardOptionsKeyboardTypePassword(): SemanticsMatcher {
 
-        return onNodeWithPasswordInputAnd(
-            otherMatcher = hasTextFieldTrailingIconContentDescription(
-                trailingIconContentDescription = mContext.getString(
-                    R.string.content_description_password_input_trailing_icon_password_shown
-                )
-            ),
-            useUnmergedTree = useUnmergedTree
+        return hasTextFieldKeyboardOptionsKeyboardType(
+            keyboardOptionsKeyboardType = KEYBOARD_TYPE_PASSWORD
         )
 
     }
 
-    private fun onNodeWithPasswordInputTrailingIconContentDescriptionWhenPasswordHidden(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasTextFieldSingleLineTrue(): SemanticsMatcher {
 
-        return onNodeWithPasswordInputAnd(
-            otherMatcher = hasTextFieldTrailingIconContentDescription(
-                trailingIconContentDescription = mContext.getString(
-                    R.string.content_description_password_input_trailing_icon_password_hidden
-                )
-            ),
-            useUnmergedTree = useUnmergedTree
+        return hasTextFieldSingleLine(
+            singleLine = SINGLE_LINE_TRUE
         )
 
     }
 
-    private fun onNodeWithPasswordInputWhenPasswordVisualTransformationDisabled(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasTextFieldVisualTransformationPassword(): SemanticsMatcher {
 
-        return onNodeWithPasswordInputAnd(
-            otherMatcher = hasTextFieldVisualTransformation(
-                visualTransformation = VisualTransformation.None
-            ),
-            useUnmergedTree = useUnmergedTree
+        return hasTextFieldVisualTransformation(
+            visualTransformation = VISUAL_TRANSFORMATION_PASSWORD
         )
 
     }
 
-    private fun onNodeWithPasswordInputWhenPasswordVisualTransformationEnabled(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasTextFieldVisualTransformationNone(): SemanticsMatcher {
 
-        return onNodeWithPasswordInputAnd(
-            otherMatcher = hasTextFieldVisualTransformation(
-                visualTransformation = PasswordVisualTransformation()
-            ),
-            useUnmergedTree = useUnmergedTree
+        return hasTextFieldVisualTransformation(
+            visualTransformation = VISUAL_TRANSFORMATION_NONE
         )
 
     }
 
-    private fun onNodeWithPasswordInputSingleLineTrue(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasTextFieldTrailingIconContentDescriptionTrailingIconIndicatesPasswordShown():
+            SemanticsMatcher {
 
-        return onNodeWithPasswordInputAnd(
-            otherMatcher = hasTextFieldSingleLine(
-                singleLine = TRUE
-            ),
-            useUnmergedTree = useUnmergedTree
+        return hasTextFieldTrailingIconContentDescription(
+            trailingIconContentDescription = mContext.getString(
+                STRING_RES_TRAILING_ICON_INDICATES_PASSWORD_SHOWN
+            )
         )
 
     }
 
-    private fun onNodeWithPasswordInputKeyboardOptionsKeyboardTypePassword(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasTextFieldTrailingIconContentDescriptionTrailingIconIndicatesPasswordHidden():
+            SemanticsMatcher {
 
-        return onNodeWithPasswordInputAnd(
-            otherMatcher = hasTextFieldKeyboardOptionsKeyboardType(
-                keyboardOptionsKeyboardType = KeyboardType.Password
-            ),
-            useUnmergedTree = useUnmergedTree
+        return hasTextFieldTrailingIconContentDescription(
+            trailingIconContentDescription = mContext.getString(
+                STRING_RES_TRAILING_ICON_INDICATES_PASSWORD_HIDDEN
+            )
         )
 
     }
 
-    private fun onNodeWithPasswordInputKeyboardOptionsImeActionDone(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    private fun hasTextFieldTrailingIconImageVectorIconsDefaultVisibility(): SemanticsMatcher {
 
-        return onNodeWithPasswordInputAnd(
-            otherMatcher = hasTextFieldKeyboardOptionsImeAction(
-                keyboardOptionsImeAction = ImeAction.Done
-            ),
-            useUnmergedTree = useUnmergedTree
+        return hasTextFieldTrailingIconImageVector(
+            trailingIconImageVector = IMAGE_VECTOR_ICONS_DEFAULT_VISIBILITY
+        )
+
+    }
+
+    private fun hasTextFieldTrailingIconImageVectorIconsDefaultVisibilityOff(): SemanticsMatcher {
+
+        return hasTextFieldTrailingIconImageVector(
+            trailingIconImageVector = IMAGE_VECTOR_ICONS_DEFAULT_VISIBILITY_OFF
         )
 
     }
@@ -425,7 +578,7 @@ class PasswordInputTest2 {
     fun input_Content_Displayed() {
 
         setContentAsPasswordInputAndAssertItIsDisplayed(
-            passwordVisualTransformation = VisualTransformation.None,
+            passwordVisualTransformation = VISUAL_TRANSFORMATION_NONE,
             password = INPUT_CONTENT_PASSWORD
         )
 
@@ -486,7 +639,7 @@ class PasswordInputTest2 {
             password = INPUT_CONTENT_PASSWORD_EMPTY
         )
 
-        onNodeWithPasswordInputTrailingIconClickLabelToShowPassword()
+        onNodeWithPasswordInputAndTextFieldTrailingIconClickLabelShowPassword()
             .assertIsDisplayed()
 
     }
@@ -499,27 +652,27 @@ class PasswordInputTest2 {
         )
 
         // Optional
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(
                 text = INPUT_CONTENT_PASSWORD
             )
 
         // Optional
-        onNodeWithPasswordInputTrailingIconClickLabelToShowPassword()
+        onNodeWithPasswordInputAndTextFieldTrailingIconClickLabelShowPassword()
             .assertIsDisplayed()
 
         // Optional
-        onNodeWithPasswordInputTrailingIconClickLabelToHidePassword()
+        onNodeWithPasswordInputAndTextFieldTrailingIconClickLabelHidePassword()
             .assertDoesNotExist()
 
-        onNodeWithPasswordInputTrailingIconWhenPasswordHidden()
+        onNodeWithPasswordInputTrailingIconAndContentDescriptionExactlyTrailingIconIndicatesPasswordHidden()
             .performClick()
 
         // Optional
-        onNodeWithPasswordInputTrailingIconClickLabelToShowPassword()
+        onNodeWithPasswordInputAndTextFieldTrailingIconClickLabelShowPassword()
             .assertDoesNotExist()
 
-        onNodeWithPasswordInputTrailingIconClickLabelToHidePassword()
+        onNodeWithPasswordInputAndTextFieldTrailingIconClickLabelHidePassword()
             .assertIsDisplayed()
 
     }
@@ -531,7 +684,7 @@ class PasswordInputTest2 {
             password = INPUT_CONTENT_PASSWORD_EMPTY
         )
 
-        onNodeWithPasswordInputTrailingIconImageVectorToShowPassword()
+        onNodeWithPasswordInputAndTextFieldTrailingIconImageVectorIconsDefaultVisibility()
             .assertIsDisplayed()
 
     }
@@ -544,27 +697,27 @@ class PasswordInputTest2 {
         )
 
         // Optional
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(
                 text = INPUT_CONTENT_PASSWORD
             )
 
         // Optional
-        onNodeWithPasswordInputTrailingIconImageVectorToShowPassword()
+        onNodeWithPasswordInputAndTextFieldTrailingIconImageVectorIconsDefaultVisibility()
             .assertIsDisplayed()
 
         // Optional
-        onNodeWithPasswordInputTrailingIconImageVectorToHidePassword()
+        onNodeWithPasswordInputAndTextFieldTrailingIconImageVectorIconsDefaultVisibilityOff()
             .assertDoesNotExist()
 
-        onNodeWithPasswordInputTrailingIconWhenPasswordHidden()
+        onNodeWithPasswordInputTrailingIconAndContentDescriptionExactlyTrailingIconIndicatesPasswordHidden()
             .performClick()
 
         // Optional
-        onNodeWithPasswordInputTrailingIconImageVectorToShowPassword()
+        onNodeWithPasswordInputAndTextFieldTrailingIconImageVectorIconsDefaultVisibility()
             .assertDoesNotExist()
 
-        onNodeWithPasswordInputTrailingIconImageVectorToHidePassword()
+        onNodeWithPasswordInputAndTextFieldTrailingIconImageVectorIconsDefaultVisibilityOff()
             .assertIsDisplayed()
 
     }
@@ -576,7 +729,7 @@ class PasswordInputTest2 {
             password = INPUT_CONTENT_PASSWORD_EMPTY
         )
 
-        onNodeWithPasswordInputTrailingIconContentDescriptionWhenPasswordHidden()
+        onNodeWithPasswordInputAndTextFieldTrailingIconContentDescriptionTrailingIconIndicatesPasswordHidden()
             .assertIsDisplayed()
 
     }
@@ -589,21 +742,21 @@ class PasswordInputTest2 {
         )
 
         // Optional
-        onNodeWithPasswordInputTrailingIconContentDescriptionWhenPasswordHidden()
+        onNodeWithPasswordInputAndTextFieldTrailingIconContentDescriptionTrailingIconIndicatesPasswordHidden()
             .assertIsDisplayed()
 
         // Optional
-        onNodeWithPasswordInputTrailingIconContentDescriptionWhenPasswordShown()
+        onNodeWithPasswordInputAndTextFieldTrailingIconContentDescriptionTrailingIconIndicatesPasswordShown()
             .assertDoesNotExist()
 
-        onNodeWithPasswordInputTrailingIconWhenPasswordHidden()
+        onNodeWithPasswordInputTrailingIconAndContentDescriptionExactlyTrailingIconIndicatesPasswordHidden()
             .performClick()
 
         // Optional
-        onNodeWithPasswordInputTrailingIconContentDescriptionWhenPasswordHidden()
+        onNodeWithPasswordInputAndTextFieldTrailingIconContentDescriptionTrailingIconIndicatesPasswordHidden()
             .assertDoesNotExist()
 
-        onNodeWithPasswordInputTrailingIconContentDescriptionWhenPasswordShown()
+        onNodeWithPasswordInputAndTextFieldTrailingIconContentDescriptionTrailingIconIndicatesPasswordShown()
             .assertIsDisplayed()
 
     }
@@ -615,7 +768,7 @@ class PasswordInputTest2 {
             password = INPUT_CONTENT_PASSWORD_EMPTY
         )
 
-        onNodeWithPasswordInputSingleLineTrue()
+        onNodeWithPasswordInputAndTextFieldSingleLineTrue()
             .assertIsDisplayed()
 
     }
@@ -627,7 +780,7 @@ class PasswordInputTest2 {
             password = INPUT_CONTENT_PASSWORD_EMPTY
         )
 
-        onNodeWithPasswordInputKeyboardOptionsKeyboardTypePassword()
+        onNodeWithPasswordInputAndTextFieldKeyboardOptionsKeyboardTypePassword()
             .assertIsDisplayed()
 
     }
@@ -639,7 +792,7 @@ class PasswordInputTest2 {
             password = INPUT_CONTENT_PASSWORD_EMPTY
         )
 
-        onNodeWithPasswordInputKeyboardOptionsImeActionDone()
+        onNodeWithPasswordInputAndTextFieldKeyboardOptionsImeActionDone()
             .assertIsDisplayed()
 
     }
@@ -655,13 +808,13 @@ class PasswordInputTest2 {
 
         setContentAsPasswordInputAndAssertItIsDisplayed(
             // Optional since test doesn't fail when it should pass
-            passwordVisualTransformation = VisualTransformation.None,
+            passwordVisualTransformation = VISUAL_TRANSFORMATION_NONE,
             password = password,
             onPasswordChanged = onPasswordChanged,
         )
 
         // Optional since test doesn't fail when it should pass
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .apply {
                 performTextInputSelection(
                     selection = TextRange(index = password.length)
@@ -696,12 +849,12 @@ class PasswordInputTest2 {
 
         setContentAsPasswordInputAndAssertItIsDisplayed(
             // Optional since test doesn't fail when it should pass
-            passwordVisualTransformation = VisualTransformation.None,
+            passwordVisualTransformation = VISUAL_TRANSFORMATION_NONE,
             password = password,
             onPasswordChanged = onPasswordChanged,
         )
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .apply {
                 // Optional since test doesn't fail when it should pass
                 performTextInputSelection(
@@ -730,7 +883,7 @@ class PasswordInputTest2 {
             onDoneClicked = onDoneClicked
         )
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .apply {
                 performTextInput(
                     text = INPUT_CONTENT_PASSWORD
@@ -757,7 +910,7 @@ class PasswordInputTest2 {
             }
         )
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .apply {
                 performTextInput(
                     text = INPUT_CONTENT_PASSWORD
@@ -777,7 +930,7 @@ class PasswordInputTest2 {
             password = INPUT_CONTENT_PASSWORD_EMPTY
         )
 
-        onNodeWithPasswordInputWhenPasswordVisualTransformationEnabled()
+        onNodeWithPasswordInputAndTextFieldVisualTransformationPassword()
             .assertIsDisplayed()
 
     }
@@ -789,11 +942,11 @@ class PasswordInputTest2 {
             password = INPUT_CONTENT_PASSWORD_EMPTY
         )
 
-        onNodeWithPasswordInputWhenPasswordVisualTransformationDisabled()
+        onNodeWithPasswordInputAndTextFieldVisualTransformationNone()
             .assertDoesNotExist()
 
         // Optional
-        onNodeWithPasswordInputWhenPasswordVisualTransformationEnabled()
+        onNodeWithPasswordInputAndTextFieldVisualTransformationPassword()
             .apply {
                 assertIsDisplayed()
 
@@ -802,14 +955,14 @@ class PasswordInputTest2 {
                 )
             }
 
-        onNodeWithPasswordInputTrailingIconWhenPasswordHidden()
+        onNodeWithPasswordInputTrailingIconAndContentDescriptionExactlyTrailingIconIndicatesPasswordHidden()
             .performClick()
 
         // Optional
-        onNodeWithPasswordInputWhenPasswordVisualTransformationEnabled()
+        onNodeWithPasswordInputAndTextFieldVisualTransformationPassword()
             .assertDoesNotExist()
 
-        onNodeWithPasswordInputWhenPasswordVisualTransformationDisabled()
+        onNodeWithPasswordInputAndTextFieldVisualTransformationNone()
             .assertIsDisplayed()
 
     }
@@ -821,68 +974,68 @@ class PasswordInputTest2 {
             password = INPUT_CONTENT_PASSWORD
         )
 
-        onNodeWithPasswordInputWhenPasswordVisualTransformationDisabled()
+        onNodeWithPasswordInputAndTextFieldVisualTransformationNone()
             .assertDoesNotExist()
 
-        onNodeWithPasswordInputTrailingIconContentDescriptionWhenPasswordShown()
+        onNodeWithPasswordInputAndTextFieldTrailingIconContentDescriptionTrailingIconIndicatesPasswordShown()
             .assertDoesNotExist()
 
-        onNodeWithPasswordInputTrailingIconClickLabelToHidePassword()
+        onNodeWithPasswordInputAndTextFieldTrailingIconClickLabelHidePassword()
             .assertDoesNotExist()
 
-        onNodeWithPasswordInputWhenPasswordVisualTransformationEnabled()
+        onNodeWithPasswordInputAndTextFieldVisualTransformationPassword()
             .assertIsDisplayed()
 
-        onNodeWithPasswordInputTrailingIconContentDescriptionWhenPasswordHidden()
+        onNodeWithPasswordInputAndTextFieldTrailingIconContentDescriptionTrailingIconIndicatesPasswordHidden()
             .assertIsDisplayed()
 
-        onNodeWithPasswordInputTrailingIconClickLabelToShowPassword()
+        onNodeWithPasswordInputAndTextFieldTrailingIconClickLabelShowPassword()
             .assertIsDisplayed()
 
 
-        onNodeWithPasswordInputTrailingIconWhenPasswordHidden()
+        onNodeWithPasswordInputTrailingIconAndContentDescriptionExactlyTrailingIconIndicatesPasswordHidden()
             .performClick()
 
 
-        onNodeWithPasswordInputWhenPasswordVisualTransformationEnabled()
+        onNodeWithPasswordInputAndTextFieldVisualTransformationPassword()
             .assertDoesNotExist()
 
-        onNodeWithPasswordInputTrailingIconContentDescriptionWhenPasswordHidden()
+        onNodeWithPasswordInputAndTextFieldTrailingIconContentDescriptionTrailingIconIndicatesPasswordHidden()
             .assertDoesNotExist()
 
-        onNodeWithPasswordInputTrailingIconClickLabelToShowPassword()
+        onNodeWithPasswordInputAndTextFieldTrailingIconClickLabelShowPassword()
             .assertDoesNotExist()
 
-        onNodeWithPasswordInputWhenPasswordVisualTransformationDisabled()
+        onNodeWithPasswordInputAndTextFieldVisualTransformationNone()
             .assertIsDisplayed()
 
-        onNodeWithPasswordInputTrailingIconContentDescriptionWhenPasswordShown()
+        onNodeWithPasswordInputAndTextFieldTrailingIconContentDescriptionTrailingIconIndicatesPasswordShown()
             .assertIsDisplayed()
 
-        onNodeWithPasswordInputTrailingIconClickLabelToHidePassword()
+        onNodeWithPasswordInputAndTextFieldTrailingIconClickLabelHidePassword()
             .assertIsDisplayed()
 
 
-        onNodeWithPasswordInputTrailingIconWhenPasswordShown()
+        onNodeWithPasswordInputTrailingIconAndContentDescriptionExactlyTrailingIconIndicatesPasswordShown()
             .performClick()
 
 
-        onNodeWithPasswordInputWhenPasswordVisualTransformationDisabled()
+        onNodeWithPasswordInputAndTextFieldVisualTransformationNone()
             .assertDoesNotExist()
 
-        onNodeWithPasswordInputTrailingIconContentDescriptionWhenPasswordShown()
+        onNodeWithPasswordInputAndTextFieldTrailingIconContentDescriptionTrailingIconIndicatesPasswordShown()
             .assertDoesNotExist()
 
-        onNodeWithPasswordInputTrailingIconClickLabelToHidePassword()
+        onNodeWithPasswordInputAndTextFieldTrailingIconClickLabelHidePassword()
             .assertDoesNotExist()
 
-        onNodeWithPasswordInputWhenPasswordVisualTransformationEnabled()
+        onNodeWithPasswordInputAndTextFieldVisualTransformationPassword()
             .assertIsDisplayed()
 
-        onNodeWithPasswordInputTrailingIconContentDescriptionWhenPasswordHidden()
+        onNodeWithPasswordInputAndTextFieldTrailingIconContentDescriptionTrailingIconIndicatesPasswordHidden()
             .assertIsDisplayed()
 
-        onNodeWithPasswordInputTrailingIconClickLabelToShowPassword()
+        onNodeWithPasswordInputAndTextFieldTrailingIconClickLabelShowPassword()
             .assertIsDisplayed()
 
     }
