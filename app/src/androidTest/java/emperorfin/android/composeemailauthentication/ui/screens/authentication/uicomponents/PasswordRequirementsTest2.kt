@@ -1,6 +1,7 @@
 package emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents
 
 import android.content.Context
+import androidx.annotation.StringRes
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -61,6 +62,27 @@ class PasswordRequirementsTest2 {
 
         private const val TRUE: Boolean = true
         private const val FALSE: Boolean = false
+
+        private const val THIS_STRING_MUST_BE_EMPTY: String = ""
+
+        @StringRes
+        private const val STRING_RES_AT_LEAST_EIGHT_CHARACTERS: Int = R.string.password_requirement_characters
+        @StringRes
+        private const val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER: Int = R.string.password_requirement_capital
+        @StringRes
+        private const val STRING_RES_AT_LEAST_ONE_DIGIT: Int = R.string.password_requirement_digit
+        @StringRes
+        private const val STRING_RES_AT_LEAST_EIGHT_CHARACTERS_NEEDED: Int = R.string.test_password_requirement_needed_characters
+        @StringRes
+        private const val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_NEEDED: Int = R.string.test_password_requirement_needed_capital
+        @StringRes
+        private const val STRING_RES_AT_LEAST_ONE_DIGIT_NEEDED: Int = R.string.test_password_requirement_needed_digit
+        @StringRes
+        private const val STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED: Int = R.string.test_password_requirement_satisfied_characters
+        @StringRes
+        private const val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_SATISFIED: Int = R.string.test_password_requirement_satisfied_capital
+        @StringRes
+        private const val STRING_RES_AT_LEAST_ONE_DIGIT_SATISFIED: Int = R.string.test_password_requirement_satisfied_digit
 
     }
 
@@ -148,10 +170,164 @@ class PasswordRequirementsTest2 {
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
+        val thisStringCouldBeAnything = ""
+
+        return onNodeWithPasswordRequirementsAnd(
+            otherMatcher = hasTextExactly(
+                thisStringCouldBeAnything,
+                includeEditableText = FALSE
+            ).not(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    // ------- FOR ..._AnotherApproach()
+
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharacters(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAnd(
+            otherMatcher = hasTextExactlyAtLeastEightCharacters(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAndTextExactlyAtLeastOneUppercaseLetter(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAnd(
+            otherMatcher = hasTextExactlyAtLeastOneUppercaseLetter(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAndTextExactlyAtLeastOneDigit(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAnd(
+            otherMatcher = hasTextExactlyAtLeastOneDigit(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastEightCharactersNeededAnd(
+            otherMatcher = hasTextExactlyAtLeastEightCharacters(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAnd(
+            otherMatcher = hasTextExactlyAtLeastOneUppercaseLetter(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneDigitNeededAnd(
+            otherMatcher = hasTextExactlyAtLeastOneDigit(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    // ------- /FOR ..._AnotherApproach()
+
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfied(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastEightCharactersAnd(
+            otherMatcher = hasTextExactlyAtLeastEightCharactersSatisfied(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAnd(
+            otherMatcher = hasTextExactlyAtLeastOneUppercaseLetterSatisfied(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitSatisfied(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneDigitAnd(
+            otherMatcher = hasTextExactlyAtLeastOneDigitSatisfied(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastEightCharactersAnd(
+            otherMatcher = hasTextExactlyAtLeastEightCharactersNeeded(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAnd(
+            otherMatcher = hasTextExactlyAtLeastOneUppercaseLetterNeeded(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneDigitAnd(
+            otherMatcher = hasTextExactlyAtLeastOneDigitNeeded(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementsAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
+    ): SemanticsNodeInteraction {
+
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENTS
+                matcher = hasTestTagPasswordRequirements().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
@@ -160,179 +336,7 @@ class PasswordRequirementsTest2 {
 
     // ------- FOR ..._AnotherApproach()
 
-    private fun onNodeWithPasswordRequirementAtLeastEightCharsSatisfiedForAtLeastEightChars(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        return onNodeWithPasswordRequirementAtLeastEightCharsSatisfiedAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.password_requirement_characters),
-                includeEditableText = FALSE
-            ),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
-
-    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedForAtLeastOneUppercaseLetter(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.password_requirement_capital),
-                includeEditableText = FALSE
-            ),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
-
-    private fun onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedForAtLeastOneDigit(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        return onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.password_requirement_digit),
-                includeEditableText = FALSE
-            ),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
-
-    private fun onNodeWithPasswordRequirementAtLeastEightCharsNeededForAtLeastEightChars(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        return onNodeWithPasswordRequirementAtLeastEightCharsNeededAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.password_requirement_characters),
-                includeEditableText = FALSE
-            ),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
-
-    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededForAtLeastOneUppercaseLetter(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.password_requirement_capital),
-                includeEditableText = FALSE
-            ),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
-
-    private fun onNodeWithPasswordRequirementAtLeastOneDigitNeededForAtLeastOneDigit(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        return onNodeWithPasswordRequirementAtLeastOneDigitNeededAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.password_requirement_digit),
-                includeEditableText = FALSE
-            ),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
-
-    // ------- /FOR ..._AnotherApproach()
-
-    private fun onNodeWithPasswordRequirementAtLeastEightCharsForAtLeastEightCharsSatisfied(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        return onNodeWithPasswordRequirementAtLeastEightCharsAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.test_password_requirement_satisfied_characters),
-                includeEditableText = FALSE
-            ),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
-
-    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterForAtLeastOneUppercaseLetterSatisfied(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.test_password_requirement_satisfied_capital),
-                includeEditableText = FALSE
-            ),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
-
-    private fun onNodeWithPasswordRequirementAtLeastOneDigitForAtLeastOneDigitSatisfied(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        return onNodeWithPasswordRequirementAtLeastOneDigitAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.test_password_requirement_satisfied_digit),
-                includeEditableText = FALSE
-            ),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
-
-    private fun onNodeWithPasswordRequirementAtLeastEightCharsForAtLeastEightCharsNeeded(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        return onNodeWithPasswordRequirementAtLeastEightCharsAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.test_password_requirement_needed_characters),
-                includeEditableText = FALSE
-            ),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
-
-    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterForAtLeastOneUppercaseLetterNeeded(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.test_password_requirement_needed_capital),
-                includeEditableText = FALSE
-            ),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
-
-    private fun onNodeWithPasswordRequirementAtLeastOneDigitForAtLeastOneDigitNeeded(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        return onNodeWithPasswordRequirementAtLeastOneDigitAnd(
-            otherMatcher = hasTextExactly(
-                mContext.getString(R.string.test_password_requirement_needed_digit),
-                includeEditableText = FALSE
-            ),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
-
-    // ------- FOR ..._AnotherApproach()
-
-    private fun onNodeWithPasswordRequirementAtLeastEightCharsSatisfiedAnd(
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAnd(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
         useUnmergedTree: Boolean = FALSE,
         otherMatcher: SemanticsMatcher
@@ -340,7 +344,7 @@ class PasswordRequirementsTest2 {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTagsPasswordRequirementAndAtLeastEightCharsSatisfied().and(
+                matcher = hasTestTagsPasswordRequirementAndAtLeastEightCharactersSatisfied().and(
                     other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
@@ -356,7 +360,7 @@ class PasswordRequirementsTest2 {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLettersSatisfied().and(
+                matcher = hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetterSatisfied().and(
                     other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
@@ -380,7 +384,7 @@ class PasswordRequirementsTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementAtLeastEightCharsNeededAnd(
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersNeededAnd(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
         useUnmergedTree: Boolean = FALSE,
         otherMatcher: SemanticsMatcher
@@ -388,7 +392,7 @@ class PasswordRequirementsTest2 {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTagsPasswordRequirementAndAtLeastEightCharsNeeded().and(
+                matcher = hasTestTagsPasswordRequirementAndAtLeastEightCharactersNeeded().and(
                     other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
@@ -404,7 +408,7 @@ class PasswordRequirementsTest2 {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLettersNeeded().and(
+                matcher = hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetterNeeded().and(
                     other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
@@ -430,7 +434,7 @@ class PasswordRequirementsTest2 {
 
     // ------- /FOR ..._AnotherApproach()
 
-    private fun onNodeWithPasswordRequirementAtLeastEightCharsAnd(
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersAnd(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
         useUnmergedTree: Boolean = FALSE,
         otherMatcher: SemanticsMatcher
@@ -438,7 +442,7 @@ class PasswordRequirementsTest2 {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTagsPasswordRequirementAndAtLeastEightChars().and(
+                matcher = hasTestTagsPasswordRequirementAndAtLeastEightCharacters().and(
                     other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
@@ -478,20 +482,36 @@ class PasswordRequirementsTest2 {
 
     }
 
-    // ------- FOR ..._AnotherApproach()
+    private fun hasTestTagPasswordRequirements(): SemanticsMatcher {
 
-    private fun hasTestTagsPasswordRequirementAndAtLeastEightCharsSatisfied(): SemanticsMatcher {
-
-        return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(R.string.test_password_requirement_satisfied_characters)
+        return hasTestTagsPasswordRequirementsAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
         )
 
     }
 
-    private fun hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLettersSatisfied(): SemanticsMatcher {
+    private fun hasTestTagsPasswordRequirementsAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENTS + otherTestTag
+        )
+
+    }
+
+    // ------- FOR ..._AnotherApproach()
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastEightCharactersSatisfied(): SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(R.string.test_password_requirement_satisfied_capital)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED)
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetterSatisfied(): SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_SATISFIED)
         )
 
     }
@@ -499,23 +519,23 @@ class PasswordRequirementsTest2 {
     private fun hasTestTagsPasswordRequirementAndAtLeastOneDigitSatisfied(): SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(R.string.test_password_requirement_satisfied_digit)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT_SATISFIED)
         )
 
     }
 
-    private fun hasTestTagsPasswordRequirementAndAtLeastEightCharsNeeded(): SemanticsMatcher {
+    private fun hasTestTagsPasswordRequirementAndAtLeastEightCharactersNeeded(): SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(R.string.test_password_requirement_needed_characters)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS_NEEDED)
         )
 
     }
 
-    private fun hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLettersNeeded(): SemanticsMatcher {
+    private fun hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetterNeeded(): SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(R.string.test_password_requirement_needed_capital)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_NEEDED)
         )
 
     }
@@ -523,17 +543,17 @@ class PasswordRequirementsTest2 {
     private fun hasTestTagsPasswordRequirementAndAtLeastOneDigitNeeded(): SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(R.string.test_password_requirement_needed_digit)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT_NEEDED)
         )
 
     }
 
     // ------- /FOR ..._AnotherApproach()
 
-    private fun hasTestTagsPasswordRequirementAndAtLeastEightChars(): SemanticsMatcher {
+    private fun hasTestTagsPasswordRequirementAndAtLeastEightCharacters(): SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(R.string.password_requirement_characters)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS)
         )
 
     }
@@ -541,7 +561,7 @@ class PasswordRequirementsTest2 {
     private fun hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetter(): SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(R.string.password_requirement_capital)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER)
         )
 
     }
@@ -549,17 +569,100 @@ class PasswordRequirementsTest2 {
     private fun hasTestTagsPasswordRequirementAndAtLeastOneDigit(): SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(R.string.password_requirement_digit)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT)
         )
 
     }
 
-    private fun hasTestTagsPasswordRequirementAnd(
-        otherTestTag: String
-    ): SemanticsMatcher {
+    private fun hasTestTagsPasswordRequirementAnd(otherTestTag: String): SemanticsMatcher {
 
         return hasTestTag(
             testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT + otherTestTag
+        )
+
+    }
+
+    // Before using a semantics matcher, check the implementation of the utility functions in this
+    // section if it's already available to avoid duplication.
+    // The function names make the check easier.
+
+    private fun hasTextExactlyAtLeastEightCharacters(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastOneUppercaseLetter(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastOneDigit(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastEightCharactersNeeded(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS_NEEDED),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastOneUppercaseLetterNeeded(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_NEEDED),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastOneDigitNeeded(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT_NEEDED),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastEightCharactersSatisfied(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastOneUppercaseLetterSatisfied(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_SATISFIED),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastOneDigitSatisfied(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT_SATISFIED),
+            includeEditableText = FALSE
         )
 
     }
@@ -584,17 +687,17 @@ class PasswordRequirementsTest2 {
             satisfiedRequirements = satisfiedRequirements
         )
 
-        onNodeWithPasswordRequirementAtLeastEightCharsForAtLeastEightCharsNeeded(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterForAtLeastOneUppercaseLetterNeeded(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneDigitForAtLeastOneDigitNeeded(
+        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -616,17 +719,17 @@ class PasswordRequirementsTest2 {
             satisfiedRequirements = satisfiedRequirements
         )
 
-        onNodeWithPasswordRequirementAtLeastEightCharsNeededForAtLeastEightChars(
+        onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededForAtLeastOneUppercaseLetter(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneDigitNeededForAtLeastOneDigit(
+        onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -642,17 +745,17 @@ class PasswordRequirementsTest2 {
             satisfiedRequirements = satisfiedRequirements
         )
 
-        onNodeWithPasswordRequirementAtLeastEightCharsForAtLeastEightCharsSatisfied(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfied(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterForAtLeastOneUppercaseLetterNeeded(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneDigitForAtLeastOneDigitNeeded(
+        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -674,17 +777,17 @@ class PasswordRequirementsTest2 {
             satisfiedRequirements = satisfiedRequirements
         )
 
-        onNodeWithPasswordRequirementAtLeastEightCharsSatisfiedForAtLeastEightChars(
+        onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharacters(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededForAtLeastOneUppercaseLetter(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneDigitNeededForAtLeastOneDigit(
+        onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -700,17 +803,17 @@ class PasswordRequirementsTest2 {
             satisfiedRequirements = satisfiedRequirements
         )
 
-        onNodeWithPasswordRequirementAtLeastEightCharsForAtLeastEightCharsNeeded(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterForAtLeastOneUppercaseLetterSatisfied(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneDigitForAtLeastOneDigitNeeded(
+        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -732,17 +835,17 @@ class PasswordRequirementsTest2 {
             satisfiedRequirements = satisfiedRequirements
         )
 
-        onNodeWithPasswordRequirementAtLeastEightCharsNeededForAtLeastEightChars(
+        onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedForAtLeastOneUppercaseLetter(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAndTextExactlyAtLeastOneUppercaseLetter(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneDigitNeededForAtLeastOneDigit(
+        onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -758,17 +861,17 @@ class PasswordRequirementsTest2 {
             satisfiedRequirements = satisfiedRequirements
         )
 
-        onNodeWithPasswordRequirementAtLeastEightCharsForAtLeastEightCharsNeeded(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterForAtLeastOneUppercaseLetterNeeded(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneDigitForAtLeastOneDigitSatisfied(
+        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitSatisfied(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -790,17 +893,17 @@ class PasswordRequirementsTest2 {
             satisfiedRequirements = satisfiedRequirements
         )
 
-        onNodeWithPasswordRequirementAtLeastEightCharsNeededForAtLeastEightChars(
+        onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededForAtLeastOneUppercaseLetter(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedForAtLeastOneDigit(
+        onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAndTextExactlyAtLeastOneDigit(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -820,17 +923,17 @@ class PasswordRequirementsTest2 {
             satisfiedRequirements = satisfiedRequirements
         )
 
-        onNodeWithPasswordRequirementAtLeastEightCharsForAtLeastEightCharsSatisfied(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfied(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterForAtLeastOneUppercaseLetterSatisfied(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneDigitForAtLeastOneDigitSatisfied(
+        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitSatisfied(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -856,17 +959,17 @@ class PasswordRequirementsTest2 {
             satisfiedRequirements = satisfiedRequirements
         )
 
-        onNodeWithPasswordRequirementAtLeastEightCharsSatisfiedForAtLeastEightChars(
+        onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharacters(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedForAtLeastOneUppercaseLetter(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAndTextExactlyAtLeastOneUppercaseLetter(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedForAtLeastOneDigit(
+        onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAndTextExactlyAtLeastOneDigit(
 //            useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
