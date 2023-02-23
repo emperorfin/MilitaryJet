@@ -67,6 +67,8 @@ class RequirementTest2 {
         private const val TRUE: Boolean = true
         private const val FALSE: Boolean = false
 
+        private const val THIS_STRING_MUST_BE_EMPTY: String = ""
+
         /**
          * To easily find out the ARGB of a color to be used as the expected value during assertion,
          * there are two approaches to do this:
@@ -88,16 +90,22 @@ class RequirementTest2 {
          */
         private const val COLOR_ARGB_TINT_ON_SURFACE: Int = 1713052447
 
-        @StringRes private const val AT_LEAST_EIGHT_CHARACTERS: Int = R.string.password_requirement_characters
-        @StringRes private const val AT_LEAST_EIGHT_CHARACTERS_NEEDED: Int = R.string.test_password_requirement_needed_characters
-        @StringRes private const val AT_LEAST_EIGHT_CHARACTERS_SATISFIED: Int = R.string.test_password_requirement_satisfied_characters
+        @StringRes
+        private const val STRING_RES_AT_LEAST_EIGHT_CHARACTERS: Int = R.string.password_requirement_characters
+        @StringRes
+        private const val STRING_RES_AT_LEAST_EIGHT_CHARACTERS_NEEDED: Int = R.string.test_password_requirement_needed_characters
+        @StringRes
+        private const val STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED: Int = R.string.test_password_requirement_satisfied_characters
 
-        @StringRes private const val PASSWORD_REQUIREMENT_NEEDED: Int = R.string.content_description_icon_password_requirement_needed
-        @StringRes private const val PASSWORD_REQUIREMENT_SATISFIED: Int = R.string.content_description_icon_password_requirement_satisfied
+        @StringRes
+        private const val STRING_RES_PASSWORD_REQUIREMENT_NEEDED: Int = R.string.content_description_icon_password_requirement_needed
+        @StringRes
+        private const val STRING_RES_PASSWORD_REQUIREMENT_SATISFIED: Int = R.string.content_description_icon_password_requirement_satisfied
 
-        @StringRes private val MAIN_SOURCE_SET_AT_LEAST_EIGHT_CHARACTERS: Int = EIGHT_CHARACTERS.label
+        @StringRes
+        private val MAIN_SOURCE_SET_STRING_RES_AT_LEAST_EIGHT_CHARACTERS: Int = EIGHT_CHARACTERS.label
 
-        private val ICONS_DEFAULT_CHECK: ImageVector = Icons.Default.Check
+        private val IMAGE_VECTOR_ICONS_DEFAULT_CHECK: ImageVector = Icons.Default.Check
 
     }
 
@@ -156,12 +164,12 @@ class RequirementTest2 {
         )
 
         if (requirementSatisfied) {
-            assertRequirementOtherTagSatisfiedForOtherMatcherIsDisplayedAnotherApproach()
+            assertPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharactersAndTextColorArgbTintPrimaryIsDisplayedAnotherApproach()
         } else {
-            assertRequirementOtherTagNeededForOtherMatcherIsDisplayedAnotherApproach()
+            assertPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharactersAndTextColorArgbTintOnSurfaceIsDisplayedAnotherApproach()
         }
 
-        onNodeWithPasswordRequirementIconForIconImageVectorIconsDefaultCheck(
+        onNodeWithPasswordRequirementIconAndIconImageVectorIconsDefaultCheck(
             useUnmergedTree = TRUE
         )
             .assertIsDisplayed()
@@ -183,12 +191,12 @@ class RequirementTest2 {
         )
 
         if (requirementSatisfied) {
-            assertRequirementOtherTagForOtherMatcherSatisfiedIsDisplayed()
+            assertPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfiedAndTextColorArgbTintPrimaryIsDisplayed()
         } else {
-            assertRequirementOtherTagForOtherMatcherNeededIsDisplayed()
+            assertPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeededAndTextColorArgbTintOnSurfaceIsDisplayed()
         }
 
-        onNodeWithPasswordRequirementIconForIconImageVectorIconsDefaultCheck(
+        onNodeWithPasswordRequirementIconAndIconImageVectorIconsDefaultCheck(
             useUnmergedTree = TRUE
         )
             .assertIsDisplayed()
@@ -219,11 +227,11 @@ class RequirementTest2 {
      * immediately after composing the [Requirement] composable in the
      * [ComposeContentTestRule.setContent] when password requirement is not satisfied.
      */
-    private fun assertRequirementOtherTagSatisfiedForOtherMatcherIsDisplayedAnotherApproach(
+    private fun assertPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharactersAndTextColorArgbTintPrimaryIsDisplayedAnotherApproach(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
-        onNodeWithPasswordRequirementOtherTagSatisfiedForOtherMatcher(
+        onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharactersAndTextColorArgbTintPrimary(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -235,11 +243,11 @@ class RequirementTest2 {
      * immediately after composing the [Requirement] composable in the
      * [ComposeContentTestRule.setContent] when password requirement is not satisfied.
      */
-    private fun assertRequirementOtherTagNeededForOtherMatcherIsDisplayedAnotherApproach(
+    private fun assertPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharactersAndTextColorArgbTintOnSurfaceIsDisplayedAnotherApproach(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
-        onNodeWithPasswordRequirementOtherTagNeededForOtherMatcher(
+        onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharactersAndTextColorArgbTintOnSurface(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -253,11 +261,11 @@ class RequirementTest2 {
      * immediately after composing the [Requirement] composable in the
      * [ComposeContentTestRule.setContent] when password requirement is satisfied.
      */
-    private fun assertRequirementOtherTagForOtherMatcherSatisfiedIsDisplayed(
+    private fun assertPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfiedAndTextColorArgbTintPrimaryIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
-        onNodeWithPasswordRequirementOtherTagForOtherMatcherSatisfied(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfiedAndTextColorArgbTintPrimary(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -269,11 +277,11 @@ class RequirementTest2 {
      * immediately after composing the [Requirement] composable in the
      * [ComposeContentTestRule.setContent] when password requirement is not satisfied.
      */
-    private fun assertRequirementOtherTagForOtherMatcherNeededIsDisplayed(
+    private fun assertPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeededAndTextColorArgbTintOnSurfaceIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
-        onNodeWithPasswordRequirementOtherTagForOtherMatcherNeeded(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeededAndTextColorArgbTintOnSurface(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -282,11 +290,11 @@ class RequirementTest2 {
 
     // ------- FOR ..._AnotherApproach()
 
-    private fun onNodeWithPasswordRequirementOtherTagSatisfiedForOtherMatcher(
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharactersAndTextColorArgbTintPrimary(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
-        return onNodeWithPasswordRequirementOtherTagSatisfiedAnd(
+        return onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAnd(
             otherMatcher = hasTextExactlyAtLeastEightCharacters().and(
                 other = hasTextColorArgbTintPrimary()
             ),
@@ -295,11 +303,11 @@ class RequirementTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementOtherTagNeededForOtherMatcher(
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharactersAndTextColorArgbTintOnSurface(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
-        return onNodeWithPasswordRequirementOtherTagNeededAnd(
+        return onNodeWithPasswordRequirementAtLeastEightCharactersNeededAnd(
             otherMatcher = hasTextExactlyAtLeastEightCharacters().and(
                 other = hasTextColorArgbTintOnSurface()
             ),
@@ -308,41 +316,9 @@ class RequirementTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementOtherTagSatisfiedAnd(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        useUnmergedTree: Boolean = FALSE,
-        otherMatcher: SemanticsMatcher
-    ): SemanticsNodeInteraction {
-
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTagsPasswordRequirementAndOtherTagSatisfied().and(
-                    other = otherMatcher
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
-
-    }
-
-    private fun onNodeWithPasswordRequirementOtherTagNeededAnd(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        useUnmergedTree: Boolean = FALSE,
-        otherMatcher: SemanticsMatcher
-    ): SemanticsNodeInteraction {
-
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTagsPasswordRequirementAndOtherTagNeeded().and(
-                    other = otherMatcher
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
-
-    }
-
     // ------- /FOR ..._AnotherApproach()
 
-    private fun onNodeWithPasswordRequirementIconForIconImageVectorIconsDefaultCheck(
+    private fun onNodeWithPasswordRequirementIconAndIconImageVectorIconsDefaultCheck(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -353,7 +329,7 @@ class RequirementTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementIconForIconContentDescriptionPasswordRequirementSatisfied(
+    private fun onNodeWithPasswordRequirementIconAndIconContentDescriptionPasswordRequirementSatisfied(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -364,7 +340,7 @@ class RequirementTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementIconForIconContentDescriptionPasswordRequirementNeeded(
+    private fun onNodeWithPasswordRequirementIconAndIconContentDescriptionPasswordRequirementNeeded(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -375,7 +351,7 @@ class RequirementTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementIconForIconImageVectorPlusIconTintArgbDefaultColor(
+    private fun onNodeWithPasswordRequirementIconAndIconImageVectorIconsDefaultCheckAndIconTintArgbTintOnSurface(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -388,7 +364,7 @@ class RequirementTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementIconForIconImageVectorPlusIconTintArgbChangedColor(
+    private fun onNodeWithPasswordRequirementIconAndIconImageVectorIconsDefaultCheckAndIconTintArgbTintPrimary(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -401,11 +377,11 @@ class RequirementTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementOtherTagForOtherMatcherSatisfied(
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfiedAndTextColorArgbTintPrimary(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
-        return onNodeWithPasswordRequirementOtherTagAnd(
+        return onNodeWithPasswordRequirementAtLeastEightCharactersAnd(
             otherMatcher = hasTextExactlyAtLeastEightCharactersSatisfied().and(
                 other = hasTextColorArgbTintPrimary()
             ),
@@ -414,11 +390,11 @@ class RequirementTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementOtherTagForOtherMatcherNeeded(
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeededAndTextColorArgbTintOnSurface(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
-        return onNodeWithPasswordRequirementOtherTagAnd(
+        return onNodeWithPasswordRequirementAtLeastEightCharactersAnd(
             otherMatcher = hasTextExactlyAtLeastEightCharactersNeeded().and(
                 other = hasTextColorArgbTintOnSurface()
             ),
@@ -426,6 +402,42 @@ class RequirementTest2 {
         )
 
     }
+
+    // ------- FOR ..._AnotherApproach()
+
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
+    ): SemanticsNodeInteraction {
+
+        return composeTestRule
+            .onNode(
+                matcher = hasTestTagsPasswordRequirementAndAtLeastEightCharactersSatisfied().and(
+                    other = otherMatcher
+                ),
+                useUnmergedTree = useUnmergedTree
+            )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersNeededAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
+    ): SemanticsNodeInteraction {
+
+        return composeTestRule
+            .onNode(
+                matcher = hasTestTagsPasswordRequirementAndAtLeastEightCharactersNeeded().and(
+                    other = otherMatcher
+                ),
+                useUnmergedTree = useUnmergedTree
+            )
+
+    }
+
+    // ------- /FOR ..._AnotherApproach()
 
     private fun onNodeWithPasswordRequirementIconAnd(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
@@ -443,7 +455,7 @@ class RequirementTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementOtherTagAnd(
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersAnd(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
         useUnmergedTree: Boolean = FALSE,
         otherMatcher: SemanticsMatcher
@@ -451,7 +463,7 @@ class RequirementTest2 {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTagsPasswordRequirementAndOtherTag().and(
+                matcher = hasTestTagsPasswordRequirementAndAtLeastEightCharacters().and(
                     other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
@@ -459,45 +471,51 @@ class RequirementTest2 {
 
     }
 
-    // ------- FOR ..._AnotherApproach()
+    private fun hasTestTagPasswordRequirementIcon(): SemanticsMatcher {
 
-    private fun hasTestTagsPasswordRequirementAndOtherTagSatisfied(): SemanticsMatcher {
-
-        return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(AT_LEAST_EIGHT_CHARACTERS_SATISFIED)
+        return hasTestTagsPasswordRequirementIconAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
         )
 
     }
 
-    private fun hasTestTagsPasswordRequirementAndOtherTagNeeded(): SemanticsMatcher {
+    // ------- FOR ..._AnotherApproach()
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastEightCharactersSatisfied(): SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(AT_LEAST_EIGHT_CHARACTERS_NEEDED)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED)
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastEightCharactersNeeded(): SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS_NEEDED)
         )
 
     }
 
     // ------- /FOR ..._AnotherApproach()
 
-    private fun hasTestTagPasswordRequirementIcon(): SemanticsMatcher {
-
-        return hasTestTag(
-            testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT_ICON
-        )
-
-    }
-
-    private fun hasTestTagsPasswordRequirementAndOtherTag(): SemanticsMatcher {
+    private fun hasTestTagsPasswordRequirementAndAtLeastEightCharacters(): SemanticsMatcher {
 
         return hasTestTagsPasswordRequirementAnd(
-            otherTestTag = mContext.getString(AT_LEAST_EIGHT_CHARACTERS)
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS)
         )
 
     }
 
-    private fun hasTestTagsPasswordRequirementAnd(
-        otherTestTag: String
-    ): SemanticsMatcher {
+    private fun hasTestTagsPasswordRequirementIconAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT_ICON + otherTestTag
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAnd(otherTestTag: String): SemanticsMatcher {
 
         return hasTestTag(
             testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT + otherTestTag
@@ -505,17 +523,18 @@ class RequirementTest2 {
 
     }
 
+    // Before using a semantics matcher, check the implementation of the utility functions in this
+    // section if it's already available to avoid duplication.
+    // The function names make the check easier.
+
     private fun hasIconImageVectorIconsDefaultCheck(): SemanticsMatcher {
 
         return hasIconImageVector(
-            iconImageVector = ICONS_DEFAULT_CHECK
+            iconImageVector = IMAGE_VECTOR_ICONS_DEFAULT_CHECK
         )
 
     }
 
-    // Before using a semantics matcher, check the implementation of the utility functions in this
-    // section if it's already available to avoid duplication.
-    // The function names make the check easier.
     private fun hasIconTintArgbTintPrimary(): SemanticsMatcher {
 
         return hasIconTintArgb(
@@ -536,7 +555,7 @@ class RequirementTest2 {
 
         return hasIconContentDescription(
             iconContentDescription = mContext.getString(
-                PASSWORD_REQUIREMENT_NEEDED
+                STRING_RES_PASSWORD_REQUIREMENT_NEEDED
             )
         )
 
@@ -546,7 +565,7 @@ class RequirementTest2 {
 
         return hasIconContentDescription(
             iconContentDescription = mContext.getString(
-                PASSWORD_REQUIREMENT_SATISFIED
+                STRING_RES_PASSWORD_REQUIREMENT_SATISFIED
             )
         )
 
@@ -571,7 +590,7 @@ class RequirementTest2 {
     private fun hasTextExactlyAtLeastEightCharacters(): SemanticsMatcher {
 
         return hasTextExactly(
-            mContext.getString(AT_LEAST_EIGHT_CHARACTERS),
+            mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS),
             includeEditableText = FALSE
         )
 
@@ -580,7 +599,7 @@ class RequirementTest2 {
     private fun hasTextExactlyAtLeastEightCharactersNeeded(): SemanticsMatcher {
 
         return hasTextExactly(
-            mContext.getString(AT_LEAST_EIGHT_CHARACTERS_NEEDED),
+            mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS_NEEDED),
             includeEditableText = FALSE
         )
 
@@ -589,7 +608,7 @@ class RequirementTest2 {
     private fun hasTextExactlyAtLeastEightCharactersSatisfied(): SemanticsMatcher {
 
         return hasTextExactly(
-            mContext.getString(AT_LEAST_EIGHT_CHARACTERS_SATISFIED),
+            mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED),
             includeEditableText = FALSE
         )
 
@@ -609,7 +628,7 @@ class RequirementTest2 {
     @Test
     fun icon_Image_Vector_Displays_With_Default_Color_When_Password_Requirement_Not_Satisfied() {
 
-        val requirementMessage: String = mTargetContext.getString(MAIN_SOURCE_SET_AT_LEAST_EIGHT_CHARACTERS)
+        val requirementMessage: String = mTargetContext.getString(MAIN_SOURCE_SET_STRING_RES_AT_LEAST_EIGHT_CHARACTERS)
 
         val requirementSatisfied: Boolean = FALSE
 
@@ -618,7 +637,7 @@ class RequirementTest2 {
             requirementSatisfied = requirementSatisfied
         )
 
-        onNodeWithPasswordRequirementIconForIconImageVectorPlusIconTintArgbDefaultColor(
+        onNodeWithPasswordRequirementIconAndIconImageVectorIconsDefaultCheckAndIconTintArgbTintOnSurface(
             useUnmergedTree = TRUE
         )
             .assertIsDisplayed()
@@ -628,7 +647,7 @@ class RequirementTest2 {
     @Test
     fun icon_Image_Vector_Displays_With_Changed_Color_When_Password_Requirement_Satisfied() {
 
-        val requirementMessage: String = mTargetContext.getString(MAIN_SOURCE_SET_AT_LEAST_EIGHT_CHARACTERS)
+        val requirementMessage: String = mTargetContext.getString(MAIN_SOURCE_SET_STRING_RES_AT_LEAST_EIGHT_CHARACTERS)
 
         val requirementSatisfied: Boolean = TRUE
 
@@ -637,7 +656,7 @@ class RequirementTest2 {
             requirementSatisfied = requirementSatisfied
         )
 
-        onNodeWithPasswordRequirementIconForIconImageVectorPlusIconTintArgbChangedColor(
+        onNodeWithPasswordRequirementIconAndIconImageVectorIconsDefaultCheckAndIconTintArgbTintPrimary(
             useUnmergedTree = TRUE
         )
             .assertIsDisplayed()
@@ -647,7 +666,7 @@ class RequirementTest2 {
     @Test
     fun icon_Content_Description_Exists_When_Password_Requirement_Not_Satisfied() {
 
-        val requirementMessage: String = mTargetContext.getString(MAIN_SOURCE_SET_AT_LEAST_EIGHT_CHARACTERS)
+        val requirementMessage: String = mTargetContext.getString(MAIN_SOURCE_SET_STRING_RES_AT_LEAST_EIGHT_CHARACTERS)
 
         val requirementSatisfied: Boolean = FALSE
 
@@ -656,7 +675,7 @@ class RequirementTest2 {
             requirementSatisfied = requirementSatisfied
         )
 
-        onNodeWithPasswordRequirementIconForIconContentDescriptionPasswordRequirementNeeded(
+        onNodeWithPasswordRequirementIconAndIconContentDescriptionPasswordRequirementNeeded(
             useUnmergedTree = TRUE
         )
             .assertIsDisplayed()
@@ -666,7 +685,7 @@ class RequirementTest2 {
     @Test
     fun icon_Content_Description_Changed_When_Password_Requirement_Satisfied() {
 
-        val requirementMessage: String = mTargetContext.getString(MAIN_SOURCE_SET_AT_LEAST_EIGHT_CHARACTERS)
+        val requirementMessage: String = mTargetContext.getString(MAIN_SOURCE_SET_STRING_RES_AT_LEAST_EIGHT_CHARACTERS)
 
         val requirementSatisfied: Boolean = TRUE
 
@@ -676,12 +695,12 @@ class RequirementTest2 {
         )
 
         // Optional
-        onNodeWithPasswordRequirementIconForIconContentDescriptionPasswordRequirementNeeded(
+        onNodeWithPasswordRequirementIconAndIconContentDescriptionPasswordRequirementNeeded(
             useUnmergedTree = TRUE
         )
             .assertDoesNotExist()
 
-        onNodeWithPasswordRequirementIconForIconContentDescriptionPasswordRequirementSatisfied(
+        onNodeWithPasswordRequirementIconAndIconContentDescriptionPasswordRequirementSatisfied(
             useUnmergedTree = TRUE
         )
             .assertIsDisplayed()
@@ -691,7 +710,7 @@ class RequirementTest2 {
     @Test
     fun text_Displays_With_Default_Color_When_Password_Requirement_Not_Satisfied() {
 
-        val requirementMessage: String = mTargetContext.getString(MAIN_SOURCE_SET_AT_LEAST_EIGHT_CHARACTERS)
+        val requirementMessage: String = mTargetContext.getString(MAIN_SOURCE_SET_STRING_RES_AT_LEAST_EIGHT_CHARACTERS)
 
         val requirementSatisfied: Boolean = FALSE
 
@@ -700,7 +719,7 @@ class RequirementTest2 {
             requirementSatisfied = requirementSatisfied
         )
 
-        onNodeWithPasswordRequirementOtherTagForOtherMatcherNeeded(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeededAndTextColorArgbTintOnSurface(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -716,7 +735,7 @@ class RequirementTest2 {
     @Test
     fun text_Displays_With_Default_Color_When_Password_Requirement_Not_Satisfied_AnotherApproach() {
 
-        val requirementMessage: String = mTargetContext.getString(MAIN_SOURCE_SET_AT_LEAST_EIGHT_CHARACTERS)
+        val requirementMessage: String = mTargetContext.getString(MAIN_SOURCE_SET_STRING_RES_AT_LEAST_EIGHT_CHARACTERS)
 
         val requirementSatisfied: Boolean = FALSE
 
@@ -725,7 +744,7 @@ class RequirementTest2 {
             requirementSatisfied = requirementSatisfied
         )
 
-        onNodeWithPasswordRequirementOtherTagNeededForOtherMatcher(
+        onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharactersAndTextColorArgbTintOnSurface(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -735,7 +754,7 @@ class RequirementTest2 {
     @Test
     fun text_Displays_With_Changed_Color_When_Password_Requirement_Satisfied() {
 
-        val requirementMessage: String = mTargetContext.getString(MAIN_SOURCE_SET_AT_LEAST_EIGHT_CHARACTERS)
+        val requirementMessage: String = mTargetContext.getString(MAIN_SOURCE_SET_STRING_RES_AT_LEAST_EIGHT_CHARACTERS)
 
         val requirementSatisfied: Boolean = TRUE
 
@@ -744,7 +763,7 @@ class RequirementTest2 {
             requirementSatisfied = requirementSatisfied
         )
 
-        onNodeWithPasswordRequirementOtherTagForOtherMatcherSatisfied(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfiedAndTextColorArgbTintPrimary(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -760,7 +779,7 @@ class RequirementTest2 {
     @Test
     fun text_Displays_With_Changed_Color_When_Password_Requirement_Satisfied_AnotherApproach() {
 
-        val requirementMessage: String = mTargetContext.getString(MAIN_SOURCE_SET_AT_LEAST_EIGHT_CHARACTERS)
+        val requirementMessage: String = mTargetContext.getString(MAIN_SOURCE_SET_STRING_RES_AT_LEAST_EIGHT_CHARACTERS)
 
         val requirementSatisfied: Boolean = TRUE
 
@@ -769,7 +788,7 @@ class RequirementTest2 {
             requirementSatisfied = requirementSatisfied
         )
 
-        onNodeWithPasswordRequirementOtherTagSatisfiedForOtherMatcher(
+        onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharactersAndTextColorArgbTintPrimary(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
