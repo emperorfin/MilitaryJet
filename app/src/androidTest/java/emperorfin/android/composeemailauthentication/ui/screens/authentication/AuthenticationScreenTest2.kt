@@ -2,6 +2,7 @@ package emperorfin.android.composeemailauthentication.ui.screens.authentication
 
 import android.content.Context
 import android.view.KeyEvent.*
+import androidx.annotation.StringRes
 import androidx.compose.ui.input.key.KeyEvent
 import androidx.compose.ui.input.key.NativeKeyEvent
 import androidx.compose.ui.test.*
@@ -10,14 +11,14 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.truth.Truth.assertThat
 import emperorfin.android.composeemailauthentication.test.R
+import emperorfin.android.composeemailauthentication.ui.extensions.semanticsmatcher.hasAlertDialogTitle
+import emperorfin.android.composeemailauthentication.ui.extensions.semanticsmatcher.hasCircularProgressIndicatorColorArgb
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.enums.PasswordRequirement
 import emperorfin.android.composeemailauthentication.ui.extensions.waitUntilDoesNotExist
 import emperorfin.android.composeemailauthentication.ui.extensions.waitUntilExists
 import emperorfin.android.composeemailauthentication.ui.res.theme.ComposeEmailAuthenticationTheme
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.AuthenticationContent
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_CONTENT
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_EMAIL
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD
@@ -25,6 +26,7 @@ import emperorfin.android.composeemailauthentication.ui.screens.authentication.u
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_PROGRESS
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON
 import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT
+import emperorfin.android.composeemailauthentication.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_SCREEN
 import emperorfin.android.composeemailauthentication.ui.utils.KeyboardHelper
 import org.junit.Before
 import org.junit.Rule
@@ -85,14 +87,70 @@ class AuthenticationScreenTest2 {
         private const val TRUE: Boolean = true
         private const val FALSE: Boolean = false
 
+        private val NULL = null
+
+        private const val THIS_STRING_MUST_BE_EMPTY: String = ""
+        private const val THIS_STRING_COULD_BE_ANYTHING: String = ""
+
         private const val INPUT_CONTENT_EMAIL: String = "contact@email.com"
         private const val INPUT_CONTENT_PASSWORD: String = "passworD1"
         private const val INPUT_CONTENT_PASSWORD_PASSWORD: String = "password"
         private const val INPUT_CONTENT_PASSWORD_PASS: String = "Pass"
         private const val INPUT_CONTENT_PASSWORD_1PASS: String = "1pass"
 
-        private const val MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE =
+        @StringRes
+        private const val MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE: Int =
             emperorfin.android.composeemailauthentication.R.string.test_error_message
+
+        @StringRes
+        private const val STRING_RES_SIGN_IN_TO_YOUR_ACCOUNT: Int = R.string.label_sign_in_to_account
+        @StringRes
+        private const val STRING_RES_SIGN_UP_FOR_AN_ACCOUNT: Int = R.string.label_sign_up_for_account
+        @StringRes
+        private const val STRING_RES_EMAIL_ADDRESS: Int = R.string.label_email
+        @StringRes
+        private const val STRING_RES_PASSWORD: Int = R.string.label_password
+        @StringRes
+        private const val STRING_RES_NEED_AN_ACCOUNT: Int = R.string.action_need_account
+        @StringRes
+        private const val STRING_RES_ALREADY_HAVE_AN_ACCOUNT: Int = R.string.action_already_have_account
+        @StringRes
+        private const val STRING_RES_SIGN_IN: Int = R.string.action_sign_in
+        @StringRes
+        private const val STRING_RES_SIGN_UP: Int = R.string.action_sign_up
+
+        @StringRes
+        private const val STRING_RES_AT_LEAST_EIGHT_CHARACTERS: Int = R.string.password_requirement_characters
+        @StringRes
+        private const val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER: Int = R.string.password_requirement_capital
+        @StringRes
+        private const val STRING_RES_AT_LEAST_ONE_DIGIT: Int = R.string.password_requirement_digit
+        @StringRes
+        private const val STRING_RES_AT_LEAST_EIGHT_CHARACTERS_NEEDED: Int = R.string.test_password_requirement_needed_characters
+        @StringRes
+        private const val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_NEEDED: Int = R.string.test_password_requirement_needed_capital
+        @StringRes
+        private const val STRING_RES_AT_LEAST_ONE_DIGIT_NEEDED: Int = R.string.test_password_requirement_needed_digit
+        @StringRes
+        private const val STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED: Int = R.string.test_password_requirement_satisfied_characters
+        @StringRes
+        private const val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_SATISFIED: Int = R.string.test_password_requirement_satisfied_capital
+        @StringRes
+        private const val STRING_RES_AT_LEAST_ONE_DIGIT_SATISFIED: Int = R.string.test_password_requirement_satisfied_digit
+
+        @StringRes
+        private const val STRING_RES_WHOOPS: Int = R.string.error_title
+
+        /**
+         * To easily find out the ARGB of a color to be used as the expected value during assertion,
+         * there are two approaches to do this:
+         *
+         * - you can either call toArgb() on the color object and then logcat the returned value or
+         * - you can just use any random assertion expected value, run the test case (which should
+         * fail) and then get and use (as the correct assertion expected value) the assertion actual
+         * value from the failed test error message (simplest approach).
+         */
+        private const val COLOR_ARGB_CIRCULAR_PROGRESS_INDICATOR_PRESET_COLOR: Int = -11576430
 
         /**
          * Since the delay time millis in the authenticate() function in app/src/main/java/emperorfin/android/composeemailauthentication/ui/screens/authentication/stateholders/AuthenticationViewModel.kt
@@ -150,16 +208,60 @@ class AuthenticationScreenTest2 {
 
     private val keyboardHelper = KeyboardHelper(composeRule = composeTestRule)
 
-    private fun setContentAsAuthenticationScreen(composeTestRule: ComposeContentTestRule) {
+    // This is no longer necessary and should be removed.
+    private fun setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        keyboardHelper: KeyboardHelper
+    ) {
 
-        composeTestRule.setContent {
-            ComposeEmailAuthenticationTheme {
-                AuthenticationScreen()
+        setContentAsAuthenticationScreenWithKeyboardHelperInit(composeTestRule, keyboardHelper)
+
+        assertAuthenticationScreenIsDisplayed(composeTestRule)
+
+    }
+
+    // Should be removed.
+//    private fun setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+//        composeTestRule: ComposeContentTestRule
+//    ) {
+//
+//        setContentAsAuthenticationScreen(composeTestRule)
+//
+//        assertAuthenticationScreenIsDisplayed(composeTestRule)
+//
+//    }
+
+    /**
+     * @param isSignInMode This is nullable should there's a case where [assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed]
+     * or [navigateFromSignInToSignUpModesAndConfirmTitles] doesn't have to be run. But such case
+     * should be rare.
+     */
+    private fun setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        keyboardHelper: KeyboardHelper? = NULL,
+        isSignInMode: Boolean?
+    ) {
+
+        setContentAsAuthenticationScreen(
+            composeTestRule = composeTestRule,
+            keyboardHelper = keyboardHelper
+        )
+
+        assertAuthenticationScreenIsDisplayed(composeTestRule)
+
+        isSignInMode?.let {
+            if (it) {
+                assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed(
+                    composeTestRule = composeTestRule
+                )
+            } else {
+                navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule = composeTestRule)
             }
         }
 
     }
 
+    // This is no longer necessary and should be removed.
     private fun setContentAsAuthenticationScreenWithKeyboardHelperInit(
         composeTestRule: ComposeContentTestRule, keyboardHelper: KeyboardHelper
     ) {
@@ -174,83 +276,92 @@ class AuthenticationScreenTest2 {
 
     }
 
+    // Should be removed.
+//    private fun setContentAsAuthenticationScreen(composeTestRule: ComposeContentTestRule) {
+//
+//        composeTestRule.setContent {
+//            ComposeEmailAuthenticationTheme {
+//                AuthenticationScreen()
+//            }
+//        }
+//
+//    }
+
+    private fun setContentAsAuthenticationScreen(
+        composeTestRule: ComposeContentTestRule, keyboardHelper: KeyboardHelper?
+    ) {
+
+        composeTestRule.setContent {
+            keyboardHelper?.initialize()
+
+            ComposeEmailAuthenticationTheme {
+                AuthenticationScreen()
+            }
+        }
+
+    }
+
+    private fun navigateFromSignInToSignUpModesAndConfirmTitles(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule
+    ) {
+
+        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed(composeTestRule)
+
+        onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount()
+            .performClick()
+
+        assertAuthenticationScreenIsDisplayed(composeTestRule)
+
+        assertAuthenticationTitleAndTextExactlySignUpForAnAccountIsDisplayed(composeTestRule)
+
+    }
+
+    // This is no longer necessary and should be removed.
+    private fun assertSignInModeIsDisplayed(composeTestRule: ComposeContentTestRule) {
+
+        assertAuthenticationScreenIsDisplayed(composeTestRule)
+
+        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed(composeTestRule)
+
+    }
+
+    // This is no longer necessary and should be removed.
+    private fun assertSignUpModeIsDisplayed(composeTestRule: ComposeContentTestRule) {
+
+        assertAuthenticationScreenIsDisplayed(composeTestRule)
+
+        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
+
+    }
+
     /**
      * This should be called in all test cases immediately after composing the [AuthenticationScreen]
      * composable in the [ComposeContentTestRule.setContent]
      */
-    private fun assertAuthenticationScreenIsDisplayed(composeTestRule: ComposeContentTestRule) {
+    private fun assertAuthenticationScreenIsDisplayed(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule
+    ) {
 
         onNodeWithAuthenticationScreen()
             .assertIsDisplayed()
 
     }
 
-    private fun assertSignInTitleIsDisplayed(
+    private fun assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
-        onNodeWithSignInTitle()
+        onNodeWithAuthenticationTitleAndTextExactlySignInToYourAccount()
             .assertIsDisplayed()
 
     }
 
-    private fun assertSignUpTitleIsDisplayed(
+    private fun assertAuthenticationTitleAndTextExactlySignUpForAnAccountIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
-        onNodeWithSignUpTitle()
+        onNodeWithAuthenticationTitleAndTextExactlySignUpForAnAccount()
             .assertIsDisplayed()
-
-    }
-
-    private fun navigateFromSigninToSignupModesAndConfirmTitles(
-        composeTestRule: ComposeContentTestRule
-    ) {
-
-        assertSignInTitleIsDisplayed(composeTestRule)
-
-        onNodeWithNeedAccountButton()
-            .performClick()
-
-        assertAuthenticationScreenIsDisplayed(composeTestRule)
-
-        assertSignUpTitleIsDisplayed(composeTestRule)
-
-    }
-
-    private fun assertSignInModeIsDisplayed(composeTestRule: ComposeContentTestRule) {
-
-        assertAuthenticationScreenIsDisplayed(composeTestRule)
-
-        assertSignInTitleIsDisplayed(composeTestRule)
-
-    }
-
-    private fun assertSignUpModeIsDisplayed(composeTestRule: ComposeContentTestRule) {
-
-        assertAuthenticationScreenIsDisplayed(composeTestRule)
-
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
-
-    }
-
-    private fun setContentAsAuthenticationScreenAndAssertItIsDisplayed(
-        composeTestRule: ComposeContentTestRule
-    ) {
-
-        setContentAsAuthenticationScreen(composeTestRule)
-
-        assertAuthenticationScreenIsDisplayed(composeTestRule)
-
-    }
-
-    private fun setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
-        composeTestRule: ComposeContentTestRule, keyboardHelper: KeyboardHelper
-    ) {
-
-        setContentAsAuthenticationScreenWithKeyboardHelperInit(composeTestRule, keyboardHelper)
-
-        assertAuthenticationScreenIsDisplayed(composeTestRule)
 
     }
 
@@ -258,203 +369,83 @@ class AuthenticationScreenTest2 {
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_CONTENT
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
+        return onNodeWithAuthenticationScreenAnd(
+            otherMatcher = hasTextExactly(
+                THIS_STRING_COULD_BE_ANYTHING,
+                includeEditableText = FALSE
+            ).not(),
+            useUnmergedTree = useUnmergedTree
+        )
 
     }
 
-    private fun onNodeWithSignInTitle(
+    private fun onNodeWithAuthenticationTitleAndTextExactlySignInToYourAccount(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-                ).and(
-                    // Optional but recommended.
-                    // This is just to confirm the screen since components like EmailInput (others are
-                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
-                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
-                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
-                    // So it best to uniquely identify a component when used in more than one screen or modes.
-                    // TODO:
-                    //  To uniquely identify a composable which is being used in multiple screens, its best to
-                    //  assign each screen a screen tag to be used as sub-tags for the composable.
-                    //  That way, when a screen that is being tested with the composable passes, you are sure
-                    //  that the composable was uniquely identified for that particular screen and not just any
-                    //  screen. This means that that particular screen is properly tested.
-                    other = hasTextExactly(
-                        mContext.getString(R.string.label_sign_in_to_account),
-                        includeEditableText = FALSE
-                    )
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
+        return onNodeWithAuthenticationTitleAnd(
+            otherMatcher = hasTextExactlySignInToYourAccount(),
+            useUnmergedTree = useUnmergedTree
+        )
 
     }
 
-    private fun onNodeWithSignUpTitle(
+    private fun onNodeWithAuthenticationTitleAndTextExactlySignUpForAnAccount(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-                ).and(
-                    // Optional but recommended.
-                    // This is just to confirm the screen since components like EmailInput (others are
-                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
-                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
-                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
-                    // So it best to uniquely identify a component when used in more than one screen or modes.
-                    // TODO:
-                    //  To uniquely identify a composable which is being used in multiple screens, its best to
-                    //  assign each screen a screen tag to be used as sub-tags for the composable.
-                    //  That way, when a screen that is being tested with the composable passes, you are sure
-                    //  that the composable was uniquely identified for that particular screen and not just any
-                    //  screen. This means that that particular screen is properly tested.
-                    other = hasTextExactly(
-                        mContext.getString(R.string.label_sign_up_for_account),
-                        includeEditableText = FALSE
-                    )
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
+        return onNodeWithAuthenticationTitleAnd(
+            otherMatcher = hasTextExactlySignUpForAnAccount(),
+            useUnmergedTree = useUnmergedTree
+        )
 
     }
 
-    private fun onNodeWithSignInButton(
+    private fun onNodeWithAuthenticationButtonAndTextExactlySignIn(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
-                ).and(
-                    // Optional but recommended.
-                    // This is just to confirm the screen since components like EmailInput (others are
-                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
-                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
-                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
-                    // So it best to uniquely identify a component when used in more than one screen or modes.
-                    // TODO:
-                    //  To uniquely identify a composable which is being used in multiple screens, its best to
-                    //  assign each screen a screen tag to be used as sub-tags for the composable.
-                    //  That way, when a screen that is being tested with the composable passes, you are sure
-                    //  that the composable was uniquely identified for that particular screen and not just any
-                    //  screen. This means that that particular screen is properly tested.
-                    other = hasTextExactly(
-                        mContext.getString(R.string.action_sign_in),
-                        includeEditableText = FALSE
-                    )
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
+        return onNodeWithAuthenticationButtonAnd(
+            otherMatcher = hasTextExactlySignIn(),
+            useUnmergedTree = useUnmergedTree
+        )
 
     }
 
-    private fun onNodeWithSignUpButton(
+    private fun onNodeWithAuthenticationButtonAndTextExactlySignUp(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
-                ).and(
-                    // Optional but recommended.
-                    // This is just to confirm the screen since components like EmailInput (others are
-                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
-                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
-                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
-                    // So it best to uniquely identify a component when used in more than one screen or modes.
-                    // TODO:
-                    //  To uniquely identify a composable which is being used in multiple screens, its best to
-                    //  assign each screen a screen tag to be used as sub-tags for the composable.
-                    //  That way, when a screen that is being tested with the composable passes, you are sure
-                    //  that the composable was uniquely identified for that particular screen and not just any
-                    //  screen. This means that that particular screen is properly tested.
-                    other = hasTextExactly(
-                        mContext.getString(R.string.action_sign_up),
-                        includeEditableText = FALSE
-                    )
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
+        return onNodeWithAuthenticationButtonAnd(
+            otherMatcher = hasTextExactlySignUp(),
+            useUnmergedTree = useUnmergedTree
+        )
 
     }
 
-    private fun onNodeWithNeedAccountButton(
+    private fun onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
-                ).and(
-                    // Optional but recommended.
-                    // This is just to confirm the screen since components like EmailInput (others are
-                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
-                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
-                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
-                    // So it best to uniquely identify a component when used in more than one screen or modes.
-                    // TODO:
-                    //  To uniquely identify a composable which is being used in multiple screens, its best to
-                    //  assign each screen a screen tag to be used as sub-tags for the composable.
-                    //  That way, when a screen that is being tested with the composable passes, you are sure
-                    //  that the composable was uniquely identified for that particular screen and not just any
-                    //  screen. This means that that particular screen is properly tested.
-                    other = hasTextExactly(
-                        mContext.getString(R.string.action_need_account),
-                        includeEditableText = FALSE
-                    )
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
+        return onNodeWithAuthenticationToggleModeAnd(
+            otherMatcher = hasTextExactlyNeedAnAccount(),
+            useUnmergedTree = useUnmergedTree
+        )
 
     }
 
-    private fun onNodeWithAlreadyHaveAccountButton(
+    private fun onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
-                ).and(
-                    // Optional but recommended.
-                    // This is just to confirm the screen since components like EmailInput (others are
-                    // PasswordInput, AuthenticationToggleMode, AuthenticationErrorDialog, AuthenticationTitle,
-                    // AuthenticationButton) are being used in multiple screens such as SignUp and SignIn screens.
-                    // Although, here, the screens are modes while the actual screen is just a single AuthenticationScreen.
-                    // So it best to uniquely identify a component when used in more than one screen or modes.
-                    // TODO:
-                    //  To uniquely identify a composable which is being used in multiple screens, its best to
-                    //  assign each screen a screen tag to be used as sub-tags for the composable.
-                    //  That way, when a screen that is being tested with the composable passes, you are sure
-                    //  that the composable was uniquely identified for that particular screen and not just any
-                    //  screen. This means that that particular screen is properly tested.
-                    other = hasTextExactly(
-                        mContext.getString(R.string.action_already_have_account),
-                        includeEditableText = FALSE
-                    )
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
+        return onNodeWithAuthenticationToggleModeAnd(
+            otherMatcher = hasTextExactlyAlreadyHaveAnAccount(),
+            useUnmergedTree = useUnmergedTree
+        )
 
     }
 
-    private fun onNodeWithEmailInput(
+    private fun onNodeWithEmailInputAndTextExactlyEmailAddress(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -466,22 +457,14 @@ class AuthenticationScreenTest2 {
 //            )
 
         // This is recommended.
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_INPUT_EMAIL
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.label_email),
-                        includeEditableText = FALSE
-                    )
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
+        return onNodeWithEmailInputAnd(
+            otherMatcher = hasTextExactlyEmailAddress(),
+            useUnmergedTree = useUnmergedTree
+        )
 
     }
 
-    private fun onNodeWithPasswordInput(
+    private fun onNodeWithPasswordInputAndTextExactlyPassword(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -493,50 +476,32 @@ class AuthenticationScreenTest2 {
 //            )
 
         // This is recommended.
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_INPUT_PASSWORD
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.label_password),
-                        includeEditableText = FALSE
-                    )
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
+        return onNodeWithPasswordInputAnd(
+            otherMatcher = hasTextExactlyPassword(),
+            useUnmergedTree = useUnmergedTree
+        )
 
     }
 
-    private fun onNodeWithErrorDialog(
+    private fun onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
-        return composeTestRule
-            .onNode(
-                // Multiple matchers aren't necessary since the content (i.e. the title) of the
-                // AuthenticationErrorDialog composable is the same for both SignIn and SignUp modes.
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_ERROR_DIALOG
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
+        return onNodeWithAuthenticationErrorDialogAnd(
+            otherMatcher = hasAlertDialogTitleWhoops(),
+            useUnmergedTree = useUnmergedTree
+        )
 
     }
 
-    private fun onNodeWithProgressIndicator(
+    private fun onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
-        return composeTestRule
-            .onNode(
-                // Multiple matchers aren't necessary since the CircularProgressIndicator composable is
-                // the same for both SignIn and SignUp modes.
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PROGRESS
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
+        return onNodeWithCircularProgressIndicatorAnd(
+            otherMatcher = hasCircularProgressIndicatorColorArgbPresetColor(),
+            useUnmergedTree = useUnmergedTree
+        )
 
     }
 
@@ -544,253 +509,876 @@ class AuthenticationScreenTest2 {
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
+        return onNodeWithPasswordInputTrailingIconAnd(
+            otherMatcher = hasTextExactly(
+                THIS_STRING_COULD_BE_ANYTHING,
+                includeEditableText = FALSE
+            ).not(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    // ------- FOR ..._AnotherApproach()
+
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastEightCharactersNeededAnd(
+            otherMatcher = hasTextExactlyAtLeastEightCharacters(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAnd(
+            otherMatcher = hasTextExactlyAtLeastOneUppercaseLetter(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneDigitNeededAnd(
+            otherMatcher = hasTextExactlyAtLeastOneDigit(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharacters(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAnd(
+            otherMatcher = hasTextExactlyAtLeastEightCharacters(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAndTextExactlyAtLeastOneUppercaseLetter(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAnd(
+            otherMatcher = hasTextExactlyAtLeastOneUppercaseLetter(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAndTextExactlyAtLeastOneDigit(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAnd(
+            otherMatcher = hasTextExactlyAtLeastOneDigit(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    // ------- /FOR ..._AnotherApproach()
+
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastEightCharactersAnd(
+            otherMatcher = hasTextExactlyAtLeastEightCharactersNeeded(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAnd(
+            otherMatcher = hasTextExactlyAtLeastOneUppercaseLetterNeeded(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneDigitAnd(
+            otherMatcher = hasTextExactlyAtLeastOneDigitNeeded(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfied(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastEightCharactersAnd(
+            otherMatcher = hasTextExactlyAtLeastEightCharactersSatisfied(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAnd(
+            otherMatcher = hasTextExactlyAtLeastOneUppercaseLetterSatisfied(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitSatisfied(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordRequirementAtLeastOneDigitAnd(
+            otherMatcher = hasTextExactlyAtLeastOneDigitSatisfied(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithAuthenticationScreenAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
+    ): SemanticsNodeInteraction {
+
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON
+                matcher = hasTestTagAuthenticationScreen().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfEightCharsNeeded(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithAuthenticationTitleAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.password_requirement_characters)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.test_password_requirement_needed_characters),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagAuthenticationTitle().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfOneUppercaseLetterNeeded(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithAuthenticationButtonAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.password_requirement_capital)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.test_password_requirement_needed_capital),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagAuthenticationButton().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfOneDigitNeeded(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithAuthenticationToggleModeAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.password_requirement_digit)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.test_password_requirement_needed_digit),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagAuthenticationToggleMode().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfEightCharsNeededAnotherApproach(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithEmailInputAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.test_password_requirement_needed_characters)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.password_requirement_characters),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagEmailInput().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfOneUppercaseLetterNeededAnotherApproach(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithPasswordInputAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.test_password_requirement_needed_capital)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.password_requirement_capital),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagPasswordInput().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfOneDigitNeededAnotherApproach(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithAuthenticationErrorDialogAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.test_password_requirement_needed_digit)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.password_requirement_digit),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagAuthenticationErrorDialog().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfEightCharsSatisfied(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithCircularProgressIndicatorAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.password_requirement_characters)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.test_password_requirement_satisfied_characters),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagCircularProgressIndicator().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfOneUppercaseLetterSatisfied(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithPasswordInputTrailingIconAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.password_requirement_capital)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.test_password_requirement_satisfied_capital),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagPasswordInputTrailingIcon().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfOneDigitSatisfied(
-        useUnmergedTree: Boolean = FALSE
+    // ------- FOR ..._AnotherApproach()
+
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersNeededAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.password_requirement_digit)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.test_password_requirement_satisfied_digit),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagsPasswordRequirementAndAtLeastEightCharactersNeeded().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfEightCharsSatisfiedAnotherApproach(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.test_password_requirement_satisfied_characters)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.password_requirement_characters),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetterNeeded().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfOneUppercaseLetterSatisfiedAnotherApproach(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithPasswordRequirementAtLeastOneDigitNeededAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.test_password_requirement_satisfied_capital)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.password_requirement_capital),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagsPasswordRequirementAndAtLeastOneDigitNeeded().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
 
     }
 
-    private fun onNodeWithPasswordRequirementOfOneDigitSatisfiedAnotherApproach(
-        useUnmergedTree: Boolean = FALSE
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
     ): SemanticsNodeInteraction {
 
         return composeTestRule
             .onNode(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT +
-                            mContext.getString(R.string.test_password_requirement_satisfied_digit)
-                ).and(
-                    other = hasTextExactly(
-                        mContext.getString(R.string.password_requirement_digit),
-                        includeEditableText = FALSE
-                    )
+                matcher = hasTestTagsPasswordRequirementAndAtLeastEightCharactersSatisfied().and(
+                    other = otherMatcher
                 ),
                 useUnmergedTree = useUnmergedTree
             )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
+    ): SemanticsNodeInteraction {
+
+        return composeTestRule
+            .onNode(
+                matcher = hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetterSatisfied().and(
+                    other = otherMatcher
+                ),
+                useUnmergedTree = useUnmergedTree
+            )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
+    ): SemanticsNodeInteraction {
+
+        return composeTestRule
+            .onNode(
+                matcher = hasTestTagsPasswordRequirementAndAtLeastOneDigitSatisfied().and(
+                    other = otherMatcher
+                ),
+                useUnmergedTree = useUnmergedTree
+            )
+
+    }
+
+    // ------- /FOR ..._AnotherApproach()
+
+    private fun onNodeWithPasswordRequirementAtLeastEightCharactersAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
+    ): SemanticsNodeInteraction {
+
+        return composeTestRule
+            .onNode(
+                matcher = hasTestTagsPasswordRequirementAndAtLeastEightCharacters().and(
+                    other = otherMatcher
+                ),
+                useUnmergedTree = useUnmergedTree
+            )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
+    ): SemanticsNodeInteraction {
+
+        return composeTestRule
+            .onNode(
+                matcher = hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetter().and(
+                    other = otherMatcher
+                ),
+                useUnmergedTree = useUnmergedTree
+            )
+
+    }
+
+    private fun onNodeWithPasswordRequirementAtLeastOneDigitAnd(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE,
+        otherMatcher: SemanticsMatcher
+    ): SemanticsNodeInteraction {
+
+        return composeTestRule
+            .onNode(
+                matcher = hasTestTagsPasswordRequirementAndAtLeastOneDigit().and(
+                    other = otherMatcher
+                ),
+                useUnmergedTree = useUnmergedTree
+            )
+
+    }
+
+    private fun hasTestTagAuthenticationScreen(): SemanticsMatcher {
+
+        return hasTestTagsAuthenticationScreenAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+        )
+
+    }
+
+    private fun hasTestTagAuthenticationTitle(): SemanticsMatcher {
+
+        return hasTestTagsAuthenticationTitleAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+        )
+
+    }
+
+    private fun hasTestTagAuthenticationButton(): SemanticsMatcher {
+
+        return hasTestTagsAuthenticationButtonAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+        )
+
+    }
+
+    private fun hasTestTagAuthenticationToggleMode(): SemanticsMatcher {
+
+        return hasTestTagsAuthenticationToggleModeAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+        )
+
+    }
+
+    private fun hasTestTagEmailInput(): SemanticsMatcher {
+
+        return hasTestTagsEmailInputAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+        )
+
+    }
+
+    private fun hasTestTagPasswordInput(): SemanticsMatcher {
+
+        return hasTestTagsPasswordInputAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+        )
+
+    }
+
+    private fun hasTestTagAuthenticationErrorDialog(): SemanticsMatcher {
+
+        return hasTestTagsAuthenticationErrorDialogAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+        )
+
+    }
+
+    private fun hasTestTagCircularProgressIndicator(): SemanticsMatcher {
+
+        return hasTestTagsCircularProgressIndicatorAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+        )
+
+    }
+
+    private fun hasTestTagPasswordInputTrailingIcon(): SemanticsMatcher {
+
+        return hasTestTagsPasswordInputTrailingIconAnd(
+            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+        )
+
+    }
+
+    // ------- FOR ..._AnotherApproach()
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastEightCharactersNeeded(): SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS_NEEDED)
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetterNeeded(): SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_NEEDED)
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastOneDigitNeeded(): SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT_NEEDED)
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastEightCharactersSatisfied(): SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED)
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetterSatisfied(): SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_SATISFIED)
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastOneDigitSatisfied(): SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT_SATISFIED)
+        )
+
+    }
+
+    // ------- /FOR ..._AnotherApproach()
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastEightCharacters(): SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS)
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetter(): SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER)
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAndAtLeastOneDigit(): SemanticsMatcher {
+
+        return hasTestTagsPasswordRequirementAnd(
+            otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT)
+        )
+
+    }
+
+    private fun hasTestTagsAuthenticationScreenAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_SCREEN + otherTestTag
+        )
+
+    }
+
+    private fun hasTestTagsAuthenticationTitleAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE + otherTestTag
+        )
+
+    }
+
+    private fun hasTestTagsAuthenticationButtonAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON + otherTestTag
+        )
+
+    }
+
+    private fun hasTestTagsAuthenticationToggleModeAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON + otherTestTag
+        )
+
+    }
+
+    private fun hasTestTagsEmailInputAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_INPUT_EMAIL + otherTestTag
+        )
+
+    }
+
+    private fun hasTestTagsPasswordInputAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_INPUT_PASSWORD + otherTestTag
+        )
+
+    }
+
+    private fun hasTestTagsAuthenticationErrorDialogAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_ERROR_DIALOG + otherTestTag
+        )
+
+    }
+
+    private fun hasTestTagsCircularProgressIndicatorAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_PROGRESS + otherTestTag
+        )
+
+    }
+
+    private fun hasTestTagsPasswordInputTrailingIconAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON + otherTestTag
+        )
+
+    }
+
+    private fun hasTestTagsPasswordRequirementAnd(otherTestTag: String): SemanticsMatcher {
+
+        return hasTestTag(
+            testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT + otherTestTag
+        )
+
+    }
+
+    // Before using a semantics matcher, check the implementation of the utility functions in this
+    // section if it's already available to avoid duplication.
+    // The function names make the check easier.
+
+    private fun hasTextExactlySignInToYourAccount(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_SIGN_IN_TO_YOUR_ACCOUNT),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlySignUpForAnAccount(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_SIGN_UP_FOR_AN_ACCOUNT),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyEmailAddress(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_EMAIL_ADDRESS),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyPassword(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_PASSWORD),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlySignIn(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_SIGN_IN),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlySignUp(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_SIGN_UP),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyNeedAnAccount(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_NEED_AN_ACCOUNT),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAlreadyHaveAnAccount(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_ALREADY_HAVE_AN_ACCOUNT),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasAlertDialogTitleWhoops(): SemanticsMatcher {
+
+        return hasAlertDialogTitle(
+            alertDialogTitle = mContext.getString(STRING_RES_WHOOPS)
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastEightCharacters(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastOneUppercaseLetter(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastOneDigit(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastEightCharactersNeeded(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS_NEEDED),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastOneUppercaseLetterNeeded(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_NEEDED),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastOneDigitNeeded(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT_NEEDED),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastEightCharactersSatisfied(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastOneUppercaseLetterSatisfied(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_SATISFIED),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasTextExactlyAtLeastOneDigitSatisfied(): SemanticsMatcher {
+
+        return hasTextExactly(
+            mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT_SATISFIED),
+            includeEditableText = FALSE
+        )
+
+    }
+
+    private fun hasCircularProgressIndicatorColorArgbPresetColor(): SemanticsMatcher {
+
+        return hasCircularProgressIndicatorColorArgb(
+            circularProgressIndicatorColorInArgb =
+            COLOR_ARGB_CIRCULAR_PROGRESS_INDICATOR_PRESET_COLOR
+        )
+
+    }
+
+    private fun hasTestTagCircularProgressIndicatorAndHasCircularProgressIndicatorColorArgbPresetColor():
+            SemanticsMatcher {
+
+        return hasTestTagCircularProgressIndicator().and(
+            other = hasCircularProgressIndicatorColorArgbPresetColor()
+        )
+
+    }
+
+    private fun hasTestTagAuthenticationErrorDialogAndHasAlertDialogTitleWhoops(): SemanticsMatcher {
+
+        return hasTestTagAuthenticationErrorDialog().and(
+            other = hasAlertDialogTitleWhoops()
+        )
+
+    }
+
+    private fun hasTestTagAuthenticationTitleAndHasTextExactlySignInToYourAccount(): SemanticsMatcher {
+
+        return hasTestTagAuthenticationTitle().and(
+            other = hasTextExactlySignInToYourAccount()
+        )
+
+    }
+
+    private fun hasTestTagAuthenticationTitleAndHasTextExactlySignUpForAnAccount(): SemanticsMatcher {
+
+        return hasTestTagAuthenticationTitle().and(
+            other = hasTextExactlySignUpForAnAccount()
+        )
 
     }
 
@@ -808,49 +1396,56 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Mode_Displayed_By_Default() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
+        // This is no longer necessary and should be removed.
 //        assertSignInModeIsDisplayed(composeTestRule)
-        assertSignInTitleIsDisplayed(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed(composeTestRule)
 
     }
 
     @Test
     fun sign_Up_Mode_Displayed_After_Toggled() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
+        // This is no longer necessary and should be removed.
 //        assertSignUpModeIsDisplayed(composeTestRule)
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
     }
 
     @Test
     fun sign_In_Title_Displayed_By_Default() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
-        assertSignInTitleIsDisplayed(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed(composeTestRule)
 
     }
 
     @Test
     fun sign_Up_Title_Displayed_After_Toggled() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
     }
 
     @Test
     fun sign_In_Button_Displayed_By_Default() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithSignInButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .assertIsDisplayed()
 
     }
@@ -858,11 +1453,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Button_Displayed_After_Toggle() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithSignUpButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .assertIsDisplayed()
 
     }
@@ -870,11 +1466,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun need_Account_Displayed_By_Default() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithNeedAccountButton()
+        onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount()
             .assertIsDisplayed()
 
     }
@@ -882,11 +1479,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun already_Have_Account_Displayed_After_Toggle() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithAlreadyHaveAccountButton()
+        onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount()
             .assertIsDisplayed()
 
     }
@@ -894,11 +1492,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Button_Disabled_By_Default() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithSignInButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .assertIsNotEnabled()
 
     }
@@ -906,11 +1505,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Button_Disabled_By_Default() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithSignUpButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .assertIsNotEnabled()
 
     }
@@ -918,17 +1518,18 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Button_Enabled_With_Valid_Form_Content() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
-        onNodeWithSignInButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .assertIsDisplayed()
             .assertIsEnabled()
 
@@ -937,14 +1538,15 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Button_Disabled_When_Email_Input_Has_No_Content() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
-        onNodeWithSignInButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .assertIsDisplayed()
             .assertIsNotEnabled()
 
@@ -953,14 +1555,15 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Button_Disabled_When_Password_Input_Has_No_Content() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
-        onNodeWithSignInButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .assertIsDisplayed()
             .assertIsNotEnabled()
 
@@ -969,17 +1572,18 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Button_Enabled_With_Valid_Form_Content() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
-        onNodeWithSignUpButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .assertIsDisplayed()
             .assertIsEnabled()
 
@@ -988,14 +1592,15 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Button_Disabled_When_Email_Input_Has_No_Content() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
-        onNodeWithSignUpButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .assertIsDisplayed()
             .assertIsNotEnabled()
 
@@ -1004,14 +1609,15 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Button_Disabled_When_Password_Input_Has_No_Content() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
-        onNodeWithSignUpButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .assertIsDisplayed()
             .assertIsNotEnabled()
 
@@ -1020,11 +1626,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Error_Alert_Dialog_Not_Displayed_By_Default() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithErrorDialog()
+        onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops()
             .assertDoesNotExist()
 
     }
@@ -1032,11 +1639,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Error_Alert_Dialog_Not_Displayed_By_Default() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithErrorDialog()
+        onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops()
             .assertDoesNotExist()
 
     }
@@ -1096,28 +1704,27 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Error_Alert_Dialog_Displayed_After_Error() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
-        onNodeWithSignInButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .performClick()
 
         composeTestRule.waitUntilExists(
-            matcher = hasTestTag(
-                testTag = TAG_AUTHENTICATION_ERROR_DIALOG
-            ),
+            matcher = hasTestTagAuthenticationErrorDialogAndHasAlertDialogTitleWhoops(),
             timeoutMillis = TIMEOUT_MILLIS_2500L,
             useUnmergedTree = TRUE // Optional.
         )
 
-        onNodeWithErrorDialog(
+        onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -1179,28 +1786,27 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Error_Alert_Dialog_Displayed_After_Error() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
-        onNodeWithSignUpButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .performClick()
 
         composeTestRule.waitUntilExists(
-            matcher = hasTestTag(
-                testTag = TAG_AUTHENTICATION_ERROR_DIALOG
-            ),
+            matcher = hasTestTagAuthenticationErrorDialogAndHasAlertDialogTitleWhoops(),
             timeoutMillis = TIMEOUT_MILLIS_2500L,
             useUnmergedTree = TRUE // Optional.
         )
 
-        onNodeWithErrorDialog(
+        onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -1210,11 +1816,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Progress_Indicator_Not_Displayed_By_Default() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithProgressIndicator()
+        onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor()
             .assertDoesNotExist()
 
     }
@@ -1222,11 +1829,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Progress_Indicator_Not_Displayed_By_Default() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithProgressIndicator()
+        onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor()
             .assertDoesNotExist()
 
     }
@@ -1251,20 +1859,21 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Progress_Indicator_Displayed_While_Loading() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
-        onNodeWithSignInButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .performClick()
 
-        onNodeWithProgressIndicator()
+        onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor()
             .assertIsDisplayed()
 
     }
@@ -1289,20 +1898,21 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Progress_Indicator_Displayed_While_Loading() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
-        onNodeWithSignUpButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .performClick()
 
-        onNodeWithProgressIndicator()
+        onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor()
             .assertIsDisplayed()
 
     }
@@ -1362,33 +1972,32 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Progress_Indicator_Not_Displayed_After_Loading() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
-        onNodeWithSignInButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .performClick()
 
-        onNodeWithProgressIndicator(
+        onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
         composeTestRule.waitUntilDoesNotExist(
-            matcher = hasTestTag(
-                testTag = TAG_AUTHENTICATION_PROGRESS
-            ),
+            matcher = hasTestTagCircularProgressIndicatorAndHasCircularProgressIndicatorColorArgbPresetColor(),
             timeoutMillis = TIMEOUT_MILLIS_2500L,
             useUnmergedTree = TRUE // Optional.
         )
 
-        onNodeWithProgressIndicator(
+        onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor(
             useUnmergedTree = TRUE // Optional
         )
             .assertDoesNotExist()
@@ -1450,33 +2059,32 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Progress_Indicator_Not_Displayed_After_Loading() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
-        onNodeWithSignUpButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .performClick()
 
-        onNodeWithProgressIndicator(
+        onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
         composeTestRule.waitUntilDoesNotExist(
-            matcher = hasTestTag(
-                testTag = TAG_AUTHENTICATION_PROGRESS
-            ),
+            matcher = hasTestTagCircularProgressIndicatorAndHasCircularProgressIndicatorColorArgbPresetColor(),
             timeoutMillis = TIMEOUT_MILLIS_2500L,
             useUnmergedTree = TRUE // Optional.
         )
 
-        onNodeWithProgressIndicator(
+        onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor(
             useUnmergedTree = TRUE // Optional
         )
             .assertDoesNotExist()
@@ -1538,35 +2146,34 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Ui_Components_Displayed_After_Loading() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
-        onNodeWithSignInButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .performClick()
 
         composeTestRule.waitUntilExists(
-            matcher = hasTestTag(
-                testTag = TAG_AUTHENTICATION_CONTENT
-//                testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-            ),
+            matcher = hasTestTagAuthenticationTitleAndHasTextExactlySignInToYourAccount(), // hasTestTagAuthenticationScreen()
             timeoutMillis = TIMEOUT_MILLIS_2500L
         )
 
         onNodeWithAuthenticationScreen()
             .assertExists()
 
-        // For this to work, you would have to use TAG_AUTHENTICATION_AUTHENTICATION_TITLE instead
-        // of TAG_AUTHENTICATION_CONTENT in the above waitUntilExists(.) function. Note that
-        // waitUntilExists(.) is an extension function on  ComposeContentTestRule.
-//        onNodeWithSignInTitle()
-//            .assertExists()
+        /**
+         * This would fail the test if [hasTestTagAuthenticationScreen] is used in the above
+         * [ComposeContentTestRule.waitUntilExists] function (NB: this is an extension function).
+         */
+        onNodeWithAuthenticationTitleAndTextExactlySignInToYourAccount()
+            .assertExists()
 
     }
 
@@ -1625,36 +2232,35 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Ui_Components_Displayed_After_Loading() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
-        onNodeWithSignUpButton()
+        onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .performClick()
 
         composeTestRule
             .waitUntilExists(
-                matcher = hasTestTag(
-                    testTag = TAG_AUTHENTICATION_CONTENT
-//                    testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-                ),
+                matcher = hasTestTagAuthenticationTitleAndHasTextExactlySignUpForAnAccount(), // hasTestTagAuthenticationScreen()
                 timeoutMillis = TIMEOUT_MILLIS_2500L
             )
 
         onNodeWithAuthenticationScreen()
             .assertExists()
 
-        // For this to work, you would have to use TAG_AUTHENTICATION_AUTHENTICATION_TITLE instead
-        // of TAG_AUTHENTICATION_CONTENT in the above waitUntilExists(.) function. Note that
-        // waitUntilExists(.) is an extension function on  ComposeContentTestRule.
-//        onNodeWithSignUpTitle()
-//            .assertExists()
+        /**
+         * This would fail the test if [hasTestTagAuthenticationScreen] is used in the above
+         * [ComposeContentTestRule.waitUntilExists] function (NB: this is an extension function).
+         */
+        onNodeWithAuthenticationTitleAndTextExactlySignUpForAnAccount()
+            .assertExists()
 
     }
 
@@ -1663,11 +2269,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Email_Text_Field_Is_Focused_When_Clicked() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 performClick()
 
@@ -1679,11 +2286,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Password_Text_Field_Is_Focused_When_Clicked() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .apply {
                 performClick()
 
@@ -1695,11 +2303,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Email_Text_Field_Is_Focused_When_Clicked() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 performClick()
 
@@ -1711,11 +2320,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Password_Text_Field_Is_Focused_When_Clicked() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .apply {
                 performClick()
 
@@ -1729,11 +2339,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Password_Text_Field_Is_Focused_When_Next_Ime_Action_Clicked_From_Email_Text_Field() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 // Optional
                 performTextInput(
@@ -1743,7 +2354,7 @@ class AuthenticationScreenTest2 {
                 performImeAction()
             }
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsFocused()
 
     }
@@ -1751,11 +2362,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Password_Text_Field_Is_Focused_When_Next_Ime_Action_Clicked_From_Email_Text_Field() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 // Optional
                 performTextInput(
@@ -1765,7 +2377,7 @@ class AuthenticationScreenTest2 {
                 performImeAction()
             }
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsFocused()
 
     }
@@ -1773,11 +2385,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Progress_Indicator_Displays_When_Done_Ime_Action_Clicked_From_Password_Text_Field() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 // Optional
                 performTextInput(
@@ -1787,7 +2400,7 @@ class AuthenticationScreenTest2 {
                 performImeAction()
             }
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .apply {
                 // Optional
                 performTextInput(
@@ -1797,7 +2410,7 @@ class AuthenticationScreenTest2 {
                 performImeAction()
             }
 
-        onNodeWithProgressIndicator()
+        onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor()
             .assertIsDisplayed()
 
     }
@@ -1805,11 +2418,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Progress_Indicator_Displays_When_Done_Ime_Action_Clicked_From_Password_Text_Field() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 // Optional
                 performTextInput(
@@ -1819,7 +2433,7 @@ class AuthenticationScreenTest2 {
                 performImeAction()
             }
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .apply {
                 // Optional
                 performTextInput(
@@ -1829,7 +2443,7 @@ class AuthenticationScreenTest2 {
                 performImeAction()
             }
 
-        onNodeWithProgressIndicator()
+        onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor()
             .assertIsDisplayed()
 
     }
@@ -1837,21 +2451,22 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_No_Password_Requirement_Satisfied_By_Default() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithPasswordRequirementOfEightCharsNeeded(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterNeeded(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitNeeded(
+        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
@@ -1867,21 +2482,22 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_No_Password_Requirement_Satisfied_By_Default_AnotherApproach() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithPasswordRequirementOfEightCharsNeededAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterNeededAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitNeededAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -1891,26 +2507,27 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Only_At_Least_Eight_Characters_Satisfied() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(
                 text = INPUT_CONTENT_PASSWORD_PASSWORD
             )
 
-        onNodeWithPasswordRequirementOfEightCharsSatisfied(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfied(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterNeeded(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitNeeded(
+        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
@@ -1926,26 +2543,27 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Only_At_Least_Eight_Characters_Satisfied_AnotherApproach() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(
                 text = INPUT_CONTENT_PASSWORD_PASSWORD
             )
 
-        onNodeWithPasswordRequirementOfEightCharsSatisfiedAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharacters(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterNeededAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitNeededAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -1955,26 +2573,27 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Only_At_Least_One_Uppercase_Letter_Satisfied() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(
                 text = INPUT_CONTENT_PASSWORD_PASS
             )
 
-        onNodeWithPasswordRequirementOfEightCharsNeeded(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterSatisfied(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitNeeded(
+        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
@@ -1990,26 +2609,27 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Only_At_Least_One_Uppercase_Letter_Satisfied_AnotherApproach() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(
                 text = INPUT_CONTENT_PASSWORD_PASS
             )
 
-        onNodeWithPasswordRequirementOfEightCharsNeededAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterSatisfiedAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAndTextExactlyAtLeastOneUppercaseLetter(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitNeededAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -2019,26 +2639,27 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Only_At_Least_One_Digit_Satisfied() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(
                 text = INPUT_CONTENT_PASSWORD_1PASS
             )
 
-        onNodeWithPasswordRequirementOfEightCharsNeeded(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterNeeded(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitSatisfied(
+        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitSatisfied(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
@@ -2054,26 +2675,27 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Only_At_Least_One_Digit_Satisfied_AnotherApproach() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(
                 text = INPUT_CONTENT_PASSWORD_1PASS
             )
 
-        onNodeWithPasswordRequirementOfEightCharsNeededAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterNeededAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitSatisfiedAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAndTextExactlyAtLeastOneDigit(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -2083,26 +2705,27 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_All_Password_Requirements_Satisfied() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(
                 text = INPUT_CONTENT_PASSWORD
             )
 
-        onNodeWithPasswordRequirementOfEightCharsSatisfied(
+        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfied(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterSatisfied(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitSatisfied(
+        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitSatisfied(
             useUnmergedTree = TRUE // Optional.
         )
             .assertIsDisplayed()
@@ -2118,26 +2741,27 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_All_Password_Requirements_Satisfied_AnotherApproach() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(
                 text = INPUT_CONTENT_PASSWORD
             )
 
-        onNodeWithPasswordRequirementOfEightCharsSatisfiedAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharacters(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneUppercaseLetterSatisfiedAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAndTextExactlyAtLeastOneUppercaseLetter(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 
-        onNodeWithPasswordRequirementOfOneDigitSatisfiedAnotherApproach(
+        onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAndTextExactlyAtLeastOneDigit(
             useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
@@ -2147,11 +2771,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Perform_Key_Press_On_Text_Fields() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = TRUE)
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 performClick()
 
@@ -2188,7 +2813,7 @@ class AuthenticationScreenTest2 {
         onNodeWithPasswordInputTrailingIcon()
             .performClick()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .apply {
                 performClick()
 
@@ -2211,11 +2836,12 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Perform_Key_Press_On_Text_Fields() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 performClick()
 
@@ -2252,7 +2878,7 @@ class AuthenticationScreenTest2 {
         onNodeWithPasswordInputTrailingIcon()
             .performClick()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .apply {
                 performClick()
 
@@ -2274,34 +2900,41 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_To_Sign_Up_And_Back_To_Sign_In() {
 
-        setContentAsAuthenticationScreenAndAssertItIsDisplayed(composeTestRule)
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(isSignInMode = FALSE)
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         // This should have been used but navigation has been between modes (SignIn and SignUp) but
         // inside of a single AuthenticationScreen screen (i.e. route/destination).
 //        Espresso.pressBack()
 
-        onNodeWithAlreadyHaveAccountButton()
+        onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount()
             .performClick()
 
-        assertSignInTitleIsDisplayed()
+        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
     }
 
     @Test
     fun sign_In_No_Text_Field_Showing_Soft_Keyboard_By_Default() {
 
-        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
-            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+        // Since this has been replaced, it should be removed.
+//        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+            keyboardHelper = keyboardHelper, isSignInMode = TRUE
         )
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsNotFocused()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsNotFocused()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
@@ -2311,23 +2944,29 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Email_Input_Shows_Soft_Keyboard_When_Clicked() {
 
-        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
-            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+        // Since this has been replaced, it should be removed.
+//        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+            keyboardHelper = keyboardHelper, isSignInMode = TRUE
         )
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsNotFocused()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performClick()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsFocused()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
@@ -2337,23 +2976,29 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Password_Input_Shows_Soft_Keyboard_When_Clicked() {
 
-        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
-            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+        // Since this has been replaced, it should be removed.
+//        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+            keyboardHelper = keyboardHelper, isSignInMode = TRUE
         )
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsNotFocused()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performClick()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsFocused()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
@@ -2363,15 +3008,21 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Email_Input_Soft_Keyboard_Manually_Closes_After_Shown() {
 
-        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
-            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+        // Since this has been replaced, it should be removed.
+//        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+            keyboardHelper = keyboardHelper, isSignInMode = TRUE
         )
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performClick()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
@@ -2395,15 +3046,21 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Password_Input_Soft_Keyboard_Manually_Closes_After_Shown() {
 
-        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
-            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+        // Since this has been replaced, it should be removed.
+//        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+            keyboardHelper = keyboardHelper, isSignInMode = TRUE
         )
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performClick()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
@@ -2427,22 +3084,28 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Email_Input_Soft_Keyboard_Closes_When_Next_Ime_Action_Clicked() {
 
-        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
-            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+        // Since this has been replaced, it should be removed.
+//        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+            keyboardHelper = keyboardHelper, isSignInMode = TRUE
         )
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performClick()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performImeAction()
 
         keyboardHelper.waitForKeyboardVisibility(visible = FALSE)
@@ -2454,22 +3117,28 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_In_Password_Input_Soft_Keyboard_Closes_When_Done_Ime_Action_Clicked() {
 
-        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
-            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+        // Since this has been replaced, it should be removed.
+//        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+            keyboardHelper = keyboardHelper, isSignInMode = TRUE
         )
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performClick()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performImeAction()
 
         keyboardHelper.waitForKeyboardVisibility(visible = FALSE)
@@ -2478,47 +3147,54 @@ class AuthenticationScreenTest2 {
 
     }
 
+    // If this test fails, try a re-run (may be more than once - it should pass).
     @Test
     fun sign_In_Password_Input_Soft_Keyboard_Shown_When_Next_Ime_Action_Clicked_From_Email_Input() {
 
-        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
-            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+        // Since this has been replaced, it should be removed.
+//        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+            keyboardHelper = keyboardHelper, isSignInMode = TRUE
         )
 
-        assertSignInTitleIsDisplayed()
+        // This is no longer necessary and should be removed.
+//        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsNotFocused()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsNotFocused()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performClick()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsFocused()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsNotFocused()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performImeAction()
 
         keyboardHelper.waitForKeyboardVisibility(visible = FALSE)
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsNotFocused()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsFocused()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
@@ -2530,16 +3206,22 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_No_Text_Field_Showing_Soft_Keyboard_By_Default() {
 
-        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
-            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+        // Since this has been replaced, it should be removed.
+//        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+            keyboardHelper = keyboardHelper, isSignInMode = FALSE
         )
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsNotFocused()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsNotFocused()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
@@ -2549,23 +3231,29 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Email_Input_Shows_Soft_Keyboard_When_Clicked() {
 
-        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
-            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+        // Since this has been replaced, it should be removed.
+//        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+            keyboardHelper = keyboardHelper, isSignInMode = FALSE
         )
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsNotFocused()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performClick()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsFocused()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
@@ -2575,23 +3263,29 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Password_Input_Shows_Soft_Keyboard_When_Clicked() {
 
-        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
-            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+        // Since this has been replaced, it should be removed.
+//        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+            keyboardHelper = keyboardHelper, isSignInMode = FALSE
         )
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsNotFocused()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performClick()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsFocused()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
@@ -2601,15 +3295,21 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Email_Input_Soft_Keyboard_Manually_Closes_After_Shown() {
 
-        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
-            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+        // Since this has been replaced, it should be removed.
+//        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+            keyboardHelper = keyboardHelper, isSignInMode = FALSE
         )
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performClick()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
@@ -2633,15 +3333,21 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Password_Input_Soft_Keyboard_Manually_Closes_After_Shown() {
 
-        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
-            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+        // Since this has been replaced, it should be removed.
+//        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+            keyboardHelper = keyboardHelper, isSignInMode = FALSE
         )
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performClick()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
@@ -2665,22 +3371,28 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Email_Input_Soft_Keyboard_Closes_When_Next_Ime_Action_Clicked() {
 
-        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
-            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+        // Since this has been replaced, it should be removed.
+//        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+            keyboardHelper = keyboardHelper, isSignInMode = FALSE
         )
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performClick()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performImeAction()
 
         keyboardHelper.waitForKeyboardVisibility(visible = FALSE)
@@ -2692,22 +3404,28 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Password_Input_Soft_Keyboard_Closes_When_Done_Ime_Action_Clicked() {
 
-        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
-            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+        // Since this has been replaced, it should be removed.
+//        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+            keyboardHelper = keyboardHelper, isSignInMode = FALSE
         )
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performClick()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .performImeAction()
 
         keyboardHelper.waitForKeyboardVisibility(visible = FALSE)
@@ -2719,44 +3437,50 @@ class AuthenticationScreenTest2 {
     @Test
     fun sign_Up_Password_Input_Soft_Keyboard_Shown_When_Next_Ime_Action_Clicked_From_Email_Input() {
 
-        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
-            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+        // Since this has been replaced, it should be removed.
+//        setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+            keyboardHelper = keyboardHelper, isSignInMode = FALSE
         )
 
-        navigateFromSigninToSignupModesAndConfirmTitles(composeTestRule)
+        // This is no longer necessary and should be removed.
+//        navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsNotFocused()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsNotFocused()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performClick()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsFocused()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsNotFocused()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performImeAction()
 
         keyboardHelper.waitForKeyboardVisibility(visible = FALSE)
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
-        onNodeWithEmailInput()
+        onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsNotFocused()
 
-        onNodeWithPasswordInput()
+        onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsFocused()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
