@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'emperorfin.android.composeemailauthentication'
+    namespace 'emperorfin.android.militaryjet'
     compileSdk 33
 
     defaultConfig {
-        applicationId "emperorfin.android.composeemailauthentication"
+        applicationId "emperorfin.android.militaryjet"
         minSdk 21
         targetSdk 33
         versionCode 1

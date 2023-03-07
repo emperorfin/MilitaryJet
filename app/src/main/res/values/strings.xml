@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Compose Email Authentication</string>
+    <string name="app_name">Military Jet</string>
 
     <string name="password_requirement_characters">At least 8 characters</string>
     <string name="password_requirement_capital">At least 1 upper-case letter</string>
