@@ -1,25 +1,19 @@
-package emperorfin.android.militaryjet.ui.screens.authentication.uicomponents
+package emperorfin.android.militaryjet.ui.utils
 
 import android.content.Context
 import androidx.annotation.StringRes
-import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.test.platform.app.InstrumentationRegistry
+import androidx.compose.ui.test.*
 import emperorfin.android.militaryjet.test.R
 import emperorfin.android.militaryjet.ui.extensions.semanticsmatcher.hasAlertDialogTitle
 import emperorfin.android.militaryjet.ui.extensions.semanticsmatcher.hasCircularProgressIndicatorColorArgb
 import emperorfin.android.militaryjet.ui.res.theme.ComposeEmailAuthenticationTheme
-import emperorfin.android.militaryjet.ui.screens.authentication.AuthenticationScreen
-import emperorfin.android.militaryjet.ui.screens.authentication.AuthenticationScreenTest2
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.AuthenticationMode
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.AuthenticationMode.SIGN_IN
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.AuthenticationMode.SIGN_UP
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement
-import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement.EIGHT_CHARACTERS
-import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement.CAPITAL_LETTER
-import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement.NUMBER
 import emperorfin.android.militaryjet.ui.screens.authentication.stateholders.AuthenticationUiState
+import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.AuthenticationContent
 import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_CONTENT
 import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
 import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATION_TITLE
@@ -27,59 +21,19 @@ import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tag
 import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT
 import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_PROGRESS
 import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
 
 
 /**
  * @Author: Francis Nwokelo (emperorfin)
- * @Date: Thursday 19th January, 2023.
+ * @Date: Thursday 09th March, 2023.
  */
 
 
-/**
- * This class is a clean version of [AuthenticationContentTest] class. For a cleaner version, see
- * [AuthenticationContentTest3] class.
- *
- * The tests in this class are a subset of the ones in the [AuthenticationScreenTest2] class but with
- * the tests in this class focused on testing the [AuthenticationContent] composable instead of
- * [AuthenticationScreen] composable.
- *
- * Also, the other tests in the [AuthenticationScreenTest2] class that are excluded in this class are
- * the ones that includes things like performing click and text input operations. Such tests shouldn't
- * be included in a non-screen composable test class as, in my opinion, it's not a good compose UI
- * test practice.
- *
- * Important:
- *
- * - Try not to run all the test cases by running this test class as some tests might fail. If you do
- * and some tests fail, try running them one after the other. If a test fails, check the test
- * function's KDoc/comment (if any) on possible solution to make the test pass when it should.
- * - If you try to run a test and it fails, check the test function's KDoc/comment (if any) on
- * possible solution to make the test pass when it should.
- * - Test cases with "_AnotherApproachX" (where X may or may not contain a number) suffixed in their
- * function names might fail. A little changes would need to be made for them to pass. Kindly take a
- * look at the function's KDoc/comment on how to make the test pass when it should.
- *
- * Notes:
- *
- * - If you ever need to pass a resource (e.g. a string resource) into a composable during testing,
- * be sure to use the one from the main source set and the R must be the one from
- * [emperorfin.android.militaryjet.R] and not
- * [emperorfin.android.militaryjet.test.R].
- * - Every other thing during testing that involves the use of a resource (e.g. a string resource)
- * such as performing matches or assertions, be sure to use the resource from the androidTest source
- * set (which you should've provided a copy and always in sync with the one from the main source set).
- * And the R must be the one from [emperorfin.android.militaryjet.test.R] instead of
- * [emperorfin.android.militaryjet.R].
- *
- * Be sure to have Configured res srcDirs for androidTest sourceSet in app/build.gradle file.
- * See the following:
- * - https://stackoverflow.com/questions/36955608/espresso-how-to-use-r-string-resources-of-androidtest-folder
- * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
- */
-class AuthenticationContentTest2 {
+class AuthenticationContentTestUtil(
+    private val mContext: Context,
+    private val mTargetContext: Context,
+    private val composeTestRule: ComposeContentTestRule
+) {
 
     private companion object {
 
@@ -89,15 +43,6 @@ class AuthenticationContentTest2 {
         private val NULL = null
 
         private const val THIS_STRING_MUST_BE_EMPTY: String = ""
-
-        private const val INPUT_CONTENT_EMAIL: String = "contact@email.com"
-        private const val INPUT_CONTENT_PASSWORD: String = "passworD1"
-        private const val INPUT_CONTENT_PASSWORD_PASSWORD: String = "password"
-        private const val INPUT_CONTENT_PASSWORD_PASS: String = "Pass"
-        private const val INPUT_CONTENT_PASSWORD_1PASS: String = "1pass"
-
-        private const val MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE =
-            emperorfin.android.militaryjet.R.string.test_error_message
 
         /**
          * To easily find out the ARGB of a color to be used as the expected value during assertion,
@@ -145,47 +90,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    /**
-     * Use this when resources are coming from the main source set, whether directly
-     * (e.g. R.string.sample_text) or indirectly (e.g. [EIGHT_CHARACTERS.label]
-     * which is directly using a string resource).
-     *
-     * To actually reference the resource, you use
-     * [emperorfin.android.militaryjet.R] and not
-     * [emperorfin.android.militaryjet.test.R]
-     *
-     * So let's say if you want to reference a string resource, that string resource should come
-     * from app/src/main/res/values/strings.xml XML resource file which must be, as you may have
-     * noticed, from the main source set.
-     */
-    private lateinit var mTargetContext: Context
-
-    /**
-     * Use this when resources are coming from the androidTest or test source set. In this case, the
-     * resources should come from androidTest (not test) source set.
-     *
-     * To actually reference the resource, you use
-     * [emperorfin.android.militaryjet.test.R] and not
-     * [emperorfin.android.militaryjet.R]
-     *
-     * So let's say if you want to reference a string resource, that string resource should come
-     * from app/src/androidTest/res/values/strings.xml XML resource file which must be, as you may
-     * have noticed, from the androidTest source set. And always update this file with the changes
-     * made to the app/src/main/res/values/strings.xml XML resource file from the main source set.
-     * And of course, you may/should re-run existing test(s) to be sure they don't fail as a result
-     * of the synchronization.
-     *
-     * Be sure to have Configured res srcDirs for androidTest sourceSet in app/build.gradle file.
-     * See the following:
-     * - https://stackoverflow.com/questions/36955608/espresso-how-to-use-r-string-resources-of-androidtest-folder
-     * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
-     */
-    private lateinit var mContext: Context
-
-    @get:Rule
-    val composeTestRule: ComposeContentTestRule = createComposeRule()
-
-    private fun setContentAsAuthenticationContentAndAssertItIsDisplayed(
+    fun setContentAsAuthenticationContentAndAssertItIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
         authenticationMode: AuthenticationMode,
         email: String? = NULL,
@@ -216,7 +121,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun setContentAsAuthenticationContent(
+    fun setContentAsAuthenticationContent(
         composeTestRule: ComposeContentTestRule,
         authenticationMode: AuthenticationMode,
         email: String?,
@@ -246,7 +151,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun assertSignInModeIsDisplayed(
+    fun assertSignInModeIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
@@ -263,7 +168,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun assertSignUpModeIsDisplayed(
+    fun assertSignUpModeIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
@@ -284,7 +189,7 @@ class AuthenticationContentTest2 {
      * This should be called in all test cases immediately after composing the [AuthenticationContent]
      * composable in the [ComposeContentTestRule.setContent]
      */
-    private fun assertAuthenticationContentIsDisplayed(
+    fun assertAuthenticationContentIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
@@ -293,7 +198,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed(
+    fun assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
@@ -302,7 +207,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun assertAuthenticationTitleAndTextExactlySignUpForAnAccountIsDisplayed(
+    fun assertAuthenticationTitleAndTextExactlySignUpForAnAccountIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
@@ -313,7 +218,7 @@ class AuthenticationContentTest2 {
 
     // ------- FOR ..._AnotherApproach()
 
-    private fun onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
+    fun onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -324,7 +229,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
+    fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -335,7 +240,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
+    fun onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -346,7 +251,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharacters(
+    fun onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharacters(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -357,7 +262,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAndTextExactlyAtLeastOneUppercaseLetter(
+    fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAndTextExactlyAtLeastOneUppercaseLetter(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -368,7 +273,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAndTextExactlyAtLeastOneDigit(
+    fun onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAndTextExactlyAtLeastOneDigit(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -419,7 +324,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun onNodeWithAuthenticationButtonAndTextExactlySignIn(
+    fun onNodeWithAuthenticationButtonAndTextExactlySignIn(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -430,7 +335,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun onNodeWithAuthenticationButtonAndTextExactlySignUp(
+    fun onNodeWithAuthenticationButtonAndTextExactlySignUp(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -441,7 +346,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount(
+    fun onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -452,7 +357,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount(
+    fun onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -463,7 +368,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops(
+    fun onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -474,7 +379,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor(
+    fun onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -485,7 +390,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
+    fun onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -496,7 +401,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
+    fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -507,7 +412,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
+    fun onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -518,7 +423,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfied(
+    fun onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfied(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -529,7 +434,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
+    fun onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -540,7 +445,7 @@ class AuthenticationContentTest2 {
 
     }
 
-    private fun onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitSatisfied(
+    fun onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitSatisfied(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -1134,703 +1039,4 @@ class AuthenticationContentTest2 {
 
     }
 
-    @Before
-    fun setUpContexts() {
-
-        // See field's KDoc for more info.
-        mTargetContext = InstrumentationRegistry.getInstrumentation().targetContext
-//        mTargetContext = ApplicationProvider.getApplicationContext<Context>() // Haven't tested but might work.
-        // See field's KDoc for more info.
-        mContext = InstrumentationRegistry.getInstrumentation().context
-
-    }
-
-    @Test
-    fun sign_In_Mode_Displayed() {
-
-        assertSignInModeIsDisplayed()
-
-    }
-
-    @Test
-    fun sign_Up_Mode_Displayed() {
-
-        assertSignUpModeIsDisplayed()
-
-    }
-
-    @Test
-    fun sign_In_Title_Displayed() {
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(authenticationMode = SIGN_IN)
-
-        /**
-         * No longer necessary since it's now part of the implementation of
-         * [setContentAsAuthenticationContentAndAssertItIsDisplayed]
-         */
-//        assertSignInTitleIsDisplayed()
-
-    }
-
-    @Test
-    fun sign_Up_Title_Displayed() {
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(authenticationMode = SIGN_UP)
-
-        /**
-         * No longer necessary since it's now part of the implementation of
-         * [setContentAsAuthenticationContentAndAssertItIsDisplayed]
-         */
-//        assertSignUpTitleIsDisplayed()
-
-    }
-
-    @Test
-    fun sign_In_Disabled_Button_Displayed() {
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(authenticationMode = SIGN_IN)
-
-        onNodeWithAuthenticationButtonAndTextExactlySignIn()
-            .apply {
-                assertIsDisplayed()
-
-                assertIsNotEnabled()
-            }
-
-    }
-
-    @Test
-    fun sign_Up_Disabled_Button_Displayed() {
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(authenticationMode = SIGN_UP)
-
-        onNodeWithAuthenticationButtonAndTextExactlySignUp()
-            .apply {
-                assertIsDisplayed()
-
-                assertIsNotEnabled()
-            }
-
-    }
-
-    @Test
-    fun sign_In_Enabled_Button_Displayed() {
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_IN,
-            email = INPUT_CONTENT_EMAIL,
-            password = INPUT_CONTENT_PASSWORD
-        )
-
-        onNodeWithAuthenticationButtonAndTextExactlySignIn()
-            .apply {
-                assertIsDisplayed()
-
-                assertIsEnabled()
-            }
-
-    }
-
-    @Test
-    fun sign_Up_Enabled_Button_Displayed() {
-
-        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(
-            EIGHT_CHARACTERS,
-            CAPITAL_LETTER,
-            NUMBER
-        )
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP,
-            email = INPUT_CONTENT_EMAIL,
-            password = INPUT_CONTENT_PASSWORD,
-            passwordRequirements = satisfiedPasswordRequirements
-        )
-
-        onNodeWithAuthenticationButtonAndTextExactlySignUp()
-            .apply {
-                assertIsDisplayed()
-
-                assertIsEnabled()
-            }
-
-    }
-
-    @Test
-    fun sign_In_Button_Disabled_When_Email_Input_Has_No_Content() {
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_IN,
-            password = INPUT_CONTENT_PASSWORD
-        )
-
-        onNodeWithAuthenticationButtonAndTextExactlySignIn()
-            .apply {
-                assertIsDisplayed()
-
-                assertIsNotEnabled()
-            }
-
-    }
-
-    @Test
-    fun sign_In_Button_Disabled_When_Password_Input_Has_No_Content() {
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_IN,
-            email = INPUT_CONTENT_EMAIL
-        )
-
-        onNodeWithAuthenticationButtonAndTextExactlySignIn()
-            .apply {
-                assertIsDisplayed()
-
-                assertIsNotEnabled()
-            }
-
-    }
-
-    @Test
-    fun sign_Up_Button_Disabled_When_Email_Input_Has_No_Content() {
-
-        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(
-            EIGHT_CHARACTERS,
-            CAPITAL_LETTER,
-            NUMBER
-        )
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP,
-            password = INPUT_CONTENT_PASSWORD,
-            passwordRequirements = satisfiedPasswordRequirements
-        )
-
-        onNodeWithAuthenticationButtonAndTextExactlySignUp()
-            .apply {
-                assertIsDisplayed()
-
-                assertIsNotEnabled()
-            }
-
-    }
-
-    @Test
-    fun sign_Up_Button_Disabled_When_Password_Input_Has_No_Content() {
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP,
-            email = INPUT_CONTENT_EMAIL
-        )
-
-        onNodeWithAuthenticationButtonAndTextExactlySignUp()
-            .apply {
-                assertIsDisplayed()
-
-                assertIsNotEnabled()
-            }
-
-    }
-
-    @Test
-    fun need_Account_Button_Displayed() {
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_IN
-        )
-
-        onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount()
-            .assertIsDisplayed()
-
-    }
-
-    @Test
-    fun already_Have_Account_Button_Displayed() {
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP
-        )
-
-        onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount()
-            .assertIsDisplayed()
-
-    }
-
-    @Test
-    fun sign_In_Error_Alert_Dialog_Not_Displayed() {
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_IN
-        )
-
-        onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops()
-            .assertDoesNotExist()
-
-    }
-
-    @Test
-    fun sign_In_Error_Alert_Dialog_Displayed() {
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_IN,
-            error = MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE
-        )
-
-        onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops()
-            .assertIsDisplayed()
-
-    }
-
-    // Goes straight to the "Sign Up" screen without having to navigate from the "Sign In" screen.
-    @Test
-    fun sign_Up_Error_Alert_Dialog_Not_Displayed() {
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP
-        )
-
-        onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops()
-            .assertDoesNotExist()
-
-    }
-
-    // Goes straight to the "Sign Up" screen without having to navigate from the "Sign In" screen.
-    @Test
-    fun sign_Up_Error_Alert_Dialog_Displayed() {
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP,
-            error = MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE
-        )
-
-        onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops()
-            .assertIsDisplayed()
-
-    }
-
-    @Test
-    fun sign_In_Progress_Indicator_Not_Displayed() {
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_IN,
-            email = INPUT_CONTENT_EMAIL, // Optional but recommended
-            password = INPUT_CONTENT_PASSWORD // Optional but recommended
-        )
-
-        onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor()
-            .assertDoesNotExist()
-
-    }
-
-    @Test
-    fun sign_Up_Progress_Indicator_Not_Displayed() {
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP,
-            email = INPUT_CONTENT_EMAIL, // Optional but recommended
-            password = INPUT_CONTENT_PASSWORD // Optional but recommended
-        )
-
-        onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor()
-            .assertDoesNotExist()
-
-    }
-
-    /**
-     * Trying to confirm whether it's Sign In mode would fail the test since the loading
-     * indicator displays immediately on top of the screen making this node to appear as if it's
-     * not displayed([SemanticsNodeInteraction.assertIsNotDisplayed]) or
-     * existed([SemanticsNodeInteraction.assertDoesNotExist]).
-     *
-     * Since this is not a screen test but an individual component test, it's fine to make the
-     * assumption that this is a Sign In mode. And this function [sign_In_Mode_Displayed] takes care
-     * of testing if a screen is in Sign In mode.
-     */
-    @Test
-    fun sign_In_Progress_Indicator_Displayed() {
-
-        /**
-         * This would fail the test when it should pass since the function
-         * [setContentAsAuthenticationContentAndAssertItIsDisplayed] calls [assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed].
-         * See this test case's KDoc.
-         */
-//        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-//            authenticationMode = SIGN_IN,
-//            isLoading = TRUE
-//        )
-
-        setContentAsAuthenticationContent(
-            composeTestRule = composeTestRule,
-            authenticationMode = SIGN_IN,
-            isLoading = TRUE,
-            email = NULL,
-            password = NULL,
-            passwordRequirements = emptyList(),
-            error = NULL
-        )
-
-        assertAuthenticationContentIsDisplayed()
-
-        onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor()
-            .assertIsDisplayed()
-
-    }
-
-    /**
-     * Trying to confirm whether it's Sign Up mode would fail the test since the loading
-     * indicator displays immediately on top of the screen making this node to appear as if it's
-     * not displayed([SemanticsNodeInteraction.assertIsNotDisplayed]) or
-     * existed([SemanticsNodeInteraction.assertDoesNotExist]).
-     *
-     * Since this is not a screen test but an individual component test, it's fine to make the
-     * assumption that this is a Sign Up mode. And this function [sign_Up_Mode_Displayed] takes care
-     * of testing if a screen is in Sign Up mode.
-     */
-    @Test
-    fun sign_Up_Progress_Indicator_Displayed() {
-
-        /**
-         * This would fail the test when it should pass since the function
-         * [setContentAsAuthenticationContentAndAssertItIsDisplayed] calls [assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed].
-         * See this test case's KDoc.
-         */
-//        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-//            authenticationMode = SIGN_UP,
-//            isLoading = TRUE
-//        )
-
-        setContentAsAuthenticationContent(
-            composeTestRule = composeTestRule,
-            authenticationMode = SIGN_UP,
-            isLoading = TRUE,
-            email = NULL,
-            password = NULL,
-            passwordRequirements = emptyList(),
-            error = NULL
-        )
-
-        assertAuthenticationContentIsDisplayed()
-
-        onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor()
-            .assertIsDisplayed()
-
-    }
-
-    @Test
-    fun sign_Up_No_Password_Requirement_Satisfied() {
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP
-        )
-
-        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
-            useUnmergedTree = TRUE // Optional.
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
-            useUnmergedTree = TRUE // Optional.
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
-            useUnmergedTree = TRUE // Optional.
-        )
-            .assertIsDisplayed()
-
-    }
-
-    /**
-     * For this test case to pass when it should, the code in the file
-     * app/src/main/java/emperorfin/android/militaryjet/ui/screens/authentication/uicomponents/Requirement.kt
-     * would need to be changed to be like the one in the file
-     * app/src/main/java/emperorfin/android/militaryjet/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
-     */
-    @Test
-    fun sign_Up_No_Password_Requirement_Satisfied_AnotherApproach() {
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP
-        )
-
-        onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
-            useUnmergedTree = TRUE // Optional
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
-            useUnmergedTree = TRUE // Optional
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
-            useUnmergedTree = TRUE // Optional
-        )
-            .assertIsDisplayed()
-
-    }
-
-    @Test
-    fun sign_Up_Only_At_Least_Eight_Characters_Satisfied() {
-
-        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(EIGHT_CHARACTERS)
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP,
-            email = INPUT_CONTENT_EMAIL,
-            password = INPUT_CONTENT_PASSWORD_PASSWORD,
-            passwordRequirements = satisfiedPasswordRequirements
-        )
-
-        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfied(
-            useUnmergedTree = TRUE // Optional.
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
-            useUnmergedTree = TRUE // Optional.
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
-            useUnmergedTree = TRUE // Optional.
-        )
-            .assertIsDisplayed()
-
-    }
-
-    /**
-     * For this test case to pass when it should, the code in the file
-     * app/src/main/java/emperorfin/android/militaryjet/ui/screens/authentication/uicomponents/Requirement.kt
-     * would need to be changed to be like the one in the file
-     * app/src/main/java/emperorfin/android/militaryjet/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
-     */
-    @Test
-    fun sign_Up_Only_At_Least_Eight_Characters_Satisfied_AnotherApproach() {
-
-        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(EIGHT_CHARACTERS)
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP,
-            email = INPUT_CONTENT_EMAIL,
-            password = INPUT_CONTENT_PASSWORD_PASSWORD,
-            passwordRequirements = satisfiedPasswordRequirements
-        )
-
-        onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharacters(
-            useUnmergedTree = TRUE // Optional.
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
-            useUnmergedTree = TRUE // Optional
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
-            useUnmergedTree = TRUE // Optional
-        )
-            .assertIsDisplayed()
-
-    }
-
-    @Test
-    fun sign_Up_Only_At_Least_One_Uppercase_Letter_Satisfied() {
-
-        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(CAPITAL_LETTER)
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP,
-            email = INPUT_CONTENT_EMAIL,
-            password = INPUT_CONTENT_PASSWORD_PASS,
-            passwordRequirements = satisfiedPasswordRequirements
-        )
-
-        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
-            useUnmergedTree = TRUE // Optional.
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
-            useUnmergedTree = TRUE // Optional.
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
-            useUnmergedTree = TRUE // Optional.
-        )
-            .assertIsDisplayed()
-
-    }
-
-    /**
-     * For this test case to pass when it should, the code in the file
-     * app/src/main/java/emperorfin/android/militaryjet/ui/screens/authentication/uicomponents/Requirement.kt
-     * would need to be changed to be like the one in the file
-     * app/src/main/java/emperorfin/android/militaryjet/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
-     */
-    @Test
-    fun sign_Up_Only_At_Least_One_Uppercase_Letter_Satisfied_AnotherApproach() {
-
-        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(CAPITAL_LETTER)
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP,
-            email = INPUT_CONTENT_EMAIL,
-            password = INPUT_CONTENT_PASSWORD_PASS,
-            passwordRequirements = satisfiedPasswordRequirements
-        )
-
-        onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
-            useUnmergedTree = TRUE // Optional
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAndTextExactlyAtLeastOneUppercaseLetter(
-            useUnmergedTree = TRUE // Optional
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
-            useUnmergedTree = TRUE // Optional
-        )
-            .assertIsDisplayed()
-
-    }
-
-    @Test
-    fun sign_Up_Only_At_Least_One_Digit_Satisfied() {
-
-        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(NUMBER)
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP,
-            email = INPUT_CONTENT_EMAIL,
-            password = INPUT_CONTENT_PASSWORD_1PASS,
-            passwordRequirements = satisfiedPasswordRequirements
-        )
-
-        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
-            useUnmergedTree = TRUE // Optional.
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
-            useUnmergedTree = TRUE // Optional.
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitSatisfied(
-            useUnmergedTree = TRUE // Optional.
-        )
-            .assertIsDisplayed()
-
-    }
-
-    /**
-     * For this test case to pass when it should, the code in the file
-     * app/src/main/java/emperorfin/android/militaryjet/ui/screens/authentication/uicomponents/Requirement.kt
-     * would need to be changed to be like the one in the file
-     * app/src/main/java/emperorfin/android/militaryjet/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
-     */
-    @Test
-    fun sign_Up_Only_At_Least_One_Digit_Satisfied_AnotherApproach() {
-
-        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(NUMBER)
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP,
-            email = INPUT_CONTENT_EMAIL,
-            password = INPUT_CONTENT_PASSWORD_1PASS,
-            passwordRequirements = satisfiedPasswordRequirements
-        )
-
-        onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
-            useUnmergedTree = TRUE // Optional
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
-            useUnmergedTree = TRUE // Optional
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAndTextExactlyAtLeastOneDigit(
-            useUnmergedTree = TRUE // Optional
-        )
-            .assertIsDisplayed()
-
-    }
-
-    @Test
-    fun sign_Up_All_Password_Requirements_Satisfied() {
-
-        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(
-            EIGHT_CHARACTERS,
-            CAPITAL_LETTER,
-            NUMBER
-        )
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP,
-            email = INPUT_CONTENT_EMAIL,
-            password = INPUT_CONTENT_PASSWORD,
-            passwordRequirements = satisfiedPasswordRequirements
-        )
-
-        onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfied(
-            useUnmergedTree = TRUE // Optional.
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
-            useUnmergedTree = TRUE // Optional.
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitSatisfied(
-            useUnmergedTree = TRUE // Optional.
-        )
-            .assertIsDisplayed()
-
-    }
-
-    /**
-     * For this test case to pass when it should, the code in the file
-     * app/src/main/java/emperorfin/android/militaryjet/ui/screens/authentication/uicomponents/Requirement.kt
-     * would need to be changed to be like the one in the file
-     * app/src/main/java/emperorfin/android/militaryjet/ui/screens/authentication/uicomponents/Requirement.kt.another_approach
-     */
-    @Test
-    fun sign_Up_All_Password_Requirements_Satisfied_AnotherApproach() {
-
-        val satisfiedPasswordRequirements: List<PasswordRequirement> = listOf(
-            EIGHT_CHARACTERS,
-            CAPITAL_LETTER,
-            NUMBER
-        )
-
-        setContentAsAuthenticationContentAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP,
-            email = INPUT_CONTENT_EMAIL,
-            password = INPUT_CONTENT_PASSWORD,
-            passwordRequirements = satisfiedPasswordRequirements
-        )
-
-        onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharacters(
-            useUnmergedTree = TRUE // Optional
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAndTextExactlyAtLeastOneUppercaseLetter(
-            useUnmergedTree = TRUE // Optional
-        )
-            .assertIsDisplayed()
-
-        onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAndTextExactlyAtLeastOneDigit(
-            useUnmergedTree = TRUE // Optional
-        )
-            .assertIsDisplayed()
-
-    }
-    
 }
