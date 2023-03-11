@@ -40,7 +40,8 @@ import org.junit.Test
 
 
 /**
- * This class is a clean version of [AuthenticationScreenTest] class.
+ * This class is a clean version of [AuthenticationScreenTest] class. For a cleaner version, see
+ * [AuthenticationScreenTest3] class.
  *
  * Important:
  *

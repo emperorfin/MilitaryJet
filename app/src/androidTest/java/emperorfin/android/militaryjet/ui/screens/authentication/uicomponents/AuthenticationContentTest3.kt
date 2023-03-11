@@ -6,7 +6,7 @@ import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import emperorfin.android.militaryjet.ui.screens.authentication.AuthenticationScreen
-import emperorfin.android.militaryjet.ui.screens.authentication.AuthenticationScreenTest2
+import emperorfin.android.militaryjet.ui.screens.authentication.AuthenticationScreenTest3
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.AuthenticationMode.SIGN_IN
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.AuthenticationMode.SIGN_UP
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement
@@ -29,11 +29,11 @@ import org.junit.Test
  * This class is a clean version of [AuthenticationContentTest2] class and a cleaner version of
  * [AuthenticationContentTest] class.
  *
- * The tests in this class are a subset of the ones in the [AuthenticationScreenTest2] class but with
+ * The tests in this class are a subset of the ones in the [AuthenticationScreenTest3] class but with
  * the tests in this class focused on testing the [AuthenticationContent] composable instead of
  * [AuthenticationScreen] composable.
  *
- * Also, the other tests in the [AuthenticationScreenTest2] class that are excluded in this class are
+ * Also, the other tests in the [AuthenticationScreenTest3] class that are excluded in this class are
  * the ones that includes things like performing click and text input operations. Such tests shouldn't
  * be included in a non-screen composable test class as, in my opinion, it's not a good compose UI
  * test practice.
