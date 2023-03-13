@@ -1,15 +1,18 @@
 # MilitaryJet
 
-This repo showcases my unopinionated production-grade way of automatically testing Jetpack Compose UIs. 
-EVERY single UI component, their possible behaviours and states were all tested!
+This repo includes production ready samples that showcase my unopinionated way of simply writing 
+military-grade bug-proof Jetpack Compose UI tests. EVERY single UI component, their possible 
+behaviours and states were all tested!
 
-- With this repo, you can perform any kind of automated Jetpack Compose UI testing - i.e. you can test 
+With this repo, you can perform any kind of automated Jetpack Compose UI testing - i.e. you can test 
 ANYTHING (both visible and invisible (i.e. things that are not visible on the UI but exists in the 
 node - e.g. content description)) on the UI. For example, you can test whether or not a TextField's 
-trailing icon and/or it's content description displays/exists on the UI.
-- If there is anything that's not covered that you want to test, you can be able to create custom 
+trailing icon and/or it's content description displays/exists on the UI. 
+
+If there is anything that's not covered that you want to test, you can be able to create custom 
 semantics in order to test ANYTHING on a Jetpack Compose UI!
-- So, READY! SET!! [GO](https://github.com/emperorfin/MilitaryJet/tree/master/app/src/androidTest)!!!
+
+So, READY! SET!! [GO](https://github.com/emperorfin/MilitaryJet/tree/master/app/src/androidTest)!!!
 
 ## Project Tech-stack and Characteristics
 
