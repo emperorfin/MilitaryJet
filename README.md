@@ -52,7 +52,8 @@ MilitaryJet is the level of weaponry in the fight against Jetpack Compose UI bug
 
 ## Annoyance Alert
 
-- Too many comments. For example, some comments are just for sample purposes for someone who might 
-be interested in a particular test case.
+Too many comments. For example, some comments are just for sample purposes for someone who might be 
+interested in a particular test case. Note that newer test classes with higher numbers suffixed in 
+their names have very fewer and necessary comments.
 
 
