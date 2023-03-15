@@ -24,7 +24,8 @@ import org.junit.Test
 
 
 /**
- * For a clean version of this class, see [AuthenticationTitleTest2]
+ * For a clean and cleaner versions of this class, see [AuthenticationTitleTest2] and
+ * [AuthenticationTitleTest3] respectively.
  *
  * Notes:
  *
