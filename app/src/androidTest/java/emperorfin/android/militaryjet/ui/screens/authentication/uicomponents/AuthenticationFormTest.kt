@@ -27,7 +27,8 @@ import org.junit.Test
 
 
 /**
- * For a clean version of this class, see [AuthenticationFormTest2]
+ * For a clean and cleaner versions of this class, see [AuthenticationFormTest2] and
+ * [AuthenticationFormTest3] respectively.
  *
  * The tests in this class are a subset of the ones in the [AuthenticationContentTest] class but with
  * the tests in this class focused on testing the [AuthenticationForm] composable instead of
