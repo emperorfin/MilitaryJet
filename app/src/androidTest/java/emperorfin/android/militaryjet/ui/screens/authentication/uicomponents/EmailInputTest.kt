@@ -32,7 +32,8 @@ import org.mockito.kotlin.verify
 
 
 /**
- * For a clean version of this class, see [EmailInputTest2]
+ * For a clean and cleaner versions of this class, see [EmailInputTest2] and [EmailInputTest3]
+ * respectively.
  *
  * Notes:
  *

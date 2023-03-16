@@ -13,9 +13,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.test.platform.app.InstrumentationRegistry
 import emperorfin.android.militaryjet.test.R
 import emperorfin.android.militaryjet.ui.extensions.semanticsmatcher.*
-import emperorfin.android.militaryjet.ui.res.theme.ComposeEmailAuthenticationTheme
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_EMAIL
+import emperorfin.android.militaryjet.ui.utils.EmailInputTestUtil
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -26,13 +25,13 @@ import org.mockito.kotlin.verify
 
 /**
  * @Author: Francis Nwokelo (emperorfin)
- * @Date: Monday 23rd January, 2023.
+ * @Date: Thursday 16th March, 2023.
  */
 
 
 /**
- * This class is a clean version of [EmailInputTest] class. For a cleaner version, see
- * [EmailInputTest3] class.
+ * This class is a clean version of [EmailInputTest2] class and a cleaner version of
+ * [EmailInputTest] class.
  *
  * Notes:
  *
@@ -51,7 +50,7 @@ import org.mockito.kotlin.verify
  * - https://stackoverflow.com/questions/36955608/espresso-how-to-use-r-string-resources-of-androidtest-folder
  * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
  */
-class EmailInputTest2 {
+class EmailInputTest3 {
 
     private companion object {
 
@@ -112,120 +111,7 @@ class EmailInputTest2 {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
-    private fun setContentAsEmailInputAndAssertItIsDisplayed(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        email: String? = NULL,
-        onEmailChanged: (email: String) -> Unit = { },
-        onNextClicked: () -> Unit = { }
-    ) {
-
-        setContentAsEmailInput(
-            composeTestRule = composeTestRule,
-            email = email,
-            onEmailChanged = onEmailChanged,
-            onNextClicked= onNextClicked
-        )
-
-        assertEmailInputAndTextExactlyEmailAddressIsDisplayed()
-
-    }
-
-    private fun setContentAsEmailInput(
-        composeTestRule: ComposeContentTestRule,
-        email: String?,
-        onEmailChanged: (email: String) -> Unit,
-        onNextClicked: () -> Unit
-    ) {
-
-        composeTestRule.setContent {
-            ComposeEmailAuthenticationTheme {
-                EmailInput(
-                    email = email,
-                    onEmailChanged = onEmailChanged,
-                    onNextClicked = onNextClicked
-                )
-            }
-        }
-
-    }
-
-    /**
-     * This should be called in all test cases immediately after composing the [EmailInput]
-     * composable in the [ComposeContentTestRule.setContent]
-     */
-    private fun assertEmailInputAndTextExactlyEmailAddressIsDisplayed(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
-    ) {
-
-        onNodeWithEmailInputAndTextExactlyEmailAddress()
-            .assertIsDisplayed()
-
-    }
-
-    private fun onNodeWithEmailInputAndTextExactlyEmailAddress(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        // Works
-//        return onNodeWithEmailInputAnd(
-//            otherMatcher = hasText(
-//                mContext.getString(STRING_RES_EMAIL_ADDRESS)
-//            ),
-//            useUnmergedTree = useUnmergedTree
-//        )
-
-        // Recommended
-        return onNodeWithEmailInputAnd(
-            otherMatcher = hasTextExactlyEmailAddress(),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
-
-    private fun onNodeWithEmailInputAnd(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        useUnmergedTree: Boolean = FALSE,
-        otherMatcher: SemanticsMatcher
-    ): SemanticsNodeInteraction {
-
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTagEmailInput().and(
-                    other = otherMatcher
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
-
-    }
-
-    private fun hasTestTagEmailInput(): SemanticsMatcher {
-
-        return hasTestTagsEmailInputAnd(
-            otherTestTag = THIS_STRING_MUST_BE_EMPTY
-        )
-
-    }
-
-    private fun hasTestTagsEmailInputAnd(otherTestTag: String): SemanticsMatcher {
-
-        return hasTestTag(
-            testTag = TAG_AUTHENTICATION_INPUT_EMAIL + otherTestTag
-        )
-
-    }
-
-    // Before using a semantics matcher, check the implementation of the utility functions in this
-    // section if it's already available to avoid duplication.
-    // The function names make the check easier.
-
-    private fun hasTextExactlyEmailAddress(): SemanticsMatcher {
-
-        return hasTextExactly(
-            mContext.getString(STRING_RES_EMAIL_ADDRESS),
-            includeEditableText = FALSE
-        )
-
-    }
+    private lateinit var emailInputTestUtil: EmailInputTestUtil
 
     @Before
     fun setUpContexts() {
@@ -236,45 +122,56 @@ class EmailInputTest2 {
         // See field's KDoc for more info.
         mContext = InstrumentationRegistry.getInstrumentation().context
 
+        emailInputTestUtil = EmailInputTestUtil(
+            mContext = mContext,
+            mTargetContext = mTargetContext,
+            composeTestRule = composeTestRule
+        )
+
     }
 
     @Test
     fun input_Label_Displayed() {
 
-        setContentAsEmailInputAndAssertItIsDisplayed(
-            email = INPUT_CONTENT_EMAIL_EMPTY
-        )
+        emailInputTestUtil
+            .setContentAsEmailInputAndAssertItIsDisplayed(
+                email = INPUT_CONTENT_EMAIL_EMPTY
+            )
 
     }
 
     @Test
     fun input_Content_Displayed() {
 
-        setContentAsEmailInputAndAssertItIsDisplayed(
-            email = INPUT_CONTENT_EMAIL
-        )
-
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasText(
-                text = INPUT_CONTENT_EMAIL
+        emailInputTestUtil
+            .setContentAsEmailInputAndAssertItIsDisplayed(
+                email = INPUT_CONTENT_EMAIL
             )
-        )
+
+        emailInputTestUtil
+            .onNodeWithEmailInputAnd(
+                otherMatcher = hasText(
+                    text = INPUT_CONTENT_EMAIL
+                )
+            )
             .assertIsDisplayed()
-        
+
     }
 
     @Test
     fun input_Leading_Icon_Image_Vector_Displayed() {
 
-        setContentAsEmailInputAndAssertItIsDisplayed(
-            email = INPUT_CONTENT_EMAIL_EMPTY
-        )
-
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasTextFieldLeadingIconImageVector(
-                leadingIconImageVector = Icons.Default.Email
+        emailInputTestUtil
+            .setContentAsEmailInputAndAssertItIsDisplayed(
+                email = INPUT_CONTENT_EMAIL_EMPTY
             )
-        )
+
+        emailInputTestUtil
+            .onNodeWithEmailInputAnd(
+                otherMatcher = hasTextFieldLeadingIconImageVector(
+                    leadingIconImageVector = Icons.Default.Email
+                )
+            )
             .assertIsDisplayed()
 
     }
@@ -282,17 +179,19 @@ class EmailInputTest2 {
     @Test
     fun input_Leading_Icon_Content_Description_Exists() {
 
-        setContentAsEmailInputAndAssertItIsDisplayed(
-            email = INPUT_CONTENT_EMAIL_EMPTY
-        )
+        emailInputTestUtil
+            .setContentAsEmailInputAndAssertItIsDisplayed(
+                email = INPUT_CONTENT_EMAIL_EMPTY
+            )
 
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasTextFieldLeadingIconContentDescription(
-                leadingIconContentDescription = mContext.getString(
-                    R.string.content_description_email_input_leading_icon
+        emailInputTestUtil
+            .onNodeWithEmailInputAnd(
+                otherMatcher = hasTextFieldLeadingIconContentDescription(
+                    leadingIconContentDescription = mContext.getString(
+                        R.string.content_description_email_input_leading_icon
+                    )
                 )
             )
-        )
             .assertIsDisplayed()
 
     }
@@ -300,15 +199,17 @@ class EmailInputTest2 {
     @Test
     fun input_Single_Line_Exists() {
 
-        setContentAsEmailInputAndAssertItIsDisplayed(
-            email = INPUT_CONTENT_EMAIL_EMPTY
-        )
-
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasTextFieldSingleLine(
-                singleLine = TRUE
+        emailInputTestUtil
+            .setContentAsEmailInputAndAssertItIsDisplayed(
+                email = INPUT_CONTENT_EMAIL_EMPTY
             )
-        )
+
+        emailInputTestUtil
+            .onNodeWithEmailInputAnd(
+                otherMatcher = hasTextFieldSingleLine(
+                    singleLine = TRUE
+                )
+            )
             .assertIsDisplayed()
 
     }
@@ -316,15 +217,17 @@ class EmailInputTest2 {
     @Test
     fun input_Keyboard_Options_Keyboard_Type_Exists() {
 
-        setContentAsEmailInputAndAssertItIsDisplayed(
-            email = INPUT_CONTENT_EMAIL_EMPTY
-        )
-
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasTextFieldKeyboardOptionsKeyboardType(
-                keyboardOptionsKeyboardType = KeyboardType.Email
+        emailInputTestUtil
+            .setContentAsEmailInputAndAssertItIsDisplayed(
+                email = INPUT_CONTENT_EMAIL_EMPTY
             )
-        )
+
+        emailInputTestUtil
+            .onNodeWithEmailInputAnd(
+                otherMatcher = hasTextFieldKeyboardOptionsKeyboardType(
+                    keyboardOptionsKeyboardType = KeyboardType.Email
+                )
+            )
             .assertIsDisplayed()
 
     }
@@ -332,15 +235,17 @@ class EmailInputTest2 {
     @Test
     fun input_Keyboard_Options_Ime_Action_Exists() {
 
-        setContentAsEmailInputAndAssertItIsDisplayed(
-            email = INPUT_CONTENT_EMAIL_EMPTY
-        )
-
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasImeAction(
-                ImeAction.Next
+        emailInputTestUtil
+            .setContentAsEmailInputAndAssertItIsDisplayed(
+                email = INPUT_CONTENT_EMAIL_EMPTY
             )
-        )
+
+        emailInputTestUtil
+            .onNodeWithEmailInputAnd(
+                otherMatcher = hasImeAction(
+                    ImeAction.Next
+                )
+            )
             .assertIsDisplayed()
 
     }
@@ -348,15 +253,17 @@ class EmailInputTest2 {
     @Test
     fun input_Keyboard_Options_Ime_Action_Exists_AnotherApproach() {
 
-        setContentAsEmailInputAndAssertItIsDisplayed(
-            email = INPUT_CONTENT_EMAIL_EMPTY
-        )
-
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasTextFieldKeyboardOptionsImeAction(
-                keyboardOptionsImeAction = ImeAction.Next
+        emailInputTestUtil
+            .setContentAsEmailInputAndAssertItIsDisplayed(
+                email = INPUT_CONTENT_EMAIL_EMPTY
             )
-        )
+
+        emailInputTestUtil
+            .onNodeWithEmailInputAnd(
+                otherMatcher = hasTextFieldKeyboardOptionsImeAction(
+                    keyboardOptionsImeAction = ImeAction.Next
+                )
+            )
             .assertIsDisplayed()
 
     }
@@ -370,12 +277,14 @@ class EmailInputTest2 {
 
         val onEmailChanged: (email: String) -> Unit = mock()
 
-        setContentAsEmailInputAndAssertItIsDisplayed(
-            email = emailAddress,
-            onEmailChanged = onEmailChanged
-        )
+        emailInputTestUtil
+            .setContentAsEmailInputAndAssertItIsDisplayed(
+                email = emailAddress,
+                onEmailChanged = onEmailChanged
+            )
 
-        onNodeWithEmailInputAndTextExactlyEmailAddress()
+        emailInputTestUtil
+            .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 performTextInputSelection(
                     selection = TextRange(emailAddress.length)
@@ -408,12 +317,14 @@ class EmailInputTest2 {
             isClicked = TRUE
         }
 
-        setContentAsEmailInputAndAssertItIsDisplayed(
-            email = emailAddress,
-            onEmailChanged = onEmailChanged
-        )
+        emailInputTestUtil
+            .setContentAsEmailInputAndAssertItIsDisplayed(
+                email = emailAddress,
+                onEmailChanged = onEmailChanged
+            )
 
-        onNodeWithEmailInputAndTextExactlyEmailAddress()
+        emailInputTestUtil
+            .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 performTextInputSelection(
                     selection = TextRange(emailAddress.length)
@@ -435,12 +346,14 @@ class EmailInputTest2 {
 
         val onNextClicked: () -> Unit = mock()
 
-        setContentAsEmailInputAndAssertItIsDisplayed(
-            email = INPUT_CONTENT_EMAIL_EMPTY,
-            onNextClicked = onNextClicked
-        )
+        emailInputTestUtil
+            .setContentAsEmailInputAndAssertItIsDisplayed(
+                email = INPUT_CONTENT_EMAIL_EMPTY,
+                onNextClicked = onNextClicked
+            )
 
-        onNodeWithEmailInputAndTextExactlyEmailAddress()
+        emailInputTestUtil
+            .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 // Optional
                 performTextInput(
@@ -461,14 +374,16 @@ class EmailInputTest2 {
 
         var isClicked = FALSE
 
-        setContentAsEmailInputAndAssertItIsDisplayed(
-            email = INPUT_CONTENT_EMAIL_EMPTY,
-            onNextClicked = {
-                isClicked = TRUE
-            }
-        )
+        emailInputTestUtil
+            .setContentAsEmailInputAndAssertItIsDisplayed(
+                email = INPUT_CONTENT_EMAIL_EMPTY,
+                onNextClicked = {
+                    isClicked = TRUE
+                }
+            )
 
-        onNodeWithEmailInputAndTextExactlyEmailAddress()
+        emailInputTestUtil
+            .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 // Optional
                 performTextInput(
