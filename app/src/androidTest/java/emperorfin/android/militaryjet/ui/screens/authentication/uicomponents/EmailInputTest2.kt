@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -69,6 +70,12 @@ class EmailInputTest2 {
 
         @StringRes
         private const val STRING_RES_EMAIL_ADDRESS: Int = R.string.label_email
+
+        private val IMAGE_VECTOR_ICONS_DEFAULT_EMAIL: ImageVector = Icons.Default.Email
+
+        private val KEYBOARD_TYPE_EMAIL: KeyboardType = KeyboardType.Email
+
+        private val IME_ACTION_NEXT: ImeAction = ImeAction.Next
 
     }
 
@@ -182,6 +189,87 @@ class EmailInputTest2 {
 
     }
 
+    private fun onNodeWithEmailInputAndTextContactAtEmailDotCom(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithEmailInputAnd(
+            otherMatcher = hasTextContactAtEmailDotCom(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithEmailInputAndTextFieldLeadingIconImageVectorIconsDefaultEmail(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithEmailInputAnd(
+            otherMatcher = hasTextFieldLeadingIconImageVectorIconsDefaultEmail(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithEmailInputAndTextFieldLeadingIconContentDescriptionEmailIcon(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithEmailInputAnd(
+            otherMatcher = hasTextFieldLeadingIconContentDescriptionEmailIcon(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithEmailInputAndTextFieldSingleLineTrue(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithEmailInputAnd(
+            otherMatcher = hasTextFieldSingleLineTrue(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithEmailInputAndTextFieldKeyboardOptionsKeyboardTypeEmail(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithEmailInputAnd(
+            otherMatcher = hasTextFieldKeyboardOptionsKeyboardTypeEmail(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithEmailInputAndImeActionNext(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithEmailInputAnd(
+            otherMatcher = hasImeActionNext(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    // ------- FOR ..._AnotherApproach()
+
+    private fun onNodeWithEmailInputAndTextFieldKeyboardOptionsImeActionNext(
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithEmailInputAnd(
+            otherMatcher = hasTextFieldKeyboardOptionsImeActionNext(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    // ------- /FOR ..._AnotherApproach()
+
     private fun onNodeWithEmailInputAnd(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
         useUnmergedTree: Boolean = FALSE,
@@ -227,6 +315,64 @@ class EmailInputTest2 {
 
     }
 
+    private fun hasTextContactAtEmailDotCom(): SemanticsMatcher {
+
+        return hasText(
+            text = INPUT_CONTENT_EMAIL
+        )
+
+    }
+
+    private fun hasTextFieldLeadingIconImageVectorIconsDefaultEmail(): SemanticsMatcher {
+
+        return hasTextFieldLeadingIconImageVector(
+            leadingIconImageVector = IMAGE_VECTOR_ICONS_DEFAULT_EMAIL
+        )
+
+    }
+
+    private fun hasTextFieldLeadingIconContentDescriptionEmailIcon(): SemanticsMatcher {
+
+        return hasTextFieldLeadingIconContentDescription(
+            leadingIconContentDescription = mContext.getString(
+                R.string.content_description_email_input_leading_icon
+            )
+        )
+
+    }
+
+    private fun hasTextFieldSingleLineTrue(): SemanticsMatcher {
+
+        return hasTextFieldSingleLine(
+            singleLine = TRUE
+        )
+
+    }
+
+    private fun hasTextFieldKeyboardOptionsKeyboardTypeEmail(): SemanticsMatcher {
+
+        return hasTextFieldKeyboardOptionsKeyboardType(
+            keyboardOptionsKeyboardType = KEYBOARD_TYPE_EMAIL
+        )
+
+    }
+
+    private fun hasImeActionNext(): SemanticsMatcher {
+
+        return hasImeAction(
+            actionType = IME_ACTION_NEXT
+        )
+
+    }
+
+    private fun hasTextFieldKeyboardOptionsImeActionNext(): SemanticsMatcher {
+
+        return hasTextFieldKeyboardOptionsImeAction(
+            keyboardOptionsImeAction = IME_ACTION_NEXT
+        )
+
+    }
+
     @Before
     fun setUpContexts() {
 
@@ -254,11 +400,7 @@ class EmailInputTest2 {
             email = INPUT_CONTENT_EMAIL
         )
 
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasText(
-                text = INPUT_CONTENT_EMAIL
-            )
-        )
+        onNodeWithEmailInputAndTextContactAtEmailDotCom()
             .assertIsDisplayed()
         
     }
@@ -270,11 +412,7 @@ class EmailInputTest2 {
             email = INPUT_CONTENT_EMAIL_EMPTY
         )
 
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasTextFieldLeadingIconImageVector(
-                leadingIconImageVector = Icons.Default.Email
-            )
-        )
+        onNodeWithEmailInputAndTextFieldLeadingIconImageVectorIconsDefaultEmail()
             .assertIsDisplayed()
 
     }
@@ -286,13 +424,7 @@ class EmailInputTest2 {
             email = INPUT_CONTENT_EMAIL_EMPTY
         )
 
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasTextFieldLeadingIconContentDescription(
-                leadingIconContentDescription = mContext.getString(
-                    R.string.content_description_email_input_leading_icon
-                )
-            )
-        )
+        onNodeWithEmailInputAndTextFieldLeadingIconContentDescriptionEmailIcon()
             .assertIsDisplayed()
 
     }
@@ -304,11 +436,7 @@ class EmailInputTest2 {
             email = INPUT_CONTENT_EMAIL_EMPTY
         )
 
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasTextFieldSingleLine(
-                singleLine = TRUE
-            )
-        )
+        onNodeWithEmailInputAndTextFieldSingleLineTrue()
             .assertIsDisplayed()
 
     }
@@ -320,11 +448,7 @@ class EmailInputTest2 {
             email = INPUT_CONTENT_EMAIL_EMPTY
         )
 
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasTextFieldKeyboardOptionsKeyboardType(
-                keyboardOptionsKeyboardType = KeyboardType.Email
-            )
-        )
+        onNodeWithEmailInputAndTextFieldKeyboardOptionsKeyboardTypeEmail()
             .assertIsDisplayed()
 
     }
@@ -336,11 +460,7 @@ class EmailInputTest2 {
             email = INPUT_CONTENT_EMAIL_EMPTY
         )
 
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasImeAction(
-                ImeAction.Next
-            )
-        )
+        onNodeWithEmailInputAndImeActionNext()
             .assertIsDisplayed()
 
     }
@@ -352,11 +472,7 @@ class EmailInputTest2 {
             email = INPUT_CONTENT_EMAIL_EMPTY
         )
 
-        onNodeWithEmailInputAnd(
-            otherMatcher = hasTextFieldKeyboardOptionsImeAction(
-                keyboardOptionsImeAction = ImeAction.Next
-            )
-        )
+        onNodeWithEmailInputAndTextFieldKeyboardOptionsImeActionNext()
             .assertIsDisplayed()
 
     }
