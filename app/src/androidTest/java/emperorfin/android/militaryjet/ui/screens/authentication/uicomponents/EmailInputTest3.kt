@@ -1,17 +1,11 @@
 package emperorfin.android.militaryjet.ui.screens.authentication.uicomponents
 
 import android.content.Context
-import androidx.annotation.StringRes
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.text.TextRange
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.test.platform.app.InstrumentationRegistry
-import emperorfin.android.militaryjet.test.R
 import emperorfin.android.militaryjet.ui.extensions.semanticsmatcher.*
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement
 import emperorfin.android.militaryjet.ui.utils.EmailInputTestUtil
@@ -57,17 +51,10 @@ class EmailInputTest3 {
         private const val TRUE: Boolean = true
         private const val FALSE: Boolean = false
 
-        private val NULL = null
-
-        private const val THIS_STRING_MUST_BE_EMPTY: String = ""
-
         private const val INPUT_CONTENT_EMAIL_EMPTY: String = ""
         private const val INPUT_CONTENT_EMAIL: String = "contact@email.com"
         private const val INPUT_CONTENT_EMAIL_PREFIXED: String = "contact@email.co"
         private const val INPUT_CONTENT_EMAIL_SUFFIXED: String = ".uk"
-
-        @StringRes
-        private const val STRING_RES_EMAIL_ADDRESS: Int = R.string.label_email
 
     }
 
@@ -149,11 +136,7 @@ class EmailInputTest3 {
             )
 
         emailInputTestUtil
-            .onNodeWithEmailInputAnd(
-                otherMatcher = hasText(
-                    text = INPUT_CONTENT_EMAIL
-                )
-            )
+            .onNodeWithEmailInputAndTextContactAtEmailDotCom()
             .assertIsDisplayed()
 
     }
@@ -167,11 +150,7 @@ class EmailInputTest3 {
             )
 
         emailInputTestUtil
-            .onNodeWithEmailInputAnd(
-                otherMatcher = hasTextFieldLeadingIconImageVector(
-                    leadingIconImageVector = Icons.Default.Email
-                )
-            )
+            .onNodeWithEmailInputAndTextFieldLeadingIconImageVectorIconsDefaultEmail()
             .assertIsDisplayed()
 
     }
@@ -185,13 +164,7 @@ class EmailInputTest3 {
             )
 
         emailInputTestUtil
-            .onNodeWithEmailInputAnd(
-                otherMatcher = hasTextFieldLeadingIconContentDescription(
-                    leadingIconContentDescription = mContext.getString(
-                        R.string.content_description_email_input_leading_icon
-                    )
-                )
-            )
+            .onNodeWithEmailInputAndTextFieldLeadingIconContentDescriptionEmailIcon()
             .assertIsDisplayed()
 
     }
@@ -205,11 +178,7 @@ class EmailInputTest3 {
             )
 
         emailInputTestUtil
-            .onNodeWithEmailInputAnd(
-                otherMatcher = hasTextFieldSingleLine(
-                    singleLine = TRUE
-                )
-            )
+            .onNodeWithEmailInputAndTextFieldSingleLineTrue()
             .assertIsDisplayed()
 
     }
@@ -223,11 +192,7 @@ class EmailInputTest3 {
             )
 
         emailInputTestUtil
-            .onNodeWithEmailInputAnd(
-                otherMatcher = hasTextFieldKeyboardOptionsKeyboardType(
-                    keyboardOptionsKeyboardType = KeyboardType.Email
-                )
-            )
+            .onNodeWithEmailInputAndTextFieldKeyboardOptionsKeyboardTypeEmail()
             .assertIsDisplayed()
 
     }
@@ -241,11 +206,7 @@ class EmailInputTest3 {
             )
 
         emailInputTestUtil
-            .onNodeWithEmailInputAnd(
-                otherMatcher = hasImeAction(
-                    ImeAction.Next
-                )
-            )
+            .onNodeWithEmailInputAndImeActionNext()
             .assertIsDisplayed()
 
     }
@@ -259,11 +220,7 @@ class EmailInputTest3 {
             )
 
         emailInputTestUtil
-            .onNodeWithEmailInputAnd(
-                otherMatcher = hasTextFieldKeyboardOptionsImeAction(
-                    keyboardOptionsImeAction = ImeAction.Next
-                )
-            )
+            .onNodeWithEmailInputAndTextFieldKeyboardOptionsImeActionNext()
             .assertIsDisplayed()
 
     }
