@@ -26,7 +26,8 @@ import org.junit.Test
 
 
 /**
- * This class is a clean version of [PasswordRequirementsTest] class.
+ * This class is a clean version of [PasswordRequirementsTest] class. For a cleaner version, see
+ * [PasswordRequirementsTest3] class.
  *
  * Important:
  *
@@ -970,7 +971,7 @@ class PasswordRequirementsTest2 {
             .assertIsDisplayed()
 
         onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAndTextExactlyAtLeastOneDigit(
-//            useUnmergedTree = TRUE // Optional
+            useUnmergedTree = TRUE // Optional
         )
             .assertIsDisplayed()
 

@@ -27,7 +27,8 @@ import org.junit.Test
 
 
 /**
- * For a clean version of this class, see [PasswordRequirementsTest2]
+ * For a clean and cleaner versions of this class, see [PasswordRequirementsTest2] and
+ * [PasswordRequirementsTest3] respectively.
  *
  * Important:
  *
