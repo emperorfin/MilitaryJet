@@ -117,9 +117,9 @@ class AuthenticationButtonTest3 {
 
         authenticationButtonTestUtil
             .setContentAsAuthenticationButtonAndAssertItIsDisplayed(
-            authenticationMode = SIGN_IN,
-            enableAuthentication = TRUE,
-        )
+                authenticationMode = SIGN_IN,
+                enableAuthentication = TRUE,
+            )
 
     }
 
@@ -128,9 +128,9 @@ class AuthenticationButtonTest3 {
 
         authenticationButtonTestUtil
             .setContentAsAuthenticationButtonAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP,
-            enableAuthentication = TRUE,
-        )
+                authenticationMode = SIGN_UP,
+                enableAuthentication = TRUE,
+            )
 
     }
 
@@ -141,10 +141,10 @@ class AuthenticationButtonTest3 {
 
         authenticationButtonTestUtil
             .setContentAsAuthenticationButtonAndAssertItIsDisplayed(
-            authenticationMode = SIGN_IN,
-            enableAuthentication = TRUE,
-            onAuthenticate = onAuthenticate
-        )
+                authenticationMode = SIGN_IN,
+                enableAuthentication = TRUE,
+                onAuthenticate = onAuthenticate
+            )
 
         authenticationButtonTestUtil
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
@@ -163,12 +163,12 @@ class AuthenticationButtonTest3 {
 
         authenticationButtonTestUtil
             .setContentAsAuthenticationButtonAndAssertItIsDisplayed(
-            authenticationMode = SIGN_IN,
-            enableAuthentication = TRUE,
-            onAuthenticate = {
-                isClicked = TRUE
-            }
-        )
+                authenticationMode = SIGN_IN,
+                enableAuthentication = TRUE,
+                onAuthenticate = {
+                    isClicked = TRUE
+                }
+            )
 
         authenticationButtonTestUtil
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
@@ -185,10 +185,10 @@ class AuthenticationButtonTest3 {
 
         authenticationButtonTestUtil
             .setContentAsAuthenticationButtonAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP,
-            enableAuthentication = TRUE,
-            onAuthenticate = onAuthenticate
-        )
+                authenticationMode = SIGN_UP,
+                enableAuthentication = TRUE,
+                onAuthenticate = onAuthenticate
+            )
 
         authenticationButtonTestUtil
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
@@ -207,12 +207,12 @@ class AuthenticationButtonTest3 {
 
         authenticationButtonTestUtil
             .setContentAsAuthenticationButtonAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP,
-            enableAuthentication = TRUE,
-            onAuthenticate = {
-                isClicked = TRUE
-            }
-        )
+                authenticationMode = SIGN_UP,
+                enableAuthentication = TRUE,
+                onAuthenticate = {
+                    isClicked = TRUE
+                }
+            )
 
         authenticationButtonTestUtil
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
@@ -227,9 +227,9 @@ class AuthenticationButtonTest3 {
 
         authenticationButtonTestUtil
             .setContentAsAuthenticationButtonAndAssertItIsDisplayed(
-            authenticationMode = SIGN_IN,
-            enableAuthentication = FALSE
-        )
+                authenticationMode = SIGN_IN,
+                enableAuthentication = FALSE
+            )
 
         authenticationButtonTestUtil
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
@@ -248,9 +248,9 @@ class AuthenticationButtonTest3 {
 
         authenticationButtonTestUtil
             .setContentAsAuthenticationButtonAndAssertItIsDisplayed(
-            authenticationMode = SIGN_IN,
-            enableAuthentication = TRUE
-        )
+                authenticationMode = SIGN_IN,
+                enableAuthentication = TRUE
+            )
 
         authenticationButtonTestUtil
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
@@ -267,9 +267,9 @@ class AuthenticationButtonTest3 {
 
         authenticationButtonTestUtil
             .setContentAsAuthenticationButtonAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP,
-            enableAuthentication = FALSE
-        )
+                authenticationMode = SIGN_UP,
+                enableAuthentication = FALSE
+            )
 
         authenticationButtonTestUtil
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
@@ -286,9 +286,9 @@ class AuthenticationButtonTest3 {
 
         authenticationButtonTestUtil
             .setContentAsAuthenticationButtonAndAssertItIsDisplayed(
-            authenticationMode = SIGN_UP,
-            enableAuthentication = TRUE
-        )
+                authenticationMode = SIGN_UP,
+                enableAuthentication = TRUE
+            )
 
         authenticationButtonTestUtil
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
