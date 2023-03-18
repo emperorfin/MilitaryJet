@@ -85,7 +85,10 @@ class PasswordInputTest2 {
         private const val STRING_RES_PASSWORD: Int = R.string.label_password
         @StringRes
         private const val STRING_RES_PASSWORD_SHOW: Int = R.string.content_description_show_password
+        @StringRes
         private const val STRING_RES_PASSWORD_HIDE: Int = R.string.content_description_hide_password
+        @StringRes
+        private const val STRING_RES_PASSWORD_INPUT_LEADING_ICON: Int = R.string.content_description_password_input_leading_icon
         @StringRes
         private const val STRING_RES_TRAILING_ICON_INDICATES_PASSWORD_SHOWN: Int =
             R.string.content_description_password_input_trailing_icon_password_shown
@@ -93,6 +96,7 @@ class PasswordInputTest2 {
         private const val STRING_RES_TRAILING_ICON_INDICATES_PASSWORD_HIDDEN: Int =
             R.string.content_description_password_input_trailing_icon_password_hidden
 
+        private val IMAGE_VECTOR_ICONS_DEFAULT_LOCK: ImageVector = Icons.Default.Lock
         private val IMAGE_VECTOR_ICONS_DEFAULT_VISIBILITY: ImageVector = Icons.Default.Visibility
         private val IMAGE_VECTOR_ICONS_DEFAULT_VISIBILITY_OFF: ImageVector = Icons.Default.VisibilityOff
 
@@ -220,6 +224,47 @@ class PasswordInputTest2 {
 
         return onNodeWithPasswordInputTrailingIconAnd(
             otherMatcher = hasContentDescriptionExactlyTrailingIconIndicatesPasswordShown(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordInputAndTextPassworD1(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordInputAnd(
+            // Test will fail to assert for EditableText. So use hasText() to assert for
+            // EditableText (i.e. TextField value)
+//            otherMatcher = hasTextExactly(
+//                INPUT_CONTENT_PASSWORD
+//            )
+            otherMatcher = hasTextPassworD1(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordInputAndTextFieldLeadingIconImageVectorIconsDefaultLock(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordInputAnd(
+            otherMatcher = hasTextFieldLeadingIconImageVectorIconsDefaultLock(),
+            useUnmergedTree = useUnmergedTree
+        )
+
+    }
+
+    private fun onNodeWithPasswordInputAndTextFieldLeadingIconContentDescriptionPasswordInputLeadingIcon(
+        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+        useUnmergedTree: Boolean = FALSE
+    ): SemanticsNodeInteraction {
+
+        return onNodeWithPasswordInputAnd(
+            otherMatcher = hasTextFieldLeadingIconContentDescriptionPasswordInputLeadingIcon(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -434,6 +479,34 @@ class PasswordInputTest2 {
 
     }
 
+    private fun hasTextPassworD1(): SemanticsMatcher {
+
+        return hasText(
+            text = INPUT_CONTENT_PASSWORD,
+            substring = FALSE,
+            ignoreCase = FALSE
+        )
+
+    }
+
+    private fun hasTextFieldLeadingIconImageVectorIconsDefaultLock(): SemanticsMatcher {
+
+        return hasTextFieldLeadingIconImageVector(
+            leadingIconImageVector = IMAGE_VECTOR_ICONS_DEFAULT_LOCK
+        )
+
+    }
+
+    private fun hasTextFieldLeadingIconContentDescriptionPasswordInputLeadingIcon(): SemanticsMatcher {
+
+        return hasTextFieldLeadingIconContentDescription(
+            leadingIconContentDescription = mContext.getString(
+                STRING_RES_PASSWORD_INPUT_LEADING_ICON
+            )
+        )
+
+    }
+
     private fun hasTextFieldTrailingIconClickLabelShowPassword(): SemanticsMatcher {
 
         return hasTextFieldTrailingIconClickLabel(
@@ -582,18 +655,7 @@ class PasswordInputTest2 {
             password = INPUT_CONTENT_PASSWORD
         )
 
-        onNodeWithPasswordInputAnd(
-            // Test will fail to assert for EditableText. So use hasText() to assert for
-            // EditableText (i.e. TextField value)
-//            otherMatcher = hasTextExactly(
-//                INPUT_CONTENT_PASSWORD
-//            )
-            otherMatcher = hasText(
-                text = INPUT_CONTENT_PASSWORD,
-                substring = FALSE,
-                ignoreCase = FALSE
-            )
-        )
+        onNodeWithPasswordInputAndTextPassworD1()
             .assertIsDisplayed()
 
     }
@@ -605,11 +667,7 @@ class PasswordInputTest2 {
             password = INPUT_CONTENT_PASSWORD_EMPTY
         )
 
-        onNodeWithPasswordInputAnd(
-            otherMatcher = hasTextFieldLeadingIconImageVector(
-                leadingIconImageVector = Icons.Default.Lock
-            )
-        )
+        onNodeWithPasswordInputAndTextFieldLeadingIconImageVectorIconsDefaultLock()
             .assertIsDisplayed()
 
     }
@@ -621,13 +679,7 @@ class PasswordInputTest2 {
             password = INPUT_CONTENT_PASSWORD_EMPTY
         )
 
-        onNodeWithPasswordInputAnd(
-            otherMatcher = hasTextFieldLeadingIconContentDescription(
-                leadingIconContentDescription = mContext.getString(
-                    R.string.content_description_password_input_leading_icon
-                )
-            )
-        )
+        onNodeWithPasswordInputAndTextFieldLeadingIconContentDescriptionPasswordInputLeadingIcon()
             .assertIsDisplayed()
 
     }
