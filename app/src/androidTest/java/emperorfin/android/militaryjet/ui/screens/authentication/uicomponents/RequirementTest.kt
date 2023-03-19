@@ -31,7 +31,8 @@ import org.junit.Test
 
 
 /**
- * For a clean version of this class, see [RequirementTest2]
+ * For a clean and cleaner versions of this class, see [RequirementTest2] and [RequirementTest3]
+ * respectively.
  *
  * Important:
  *
