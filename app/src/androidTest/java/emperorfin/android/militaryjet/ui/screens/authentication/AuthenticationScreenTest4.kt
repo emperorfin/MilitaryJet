@@ -12,22 +12,28 @@ import com.google.common.truth.Truth.assertThat
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement
 import emperorfin.android.militaryjet.ui.extensions.waitUntilDoesNotExist
 import emperorfin.android.militaryjet.ui.extensions.waitUntilExists
-import emperorfin.android.militaryjet.ui.utils.AuthenticationScreenTestUtil
+import emperorfin.android.militaryjet.ui.utils.AuthenticationScreenTestUtil2
 import emperorfin.android.militaryjet.ui.utils.KeyboardHelper
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.TRUE
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.FALSE
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_EMAIL
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_PASSWORD
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_PASSWORD_PASSWORD
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_PASSWORD_PASS
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_PASSWORD_1PASS
+import emperorfin.android.militaryjet.ui.constants.LongConstants.TIMEOUT_MILLIS_2500L
 
 
 /**
  * @Author: Francis Nwokelo (emperorfin)
- * @Date: Thursday 09th March, 2023.
+ * @Date: Tuesday 21st March, 2023.
  */
 
 
 /**
- * [AuthenticationScreenTest4] class is a revision of this class.
- *
  * Important:
  *
  * - Try not to run all the test cases by running this test class as some tests might fail. If you
@@ -66,32 +72,7 @@ import org.junit.Test
  * - https://stackoverflow.com/questions/36955608/espresso-how-to-use-r-string-resources-of-androidtest-folder
  * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
  */
-class AuthenticationScreenTest3 {
-
-    private companion object {
-
-        private const val TRUE: Boolean = true
-        private const val FALSE: Boolean = false
-
-        private const val INPUT_CONTENT_EMAIL: String = "contact@email.com"
-        private const val INPUT_CONTENT_PASSWORD: String = "passworD1"
-        private const val INPUT_CONTENT_PASSWORD_PASSWORD: String = "password"
-        private const val INPUT_CONTENT_PASSWORD_PASS: String = "Pass"
-        private const val INPUT_CONTENT_PASSWORD_1PASS: String = "1pass"
-
-        /**
-         * Since the delay time millis in the authenticate() function in app/src/main/java/emperorfin/android/militaryjet/ui/screens/authentication/stateholders/AuthenticationViewModel.kt
-         * is 2000L, the [ComposeContentTestRule.waitUntil] test API timeoutMillis should be
-         * something greater than 2_000L such as 2_010L or 2_500L instead of the default 1_000L
-         * value.
-         *
-         * For scenarios where the amount of time an operation such as network call is unknown, you
-         * should keep increasing the timeoutMillis of the [ComposeContentTestRule.waitUntil] until
-         * the test doesn't throw any error or exception related to timeout exception.
-         */
-        private const val TIMEOUT_MILLIS_2500L: Long = 2_500L
-
-    }
+class AuthenticationScreenTest4 {
 
     /**
      * Use this when resources are coming from the main source set, whether directly
@@ -135,7 +116,7 @@ class AuthenticationScreenTest3 {
 
     private val keyboardHelper = KeyboardHelper(composeRule = composeTestRule)
 
-    private lateinit var authenticationScreenTestUtil: AuthenticationScreenTestUtil
+    private lateinit var authenticationScreenTestUtil: AuthenticationScreenTestUtil2
 
     @Before
     fun setUpContexts() {
@@ -146,7 +127,7 @@ class AuthenticationScreenTest3 {
         // See field's KDoc for more info.
         mContext = InstrumentationRegistry.getInstrumentation().context
 
-        authenticationScreenTestUtil = AuthenticationScreenTestUtil(
+        authenticationScreenTestUtil = AuthenticationScreenTestUtil2(
             mContext = mContext,
             mTargetContext = mTargetContext,
             composeTestRule = composeTestRule

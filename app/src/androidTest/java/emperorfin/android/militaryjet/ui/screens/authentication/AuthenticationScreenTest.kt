@@ -47,8 +47,10 @@ import org.junit.Test
  * call ".semantics(mergeDescendants = true){}" without quotes on the Modifier object of the Box
  * composable inside of [AuthenticationContent]. This was commented out since, in my opinion, not a
  * good practice.
- * - For a clean and cleaner versions of this class, see [AuthenticationScreenTest2] and
- * [AuthenticationScreenTest3] respectively.
+ * - The following classes are revisions of this class:
+ * [AuthenticationScreenTest2]
+ * [AuthenticationScreenTest3]
+ * [AuthenticationScreenTest4]
  *
  * Important:
  *
