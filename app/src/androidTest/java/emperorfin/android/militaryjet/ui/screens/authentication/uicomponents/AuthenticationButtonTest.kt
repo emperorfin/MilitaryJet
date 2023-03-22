@@ -27,8 +27,10 @@ import org.mockito.kotlin.verify
 
 
 /**
- * For a clean and cleaner versions of this class, see [AuthenticationButtonTest2] and
- * [AuthenticationButtonTest3] respectively.
+ * The following classes are revisions of this class:
+ * [AuthenticationButtonTest2]
+ * [AuthenticationButtonTest3]
+ * [AuthenticationButtonTest4]
  *
  * Notes:
  *

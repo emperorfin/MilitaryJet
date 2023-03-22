@@ -8,7 +8,9 @@ import androidx.test.platform.app.InstrumentationRegistry
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.AuthenticationMode.SIGN_IN
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.AuthenticationMode.SIGN_UP
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement
-import emperorfin.android.militaryjet.ui.utils.AuthenticationButtonTestUtil
+import emperorfin.android.militaryjet.ui.utils.AuthenticationButtonTestUtil2
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.TRUE
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.FALSE
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -19,13 +21,11 @@ import org.mockito.kotlin.verify
 
 /**
  * @Author: Francis Nwokelo (emperorfin)
- * @Date: Tuesday 07th March, 2023.
+ * @Date: Wednesday 22nd March, 2023.
  */
 
 
 /**
- * [AuthenticationButtonTest4] class is a revision of this class.
- *
  * Notes:
  *
  * - If you ever need to pass a resource (e.g. a string resource) into a composable during testing,
@@ -43,14 +43,7 @@ import org.mockito.kotlin.verify
  * - https://stackoverflow.com/questions/36955608/espresso-how-to-use-r-string-resources-of-androidtest-folder
  * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
  */
-class AuthenticationButtonTest3 {
-
-    private companion object {
-
-        private const val TRUE: Boolean = true
-        private const val FALSE: Boolean = false
-
-    }
+class AuthenticationButtonTest4 {
 
     /**
      * Use this when resources are coming from the main source set, whether directly
@@ -92,7 +85,7 @@ class AuthenticationButtonTest3 {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
-    private lateinit var authenticationButtonTestUtil: AuthenticationButtonTestUtil
+    private lateinit var authenticationButtonTestUtil: AuthenticationButtonTestUtil2
 
     @Before
     fun setUpContexts() {
@@ -103,7 +96,7 @@ class AuthenticationButtonTest3 {
         // See field's KDoc for more info.
         mContext = InstrumentationRegistry.getInstrumentation().context
 
-        authenticationButtonTestUtil = AuthenticationButtonTestUtil(
+        authenticationButtonTestUtil = AuthenticationButtonTestUtil2(
             mContext = mContext,
             mTargetContext = mTargetContext,
             composeTestRule = composeTestRule
