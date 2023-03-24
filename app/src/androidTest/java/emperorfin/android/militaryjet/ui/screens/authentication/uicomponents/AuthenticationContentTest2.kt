@@ -39,8 +39,9 @@ import org.junit.Test
 
 
 /**
- * This class is a clean version of [AuthenticationContentTest] class. For a cleaner version, see
- * [AuthenticationContentTest3] class.
+ * The following classes are revisions of this class:
+ * [AuthenticationContentTest3]
+ * [AuthenticationContentTest4]
  *
  * The tests in this class are a subset of the ones in the [AuthenticationScreenTest2] class but with
  * the tests in this class focused on testing the [AuthenticationContent] composable instead of
