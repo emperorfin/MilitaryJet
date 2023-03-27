@@ -1,14 +1,15 @@
 package emperorfin.android.militaryjet.ui.screens.authentication.uicomponents
 
 import android.content.Context
-import androidx.annotation.StringRes
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
-import emperorfin.android.militaryjet.test.R
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement
-import emperorfin.android.militaryjet.ui.utils.AuthenticationErrorDialogTestUtil
+import emperorfin.android.militaryjet.ui.utils.AuthenticationErrorDialogTestUtil2
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.TRUE
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.FALSE
+import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -19,13 +20,11 @@ import org.mockito.kotlin.verify
 
 /**
  * @Author: Francis Nwokelo (emperorfin)
- * @Date: Saturday 11th March, 2023.
+ * @Date: Sunday 26th March, 2023.
  */
 
 
 /**
- * [AuthenticationErrorDialogTest4] class is a revision of this class.
- *
  * Notes:
  *
  * - If you ever need to pass a resource (e.g. a string resource) into a composable during testing,
@@ -43,18 +42,7 @@ import org.mockito.kotlin.verify
  * - https://stackoverflow.com/questions/36955608/espresso-how-to-use-r-string-resources-of-androidtest-folder
  * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
  */
-class AuthenticationErrorDialogTest3 {
-
-    private companion object {
-
-        private const val TRUE: Boolean = true
-        private const val FALSE: Boolean = false
-
-        @StringRes
-        private const val MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE: Int =
-            emperorfin.android.militaryjet.R.string.test_error_message
-
-    }
+class AuthenticationErrorDialogTest4 {
 
     /**
      * Use this when resources are coming from the main source set, whether directly
@@ -96,7 +84,7 @@ class AuthenticationErrorDialogTest3 {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
-    private lateinit var authenticationErrorDialogTestUtil: AuthenticationErrorDialogTestUtil
+    private lateinit var authenticationErrorDialogTestUtil: AuthenticationErrorDialogTestUtil2
 
     @Before
     fun setUpContexts() {
@@ -107,7 +95,7 @@ class AuthenticationErrorDialogTest3 {
         // See field's KDoc for more info.
         mContext = InstrumentationRegistry.getInstrumentation().context
 
-        authenticationErrorDialogTestUtil = AuthenticationErrorDialogTestUtil(
+        authenticationErrorDialogTestUtil = AuthenticationErrorDialogTestUtil2(
             mContext = mContext,
             mTargetContext = mTargetContext,
             composeTestRule = composeTestRule
@@ -120,7 +108,7 @@ class AuthenticationErrorDialogTest3 {
 
         authenticationErrorDialogTestUtil
             .setContentAsAuthenticationErrorDialogAndAssertItIsDisplayed(
-                error = MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE,
+                error = MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE,
                 onDismissError = { }
             )
 
@@ -131,7 +119,7 @@ class AuthenticationErrorDialogTest3 {
 
         authenticationErrorDialogTestUtil
             .setContentAsAuthenticationErrorDialogAndAssertItIsDisplayed(
-                error = MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE,
+                error = MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE,
                 onDismissError = { }
             )
 
@@ -146,7 +134,7 @@ class AuthenticationErrorDialogTest3 {
 
         authenticationErrorDialogTestUtil
             .setContentAsAuthenticationErrorDialogAndAssertItIsDisplayed(
-                error = MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE,
+                error = MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE,
                 onDismissError = { }
             )
 
@@ -163,7 +151,7 @@ class AuthenticationErrorDialogTest3 {
 
         authenticationErrorDialogTestUtil
             .setContentAsAuthenticationErrorDialogAndAssertItIsDisplayed(
-                error = MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE,
+                error = MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE,
                 onDismissError = onDismissError
             )
 
@@ -184,7 +172,7 @@ class AuthenticationErrorDialogTest3 {
 
         authenticationErrorDialogTestUtil
             .setContentAsAuthenticationErrorDialogAndAssertItIsDisplayed(
-                error = MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE,
+                error = MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE,
                 onDismissError = {
                     isClicked = TRUE
                 }

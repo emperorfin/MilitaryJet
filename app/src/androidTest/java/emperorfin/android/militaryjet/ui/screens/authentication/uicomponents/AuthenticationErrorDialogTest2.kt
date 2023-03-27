@@ -29,8 +29,9 @@ import org.mockito.kotlin.verify
 
 
 /**
- * This class is a clean version of [AuthenticationErrorDialogTest] class. For a cleaner version,
- * see [AuthenticationErrorDialogTest3] class.
+ * The following classes are revisions of this class:
+ * [AuthenticationErrorDialogTest3]
+ * [AuthenticationErrorDialogTest4]
  *
  * Notes:
  *

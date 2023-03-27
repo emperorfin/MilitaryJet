@@ -1,24 +1,7 @@
 package emperorfin.android.militaryjet.ui.constants
 
-import android.content.Context
 import androidx.annotation.StringRes
-import androidx.compose.ui.test.*
-import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import emperorfin.android.militaryjet.test.R
-import emperorfin.android.militaryjet.ui.extensions.semanticsmatcher.hasAlertDialogTitle
-import emperorfin.android.militaryjet.ui.extensions.semanticsmatcher.hasCircularProgressIndicatorColorArgb
-import emperorfin.android.militaryjet.ui.res.theme.ComposeEmailAuthenticationTheme
-import emperorfin.android.militaryjet.ui.screens.authentication.AuthenticationScreen
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_EMAIL
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_ERROR_DIALOG
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_PROGRESS
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_SCREEN
 
 
 /**
@@ -27,8 +10,14 @@ import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tag
  */
 
 
+/**
+ * TODO: Constant variables with "STRING_RES_" prefixed in their names should be renamed with
+ *  "RES_STRING_" prefixed in their names instead of "STRING_RES_". E.g. [STRING_RES_SIGN_IN_TO_YOUR_ACCOUNT]
+ *  should be renamed to RES_STRING_SIGN_IN_TO_YOUR_ACCOUNT.
+ */
 object StringResourceConstants {
 
+    // TODO: Should be renamed to MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE
     @StringRes
     const val MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE: Int =
         emperorfin.android.militaryjet.R.string.test_error_message
@@ -71,5 +60,9 @@ object StringResourceConstants {
 
     @StringRes
     const val STRING_RES_WHOOPS: Int = R.string.error_title
+    @StringRes
+    const val STRING_RES_OK: Int = R.string.error_action_ok
+    @StringRes
+    const val STRING_RES_SOME_ERROR: Int = R.string.test_error_message
 
 }
