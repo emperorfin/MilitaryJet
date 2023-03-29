@@ -11,26 +11,33 @@ import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRe
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement.EIGHT_CHARACTERS
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement.CAPITAL_LETTER
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement.NUMBER
-import emperorfin.android.militaryjet.ui.utils.AuthenticationFormTestUtil
+import emperorfin.android.militaryjet.ui.utils.AuthenticationFormTestUtil2
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.FALSE
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.TRUE
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_EMAIL_EMPTY
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_EMAIL
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_PASSWORD_EMPTY
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_PASSWORD
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_PASSWORD_PASSWORD
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_PASSWORD_PASS
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_PASSWORD_1PASS
 
 
 /**
  * @Author: Francis Nwokelo (emperorfin)
- * @Date: Wednesday 15th March, 2023.
+ * @Date: Monday 27th March, 2023.
  */
 
 
 /**
- * [AuthenticationFormTest4] class is a revision of this class.
- *
- * The tests in this class are a subset of the ones in the [AuthenticationContentTest3] class but
+ * The tests in this class are a subset of the ones in the [AuthenticationContentTest4] class but
  * with the tests in this class focused on testing the [AuthenticationForm] composable instead of
  * [AuthenticationContent] composable.
  *
- * Also, the other tests in the [AuthenticationContentTest3] class that are excluded in this class are
+ * Also, the other tests in the [AuthenticationContentTest4] class that are excluded in this class are
  * the ones that includes testing for error dialog (and error state) and progress indicator (and
  * loading state). These tests are excluded in this class since the [AuthenticationForm] composable
  * which is under test doesn't include the error dialog and progress indicator composables
@@ -64,22 +71,7 @@ import org.junit.Test
  * - https://stackoverflow.com/questions/36955608/espresso-how-to-use-r-string-resources-of-androidtest-folder
  * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
  */
-class AuthenticationFormTest3 {
-
-    private companion object {
-
-        private const val TRUE: Boolean = true
-        private const val FALSE: Boolean = false
-
-        private const val INPUT_CONTENT_EMAIL_EMPTY: String = ""
-        private const val INPUT_CONTENT_EMAIL: String = "contact@email.com"
-        private const val INPUT_CONTENT_PASSWORD_EMPTY: String = ""
-        private const val INPUT_CONTENT_PASSWORD: String = "passworD1"
-        private const val INPUT_CONTENT_PASSWORD_PASSWORD: String = "password"
-        private const val INPUT_CONTENT_PASSWORD_PASS: String = "Pass"
-        private const val INPUT_CONTENT_PASSWORD_1PASS: String = "1pass"
-
-    }
+class AuthenticationFormTest4 {
 
     /**
      * Use this when resources are coming from the main source set, whether directly
@@ -121,7 +113,7 @@ class AuthenticationFormTest3 {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
-    private lateinit var authenticationFormTestUtil: AuthenticationFormTestUtil
+    private lateinit var authenticationFormTestUtil: AuthenticationFormTestUtil2
 
     @Before
     fun setUpContexts() {
@@ -132,7 +124,7 @@ class AuthenticationFormTest3 {
         // See field's KDoc for more info.
         mContext = InstrumentationRegistry.getInstrumentation().context
 
-        authenticationFormTestUtil = AuthenticationFormTestUtil(
+        authenticationFormTestUtil = AuthenticationFormTestUtil2(
             mContext = mContext,
             mTargetContext = mTargetContext,
             composeTestRule = composeTestRule

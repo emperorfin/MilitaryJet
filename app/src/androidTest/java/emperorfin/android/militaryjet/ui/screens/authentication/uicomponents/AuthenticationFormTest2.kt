@@ -32,8 +32,9 @@ import org.junit.Test
 
 
 /**
- * This class is a clean version of [AuthenticationFormTest] class. For a cleaner version, see
- * [AuthenticationFormTest3] class.
+ * The following classes are revisions of this class:
+ * [AuthenticationFormTest3]
+ * [AuthenticationFormTest4]
  *
  * The tests in this class are a subset of the ones in the [AuthenticationContentTest2] class but
  * with the tests in this class focused on testing the [AuthenticationForm] composable instead of

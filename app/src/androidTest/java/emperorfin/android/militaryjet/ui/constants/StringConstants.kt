@@ -12,7 +12,9 @@ object StringConstants {
     const val THIS_STRING_MUST_BE_EMPTY: String = ""
     const val THIS_STRING_COULD_BE_ANYTHING: String = ""
 
+    const val INPUT_CONTENT_EMAIL_EMPTY: String = ""
     const val INPUT_CONTENT_EMAIL: String = "contact@email.com"
+    const val INPUT_CONTENT_PASSWORD_EMPTY: String = ""
     const val INPUT_CONTENT_PASSWORD: String = "passworD1"
     const val INPUT_CONTENT_PASSWORD_PASSWORD: String = "password"
     const val INPUT_CONTENT_PASSWORD_PASS: String = "Pass"
