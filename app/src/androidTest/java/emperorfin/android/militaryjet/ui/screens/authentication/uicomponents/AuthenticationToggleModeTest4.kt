@@ -1,33 +1,31 @@
 package emperorfin.android.militaryjet.ui.screens.authentication.uicomponents
 
 import android.content.Context
-import androidx.annotation.StringRes
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
-import emperorfin.android.militaryjet.test.R
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.AuthenticationMode.SIGN_IN
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.AuthenticationMode.SIGN_UP
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement
-import emperorfin.android.militaryjet.ui.utils.AuthenticationToggleModeTestUtil
+import emperorfin.android.militaryjet.ui.utils.AuthenticationToggleModeTestUtil2
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.FALSE
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.TRUE
 
 
 /**
  * @Author: Francis Nwokelo (emperorfin)
- * @Date: Thursday 16th March, 2023.
+ * @Date: Thursday 30th March, 2023.
  */
 
 
 /**
- * [AuthenticationToggleModeTest4] class is a revisions of this class.
- *
  * Notes:
  *
  * - If you ever need to pass a resource (e.g. a string resource) into a composable during testing,
@@ -45,14 +43,7 @@ import org.mockito.kotlin.verify
  * - https://stackoverflow.com/questions/36955608/espresso-how-to-use-r-string-resources-of-androidtest-folder
  * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
  */
-class AuthenticationToggleModeTest3 {
-
-    private companion object {
-
-        private const val FALSE: Boolean = false
-        private const val TRUE: Boolean = true
-
-    }
+class AuthenticationToggleModeTest4 {
 
     /**
      * Use this when resources are coming from the main source set, whether directly
@@ -94,7 +85,7 @@ class AuthenticationToggleModeTest3 {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
-    private lateinit var authenticationToggleModeTestUtil: AuthenticationToggleModeTestUtil
+    private lateinit var authenticationToggleModeTestUtil: AuthenticationToggleModeTestUtil2
 
     @Before
     fun setUpContexts() {
@@ -105,7 +96,7 @@ class AuthenticationToggleModeTest3 {
         // See field's KDoc for more info.
         mContext = InstrumentationRegistry.getInstrumentation().context
 
-        authenticationToggleModeTestUtil = AuthenticationToggleModeTestUtil(
+        authenticationToggleModeTestUtil = AuthenticationToggleModeTestUtil2(
             mContext = mContext,
             mTargetContext = mTargetContext,
             composeTestRule = composeTestRule

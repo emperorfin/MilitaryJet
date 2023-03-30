@@ -27,8 +27,10 @@ import org.mockito.kotlin.verify
 
 
 /**
- * For a clean and cleaner versions of this class, see [AuthenticationToggleModeTest2] and
- * [AuthenticationToggleModeTest3] respectively.
+ * The following classes are revisions of this class:
+ * [AuthenticationToggleModeTest2]
+ * [AuthenticationToggleModeTest3]
+ * [AuthenticationToggleModeTest4]
  *
  * Notes:
  *
