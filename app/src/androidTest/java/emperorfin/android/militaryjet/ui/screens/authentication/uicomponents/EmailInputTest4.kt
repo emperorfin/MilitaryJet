@@ -8,24 +8,28 @@ import androidx.compose.ui.text.TextRange
 import androidx.test.platform.app.InstrumentationRegistry
 import emperorfin.android.militaryjet.ui.extensions.semanticsmatcher.*
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement
-import emperorfin.android.militaryjet.ui.utils.EmailInputTestUtil
+import emperorfin.android.militaryjet.ui.utils.EmailInputTestUtil2
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.FALSE
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.TRUE
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_EMAIL_EMPTY
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_EMAIL
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_EMAIL_PREFIXED
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_EMAIL_SUFFIXED
 
 
 /**
  * @Author: Francis Nwokelo (emperorfin)
- * @Date: Thursday 16th March, 2023.
+ * @Date: Thursday 30th March, 2023.
  */
 
 
 /**
- * [EmailInputTest4] class is a revision of this class.
- *
  * Notes:
  *
  * - If you ever need to pass a resource (e.g. a string resource) into a composable during testing,
@@ -43,19 +47,7 @@ import org.mockito.kotlin.verify
  * - https://stackoverflow.com/questions/36955608/espresso-how-to-use-r-string-resources-of-androidtest-folder
  * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
  */
-class EmailInputTest3 {
-
-    private companion object {
-
-        private const val TRUE: Boolean = true
-        private const val FALSE: Boolean = false
-
-        private const val INPUT_CONTENT_EMAIL_EMPTY: String = ""
-        private const val INPUT_CONTENT_EMAIL: String = "contact@email.com"
-        private const val INPUT_CONTENT_EMAIL_PREFIXED: String = "contact@email.co"
-        private const val INPUT_CONTENT_EMAIL_SUFFIXED: String = ".uk"
-
-    }
+class EmailInputTest4 {
 
     /**
      * Use this when resources are coming from the main source set, whether directly
@@ -97,7 +89,7 @@ class EmailInputTest3 {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
-    private lateinit var emailInputTestUtil: EmailInputTestUtil
+    private lateinit var emailInputTestUtil: EmailInputTestUtil2
 
     @Before
     fun setUpContexts() {
@@ -108,7 +100,7 @@ class EmailInputTest3 {
         // See field's KDoc for more info.
         mContext = InstrumentationRegistry.getInstrumentation().context
 
-        emailInputTestUtil = EmailInputTestUtil(
+        emailInputTestUtil = EmailInputTestUtil2(
             mContext = mContext,
             mTargetContext = mTargetContext,
             composeTestRule = composeTestRule

@@ -14,6 +14,9 @@ object StringConstants {
 
     const val INPUT_CONTENT_EMAIL_EMPTY: String = ""
     const val INPUT_CONTENT_EMAIL: String = "contact@email.com"
+    const val INPUT_CONTENT_EMAIL_PREFIXED: String = "contact@email.co"
+    const val INPUT_CONTENT_EMAIL_SUFFIXED: String = ".uk"
+
     const val INPUT_CONTENT_PASSWORD_EMPTY: String = ""
     const val INPUT_CONTENT_PASSWORD: String = "passworD1"
     const val INPUT_CONTENT_PASSWORD_PASSWORD: String = "password"

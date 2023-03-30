@@ -32,8 +32,9 @@ import org.mockito.kotlin.verify
 
 
 /**
- * This class is a clean version of [EmailInputTest] class. For a cleaner version, see
- * [EmailInputTest3] class.
+ * The following classes are revisions of this class:
+ * [EmailInputTest3]
+ * [EmailInputTest4]
  *
  * Notes:
  *
