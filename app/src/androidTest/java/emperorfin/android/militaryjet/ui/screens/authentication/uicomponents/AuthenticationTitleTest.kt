@@ -24,8 +24,10 @@ import org.junit.Test
 
 
 /**
- * For a clean and cleaner versions of this class, see [AuthenticationTitleTest2] and
- * [AuthenticationTitleTest3] respectively.
+ * The following classes are revisions of this class:
+ * [AuthenticationTitleTest2]
+ * [AuthenticationTitleTest3]
+ * [AuthenticationTitleTest4]
  *
  * Notes:
  *
