@@ -5,29 +5,33 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.text.TextRange
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.test.platform.app.InstrumentationRegistry
 import emperorfin.android.militaryjet.ui.extensions.semanticsmatcher.*
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement
 import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON_PASSWORD_HIDDEN
-import emperorfin.android.militaryjet.ui.utils.PasswordInputTestUtil
+import emperorfin.android.militaryjet.ui.utils.PasswordInputTestUtil2
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.FALSE
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.TRUE
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_PASSWORD_EMPTY
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_PASSWORD
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_PREFIXED
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_SUFFIXED
+import emperorfin.android.militaryjet.ui.constants.VisualTransformationConstants.VISUAL_TRANSFORMATION_NONE
 
 
 /**
  * @Author: Francis Nwokelo (emperorfin)
- * @Date: Saturday 18th March, 2023.
+ * @Date: Friday 31st March, 2023.
  */
 
 
 /**
- * [PasswordInputTest4] class is a revision of this class.
- *
  * Important:
  *
  * - Try not to run all the test cases by running this test class as some tests might fail. If you do
@@ -53,21 +57,7 @@ import org.mockito.kotlin.verify
  * - https://stackoverflow.com/questions/36955608/espresso-how-to-use-r-string-resources-of-androidtest-folder
  * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
  */
-class PasswordInputTest3 {
-
-    private companion object {
-
-        private const val TRUE: Boolean = true
-        private const val FALSE: Boolean = false
-
-        private const val INPUT_CONTENT_PASSWORD_EMPTY: String = ""
-        private const val INPUT_CONTENT_PASSWORD: String = "passworD1"
-        private const val INPUT_CONTENT_PREFIXED: String = "passworD"
-        private const val INPUT_CONTENT_SUFFIXED: String = "12345"
-
-        private val VISUAL_TRANSFORMATION_NONE: VisualTransformation = VisualTransformation.None
-
-    }
+class PasswordInputTest4 {
 
     /**
      * Use this when resources are coming from the main source set, whether directly
@@ -109,7 +99,7 @@ class PasswordInputTest3 {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
-    private lateinit var passwordInputTestUtil: PasswordInputTestUtil
+    private lateinit var passwordInputTestUtil: PasswordInputTestUtil2
 
     @Before
     fun setUpContexts() {
@@ -120,7 +110,7 @@ class PasswordInputTest3 {
         // See field's KDoc for more info.
         mContext = InstrumentationRegistry.getInstrumentation().context
 
-        passwordInputTestUtil = PasswordInputTestUtil(
+        passwordInputTestUtil = PasswordInputTestUtil2(
             mContext = mContext,
             mTargetContext = mTargetContext,
             composeTestRule = composeTestRule

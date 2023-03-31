@@ -13,4 +13,6 @@ object ImeActionConstants {
 
     val IME_ACTION_NEXT: ImeAction = ImeAction.Next
 
+    val IME_ACTION_DONE: ImeAction = ImeAction.Done
+
 }

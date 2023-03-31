@@ -12,4 +12,6 @@ object BooleanConstants {
     const val TRUE: Boolean = true
     const val FALSE: Boolean = false
 
+    const val SINGLE_LINE_TRUE: Boolean = TRUE
+
 }

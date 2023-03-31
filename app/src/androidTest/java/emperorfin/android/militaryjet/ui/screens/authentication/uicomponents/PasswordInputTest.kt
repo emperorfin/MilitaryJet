@@ -38,8 +38,10 @@ import org.mockito.kotlin.verify
 
 
 /**
- * For a clean and cleaner versions of this class, see [PasswordInputTest2] and
- * [PasswordInputTest3] respectively.
+ * The following classes are revisions of this class:
+ * [PasswordInputTest2]
+ * [PasswordInputTest3]
+ * [PasswordInputTest4]
  *
  * Important:
  *

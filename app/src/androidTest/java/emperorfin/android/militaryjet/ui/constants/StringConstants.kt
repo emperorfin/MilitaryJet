@@ -22,5 +22,7 @@ object StringConstants {
     const val INPUT_CONTENT_PASSWORD_PASSWORD: String = "password"
     const val INPUT_CONTENT_PASSWORD_PASS: String = "Pass"
     const val INPUT_CONTENT_PASSWORD_1PASS: String = "1pass"
+    const val INPUT_CONTENT_PREFIXED: String = "passworD"
+    const val INPUT_CONTENT_SUFFIXED: String = "12345"
 
 }

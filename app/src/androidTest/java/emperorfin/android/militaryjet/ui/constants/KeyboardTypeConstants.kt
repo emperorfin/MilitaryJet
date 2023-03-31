@@ -13,4 +13,6 @@ object KeyboardTypeConstants {
 
     val KEYBOARD_TYPE_EMAIL: KeyboardType = KeyboardType.Email
 
+    val KEYBOARD_TYPE_PASSWORD: KeyboardType = KeyboardType.Password
+
 }

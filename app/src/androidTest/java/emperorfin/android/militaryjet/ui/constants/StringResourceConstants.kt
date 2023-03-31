@@ -26,10 +26,25 @@ object StringResourceConstants {
     const val STRING_RES_SIGN_IN_TO_YOUR_ACCOUNT: Int = R.string.label_sign_in_to_account
     @StringRes
     const val STRING_RES_SIGN_UP_FOR_AN_ACCOUNT: Int = R.string.label_sign_up_for_account
+
     @StringRes
     const val STRING_RES_EMAIL_ADDRESS: Int = R.string.label_email
+
     @StringRes
     const val STRING_RES_PASSWORD: Int = R.string.label_password
+    @StringRes
+    const val STRING_RES_PASSWORD_SHOW: Int = R.string.content_description_show_password
+    @StringRes
+    const val STRING_RES_PASSWORD_HIDE: Int = R.string.content_description_hide_password
+    @StringRes
+    const val STRING_RES_PASSWORD_INPUT_LEADING_ICON: Int = R.string.content_description_password_input_leading_icon
+    @StringRes
+    const val STRING_RES_TRAILING_ICON_INDICATES_PASSWORD_SHOWN: Int =
+        R.string.content_description_password_input_trailing_icon_password_shown
+    @StringRes
+    const val STRING_RES_TRAILING_ICON_INDICATES_PASSWORD_HIDDEN: Int =
+        R.string.content_description_password_input_trailing_icon_password_hidden
+
     @StringRes
     const val STRING_RES_NEED_AN_ACCOUNT: Int = R.string.action_need_account
     @StringRes
