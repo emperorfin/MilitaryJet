@@ -11,21 +11,21 @@ import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRe
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement.EIGHT_CHARACTERS
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement.CAPITAL_LETTER
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement.NUMBER
-import emperorfin.android.militaryjet.ui.utils.PasswordRequirementsTestUtil
+import emperorfin.android.militaryjet.ui.utils.PasswordRequirementsTestUtil2
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.FALSE
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.TRUE
 
 
 /**
  * @Author: Francis Nwokelo (emperorfin)
- * @Date: Saturday 18th March, 2023.
+ * @Date: Friday 31st March, 2023.
  */
 
 
 /**
- * [PasswordRequirementsTest4] class is a revision of this class.
- *
  * Important:
  *
  * - Try not to run all the test cases by running this test class as some tests might fail. If you do
@@ -54,14 +54,7 @@ import org.junit.Test
  * - https://stackoverflow.com/questions/36955608/espresso-how-to-use-r-string-resources-of-androidtest-folder
  * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
  */
-class PasswordRequirementsTest3 {
-
-    private companion object {
-
-        private const val TRUE: Boolean = true
-        private const val FALSE: Boolean = false
-
-    }
+class PasswordRequirementsTest4 {
 
     /**
      * Use this when resources are coming from the main source set, whether directly
@@ -103,7 +96,7 @@ class PasswordRequirementsTest3 {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
-    private lateinit var passwordRequirementsTestUtil: PasswordRequirementsTestUtil
+    private lateinit var passwordRequirementsTestUtil: PasswordRequirementsTestUtil2
 
     @Before
     fun setUpContexts() {
@@ -114,7 +107,7 @@ class PasswordRequirementsTest3 {
         // See field's KDoc for more info.
         mContext = InstrumentationRegistry.getInstrumentation().context
 
-        passwordRequirementsTestUtil = PasswordRequirementsTestUtil(
+        passwordRequirementsTestUtil = PasswordRequirementsTestUtil2(
             mContext = mContext,
             mTargetContext = mTargetContext,
             composeTestRule = composeTestRule
