@@ -1,5 +1,7 @@
 # MilitaryJet
 
+[![Android Weekly badge](https://androidweekly.net/issues/issue-563/badge)](https://androidweekly.net/issues/issue-563)
+
 This repo includes production ready samples that showcase my unopinionated way of simply writing 
 military-grade bug-proof Jetpack Compose UI tests. EVERY single UI component, their possible 
 behaviours and states were all tested!
