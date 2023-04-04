@@ -28,7 +28,7 @@ So, READY! SET!! [GO](https://github.com/emperorfin/MilitaryJet/tree/master/app/
 * StateFlow
 * Reactive Programing
 * UI Testing and Individual UI Component Testing
-* Architecting Jectpack Compose UI Tests
+* Architecting Jetpack Compose UI Tests
 * Composable Previews
 * Extension Functions
 * Custom semantics (for testing almost anything on the UI such as for asserting whether the leading 
