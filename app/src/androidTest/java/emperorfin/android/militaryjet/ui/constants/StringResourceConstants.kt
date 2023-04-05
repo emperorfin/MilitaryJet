@@ -2,6 +2,7 @@ package emperorfin.android.militaryjet.ui.constants
 
 import androidx.annotation.StringRes
 import emperorfin.android.militaryjet.test.R
+import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement
 
 
 /**
@@ -21,6 +22,9 @@ object StringResourceConstants {
     @StringRes
     const val MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE: Int =
         emperorfin.android.militaryjet.R.string.test_error_message
+
+    @StringRes
+    val MAIN_SOURCE_SET_STRING_RES_AT_LEAST_EIGHT_CHARACTERS: Int = PasswordRequirement.EIGHT_CHARACTERS.label
 
     @StringRes
     const val STRING_RES_SIGN_IN_TO_YOUR_ACCOUNT: Int = R.string.label_sign_in_to_account
@@ -72,6 +76,11 @@ object StringResourceConstants {
     const val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_SATISFIED: Int = R.string.test_password_requirement_satisfied_capital
     @StringRes
     const val STRING_RES_AT_LEAST_ONE_DIGIT_SATISFIED: Int = R.string.test_password_requirement_satisfied_digit
+
+    @StringRes
+    const val STRING_RES_PASSWORD_REQUIREMENT_NEEDED: Int = R.string.content_description_icon_password_requirement_needed
+    @StringRes
+    const val STRING_RES_PASSWORD_REQUIREMENT_SATISFIED: Int = R.string.content_description_icon_password_requirement_satisfied
 
     @StringRes
     const val STRING_RES_WHOOPS: Int = R.string.error_title

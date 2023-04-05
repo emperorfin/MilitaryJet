@@ -1,27 +1,27 @@
 package emperorfin.android.militaryjet.ui.screens.authentication.uicomponents
 
 import android.content.Context
-import androidx.annotation.StringRes
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement.EIGHT_CHARACTERS
-import emperorfin.android.militaryjet.ui.utils.RequirementTestUtil
+import emperorfin.android.militaryjet.ui.utils.RequirementTestUtil2
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.FALSE
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.TRUE
+import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.MAIN_SOURCE_SET_STRING_RES_AT_LEAST_EIGHT_CHARACTERS
 
 
 /**
  * @Author: Francis Nwokelo (emperorfin)
- * @Date: Sunday 19th March, 2023.
+ * @Date: Tuesday 04th April, 2023.
  */
 
 
 /**
- * [RequirementTest4] class is a revision of this class.
- *
  * Important:
  *
  * - Try not to run all the test cases by running this test class as some tests might fail. If you do
@@ -50,17 +50,7 @@ import org.junit.Test
  * - https://stackoverflow.com/questions/36955608/espresso-how-to-use-r-string-resources-of-androidtest-folder
  * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
  */
-class RequirementTest3 {
-
-    private companion object {
-
-        private const val TRUE: Boolean = true
-        private const val FALSE: Boolean = false
-
-        @StringRes
-        private val MAIN_SOURCE_SET_STRING_RES_AT_LEAST_EIGHT_CHARACTERS: Int = EIGHT_CHARACTERS.label
-
-    }
+class RequirementTest4 {
 
     /**
      * Use this when resources are coming from the main source set, whether directly
@@ -102,7 +92,7 @@ class RequirementTest3 {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
-    private lateinit var requirementTestUtil: RequirementTestUtil
+    private lateinit var requirementTestUtil: RequirementTestUtil2
 
     @Before
     fun setUpContexts() {
@@ -113,7 +103,7 @@ class RequirementTest3 {
         // See field's KDoc for more info.
         mContext = InstrumentationRegistry.getInstrumentation().context
 
-        requirementTestUtil = RequirementTestUtil(
+        requirementTestUtil = RequirementTestUtil2(
             mContext = mContext,
             mTargetContext = mTargetContext,
             composeTestRule = composeTestRule
