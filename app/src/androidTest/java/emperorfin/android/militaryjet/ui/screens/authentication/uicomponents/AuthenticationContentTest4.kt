@@ -35,6 +35,8 @@ import org.junit.Test
 
 
 /**
+ * [AuthenticationContentTest5] class is a revision of this class.
+ *
  * The tests in this class are a subset of the ones in the [AuthenticationScreenTest3] class but with
  * the tests in this class focused on testing the [AuthenticationContent] composable instead of
  * [AuthenticationScreen] composable.

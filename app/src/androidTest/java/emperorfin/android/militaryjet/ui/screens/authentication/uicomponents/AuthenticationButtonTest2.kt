@@ -31,6 +31,7 @@ import org.mockito.kotlin.verify
  * The following classes are revisions of this class:
  * [AuthenticationButtonTest3]
  * [AuthenticationButtonTest4]
+ * [AuthenticationButtonTest5]
  *
  * Notes:
  *

@@ -24,7 +24,9 @@ import org.junit.Test
 
 
 /**
- * [AuthenticationFormTest4] class is a revision of this class.
+ * The following classes are revisions of this class:
+ * [AuthenticationFormTest4]
+ * [AuthenticationFormTest5]
  *
  * The tests in this class are a subset of the ones in the [AuthenticationContentTest3] class but
  * with the tests in this class focused on testing the [AuthenticationForm] composable instead of

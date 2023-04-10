@@ -31,6 +31,7 @@ import org.mockito.kotlin.verify
  * [AuthenticationButtonTest2]
  * [AuthenticationButtonTest3]
  * [AuthenticationButtonTest4]
+ * [AuthenticationButtonTest5]
  *
  * Notes:
  *

@@ -12,7 +12,7 @@ import com.google.common.truth.Truth.assertThat
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement
 import emperorfin.android.militaryjet.ui.extensions.waitUntilDoesNotExist
 import emperorfin.android.militaryjet.ui.extensions.waitUntilExists
-import emperorfin.android.militaryjet.ui.utils.AuthenticationScreenTestUtil2
+import emperorfin.android.militaryjet.ui.utils.AuthenticationScreenTestUtil3
 import emperorfin.android.militaryjet.ui.utils.KeyboardHelper
 import org.junit.Before
 import org.junit.Rule
@@ -29,13 +29,11 @@ import emperorfin.android.militaryjet.ui.constants.LongConstants.TIMEOUT_MILLIS_
 
 /**
  * @Author: Francis Nwokelo (emperorfin)
- * @Date: Tuesday 21st March, 2023.
+ * @Date: Sunday 09th April, 2023.
  */
 
 
 /**
- * [AuthenticationScreenTest5] class is a revision of this class.
- *
  * Important:
  *
  * - Try not to run all the test cases by running this test class as some tests might fail. If you
@@ -74,7 +72,7 @@ import emperorfin.android.militaryjet.ui.constants.LongConstants.TIMEOUT_MILLIS_
  * - https://stackoverflow.com/questions/36955608/espresso-how-to-use-r-string-resources-of-androidtest-folder
  * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
  */
-class AuthenticationScreenTest4 {
+class AuthenticationScreenTest5 {
 
     /**
      * Use this when resources are coming from the main source set, whether directly
@@ -118,7 +116,7 @@ class AuthenticationScreenTest4 {
 
     private val keyboardHelper = KeyboardHelper(composeRule = composeTestRule)
 
-    private lateinit var authenticationScreenTestUtil: AuthenticationScreenTestUtil2
+    private lateinit var authenticationScreenTestUtil: AuthenticationScreenTestUtil3
 
     @Before
     fun setUpContexts() {
@@ -129,7 +127,7 @@ class AuthenticationScreenTest4 {
         // See field's KDoc for more info.
         mContext = InstrumentationRegistry.getInstrumentation().context
 
-        authenticationScreenTestUtil = AuthenticationScreenTestUtil2(
+        authenticationScreenTestUtil = AuthenticationScreenTestUtil3(
             mContext = mContext,
             mTargetContext = mTargetContext,
             composeTestRule = composeTestRule

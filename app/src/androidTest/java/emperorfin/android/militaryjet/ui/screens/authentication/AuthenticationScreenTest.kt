@@ -51,6 +51,7 @@ import org.junit.Test
  * [AuthenticationScreenTest2]
  * [AuthenticationScreenTest3]
  * [AuthenticationScreenTest4]
+ * [AuthenticationScreenTest5]
  *
  * Important:
  *

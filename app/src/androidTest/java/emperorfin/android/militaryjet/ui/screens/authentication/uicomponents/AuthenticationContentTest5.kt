@@ -13,7 +13,16 @@ import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRe
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement.EIGHT_CHARACTERS
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement.CAPITAL_LETTER
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement.NUMBER
-import emperorfin.android.militaryjet.ui.utils.AuthenticationContentTestUtil
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.TRUE
+import emperorfin.android.militaryjet.ui.constants.BooleanConstants.FALSE
+import emperorfin.android.militaryjet.ui.constants.NothingConstants.NULL
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_EMAIL
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_PASSWORD
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_PASSWORD_PASSWORD
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_PASSWORD_PASS
+import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_PASSWORD_1PASS
+import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE
+import emperorfin.android.militaryjet.ui.utils.AuthenticationContentTestUtil3
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -21,15 +30,11 @@ import org.junit.Test
 
 /**
  * @Author: Francis Nwokelo (emperorfin)
- * @Date: Thursday 09th March, 2023.
+ * @Date: Sunday 09th April, 2023.
  */
 
 
 /**
- * The following classes are revisions of this class:
- * [AuthenticationContentTest4]
- * [AuthenticationContentTest5]
- *
  * The tests in this class are a subset of the ones in the [AuthenticationScreenTest3] class but with
  * the tests in this class focused on testing the [AuthenticationContent] composable instead of
  * [AuthenticationScreen] composable.
@@ -67,25 +72,7 @@ import org.junit.Test
  * - https://stackoverflow.com/questions/36955608/espresso-how-to-use-r-string-resources-of-androidtest-folder
  * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
  */
-class AuthenticationContentTest3 {
-
-    private companion object {
-
-        private const val TRUE: Boolean = true
-        private const val FALSE: Boolean = false
-
-        private val NULL = null
-
-        private const val INPUT_CONTENT_EMAIL: String = "contact@email.com"
-        private const val INPUT_CONTENT_PASSWORD: String = "passworD1"
-        private const val INPUT_CONTENT_PASSWORD_PASSWORD: String = "password"
-        private const val INPUT_CONTENT_PASSWORD_PASS: String = "Pass"
-        private const val INPUT_CONTENT_PASSWORD_1PASS: String = "1pass"
-
-        private const val MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE =
-            emperorfin.android.militaryjet.R.string.test_error_message
-
-    }
+class AuthenticationContentTest5 {
 
     /**
      * Use this when resources are coming from the main source set, whether directly
@@ -127,7 +114,7 @@ class AuthenticationContentTest3 {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
-    private lateinit var authenticationContentTestUtil: AuthenticationContentTestUtil
+    private lateinit var authenticationContentTestUtil: AuthenticationContentTestUtil3
 
     @Before
     fun setUpContexts() {
@@ -138,7 +125,7 @@ class AuthenticationContentTest3 {
         // See field's KDoc for more info.
         mContext = InstrumentationRegistry.getInstrumentation().context
 
-        authenticationContentTestUtil = AuthenticationContentTestUtil(
+        authenticationContentTestUtil = AuthenticationContentTestUtil3(
             mContext = mContext,
             mTargetContext = mTargetContext,
             composeTestRule = composeTestRule
@@ -862,7 +849,7 @@ class AuthenticationContentTest3 {
             .assertIsDisplayed()
 
         authenticationContentTestUtil
-                .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
+            .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()

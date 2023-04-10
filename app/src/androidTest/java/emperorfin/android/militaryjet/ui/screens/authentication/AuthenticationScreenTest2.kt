@@ -43,6 +43,7 @@ import org.junit.Test
  * The following classes are revisions of this class:
  * [AuthenticationScreenTest3]
  * [AuthenticationScreenTest4]
+ * [AuthenticationScreenTest5]
  *
  * Important:
  *

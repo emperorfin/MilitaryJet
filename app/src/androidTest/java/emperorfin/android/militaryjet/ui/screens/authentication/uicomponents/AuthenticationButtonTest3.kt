@@ -24,7 +24,9 @@ import org.mockito.kotlin.verify
 
 
 /**
- * [AuthenticationButtonTest4] class is a revision of this class.
+ * The following classes are revisions of this class:
+ * [AuthenticationButtonTest4]
+ * [AuthenticationButtonTest5]
  *
  * Notes:
  *

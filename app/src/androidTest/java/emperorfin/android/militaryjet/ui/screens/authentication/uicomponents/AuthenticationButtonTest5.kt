@@ -8,7 +8,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.AuthenticationMode.SIGN_IN
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.AuthenticationMode.SIGN_UP
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement
-import emperorfin.android.militaryjet.ui.utils.AuthenticationButtonTestUtil2
+import emperorfin.android.militaryjet.ui.utils.AuthenticationButtonTestUtil3
 import emperorfin.android.militaryjet.ui.constants.BooleanConstants.TRUE
 import emperorfin.android.militaryjet.ui.constants.BooleanConstants.FALSE
 import org.junit.Assert.*
@@ -21,13 +21,11 @@ import org.mockito.kotlin.verify
 
 /**
  * @Author: Francis Nwokelo (emperorfin)
- * @Date: Wednesday 22nd March, 2023.
+ * @Date: Sunday 09th April, 2023.
  */
 
 
 /**
- * [AuthenticationButtonTest5] class is a revision of this class.
- *
  * Notes:
  *
  * - If you ever need to pass a resource (e.g. a string resource) into a composable during testing,
@@ -45,7 +43,7 @@ import org.mockito.kotlin.verify
  * - https://stackoverflow.com/questions/36955608/espresso-how-to-use-r-string-resources-of-androidtest-folder
  * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
  */
-class AuthenticationButtonTest4 {
+class AuthenticationButtonTest5 {
 
     /**
      * Use this when resources are coming from the main source set, whether directly
@@ -87,7 +85,7 @@ class AuthenticationButtonTest4 {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
-    private lateinit var authenticationButtonTestUtil: AuthenticationButtonTestUtil2
+    private lateinit var authenticationButtonTestUtil: AuthenticationButtonTestUtil3
 
     @Before
     fun setUpContexts() {
@@ -98,7 +96,7 @@ class AuthenticationButtonTest4 {
         // See field's KDoc for more info.
         mContext = InstrumentationRegistry.getInstrumentation().context
 
-        authenticationButtonTestUtil = AuthenticationButtonTestUtil2(
+        authenticationButtonTestUtil = AuthenticationButtonTestUtil3(
             mContext = mContext,
             mTargetContext = mTargetContext,
             composeTestRule = composeTestRule

@@ -35,6 +35,7 @@ import org.junit.Test
  * The following classes are revisions of this class:
  * [AuthenticationFormTest3]
  * [AuthenticationFormTest4]
+ * [AuthenticationFormTest5]
  *
  * The tests in this class are a subset of the ones in the [AuthenticationContentTest2] class but
  * with the tests in this class focused on testing the [AuthenticationForm] composable instead of

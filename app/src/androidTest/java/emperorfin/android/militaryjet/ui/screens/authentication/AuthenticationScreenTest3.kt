@@ -26,7 +26,9 @@ import org.junit.Test
 
 
 /**
- * [AuthenticationScreenTest4] class is a revision of this class.
+ * The following classes are revisions of this class:
+ * [AuthenticationScreenTest4]
+ * [AuthenticationScreenTest5]
  *
  * Important:
  *

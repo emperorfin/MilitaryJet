@@ -33,6 +33,8 @@ import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT
 
 
 /**
+ * [AuthenticationFormTest5] class is a revision of this class.
+ *
  * The tests in this class are a subset of the ones in the [AuthenticationContentTest4] class but
  * with the tests in this class focused on testing the [AuthenticationForm] composable instead of
  * [AuthenticationContent] composable.
