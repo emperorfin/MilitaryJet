@@ -32,6 +32,7 @@ import org.mockito.kotlin.verify
  * The following classes are revisions of this class:
  * [AuthenticationErrorDialogTest3]
  * [AuthenticationErrorDialogTest4]
+ * [AuthenticationErrorDialogTest5]
  *
  * Notes:
  *

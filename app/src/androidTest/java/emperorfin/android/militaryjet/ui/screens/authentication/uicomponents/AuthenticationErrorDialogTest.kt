@@ -33,6 +33,7 @@ import org.mockito.kotlin.verify
  * [AuthenticationErrorDialogTest2]
  * [AuthenticationErrorDialogTest3]
  * [AuthenticationErrorDialogTest4]
+ * [AuthenticationErrorDialogTest5]
  *
  * Notes:
  *

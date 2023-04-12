@@ -59,6 +59,12 @@ class AuthenticationContentTestUtil3(
         composeTestRule = composeTestRule
     )
 
+    private val authenticationErrorDialogTestUtil3 = AuthenticationErrorDialogTestUtil3(
+        mContext = mContext,
+        mTargetContext = mTargetContext,
+        composeTestRule = composeTestRule
+    )
+
     fun setContentAsAuthenticationContentAndAssertItIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
         authenticationMode: AuthenticationMode,
@@ -342,7 +348,7 @@ class AuthenticationContentTestUtil3(
     ): SemanticsNodeInteraction {
 
         return onNodeWithAuthenticationErrorDialogAnd(
-            otherMatcher = hasAlertDialogTitleWhoops(),
+            otherMatcher = authenticationErrorDialogTestUtil3.hasAlertDialogTitleWhoops(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -940,13 +946,14 @@ class AuthenticationContentTestUtil3(
 
     }
 
-    private fun hasAlertDialogTitleWhoops(): SemanticsMatcher {
-
-        return hasAlertDialogTitle(
-            alertDialogTitle = mContext.getString(STRING_RES_WHOOPS)
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun hasAlertDialogTitleWhoops(): SemanticsMatcher {
+//
+//        return hasAlertDialogTitle(
+//            alertDialogTitle = mContext.getString(STRING_RES_WHOOPS)
+//        )
+//
+//    }
 
     private fun hasCircularProgressIndicatorColorArgbPresetColor(): SemanticsMatcher {
 

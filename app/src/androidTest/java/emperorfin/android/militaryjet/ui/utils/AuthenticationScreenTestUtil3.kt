@@ -59,6 +59,12 @@ class AuthenticationScreenTestUtil3(
         composeTestRule = composeTestRule
     )
 
+    private val authenticationErrorDialogTestUtil3 = AuthenticationErrorDialogTestUtil3(
+        mContext = mContext,
+        mTargetContext = mTargetContext,
+        composeTestRule = composeTestRule
+    )
+
     /**
      * @param isSignInMode This is nullable should there's a case where [assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed]
      * or [navigateFromSignInToSignUpModesAndConfirmTitles] doesn't have to be run. But such case
@@ -272,7 +278,7 @@ class AuthenticationScreenTestUtil3(
     ): SemanticsNodeInteraction {
 
         return onNodeWithAuthenticationErrorDialogAnd(
-            otherMatcher = hasAlertDialogTitleWhoops(),
+            otherMatcher = authenticationErrorDialogTestUtil3.hasAlertDialogTitleWhoops(),
             useUnmergedTree = useUnmergedTree
         )
 
@@ -1037,13 +1043,14 @@ class AuthenticationScreenTestUtil3(
 
     }
 
-    private fun hasAlertDialogTitleWhoops(): SemanticsMatcher {
-
-        return hasAlertDialogTitle(
-            alertDialogTitle = mContext.getString(STRING_RES_WHOOPS)
-        )
-
-    }
+    // TODO: Remove as it's no longer necessary.
+//    private fun hasAlertDialogTitleWhoops(): SemanticsMatcher {
+//
+//        return hasAlertDialogTitle(
+//            alertDialogTitle = mContext.getString(STRING_RES_WHOOPS)
+//        )
+//
+//    }
 
     private fun hasTextExactlyAtLeastEightCharacters(): SemanticsMatcher {
 
@@ -1147,7 +1154,7 @@ class AuthenticationScreenTestUtil3(
     fun hasTestTagAuthenticationErrorDialogAndHasAlertDialogTitleWhoops(): SemanticsMatcher {
 
         return hasTestTagAuthenticationErrorDialog().and(
-            other = hasAlertDialogTitleWhoops()
+            other = authenticationErrorDialogTestUtil3.hasAlertDialogTitleWhoops()
         )
 
     }
