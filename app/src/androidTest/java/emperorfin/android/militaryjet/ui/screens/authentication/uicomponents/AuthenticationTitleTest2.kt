@@ -44,6 +44,7 @@ import org.junit.Test
  * The following classes are revisions of this class:
  * [AuthenticationTitleTest3]
  * [AuthenticationTitleTest4]
+ * [AuthenticationTitleTest5]
  *
  * Notes:
  *

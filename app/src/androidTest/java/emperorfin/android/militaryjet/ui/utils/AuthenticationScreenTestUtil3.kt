@@ -81,6 +81,12 @@ class AuthenticationScreenTestUtil3(
         composeTestRule = composeTestRule
     )
 
+    val authenticationTitleTestUtil3 = AuthenticationTitleTestUtil3(
+        mContext = mContext,
+        mTargetContext = mTargetContext,
+        composeTestRule = composeTestRule
+    )
+
     /**
      * @param isSignInMode This is nullable should there's a case where [assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed]
      * or [navigateFromSignInToSignUpModesAndConfirmTitles] doesn't have to be run. But such case
@@ -101,7 +107,7 @@ class AuthenticationScreenTestUtil3(
 
         isSignInMode?.let {
             if (it) {
-                assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed(
+                authenticationTitleTestUtil3.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed(
                     composeTestRule = composeTestRule
                 )
             } else {
@@ -129,14 +135,14 @@ class AuthenticationScreenTestUtil3(
         composeTestRule: ComposeContentTestRule = this.composeTestRule
     ) {
 
-        assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed(composeTestRule)
+        authenticationTitleTestUtil3.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed(composeTestRule)
 
         onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount()
             .performClick()
 
         assertAuthenticationScreenIsDisplayed(composeTestRule)
 
-        assertAuthenticationTitleAndTextExactlySignUpForAnAccountIsDisplayed(composeTestRule)
+        authenticationTitleTestUtil3.assertAuthenticationTitleAndTextExactlySignUpForAnAccountIsDisplayed(composeTestRule)
 
     }
 
@@ -153,23 +159,25 @@ class AuthenticationScreenTestUtil3(
 
     }
 
-    fun assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
-    ) {
+    // TODO: Remove this as it's no longer necessary.
+//    fun assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed(
+//        composeTestRule: ComposeContentTestRule = this.composeTestRule
+//    ) {
+//
+//        authenticationTitleTestUtil3.onNodeWithAuthenticationTitleAndTextExactlySignInToYourAccount()
+//            .assertIsDisplayed()
+//
+//    }
 
-        onNodeWithAuthenticationTitleAndTextExactlySignInToYourAccount()
-            .assertIsDisplayed()
-
-    }
-
-    private fun assertAuthenticationTitleAndTextExactlySignUpForAnAccountIsDisplayed(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule
-    ) {
-
-        onNodeWithAuthenticationTitleAndTextExactlySignUpForAnAccount()
-            .assertIsDisplayed()
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun assertAuthenticationTitleAndTextExactlySignUpForAnAccountIsDisplayed(
+//        composeTestRule: ComposeContentTestRule = this.composeTestRule
+//    ) {
+//
+//        authenticationTitleTestUtil3.onNodeWithAuthenticationTitleAndTextExactlySignUpForAnAccount()
+//            .assertIsDisplayed()
+//
+//    }
 
     fun onNodeWithAuthenticationScreen(
         useUnmergedTree: Boolean = FALSE
@@ -185,27 +193,29 @@ class AuthenticationScreenTestUtil3(
 
     }
 
-    fun onNodeWithAuthenticationTitleAndTextExactlySignInToYourAccount(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    // TODO: Remove this as it's no longer necessary.
+//    fun onNodeWithAuthenticationTitleAndTextExactlySignInToYourAccount(
+//        useUnmergedTree: Boolean = FALSE
+//    ): SemanticsNodeInteraction {
+//
+//        return authenticationTitleTestUtil3.onNodeWithAuthenticationTitleAnd(
+//            otherMatcher = authenticationTitleTestUtil3.hasTextExactlySignInToYourAccount(),
+//            useUnmergedTree = useUnmergedTree
+//        )
+//
+//    }
 
-        return onNodeWithAuthenticationTitleAnd(
-            otherMatcher = hasTextExactlySignInToYourAccount(),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
-
-    fun onNodeWithAuthenticationTitleAndTextExactlySignUpForAnAccount(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        return onNodeWithAuthenticationTitleAnd(
-            otherMatcher = hasTextExactlySignUpForAnAccount(),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    fun onNodeWithAuthenticationTitleAndTextExactlySignUpForAnAccount(
+//        useUnmergedTree: Boolean = FALSE
+//    ): SemanticsNodeInteraction {
+//
+//        return authenticationTitleTestUtil3.onNodeWithAuthenticationTitleAnd(
+//            otherMatcher = authenticationTitleTestUtil3.hasTextExactlySignUpForAnAccount(),
+//            useUnmergedTree = useUnmergedTree
+//        )
+//
+//    }
 
     fun onNodeWithAuthenticationButtonAndTextExactlySignIn(
         useUnmergedTree: Boolean = FALSE
@@ -477,21 +487,22 @@ class AuthenticationScreenTestUtil3(
 
     }
 
-    private fun onNodeWithAuthenticationTitleAnd(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        useUnmergedTree: Boolean = FALSE,
-        otherMatcher: SemanticsMatcher
-    ): SemanticsNodeInteraction {
-
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTagAuthenticationTitle().and(
-                    other = otherMatcher
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun onNodeWithAuthenticationTitleAnd(
+//        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+//        useUnmergedTree: Boolean = FALSE,
+//        otherMatcher: SemanticsMatcher
+//    ): SemanticsNodeInteraction {
+//
+//        return composeTestRule
+//            .onNode(
+//                matcher = authenticationTitleTestUtil3.hasTestTagAuthenticationTitle().and(
+//                    other = otherMatcher
+//                ),
+//                useUnmergedTree = useUnmergedTree
+//            )
+//
+//    }
 
     private fun onNodeWithAuthenticationButtonAnd(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
@@ -761,13 +772,14 @@ class AuthenticationScreenTestUtil3(
 
     }
 
-    private fun hasTestTagAuthenticationTitle(): SemanticsMatcher {
-
-        return hasTestTagsAuthenticationTitleAnd(
-            otherTestTag = THIS_STRING_MUST_BE_EMPTY
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun hasTestTagAuthenticationTitle(): SemanticsMatcher {
+//
+//        return authenticationTitleTestUtil3.hasTestTagsAuthenticationTitleAnd(
+//            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+//        )
+//
+//    }
 
     private fun hasTestTagAuthenticationButton(): SemanticsMatcher {
 
@@ -909,13 +921,14 @@ class AuthenticationScreenTestUtil3(
 
     }
 
-    private fun hasTestTagsAuthenticationTitleAnd(otherTestTag: String): SemanticsMatcher {
-
-        return hasTestTag(
-            testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE + otherTestTag
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun hasTestTagsAuthenticationTitleAnd(otherTestTag: String): SemanticsMatcher {
+//
+//        return hasTestTag(
+//            testTag = TAG_AUTHENTICATION_AUTHENTICATION_TITLE + otherTestTag
+//        )
+//
+//    }
 
     private fun hasTestTagsAuthenticationButtonAnd(otherTestTag: String): SemanticsMatcher {
 
@@ -985,23 +998,25 @@ class AuthenticationScreenTestUtil3(
     // section if it's already available to avoid duplication.
     // The function names make the check easier.
 
-    private fun hasTextExactlySignInToYourAccount(): SemanticsMatcher {
+    // TODO: Remove this as it's no longer necessary.
+//    private fun hasTextExactlySignInToYourAccount(): SemanticsMatcher {
+//
+//        return hasTextExactly(
+//            mContext.getString(STRING_RES_SIGN_IN_TO_YOUR_ACCOUNT),
+//            includeEditableText = FALSE
+//        )
+//
+//    }
 
-        return hasTextExactly(
-            mContext.getString(STRING_RES_SIGN_IN_TO_YOUR_ACCOUNT),
-            includeEditableText = FALSE
-        )
-
-    }
-
-    private fun hasTextExactlySignUpForAnAccount(): SemanticsMatcher {
-
-        return hasTextExactly(
-            mContext.getString(STRING_RES_SIGN_UP_FOR_AN_ACCOUNT),
-            includeEditableText = FALSE
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun hasTextExactlySignUpForAnAccount(): SemanticsMatcher {
+//
+//        return hasTextExactly(
+//            mContext.getString(STRING_RES_SIGN_UP_FOR_AN_ACCOUNT),
+//            includeEditableText = FALSE
+//        )
+//
+//    }
 
     private fun hasTextExactlyEmailAddress(): SemanticsMatcher {
 
@@ -1177,16 +1192,16 @@ class AuthenticationScreenTestUtil3(
 
     fun hasTestTagAuthenticationTitleAndHasTextExactlySignInToYourAccount(): SemanticsMatcher {
 
-        return hasTestTagAuthenticationTitle().and(
-            other = hasTextExactlySignInToYourAccount()
+        return authenticationTitleTestUtil3.hasTestTagAuthenticationTitle().and(
+            other = authenticationTitleTestUtil3.hasTextExactlySignInToYourAccount()
         )
 
     }
 
     fun hasTestTagAuthenticationTitleAndHasTextExactlySignUpForAnAccount(): SemanticsMatcher {
 
-        return hasTestTagAuthenticationTitle().and(
-            other = hasTextExactlySignUpForAnAccount()
+        return authenticationTitleTestUtil3.hasTestTagAuthenticationTitle().and(
+            other = authenticationTitleTestUtil3.hasTextExactlySignUpForAnAccount()
         )
 
     }

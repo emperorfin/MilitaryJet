@@ -44,6 +44,7 @@ import org.junit.Test
  * [AuthenticationTitleTest2]
  * [AuthenticationTitleTest3]
  * [AuthenticationTitleTest4]
+ * [AuthenticationTitleTest5]
  *
  * Notes:
  *
