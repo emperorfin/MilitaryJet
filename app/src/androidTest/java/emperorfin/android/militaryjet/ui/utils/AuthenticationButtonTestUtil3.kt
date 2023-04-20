@@ -143,7 +143,7 @@ class AuthenticationButtonTestUtil3(
 
     }
 
-    private fun onNodeWithAuthenticationButtonAnd(
+    fun onNodeWithAuthenticationButtonAnd(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
         useUnmergedTree: Boolean = FALSE,
         otherMatcher: SemanticsMatcher
@@ -159,7 +159,7 @@ class AuthenticationButtonTestUtil3(
 
     }
 
-    private fun hasTestTagAuthenticationButton(): SemanticsMatcher {
+    fun hasTestTagAuthenticationButton(): SemanticsMatcher {
 
         return hasTestTagsAuthenticationButtonAnd(
             otherTestTag = THIS_STRING_MUST_BE_EMPTY
@@ -167,7 +167,7 @@ class AuthenticationButtonTestUtil3(
 
     }
 
-    private fun hasTestTagsAuthenticationButtonAnd(otherTestTag: String): SemanticsMatcher {
+    fun hasTestTagsAuthenticationButtonAnd(otherTestTag: String): SemanticsMatcher {
 
         return hasTestTag(
             testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON + otherTestTag

@@ -205,6 +205,7 @@ class AuthenticationFormTest5 {
             )
 
         authenticationFormTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .apply {
                 assertIsDisplayed()
@@ -227,6 +228,7 @@ class AuthenticationFormTest5 {
             )
 
         authenticationFormTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .apply {
                 assertIsDisplayed()
@@ -249,6 +251,7 @@ class AuthenticationFormTest5 {
             )
 
         authenticationFormTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .apply {
                 assertIsDisplayed()
@@ -277,6 +280,7 @@ class AuthenticationFormTest5 {
             )
 
         authenticationFormTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .apply {
                 assertIsDisplayed()
@@ -299,6 +303,7 @@ class AuthenticationFormTest5 {
             )
 
         authenticationFormTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .apply {
                 assertIsDisplayed()
@@ -321,6 +326,7 @@ class AuthenticationFormTest5 {
             )
 
         authenticationFormTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .apply {
                 assertIsDisplayed()
@@ -349,6 +355,7 @@ class AuthenticationFormTest5 {
             )
 
         authenticationFormTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .apply {
                 assertIsDisplayed()
@@ -371,6 +378,7 @@ class AuthenticationFormTest5 {
             )
 
         authenticationFormTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .apply {
                 assertIsDisplayed()

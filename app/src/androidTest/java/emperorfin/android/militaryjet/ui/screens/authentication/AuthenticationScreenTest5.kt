@@ -209,6 +209,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .assertIsDisplayed()
 
@@ -224,6 +225,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .assertIsDisplayed()
 
@@ -269,6 +271,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .assertIsNotEnabled()
 
@@ -284,6 +287,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .assertIsNotEnabled()
 
@@ -307,6 +311,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
         authenticationScreenTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .assertIsDisplayed()
             .assertIsEnabled()
@@ -327,6 +332,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
         authenticationScreenTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .assertIsDisplayed()
             .assertIsNotEnabled()
@@ -347,6 +353,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
         authenticationScreenTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .assertIsDisplayed()
             .assertIsNotEnabled()
@@ -371,6 +378,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
         authenticationScreenTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .assertIsDisplayed()
             .assertIsEnabled()
@@ -391,6 +399,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
         authenticationScreenTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .assertIsDisplayed()
             .assertIsNotEnabled()
@@ -411,6 +420,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
         authenticationScreenTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .assertIsDisplayed()
             .assertIsNotEnabled()
@@ -517,6 +527,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
         authenticationScreenTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .performClick()
 
@@ -604,6 +615,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
         authenticationScreenTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .performClick()
 
@@ -686,6 +698,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
         authenticationScreenTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .performClick()
 
@@ -730,6 +743,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
         authenticationScreenTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .performClick()
 
@@ -809,6 +823,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
         authenticationScreenTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .performClick()
 
@@ -902,6 +917,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
         authenticationScreenTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .performClick()
 
@@ -995,6 +1011,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
         authenticationScreenTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .performClick()
 
@@ -1088,6 +1105,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
         authenticationScreenTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .performClick()
 

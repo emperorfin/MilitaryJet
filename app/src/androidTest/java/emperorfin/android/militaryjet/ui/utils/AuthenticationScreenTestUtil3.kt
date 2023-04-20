@@ -69,7 +69,7 @@ class AuthenticationScreenTestUtil3(
     private val composeTestRule: ComposeContentTestRule
 ) {
 
-    private val authenticationButtonTestUtil3 = AuthenticationButtonTestUtil3(
+    val authenticationButtonTestUtil3 = AuthenticationButtonTestUtil3(
         mContext = mContext,
         mTargetContext = mTargetContext,
         composeTestRule = composeTestRule
@@ -217,27 +217,29 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    fun onNodeWithAuthenticationButtonAndTextExactlySignIn(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    // TODO: Remove this as it's no longer necessary.
+//    fun onNodeWithAuthenticationButtonAndTextExactlySignIn(
+//        useUnmergedTree: Boolean = FALSE
+//    ): SemanticsNodeInteraction {
+//
+//        return authenticationButtonTestUtil3.onNodeWithAuthenticationButtonAnd(
+//            otherMatcher = authenticationButtonTestUtil3.hasTextExactlySignIn(),
+//            useUnmergedTree = useUnmergedTree
+//        )
+//
+//    }
 
-        return onNodeWithAuthenticationButtonAnd(
-            otherMatcher = authenticationButtonTestUtil3.hasTextExactlySignIn(),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
-
-    fun onNodeWithAuthenticationButtonAndTextExactlySignUp(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        return onNodeWithAuthenticationButtonAnd(
-            otherMatcher = authenticationButtonTestUtil3.hasTextExactlySignUp(),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    fun onNodeWithAuthenticationButtonAndTextExactlySignUp(
+//        useUnmergedTree: Boolean = FALSE
+//    ): SemanticsNodeInteraction {
+//
+//        return authenticationButtonTestUtil3.onNodeWithAuthenticationButtonAnd(
+//            otherMatcher = authenticationButtonTestUtil3.hasTextExactlySignUp(),
+//            useUnmergedTree = useUnmergedTree
+//        )
+//
+//    }
 
     fun onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount(
         useUnmergedTree: Boolean = FALSE
@@ -504,21 +506,22 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    private fun onNodeWithAuthenticationButtonAnd(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        useUnmergedTree: Boolean = FALSE,
-        otherMatcher: SemanticsMatcher
-    ): SemanticsNodeInteraction {
-
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTagAuthenticationButton().and(
-                    other = otherMatcher
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun onNodeWithAuthenticationButtonAnd(
+//        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+//        useUnmergedTree: Boolean = FALSE,
+//        otherMatcher: SemanticsMatcher
+//    ): SemanticsNodeInteraction {
+//
+//        return composeTestRule
+//            .onNode(
+//                matcher = authenticationButtonTestUtil3.hasTestTagAuthenticationButton().and(
+//                    other = otherMatcher
+//                ),
+//                useUnmergedTree = useUnmergedTree
+//            )
+//
+//    }
 
     private fun onNodeWithAuthenticationToggleModeAnd(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
@@ -781,13 +784,14 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    private fun hasTestTagAuthenticationButton(): SemanticsMatcher {
-
-        return hasTestTagsAuthenticationButtonAnd(
-            otherTestTag = THIS_STRING_MUST_BE_EMPTY
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun hasTestTagAuthenticationButton(): SemanticsMatcher {
+//
+//        return authenticationButtonTestUtil3.hasTestTagsAuthenticationButtonAnd(
+//            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+//        )
+//
+//    }
 
     private fun hasTestTagAuthenticationToggleMode(): SemanticsMatcher {
 
@@ -930,13 +934,14 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    private fun hasTestTagsAuthenticationButtonAnd(otherTestTag: String): SemanticsMatcher {
-
-        return hasTestTag(
-            testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON + otherTestTag
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun hasTestTagsAuthenticationButtonAnd(otherTestTag: String): SemanticsMatcher {
+//
+//        return hasTestTag(
+//            testTag = TAG_AUTHENTICATION_AUTHENTICATE_BUTTON + otherTestTag
+//        )
+//
+//    }
 
     private fun hasTestTagsAuthenticationToggleModeAnd(otherTestTag: String): SemanticsMatcher {
 

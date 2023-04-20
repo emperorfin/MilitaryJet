@@ -200,6 +200,7 @@ class AuthenticationContentTest5 {
             .setContentAsAuthenticationContentAndAssertItIsDisplayed(authenticationMode = SIGN_IN)
 
         authenticationContentTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .apply {
                 assertIsDisplayed()
@@ -216,6 +217,7 @@ class AuthenticationContentTest5 {
             .setContentAsAuthenticationContentAndAssertItIsDisplayed(authenticationMode = SIGN_UP)
 
         authenticationContentTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .apply {
                 assertIsDisplayed()
@@ -236,6 +238,7 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .apply {
                 assertIsDisplayed()
@@ -263,6 +266,7 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .apply {
                 assertIsDisplayed()
@@ -282,6 +286,7 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .apply {
                 assertIsDisplayed()
@@ -301,6 +306,7 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignIn()
             .apply {
                 assertIsDisplayed()
@@ -327,6 +333,7 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .apply {
                 assertIsDisplayed()
@@ -346,6 +353,7 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .authenticationButtonTestUtil3
             .onNodeWithAuthenticationButtonAndTextExactlySignUp()
             .apply {
                 assertIsDisplayed()
