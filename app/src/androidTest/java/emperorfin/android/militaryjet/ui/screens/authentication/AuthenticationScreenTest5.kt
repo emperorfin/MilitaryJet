@@ -437,6 +437,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .authenticationErrorDialogTestUtil3
             .onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops()
             .assertDoesNotExist()
 
@@ -452,6 +453,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .authenticationErrorDialogTestUtil3
             .onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops()
             .assertDoesNotExist()
 
@@ -538,6 +540,7 @@ class AuthenticationScreenTest5 {
         )
 
         authenticationScreenTestUtil
+            .authenticationErrorDialogTestUtil3
             .onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops(
                 useUnmergedTree = TRUE // Optional
             )
@@ -626,6 +629,7 @@ class AuthenticationScreenTest5 {
         )
 
         authenticationScreenTestUtil
+            .authenticationErrorDialogTestUtil3
             .onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops(
                 useUnmergedTree = TRUE // Optional
             )

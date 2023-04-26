@@ -93,7 +93,7 @@ class AuthenticationErrorDialogTestUtil3(
 
     }
 
-    private fun onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops(
+    fun onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
@@ -153,7 +153,7 @@ class AuthenticationErrorDialogTestUtil3(
 
     }
 
-    private fun onNodeWithAuthenticationErrorDialogAnd(
+    fun onNodeWithAuthenticationErrorDialogAnd(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
         useUnmergedTree: Boolean = FALSE,
         otherMatcher: SemanticsMatcher
@@ -177,7 +177,7 @@ class AuthenticationErrorDialogTestUtil3(
 
     }
 
-    private fun hasTestTagAuthenticationErrorDialog(): SemanticsMatcher {
+    fun hasTestTagAuthenticationErrorDialog(): SemanticsMatcher {
 
         return hasTestTagsAuthenticationErrorDialogAnd(
             otherTestTag = THIS_STRING_MUST_BE_EMPTY
@@ -194,7 +194,7 @@ class AuthenticationErrorDialogTestUtil3(
 
     }
 
-    private fun hasTestTagsAuthenticationErrorDialogAnd(otherTestTag: String): SemanticsMatcher {
+    fun hasTestTagsAuthenticationErrorDialogAnd(otherTestTag: String): SemanticsMatcher {
 
         return hasTestTag(
             testTag = TAG_AUTHENTICATION_ERROR_DIALOG + otherTestTag

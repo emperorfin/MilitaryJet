@@ -75,7 +75,7 @@ class AuthenticationContentTestUtil3(
         composeTestRule = composeTestRule
     )
 
-    private val authenticationErrorDialogTestUtil3 = AuthenticationErrorDialogTestUtil3(
+    val authenticationErrorDialogTestUtil3 = AuthenticationErrorDialogTestUtil3(
         mContext = mContext,
         mTargetContext = mTargetContext,
         composeTestRule = composeTestRule
@@ -371,16 +371,17 @@ class AuthenticationContentTestUtil3(
 
     }
 
-    fun onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        return onNodeWithAuthenticationErrorDialogAnd(
-            otherMatcher = authenticationErrorDialogTestUtil3.hasAlertDialogTitleWhoops(),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    fun onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops(
+//        useUnmergedTree: Boolean = FALSE
+//    ): SemanticsNodeInteraction {
+//
+//        return authenticationErrorDialogTestUtil3.onNodeWithAuthenticationErrorDialogAnd(
+//            otherMatcher = authenticationErrorDialogTestUtil3.hasAlertDialogTitleWhoops(),
+//            useUnmergedTree = useUnmergedTree
+//        )
+//
+//    }
 
     fun onNodeWithCircularProgressIndicatorAndCircularProgressIndicatorColorArgbPresetColor(
         useUnmergedTree: Boolean = FALSE
@@ -625,21 +626,22 @@ class AuthenticationContentTestUtil3(
 
     }
 
-    private fun onNodeWithAuthenticationErrorDialogAnd(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        useUnmergedTree: Boolean = FALSE,
-        otherMatcher: SemanticsMatcher
-    ): SemanticsNodeInteraction {
-
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTagAuthenticationErrorDialog().and(
-                    other = otherMatcher
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun onNodeWithAuthenticationErrorDialogAnd(
+//        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+//        useUnmergedTree: Boolean = FALSE,
+//        otherMatcher: SemanticsMatcher
+//    ): SemanticsNodeInteraction {
+//
+//        return composeTestRule
+//            .onNode(
+//                matcher = authenticationErrorDialogTestUtil3.hasTestTagAuthenticationErrorDialog().and(
+//                    other = otherMatcher
+//                ),
+//                useUnmergedTree = useUnmergedTree
+//            )
+//
+//    }
 
     private fun onNodeWithCircularProgressIndicatorAnd(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
@@ -739,13 +741,14 @@ class AuthenticationContentTestUtil3(
 
     }
 
-    private fun hasTestTagAuthenticationErrorDialog(): SemanticsMatcher {
-
-        return hasTestTagsAuthenticationErrorDialogAnd(
-            otherTestTag = THIS_STRING_MUST_BE_EMPTY
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun hasTestTagAuthenticationErrorDialog(): SemanticsMatcher {
+//
+//        return authenticationErrorDialogTestUtil3.hasTestTagsAuthenticationErrorDialogAnd(
+//            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+//        )
+//
+//    }
 
     private fun hasTestTagCircularProgressIndicator(): SemanticsMatcher {
 
@@ -869,13 +872,14 @@ class AuthenticationContentTestUtil3(
 
     }
 
-    private fun hasTestTagsAuthenticationErrorDialogAnd(otherTestTag: String): SemanticsMatcher {
-
-        return hasTestTag(
-            testTag = TAG_AUTHENTICATION_ERROR_DIALOG + otherTestTag
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun hasTestTagsAuthenticationErrorDialogAnd(otherTestTag: String): SemanticsMatcher {
+//
+//        return hasTestTag(
+//            testTag = TAG_AUTHENTICATION_ERROR_DIALOG + otherTestTag
+//        )
+//
+//    }
 
     private fun hasTestTagsCircularProgressIndicatorAnd(otherTestTag: String): SemanticsMatcher {
 

@@ -400,6 +400,7 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .authenticationErrorDialogTestUtil3
             .onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops()
             .assertDoesNotExist()
 
@@ -415,6 +416,7 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .authenticationErrorDialogTestUtil3
             .onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops()
             .assertIsDisplayed()
 
@@ -430,6 +432,7 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .authenticationErrorDialogTestUtil3
             .onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops()
             .assertDoesNotExist()
 
@@ -446,6 +449,7 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .authenticationErrorDialogTestUtil3
             .onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops()
             .assertIsDisplayed()
 
