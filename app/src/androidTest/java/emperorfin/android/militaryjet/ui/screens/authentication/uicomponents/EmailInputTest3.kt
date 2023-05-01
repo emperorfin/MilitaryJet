@@ -40,7 +40,9 @@ import org.mockito.kotlin.verify
 
 
 /**
- * [EmailInputTest4] class is a revision of this class.
+ * The following classes are revisions of this class:
+ * [EmailInputTest4]
+ * [EmailInputTest5]
  *
  * Notes:
  *

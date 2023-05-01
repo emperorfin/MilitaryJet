@@ -20,7 +20,6 @@ import android.content.Context
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.*
-import emperorfin.android.militaryjet.ui.extensions.semanticsmatcher.hasAlertDialogTitle
 import emperorfin.android.militaryjet.ui.extensions.semanticsmatcher.hasCircularProgressIndicatorColorArgb
 import emperorfin.android.militaryjet.ui.res.theme.ComposeEmailAuthenticationTheme
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.AuthenticationMode
@@ -30,12 +29,8 @@ import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRe
 import emperorfin.android.militaryjet.ui.screens.authentication.stateholders.AuthenticationUiState
 import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.AuthenticationContent
 import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_CONTENT
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_ERROR_DIALOG
 import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT
 import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_PROGRESS
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
 import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_AT_LEAST_EIGHT_CHARACTERS
 import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER
 import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_AT_LEAST_ONE_DIGIT
@@ -45,11 +40,6 @@ import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRIN
 import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED
 import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_SATISFIED
 import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_AT_LEAST_ONE_DIGIT_SATISFIED
-import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_WHOOPS
-import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_NEED_AN_ACCOUNT
-import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_ALREADY_HAVE_AN_ACCOUNT
-import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_SIGN_IN_TO_YOUR_ACCOUNT
-import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_SIGN_UP_FOR_AN_ACCOUNT
 import emperorfin.android.militaryjet.ui.constants.BooleanConstants.TRUE
 import emperorfin.android.militaryjet.ui.constants.BooleanConstants.FALSE
 import emperorfin.android.militaryjet.ui.constants.NothingConstants.NULL

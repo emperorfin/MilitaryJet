@@ -24,7 +24,7 @@ import androidx.compose.ui.text.TextRange
 import androidx.test.platform.app.InstrumentationRegistry
 import emperorfin.android.militaryjet.ui.extensions.semanticsmatcher.*
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement
-import emperorfin.android.militaryjet.ui.utils.EmailInputTestUtil2
+import emperorfin.android.militaryjet.ui.utils.EmailInputTestUtil3
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -39,15 +39,13 @@ import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT
 import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_EMAIL_SUFFIXED
 
 
-/**
+/*
  * @Author: Francis Nwokelo (emperorfin)
- * @Date: Thursday 30th March, 2023.
+ * @Date: Monday 01th May, 2023.
  */
 
 
 /**
- * [EmailInputTest5] class is a revision of this class.
- *
  * Notes:
  *
  * - If you ever need to pass a resource (e.g. a string resource) into a composable during testing,
@@ -65,7 +63,7 @@ import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT
  * - https://stackoverflow.com/questions/36955608/espresso-how-to-use-r-string-resources-of-androidtest-folder
  * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
  */
-class EmailInputTest4 {
+class EmailInputTest5 {
 
     /**
      * Use this when resources are coming from the main source set, whether directly
@@ -107,7 +105,7 @@ class EmailInputTest4 {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
-    private lateinit var emailInputTestUtil: EmailInputTestUtil2
+    private lateinit var emailInputTestUtil: EmailInputTestUtil3
 
     @Before
     fun setUpContexts() {
@@ -118,7 +116,7 @@ class EmailInputTest4 {
         // See field's KDoc for more info.
         mContext = InstrumentationRegistry.getInstrumentation().context
 
-        emailInputTestUtil = EmailInputTestUtil2(
+        emailInputTestUtil = EmailInputTestUtil3(
             mContext = mContext,
             mTargetContext = mTargetContext,
             composeTestRule = composeTestRule

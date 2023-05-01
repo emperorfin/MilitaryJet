@@ -19,27 +19,15 @@ package emperorfin.android.militaryjet.ui.utils
 import android.content.Context
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
-import emperorfin.android.militaryjet.ui.extensions.semanticsmatcher.hasAlertDialogTitle
 import emperorfin.android.militaryjet.ui.extensions.semanticsmatcher.hasCircularProgressIndicatorColorArgb
 import emperorfin.android.militaryjet.ui.res.theme.ComposeEmailAuthenticationTheme
 import emperorfin.android.militaryjet.ui.screens.authentication.AuthenticationScreen
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATE_BUTTON
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_AUTHENTICATION_TITLE
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_EMAIL
 import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_ERROR_DIALOG
 import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_PROGRESS
 import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON
 import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT
 import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_SCREEN
-import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE
-import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_SIGN_IN_TO_YOUR_ACCOUNT
-import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_SIGN_UP_FOR_AN_ACCOUNT
-import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_EMAIL_ADDRESS
 import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_PASSWORD
-import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_NEED_AN_ACCOUNT
-import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_ALREADY_HAVE_AN_ACCOUNT
 import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_AT_LEAST_EIGHT_CHARACTERS
 import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER
 import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_AT_LEAST_ONE_DIGIT
@@ -49,7 +37,6 @@ import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRIN
 import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED
 import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_SATISFIED
 import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_AT_LEAST_ONE_DIGIT_SATISFIED
-import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.STRING_RES_WHOOPS
 import emperorfin.android.militaryjet.ui.constants.ColorArgbConstants.COLOR_ARGB_CIRCULAR_PROGRESS_INDICATOR_PRESET_COLOR
 import emperorfin.android.militaryjet.ui.constants.StringConstants.THIS_STRING_MUST_BE_EMPTY
 import emperorfin.android.militaryjet.ui.constants.StringConstants.THIS_STRING_COULD_BE_ANYTHING
@@ -88,6 +75,12 @@ class AuthenticationScreenTestUtil3(
     )
 
     val authenticationToggleModeTestUtil3 = AuthenticationToggleModeTestUtil3(
+        mContext = mContext,
+        mTargetContext = mTargetContext,
+        composeTestRule = composeTestRule
+    )
+
+    val emailInputTestUtil3 = EmailInputTestUtil3(
         mContext = mContext,
         mTargetContext = mTargetContext,
         composeTestRule = composeTestRule
@@ -271,24 +264,25 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    fun onNodeWithEmailInputAndTextExactlyEmailAddress(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        // This one works.
-//        return composeTestRule
-//            .onNodeWithTag(
-//                testTag = TAG_AUTHENTICATION_INPUT_EMAIL,
-//                useUnmergedTree = useUnmergedTree
-//            )
-
-        // This is recommended.
-        return onNodeWithEmailInputAnd(
-            otherMatcher = hasTextExactlyEmailAddress(),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    fun onNodeWithEmailInputAndTextExactlyEmailAddress(
+//        useUnmergedTree: Boolean = FALSE
+//    ): SemanticsNodeInteraction {
+//
+//        // This one works.
+////        return composeTestRule
+////            .onNodeWithTag(
+////                testTag = TAG_AUTHENTICATION_INPUT_EMAIL,
+////                useUnmergedTree = useUnmergedTree
+////            )
+//
+//        // This is recommended.
+//        return emailInputTestUtil3.onNodeWithEmailInputAnd(
+//            otherMatcher = emailInputTestUtil3.hasTextExactlyEmailAddress(),
+//            useUnmergedTree = useUnmergedTree
+//        )
+//
+//    }
 
     fun onNodeWithPasswordInputAndTextExactlyPassword(
         useUnmergedTree: Boolean = FALSE
@@ -549,21 +543,22 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    private fun onNodeWithEmailInputAnd(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        useUnmergedTree: Boolean = FALSE,
-        otherMatcher: SemanticsMatcher
-    ): SemanticsNodeInteraction {
-
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTagEmailInput().and(
-                    other = otherMatcher
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun onNodeWithEmailInputAnd(
+//        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+//        useUnmergedTree: Boolean = FALSE,
+//        otherMatcher: SemanticsMatcher
+//    ): SemanticsNodeInteraction {
+//
+//        return composeTestRule
+//            .onNode(
+//                matcher = emailInputTestUtil3.hasTestTagEmailInput().and(
+//                    other = otherMatcher
+//                ),
+//                useUnmergedTree = useUnmergedTree
+//            )
+//
+//    }
 
     private fun onNodeWithPasswordInputAnd(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
@@ -813,13 +808,14 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    private fun hasTestTagEmailInput(): SemanticsMatcher {
-
-        return hasTestTagsEmailInputAnd(
-            otherTestTag = THIS_STRING_MUST_BE_EMPTY
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun hasTestTagEmailInput(): SemanticsMatcher {
+//
+//        return emailInputTestUtil3.hasTestTagsEmailInputAnd(
+//            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+//        )
+//
+//    }
 
     private fun hasTestTagPasswordInput(): SemanticsMatcher {
 
@@ -965,13 +961,14 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    private fun hasTestTagsEmailInputAnd(otherTestTag: String): SemanticsMatcher {
-
-        return hasTestTag(
-            testTag = TAG_AUTHENTICATION_INPUT_EMAIL + otherTestTag
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun hasTestTagsEmailInputAnd(otherTestTag: String): SemanticsMatcher {
+//
+//        return hasTestTag(
+//            testTag = TAG_AUTHENTICATION_INPUT_EMAIL + otherTestTag
+//        )
+//
+//    }
 
     private fun hasTestTagsPasswordInputAnd(otherTestTag: String): SemanticsMatcher {
 
@@ -1038,14 +1035,15 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    private fun hasTextExactlyEmailAddress(): SemanticsMatcher {
-
-        return hasTextExactly(
-            mContext.getString(STRING_RES_EMAIL_ADDRESS),
-            includeEditableText = FALSE
-        )
-
-    }
+    // TODO: Remove as it's no longer necessary.
+//    private fun hasTextExactlyEmailAddress(): SemanticsMatcher {
+//
+//        return hasTextExactly(
+//            mContext.getString(STRING_RES_EMAIL_ADDRESS),
+//            includeEditableText = FALSE
+//        )
+//
+//    }
 
     private fun hasTextExactlyPassword(): SemanticsMatcher {
 

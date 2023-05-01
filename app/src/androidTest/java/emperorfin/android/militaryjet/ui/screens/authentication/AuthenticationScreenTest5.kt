@@ -305,6 +305,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
@@ -351,6 +352,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
@@ -372,6 +374,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
@@ -418,6 +421,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
@@ -523,6 +527,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
@@ -612,6 +617,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
@@ -696,6 +702,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
@@ -741,6 +748,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
@@ -821,6 +829,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
@@ -915,6 +924,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
@@ -1009,6 +1019,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
@@ -1103,6 +1114,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
@@ -1148,6 +1160,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 performClick()
@@ -1186,6 +1199,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 performClick()
@@ -1226,6 +1240,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 // Optional
@@ -1252,6 +1267,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 // Optional
@@ -1278,6 +1294,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 // Optional
@@ -1315,6 +1332,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 // Optional
@@ -1720,6 +1738,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 performClick()
@@ -1789,6 +1808,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .apply {
                 performClick()
@@ -1888,6 +1908,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsNotFocused()
 
@@ -1916,18 +1937,21 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsNotFocused()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performClick()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsFocused()
 
@@ -1990,6 +2014,7 @@ class AuthenticationScreenTest5 {
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performClick()
 
@@ -2070,6 +2095,7 @@ class AuthenticationScreenTest5 {
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performClick()
 
@@ -2078,6 +2104,7 @@ class AuthenticationScreenTest5 {
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performImeAction()
 
@@ -2141,6 +2168,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsNotFocused()
 
@@ -2151,6 +2179,7 @@ class AuthenticationScreenTest5 {
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performClick()
 
@@ -2159,6 +2188,7 @@ class AuthenticationScreenTest5 {
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsFocused()
 
@@ -2167,6 +2197,7 @@ class AuthenticationScreenTest5 {
             .assertIsNotFocused()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performImeAction()
 
@@ -2175,6 +2206,7 @@ class AuthenticationScreenTest5 {
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsNotFocused()
 
@@ -2205,6 +2237,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsNotFocused()
 
@@ -2233,18 +2266,21 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsNotFocused()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performClick()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsFocused()
 
@@ -2307,6 +2343,7 @@ class AuthenticationScreenTest5 {
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performClick()
 
@@ -2387,6 +2424,7 @@ class AuthenticationScreenTest5 {
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performClick()
 
@@ -2395,6 +2433,7 @@ class AuthenticationScreenTest5 {
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performImeAction()
 
@@ -2457,6 +2496,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsNotFocused()
 
@@ -2467,6 +2507,7 @@ class AuthenticationScreenTest5 {
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performClick()
 
@@ -2475,6 +2516,7 @@ class AuthenticationScreenTest5 {
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsFocused()
 
@@ -2483,6 +2525,7 @@ class AuthenticationScreenTest5 {
             .assertIsNotFocused()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .performImeAction()
 
@@ -2491,6 +2534,7 @@ class AuthenticationScreenTest5 {
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
         authenticationScreenTestUtil
+            .emailInputTestUtil3
             .onNodeWithEmailInputAndTextExactlyEmailAddress()
             .assertIsNotFocused()
 
