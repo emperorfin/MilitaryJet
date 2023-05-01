@@ -42,7 +42,9 @@ import org.mockito.kotlin.verify
 
 
 /**
- * [AuthenticationToggleModeTest4] class is a revisions of this class.
+ * The following classes are revisions of this class:
+ * [AuthenticationToggleModeTest4]
+ * [AuthenticationToggleModeTest5]
  *
  * Notes:
  *

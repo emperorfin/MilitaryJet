@@ -241,6 +241,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .authenticationToggleModeTestUtil3
             .onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount()
             .assertIsDisplayed()
 
@@ -256,6 +257,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .authenticationToggleModeTestUtil3
             .onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount()
             .assertIsDisplayed()
 
@@ -1859,6 +1861,7 @@ class AuthenticationScreenTest5 {
 //        Espresso.pressBack()
 
         authenticationScreenTestUtil
+            .authenticationToggleModeTestUtil3
             .onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount()
             .performClick()
 

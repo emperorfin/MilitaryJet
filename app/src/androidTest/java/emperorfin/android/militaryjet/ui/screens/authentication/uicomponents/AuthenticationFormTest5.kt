@@ -401,6 +401,7 @@ class AuthenticationFormTest5 {
             )
 
         authenticationFormTestUtil
+            .authenticationToggleModeTestUtil3
             .onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount()
             .assertIsDisplayed()
 
@@ -419,6 +420,7 @@ class AuthenticationFormTest5 {
             )
 
         authenticationFormTestUtil
+            .authenticationToggleModeTestUtil3
             .onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount()
             .assertIsDisplayed()
 

@@ -73,6 +73,12 @@ class AuthenticationFormTestUtil3(
         composeTestRule = composeTestRule
     )
 
+    val authenticationToggleModeTestUtil3 = AuthenticationToggleModeTestUtil3(
+        mContext = mContext,
+        mTargetContext = mTargetContext,
+        composeTestRule = composeTestRule
+    )
+
     fun setContentAsAuthenticationFormAndAssertItIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
         authenticationMode: AuthenticationMode,
@@ -261,27 +267,29 @@ class AuthenticationFormTestUtil3(
 //
 //    }
 
-    fun onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    // TODO: Remove this as it's no longer necessary.
+//    fun onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount(
+//        useUnmergedTree: Boolean = FALSE
+//    ): SemanticsNodeInteraction {
+//
+//        return authenticationToggleModeTestUtil3.onNodeWithAuthenticationToggleModeAnd(
+//            otherMatcher = authenticationToggleModeTestUtil3.hasTextExactlyNeedAnAccount(),
+//            useUnmergedTree = useUnmergedTree
+//        )
+//
+//    }
 
-        return onNodeWithAuthenticationToggleModeAnd(
-            otherMatcher = hasTextExactlyNeedAnAccount(),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
-
-    fun onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        return onNodeWithAuthenticationToggleModeAnd(
-            otherMatcher = hasTextExactlyAlreadyHaveAnAccount(),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    fun onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount(
+//        useUnmergedTree: Boolean = FALSE
+//    ): SemanticsNodeInteraction {
+//
+//        return authenticationToggleModeTestUtil3.onNodeWithAuthenticationToggleModeAnd(
+//            otherMatcher = authenticationToggleModeTestUtil3.hasTextExactlyAlreadyHaveAnAccount(),
+//            useUnmergedTree = useUnmergedTree
+//        )
+//
+//    }
 
     // ------- FOR ..._AnotherApproach()
 
@@ -569,21 +577,22 @@ class AuthenticationFormTestUtil3(
 //
 //    }
 
-    private fun onNodeWithAuthenticationToggleModeAnd(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        useUnmergedTree: Boolean = FALSE,
-        otherMatcher: SemanticsMatcher
-    ): SemanticsNodeInteraction {
-
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTagAuthenticationToggleMode().and(
-                    other = otherMatcher
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun onNodeWithAuthenticationToggleModeAnd(
+//        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+//        useUnmergedTree: Boolean = FALSE,
+//        otherMatcher: SemanticsMatcher
+//    ): SemanticsNodeInteraction {
+//
+//        return composeTestRule
+//            .onNode(
+//                matcher = authenticationToggleModeTestUtil3.hasTestTagAuthenticationToggleMode().and(
+//                    other = otherMatcher
+//                ),
+//                useUnmergedTree = useUnmergedTree
+//            )
+//
+//    }
 
     private fun onNodeWithPasswordRequirementAtLeastEightCharactersAnd(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
@@ -659,13 +668,14 @@ class AuthenticationFormTestUtil3(
 //
 //    }
 
-    private fun hasTestTagAuthenticationToggleMode(): SemanticsMatcher {
-
-        return hasTestTagsAuthenticationToggleModeAnd(
-            otherTestTag = THIS_STRING_MUST_BE_EMPTY
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun hasTestTagAuthenticationToggleMode(): SemanticsMatcher {
+//
+//        return authenticationToggleModeTestUtil3.hasTestTagsAuthenticationToggleModeAnd(
+//            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+//        )
+//
+//    }
 
     //For the sake of pattern, this function was created.
     private fun hasTestTagPasswordRequirement(): SemanticsMatcher {
@@ -782,13 +792,14 @@ class AuthenticationFormTestUtil3(
 //
 //    }
 
-    private fun hasTestTagsAuthenticationToggleModeAnd(otherTestTag: String): SemanticsMatcher {
-
-        return hasTestTag(
-            testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON + otherTestTag
-        )
-
-    }
+    // TODO: Remove as it's no longer necessary.
+//    private fun hasTestTagsAuthenticationToggleModeAnd(otherTestTag: String): SemanticsMatcher {
+//
+//        return hasTestTag(
+//            testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON + otherTestTag
+//        )
+//
+//    }
 
     private fun hasTestTagsPasswordRequirementAnd(otherTestTag: String): SemanticsMatcher {
 
@@ -842,23 +853,25 @@ class AuthenticationFormTestUtil3(
 //
 //    }
 
-    private fun hasTextExactlyNeedAnAccount(): SemanticsMatcher {
+    // TODO: Remove as it's no longer necessary.
+//    private fun hasTextExactlyNeedAnAccount(): SemanticsMatcher {
+//
+//        return hasTextExactly(
+//            mContext.getString(STRING_RES_NEED_AN_ACCOUNT),
+//            includeEditableText = FALSE
+//        )
+//
+//    }
 
-        return hasTextExactly(
-            mContext.getString(STRING_RES_NEED_AN_ACCOUNT),
-            includeEditableText = FALSE
-        )
-
-    }
-
-    private fun hasTextExactlyAlreadyHaveAnAccount(): SemanticsMatcher {
-
-        return hasTextExactly(
-            mContext.getString(STRING_RES_ALREADY_HAVE_AN_ACCOUNT),
-            includeEditableText = FALSE
-        )
-
-    }
+    // TODO: Remove as it's no longer necessary.
+//    private fun hasTextExactlyAlreadyHaveAnAccount(): SemanticsMatcher {
+//
+//        return hasTextExactly(
+//            mContext.getString(STRING_RES_ALREADY_HAVE_AN_ACCOUNT),
+//            includeEditableText = FALSE
+//        )
+//
+//    }
 
     private fun hasTextExactlyAtLeastEightCharacters(): SemanticsMatcher {
 

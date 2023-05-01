@@ -87,6 +87,12 @@ class AuthenticationScreenTestUtil3(
         composeTestRule = composeTestRule
     )
 
+    val authenticationToggleModeTestUtil3 = AuthenticationToggleModeTestUtil3(
+        mContext = mContext,
+        mTargetContext = mTargetContext,
+        composeTestRule = composeTestRule
+    )
+
     /**
      * @param isSignInMode This is nullable should there's a case where [assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed]
      * or [navigateFromSignInToSignUpModesAndConfirmTitles] doesn't have to be run. But such case
@@ -137,7 +143,7 @@ class AuthenticationScreenTestUtil3(
 
         authenticationTitleTestUtil3.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed(composeTestRule)
 
-        onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount()
+        authenticationToggleModeTestUtil3.onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount()
             .performClick()
 
         assertAuthenticationScreenIsDisplayed(composeTestRule)
@@ -241,27 +247,29 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    fun onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
+    // TODO: Remove this as it's no longer necessary.
+//    fun onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount(
+//        useUnmergedTree: Boolean = FALSE
+//    ): SemanticsNodeInteraction {
+//
+//        return authenticationToggleModeTestUtil3.onNodeWithAuthenticationToggleModeAnd(
+//            otherMatcher = authenticationToggleModeTestUtil3.hasTextExactlyNeedAnAccount(),
+//            useUnmergedTree = useUnmergedTree
+//        )
+//
+//    }
 
-        return onNodeWithAuthenticationToggleModeAnd(
-            otherMatcher = hasTextExactlyNeedAnAccount(),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
-
-    fun onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        return onNodeWithAuthenticationToggleModeAnd(
-            otherMatcher = hasTextExactlyAlreadyHaveAnAccount(),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    fun onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount(
+//        useUnmergedTree: Boolean = FALSE
+//    ): SemanticsNodeInteraction {
+//
+//        return authenticationToggleModeTestUtil3.onNodeWithAuthenticationToggleModeAnd(
+//            otherMatcher = authenticationToggleModeTestUtil3.hasTextExactlyAlreadyHaveAnAccount(),
+//            useUnmergedTree = useUnmergedTree
+//        )
+//
+//    }
 
     fun onNodeWithEmailInputAndTextExactlyEmailAddress(
         useUnmergedTree: Boolean = FALSE
@@ -524,21 +532,22 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    private fun onNodeWithAuthenticationToggleModeAnd(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        useUnmergedTree: Boolean = FALSE,
-        otherMatcher: SemanticsMatcher
-    ): SemanticsNodeInteraction {
-
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTagAuthenticationToggleMode().and(
-                    other = otherMatcher
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun onNodeWithAuthenticationToggleModeAnd(
+//        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+//        useUnmergedTree: Boolean = FALSE,
+//        otherMatcher: SemanticsMatcher
+//    ): SemanticsNodeInteraction {
+//
+//        return composeTestRule
+//            .onNode(
+//                matcher = authenticationToggleModeTestUtil3.hasTestTagAuthenticationToggleMode().and(
+//                    other = otherMatcher
+//                ),
+//                useUnmergedTree = useUnmergedTree
+//            )
+//
+//    }
 
     private fun onNodeWithEmailInputAnd(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
@@ -795,13 +804,14 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    private fun hasTestTagAuthenticationToggleMode(): SemanticsMatcher {
-
-        return hasTestTagsAuthenticationToggleModeAnd(
-            otherTestTag = THIS_STRING_MUST_BE_EMPTY
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun hasTestTagAuthenticationToggleMode(): SemanticsMatcher {
+//
+//        return authenticationToggleModeTestUtil3.hasTestTagsAuthenticationToggleModeAnd(
+//            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+//        )
+//
+//    }
 
     private fun hasTestTagEmailInput(): SemanticsMatcher {
 
@@ -946,13 +956,14 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    private fun hasTestTagsAuthenticationToggleModeAnd(otherTestTag: String): SemanticsMatcher {
-
-        return hasTestTag(
-            testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON + otherTestTag
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun hasTestTagsAuthenticationToggleModeAnd(otherTestTag: String): SemanticsMatcher {
+//
+//        return hasTestTag(
+//            testTag = TAG_AUTHENTICATION_TOGGLE_MODE_BUTTON + otherTestTag
+//        )
+//
+//    }
 
     private fun hasTestTagsEmailInputAnd(otherTestTag: String): SemanticsMatcher {
 
@@ -1065,23 +1076,25 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    private fun hasTextExactlyNeedAnAccount(): SemanticsMatcher {
+    // TODO: Remove as it's no longer necessary.
+//    private fun hasTextExactlyNeedAnAccount(): SemanticsMatcher {
+//
+//        return hasTextExactly(
+//            mContext.getString(STRING_RES_NEED_AN_ACCOUNT),
+//            includeEditableText = FALSE
+//        )
+//
+//    }
 
-        return hasTextExactly(
-            mContext.getString(STRING_RES_NEED_AN_ACCOUNT),
-            includeEditableText = FALSE
-        )
-
-    }
-
-    private fun hasTextExactlyAlreadyHaveAnAccount(): SemanticsMatcher {
-
-        return hasTextExactly(
-            mContext.getString(STRING_RES_ALREADY_HAVE_AN_ACCOUNT),
-            includeEditableText = FALSE
-        )
-
-    }
+    // TODO: Remove as it's no longer necessary.
+//    private fun hasTextExactlyAlreadyHaveAnAccount(): SemanticsMatcher {
+//
+//        return hasTextExactly(
+//            mContext.getString(STRING_RES_ALREADY_HAVE_AN_ACCOUNT),
+//            includeEditableText = FALSE
+//        )
+//
+//    }
 
     // TODO: Remove as it's no longer necessary.
 //    private fun hasAlertDialogTitleWhoops(): SemanticsMatcher {

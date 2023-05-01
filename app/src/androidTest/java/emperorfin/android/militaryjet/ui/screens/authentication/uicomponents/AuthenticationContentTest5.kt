@@ -372,6 +372,7 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .authenticationToggleModeTestUtil3
             .onNodeWithAuthenticationToggleModeAndTextExactlyNeedAnAccount()
             .assertIsDisplayed()
 
@@ -386,6 +387,7 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .authenticationToggleModeTestUtil3
             .onNodeWithAuthenticationToggleModeAndTextExactlyAlreadyHaveAnAccount()
             .assertIsDisplayed()
 

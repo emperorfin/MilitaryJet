@@ -47,6 +47,7 @@ import org.mockito.kotlin.verify
  * [AuthenticationToggleModeTest2]
  * [AuthenticationToggleModeTest3]
  * [AuthenticationToggleModeTest4]
+ * [AuthenticationToggleModeTest5]
  *
  * Notes:
  *

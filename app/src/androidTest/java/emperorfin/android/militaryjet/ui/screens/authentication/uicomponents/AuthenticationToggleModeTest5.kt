@@ -24,7 +24,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.AuthenticationMode.SIGN_IN
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.AuthenticationMode.SIGN_UP
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement
-import emperorfin.android.militaryjet.ui.utils.AuthenticationToggleModeTestUtil2
+import emperorfin.android.militaryjet.ui.utils.AuthenticationToggleModeTestUtil3
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -35,15 +35,13 @@ import emperorfin.android.militaryjet.ui.constants.BooleanConstants.FALSE
 import emperorfin.android.militaryjet.ui.constants.BooleanConstants.TRUE
 
 
-/**
+/*
  * @Author: Francis Nwokelo (emperorfin)
- * @Date: Thursday 30th March, 2023.
+ * @Date: Sunday 30th April, 2023.
  */
 
 
 /**
- * [AuthenticationToggleModeTest5] class is a revision of this class.
- *
  * Notes:
  *
  * - If you ever need to pass a resource (e.g. a string resource) into a composable during testing,
@@ -61,7 +59,7 @@ import emperorfin.android.militaryjet.ui.constants.BooleanConstants.TRUE
  * - https://stackoverflow.com/questions/36955608/espresso-how-to-use-r-string-resources-of-androidtest-folder
  * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
  */
-class AuthenticationToggleModeTest4 {
+class AuthenticationToggleModeTest5 {
 
     /**
      * Use this when resources are coming from the main source set, whether directly
@@ -103,7 +101,7 @@ class AuthenticationToggleModeTest4 {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
-    private lateinit var authenticationToggleModeTestUtil: AuthenticationToggleModeTestUtil2
+    private lateinit var authenticationToggleModeTestUtil: AuthenticationToggleModeTestUtil3
 
     @Before
     fun setUpContexts() {
@@ -114,7 +112,7 @@ class AuthenticationToggleModeTest4 {
         // See field's KDoc for more info.
         mContext = InstrumentationRegistry.getInstrumentation().context
 
-        authenticationToggleModeTestUtil = AuthenticationToggleModeTestUtil2(
+        authenticationToggleModeTestUtil = AuthenticationToggleModeTestUtil3(
             mContext = mContext,
             mTargetContext = mTargetContext,
             composeTestRule = composeTestRule

@@ -47,7 +47,8 @@ import org.mockito.kotlin.verify
  * The following classes are revisions of this class:
  * [AuthenticationToggleModeTest3]
  * [AuthenticationToggleModeTest4]
- * 
+ * [AuthenticationToggleModeTest5]
+ *
  * Notes:
  *
  * - If you ever need to pass a resource (e.g. a string resource) into a composable during testing,
