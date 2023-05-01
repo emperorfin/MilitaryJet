@@ -58,4 +58,9 @@ Too many comments. For example, some comments are just for sample purposes for s
 interested in a particular test case. Note that newer test classes with higher numbers suffixed in 
 their names have very fewer and necessary comments.
 
+## Porting
+
+I look forward to see [this](https://github.com/emperorfin/MilitaryJet/tree/master/app/src/androidTest) 
+getting ported to other client frameworks and UI toolkits such as React, Flutter, etc.
+
 
