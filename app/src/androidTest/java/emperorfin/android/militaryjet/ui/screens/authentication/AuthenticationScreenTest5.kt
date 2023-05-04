@@ -310,6 +310,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
@@ -331,6 +332,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
@@ -379,6 +381,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
@@ -400,6 +403,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
@@ -532,6 +536,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
@@ -622,6 +627,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
@@ -707,6 +713,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
@@ -753,6 +760,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
@@ -834,6 +842,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
@@ -929,6 +938,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
@@ -1024,6 +1034,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
@@ -1119,6 +1130,7 @@ class AuthenticationScreenTest5 {
             .performTextInput(text = INPUT_CONTENT_EMAIL)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(text = INPUT_CONTENT_PASSWORD)
 
@@ -1180,6 +1192,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .apply {
                 performClick()
@@ -1219,6 +1232,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .apply {
                 performClick()
@@ -1252,6 +1266,7 @@ class AuthenticationScreenTest5 {
             }
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsFocused()
 
@@ -1279,6 +1294,7 @@ class AuthenticationScreenTest5 {
             }
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsFocused()
 
@@ -1306,6 +1322,7 @@ class AuthenticationScreenTest5 {
             }
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .apply {
                 // Optional
@@ -1344,6 +1361,7 @@ class AuthenticationScreenTest5 {
             }
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .apply {
                 // Optional
@@ -1434,6 +1452,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(
                 text = INPUT_CONTENT_PASSWORD_PASSWORD
@@ -1475,6 +1494,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(
                 text = INPUT_CONTENT_PASSWORD_PASSWORD
@@ -1510,6 +1530,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(
                 text = INPUT_CONTENT_PASSWORD_PASS
@@ -1551,6 +1572,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(
                 text = INPUT_CONTENT_PASSWORD_PASS
@@ -1586,6 +1608,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(
                 text = INPUT_CONTENT_PASSWORD_1PASS
@@ -1627,6 +1650,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(
                 text = INPUT_CONTENT_PASSWORD_1PASS
@@ -1662,6 +1686,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(
                 text = INPUT_CONTENT_PASSWORD
@@ -1703,6 +1728,7 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performTextInput(
                 text = INPUT_CONTENT_PASSWORD
@@ -1778,6 +1804,7 @@ class AuthenticationScreenTest5 {
             .performClick()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .apply {
                 performClick()
@@ -1848,6 +1875,7 @@ class AuthenticationScreenTest5 {
             .performClick()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .apply {
                 performClick()
@@ -1913,6 +1941,7 @@ class AuthenticationScreenTest5 {
             .assertIsNotFocused()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsNotFocused()
 
@@ -1976,18 +2005,21 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsNotFocused()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performClick()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsFocused()
 
@@ -2055,6 +2087,7 @@ class AuthenticationScreenTest5 {
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performClick()
 
@@ -2133,6 +2166,7 @@ class AuthenticationScreenTest5 {
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performClick()
 
@@ -2141,6 +2175,7 @@ class AuthenticationScreenTest5 {
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performImeAction()
 
@@ -2173,6 +2208,7 @@ class AuthenticationScreenTest5 {
             .assertIsNotFocused()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsNotFocused()
 
@@ -2193,6 +2229,7 @@ class AuthenticationScreenTest5 {
             .assertIsFocused()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsNotFocused()
 
@@ -2211,6 +2248,7 @@ class AuthenticationScreenTest5 {
             .assertIsNotFocused()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsFocused()
 
@@ -2242,6 +2280,7 @@ class AuthenticationScreenTest5 {
             .assertIsNotFocused()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsNotFocused()
 
@@ -2305,18 +2344,21 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsNotFocused()
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performClick()
 
         keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsFocused()
 
@@ -2384,6 +2426,7 @@ class AuthenticationScreenTest5 {
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performClick()
 
@@ -2462,6 +2505,7 @@ class AuthenticationScreenTest5 {
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performClick()
 
@@ -2470,6 +2514,7 @@ class AuthenticationScreenTest5 {
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .performImeAction()
 
@@ -2501,6 +2546,7 @@ class AuthenticationScreenTest5 {
             .assertIsNotFocused()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsNotFocused()
 
@@ -2521,6 +2567,7 @@ class AuthenticationScreenTest5 {
             .assertIsFocused()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsNotFocused()
 
@@ -2539,6 +2586,7 @@ class AuthenticationScreenTest5 {
             .assertIsNotFocused()
 
         authenticationScreenTestUtil
+            .passwordInputTestUtil3
             .onNodeWithPasswordInputAndTextExactlyPassword()
             .assertIsFocused()
 

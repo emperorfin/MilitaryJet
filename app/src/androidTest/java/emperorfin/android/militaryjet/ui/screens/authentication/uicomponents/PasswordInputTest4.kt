@@ -48,6 +48,8 @@ import emperorfin.android.militaryjet.ui.constants.VisualTransformationConstants
 
 
 /**
+ * [PasswordInputTest5] class is a revision of this class.
+ *
  * Important:
  *
  * - Try not to run all the test cases by running this test class as some tests might fail. If you do

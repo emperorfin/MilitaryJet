@@ -86,6 +86,12 @@ class AuthenticationScreenTestUtil3(
         composeTestRule = composeTestRule
     )
 
+    val passwordInputTestUtil3 = PasswordInputTestUtil3(
+        mContext = mContext,
+        mTargetContext = mTargetContext,
+        composeTestRule = composeTestRule
+    )
+
     /**
      * @param isSignInMode This is nullable should there's a case where [assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed]
      * or [navigateFromSignInToSignUpModesAndConfirmTitles] doesn't have to be run. But such case
@@ -284,24 +290,25 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    fun onNodeWithPasswordInputAndTextExactlyPassword(
-        useUnmergedTree: Boolean = FALSE
-    ): SemanticsNodeInteraction {
-
-        // This one works.
-//        return composeTestRule
-//            .onNodeWithTag(
-//                testTag = TAG_AUTHENTICATION_INPUT_PASSWORD,
-//                useUnmergedTree = useUnmergedTree
-//            )
-
-        // This is recommended.
-        return onNodeWithPasswordInputAnd(
-            otherMatcher = hasTextExactlyPassword(),
-            useUnmergedTree = useUnmergedTree
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    fun onNodeWithPasswordInputAndTextExactlyPassword(
+//        useUnmergedTree: Boolean = FALSE
+//    ): SemanticsNodeInteraction {
+//
+//        // This one works.
+////        return composeTestRule
+////            .onNodeWithTag(
+////                testTag = TAG_AUTHENTICATION_INPUT_PASSWORD,
+////                useUnmergedTree = useUnmergedTree
+////            )
+//
+//        // This is recommended.
+//        return passwordInputTestUtil3.onNodeWithPasswordInputAnd(
+//            otherMatcher = passwordInputTestUtil3.hasTextExactlyPassword(),
+//            useUnmergedTree = useUnmergedTree
+//        )
+//
+//    }
 
     // TODO: Remove this as it's no longer necessary.
 //    fun onNodeWithAuthenticationErrorDialogAndAlertDialogTitleWhoops(
@@ -330,7 +337,7 @@ class AuthenticationScreenTestUtil3(
         useUnmergedTree: Boolean = FALSE
     ): SemanticsNodeInteraction {
 
-        return onNodeWithPasswordInputTrailingIconAnd(
+        return passwordInputTestUtil3.onNodeWithPasswordInputTrailingIconAnd(
             otherMatcher = hasTextExactly(
                 THIS_STRING_COULD_BE_ANYTHING,
                 includeEditableText = FALSE
@@ -560,21 +567,22 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    private fun onNodeWithPasswordInputAnd(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        useUnmergedTree: Boolean = FALSE,
-        otherMatcher: SemanticsMatcher
-    ): SemanticsNodeInteraction {
-
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTagPasswordInput().and(
-                    other = otherMatcher
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun onNodeWithPasswordInputAnd(
+//        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+//        useUnmergedTree: Boolean = FALSE,
+//        otherMatcher: SemanticsMatcher
+//    ): SemanticsNodeInteraction {
+//
+//        return composeTestRule
+//            .onNode(
+//                matcher = passwordInputTestUtil3.hasTestTagPasswordInput().and(
+//                    other = otherMatcher
+//                ),
+//                useUnmergedTree = useUnmergedTree
+//            )
+//
+//    }
 
     // TODO: Remove this as it's no longer necessary.
 //    private fun onNodeWithAuthenticationErrorDialogAnd(
@@ -609,21 +617,22 @@ class AuthenticationScreenTestUtil3(
 
     }
 
-    private fun onNodeWithPasswordInputTrailingIconAnd(
-        composeTestRule: ComposeContentTestRule = this.composeTestRule,
-        useUnmergedTree: Boolean = FALSE,
-        otherMatcher: SemanticsMatcher
-    ): SemanticsNodeInteraction {
-
-        return composeTestRule
-            .onNode(
-                matcher = hasTestTagPasswordInputTrailingIcon().and(
-                    other = otherMatcher
-                ),
-                useUnmergedTree = useUnmergedTree
-            )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun onNodeWithPasswordInputTrailingIconAnd(
+//        composeTestRule: ComposeContentTestRule = this.composeTestRule,
+//        useUnmergedTree: Boolean = FALSE,
+//        otherMatcher: SemanticsMatcher
+//    ): SemanticsNodeInteraction {
+//
+//        return composeTestRule
+//            .onNode(
+//                matcher = passwordInputTestUtil3.hasTestTagPasswordInputTrailingIcon().and(
+//                    other = otherMatcher
+//                ),
+//                useUnmergedTree = useUnmergedTree
+//            )
+//
+//    }
 
     // ------- FOR ..._AnotherApproach()
 
@@ -817,13 +826,14 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    private fun hasTestTagPasswordInput(): SemanticsMatcher {
-
-        return hasTestTagsPasswordInputAnd(
-            otherTestTag = THIS_STRING_MUST_BE_EMPTY
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun hasTestTagPasswordInput(): SemanticsMatcher {
+//
+//        return passwordInputTestUtil3.hasTestTagsPasswordInputAnd(
+//            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+//        )
+//
+//    }
 
     // TODO: Remove this as it's no longer necessary.
 //    private fun hasTestTagAuthenticationErrorDialog(): SemanticsMatcher {
@@ -842,13 +852,14 @@ class AuthenticationScreenTestUtil3(
 
     }
 
-    private fun hasTestTagPasswordInputTrailingIcon(): SemanticsMatcher {
-
-        return hasTestTagsPasswordInputTrailingIconAnd(
-            otherTestTag = THIS_STRING_MUST_BE_EMPTY
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun hasTestTagPasswordInputTrailingIcon(): SemanticsMatcher {
+//
+//        return passwordInputTestUtil3.hasTestTagsPasswordInputTrailingIconAnd(
+//            otherTestTag = THIS_STRING_MUST_BE_EMPTY
+//        )
+//
+//    }
 
     // ------- FOR ..._AnotherApproach()
 
@@ -970,13 +981,14 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    private fun hasTestTagsPasswordInputAnd(otherTestTag: String): SemanticsMatcher {
-
-        return hasTestTag(
-            testTag = TAG_AUTHENTICATION_INPUT_PASSWORD + otherTestTag
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun hasTestTagsPasswordInputAnd(otherTestTag: String): SemanticsMatcher {
+//
+//        return hasTestTag(
+//            testTag = TAG_AUTHENTICATION_INPUT_PASSWORD + otherTestTag
+//        )
+//
+//    }
 
     // TODO: Remove this as it's no longer necessary.
 //    private fun hasTestTagsAuthenticationErrorDialogAnd(otherTestTag: String): SemanticsMatcher {
@@ -995,13 +1007,14 @@ class AuthenticationScreenTestUtil3(
 
     }
 
-    private fun hasTestTagsPasswordInputTrailingIconAnd(otherTestTag: String): SemanticsMatcher {
-
-        return hasTestTag(
-            testTag = TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON + otherTestTag
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    private fun hasTestTagsPasswordInputTrailingIconAnd(otherTestTag: String): SemanticsMatcher {
+//
+//        return hasTestTag(
+//            testTag = TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON + otherTestTag
+//        )
+//
+//    }
 
     private fun hasTestTagsPasswordRequirementAnd(otherTestTag: String): SemanticsMatcher {
 
@@ -1045,14 +1058,15 @@ class AuthenticationScreenTestUtil3(
 //
 //    }
 
-    private fun hasTextExactlyPassword(): SemanticsMatcher {
-
-        return hasTextExactly(
-            mContext.getString(STRING_RES_PASSWORD),
-            includeEditableText = FALSE
-        )
-
-    }
+    // TODO: Remove as it's no longer necessary.
+//    private fun hasTextExactlyPassword(): SemanticsMatcher {
+//
+//        return hasTextExactly(
+//            mContext.getString(STRING_RES_PASSWORD),
+//            includeEditableText = FALSE
+//        )
+//
+//    }
 
     // TODO: Remove as it's no longer necessary.
 //    private fun hasTextExactlySignIn(): SemanticsMatcher {
