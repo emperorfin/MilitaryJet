@@ -47,6 +47,7 @@ import org.junit.Test
  * [PasswordRequirementsTest2]
  * [PasswordRequirementsTest3]
  * [PasswordRequirementsTest4]
+ * [PasswordRequirementsTest5]
  *
  * Important:
  *

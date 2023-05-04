@@ -1388,18 +1388,21 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
                 useUnmergedTree = TRUE // Optional.
             )
@@ -1423,18 +1426,21 @@ class AuthenticationScreenTest5 {
 //        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
                 useUnmergedTree = TRUE // Optional
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
                 useUnmergedTree = TRUE // Optional
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
                 useUnmergedTree = TRUE // Optional
             )
@@ -1459,18 +1465,21 @@ class AuthenticationScreenTest5 {
             )
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfied(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
                 useUnmergedTree = TRUE // Optional.
             )
@@ -1501,18 +1510,21 @@ class AuthenticationScreenTest5 {
             )
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharacters(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
                 useUnmergedTree = TRUE // Optional
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
                 useUnmergedTree = TRUE // Optional
             )
@@ -1537,18 +1549,21 @@ class AuthenticationScreenTest5 {
             )
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
                 useUnmergedTree = TRUE // Optional.
             )
@@ -1579,18 +1594,21 @@ class AuthenticationScreenTest5 {
             )
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
                 useUnmergedTree = TRUE // Optional
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAndTextExactlyAtLeastOneUppercaseLetter(
                 useUnmergedTree = TRUE // Optional
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
                 useUnmergedTree = TRUE // Optional
             )
@@ -1615,18 +1633,21 @@ class AuthenticationScreenTest5 {
             )
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitSatisfied(
                 useUnmergedTree = TRUE // Optional.
             )
@@ -1657,18 +1678,21 @@ class AuthenticationScreenTest5 {
             )
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
                 useUnmergedTree = TRUE // Optional
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
                 useUnmergedTree = TRUE // Optional
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAndTextExactlyAtLeastOneDigit(
                 useUnmergedTree = TRUE // Optional
             )
@@ -1693,18 +1717,21 @@ class AuthenticationScreenTest5 {
             )
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfied(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitSatisfied(
                 useUnmergedTree = TRUE // Optional.
             )
@@ -1735,18 +1762,21 @@ class AuthenticationScreenTest5 {
             )
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharacters(
                 useUnmergedTree = TRUE // Optional
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAndTextExactlyAtLeastOneUppercaseLetter(
                 useUnmergedTree = TRUE // Optional
             )
             .assertIsDisplayed()
 
         authenticationScreenTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAndTextExactlyAtLeastOneDigit(
                 useUnmergedTree = TRUE // Optional
             )

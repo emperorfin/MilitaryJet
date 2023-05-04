@@ -40,7 +40,9 @@ import org.junit.Test
 
 
 /**
- * [PasswordRequirementsTest4] class is a revision of this class.
+ * The following classes are revisions of this class:
+ * [PasswordRequirementsTest4]
+ * [PasswordRequirementsTest5]
  *
  * Important:
  *

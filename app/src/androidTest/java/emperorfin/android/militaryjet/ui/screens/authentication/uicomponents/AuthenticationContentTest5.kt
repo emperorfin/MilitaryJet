@@ -586,18 +586,21 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
                 useUnmergedTree = TRUE // Optional.
             )
@@ -620,18 +623,21 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
                 useUnmergedTree = TRUE // Optional
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
                 useUnmergedTree = TRUE // Optional
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
                 useUnmergedTree = TRUE // Optional
             )
@@ -653,18 +659,21 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfied(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
                 useUnmergedTree = TRUE // Optional.
             )
@@ -692,18 +701,21 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharacters(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
                 useUnmergedTree = TRUE // Optional
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
                 useUnmergedTree = TRUE // Optional
             )
@@ -725,18 +737,21 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitNeeded(
                 useUnmergedTree = TRUE // Optional.
             )
@@ -764,18 +779,21 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
                 useUnmergedTree = TRUE // Optional
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAndTextExactlyAtLeastOneUppercaseLetter(
                 useUnmergedTree = TRUE // Optional
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitNeededAndTextExactlyAtLeastOneDigit(
                 useUnmergedTree = TRUE // Optional
             )
@@ -797,18 +815,21 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersNeeded(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterNeeded(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitSatisfied(
                 useUnmergedTree = TRUE // Optional.
             )
@@ -836,18 +857,21 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersNeededAndTextExactlyAtLeastEightCharacters(
                 useUnmergedTree = TRUE // Optional
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterNeededAndTextExactlyAtLeastOneUppercaseLetter(
                 useUnmergedTree = TRUE // Optional
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAndTextExactlyAtLeastOneDigit(
                 useUnmergedTree = TRUE // Optional
             )
@@ -873,18 +897,21 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersAndTextExactlyAtLeastEightCharactersSatisfied(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterAndTextExactlyAtLeastOneUppercaseLetterSatisfied(
                 useUnmergedTree = TRUE // Optional.
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitAndTextExactlyAtLeastOneDigitSatisfied(
                 useUnmergedTree = TRUE // Optional.
             )
@@ -916,18 +943,21 @@ class AuthenticationContentTest5 {
             )
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastEightCharactersSatisfiedAndTextExactlyAtLeastEightCharacters(
                 useUnmergedTree = TRUE // Optional
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneUppercaseLetterSatisfiedAndTextExactlyAtLeastOneUppercaseLetter(
                 useUnmergedTree = TRUE // Optional
             )
             .assertIsDisplayed()
 
         authenticationContentTestUtil
+            .passwordRequirementsTestUtil3
             .onNodeWithPasswordRequirementAtLeastOneDigitSatisfiedAndTextExactlyAtLeastOneDigit(
                 useUnmergedTree = TRUE // Optional
             )
