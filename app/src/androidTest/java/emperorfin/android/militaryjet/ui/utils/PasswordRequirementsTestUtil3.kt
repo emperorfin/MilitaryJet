@@ -50,7 +50,7 @@ class PasswordRequirementsTestUtil3(
     private val composeTestRule: ComposeContentTestRule
 ) {
 
-    val requirementTestUtil3 = RequirementTestUtil3(
+    private val requirementTestUtil3 = RequirementTestUtil3(
         mContext = mContext,
         mTargetContext = mTargetContext,
         composeTestRule = composeTestRule
@@ -503,15 +503,6 @@ class PasswordRequirementsTestUtil3(
         )
 
     }
-
-    // TODO: Remove this as it's no longer necessary.
-//    fun hasTestTagsPasswordRequirementAnd(otherTestTag: String): SemanticsMatcher {
-//
-//        return hasTestTag(
-//            testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT + otherTestTag
-//        )
-//
-//    }
 
     // Before using a semantics matcher, check the implementation of the utility functions in this
     // section if it's already available to avoid duplication.
