@@ -198,7 +198,7 @@ class EmailInputTestUtil3(
 
     // ------- /FOR ..._AnotherApproach()
 
-    fun onNodeWithEmailInputAnd(
+    private fun onNodeWithEmailInputAnd(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
         useUnmergedTree: Boolean = FALSE,
         otherMatcher: SemanticsMatcher
@@ -214,7 +214,7 @@ class EmailInputTestUtil3(
 
     }
 
-    fun hasTestTagEmailInput(): SemanticsMatcher {
+    private fun hasTestTagEmailInput(): SemanticsMatcher {
 
         return hasTestTagsEmailInputAnd(
             otherTestTag = THIS_STRING_MUST_BE_EMPTY
@@ -222,7 +222,7 @@ class EmailInputTestUtil3(
 
     }
 
-    fun hasTestTagsEmailInputAnd(otherTestTag: String): SemanticsMatcher {
+    private fun hasTestTagsEmailInputAnd(otherTestTag: String): SemanticsMatcher {
 
         return hasTestTag(
             testTag = TAG_AUTHENTICATION_INPUT_EMAIL + otherTestTag
@@ -234,7 +234,7 @@ class EmailInputTestUtil3(
     // section if it's already available to avoid duplication.
     // The function names make the check easier.
 
-    fun hasTextExactlyEmailAddress(): SemanticsMatcher {
+    private fun hasTextExactlyEmailAddress(): SemanticsMatcher {
 
         return hasTextExactly(
             mContext.getString(STRING_RES_EMAIL_ADDRESS),

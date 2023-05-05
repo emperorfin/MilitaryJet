@@ -22,7 +22,6 @@ import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import emperorfin.android.militaryjet.ui.res.theme.ComposeEmailAuthenticationTheme
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement
 import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.PasswordRequirements
-import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENT
 import emperorfin.android.militaryjet.ui.screens.authentication.uicomponents.tags.Tags.TAG_AUTHENTICATION_PASSWORD_REQUIREMENTS
 import emperorfin.android.militaryjet.ui.constants.BooleanConstants.FALSE
 import emperorfin.android.militaryjet.ui.constants.BooleanConstants.TRUE

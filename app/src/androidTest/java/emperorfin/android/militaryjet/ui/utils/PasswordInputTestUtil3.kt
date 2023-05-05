@@ -341,7 +341,7 @@ class PasswordInputTestUtil3(
 
     }
 
-    fun hasTestTagPasswordInputTrailingIcon(): SemanticsMatcher {
+    private fun hasTestTagPasswordInputTrailingIcon(): SemanticsMatcher {
 
         return hasTestTagsPasswordInputTrailingIconAnd(
             otherTestTag = THIS_STRING_MUST_BE_EMPTY
@@ -349,7 +349,7 @@ class PasswordInputTestUtil3(
 
     }
 
-    fun hasTestTagPasswordInput(): SemanticsMatcher {
+    private fun hasTestTagPasswordInput(): SemanticsMatcher {
 
         return hasTestTagsPasswordInputAnd(
             otherTestTag = THIS_STRING_MUST_BE_EMPTY
@@ -357,7 +357,7 @@ class PasswordInputTestUtil3(
 
     }
 
-    fun hasTestTagsPasswordInputTrailingIconAnd(otherTestTag: String): SemanticsMatcher {
+    private fun hasTestTagsPasswordInputTrailingIconAnd(otherTestTag: String): SemanticsMatcher {
 
         return hasTestTag(
             testTag = TAG_AUTHENTICATION_INPUT_PASSWORD_TRAILING_ICON + otherTestTag
@@ -365,7 +365,7 @@ class PasswordInputTestUtil3(
 
     }
 
-    fun hasTestTagsPasswordInputAnd(otherTestTag: String): SemanticsMatcher {
+    private fun hasTestTagsPasswordInputAnd(otherTestTag: String): SemanticsMatcher {
 
         return hasTestTag(
             testTag = TAG_AUTHENTICATION_INPUT_PASSWORD + otherTestTag
@@ -377,7 +377,7 @@ class PasswordInputTestUtil3(
     // section if it's already available to avoid duplication.
     // The function names make the check easier.
 
-    fun hasTextExactlyPassword(): SemanticsMatcher {
+    private fun hasTextExactlyPassword(): SemanticsMatcher {
 
         return hasTextExactly(
             mContext.getString(STRING_RES_PASSWORD),

@@ -39,6 +39,7 @@ import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT
 import emperorfin.android.militaryjet.ui.constants.StringConstants.INPUT_CONTENT_PASSWORD_1PASS
 import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE
 import emperorfin.android.militaryjet.ui.utils.AuthenticationContentTestUtil3
+import emperorfin.android.militaryjet.ui.utils.AuthenticationTitleTestUtil3
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -173,7 +174,7 @@ class AuthenticationContentTest5 {
 
         /**
          * No longer necessary since it's now part of the implementation of
-         * [AuthenticationContentTestUtil.setContentAsAuthenticationContentAndAssertItIsDisplayed]
+         * [AuthenticationContentTestUtil3.setContentAsAuthenticationContentAndAssertItIsDisplayed]
          */
 //        authenticationContentTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
 
@@ -187,7 +188,7 @@ class AuthenticationContentTest5 {
 
         /**
          * No longer necessary since it's now part of the implementation of
-         * [AuthenticationContentTestUtil.setContentAsAuthenticationContentAndAssertItIsDisplayed]
+         * [AuthenticationContentTestUtil3.setContentAsAuthenticationContentAndAssertItIsDisplayed]
          */
 //        authenticationContentTestUtil.assertAuthenticationTitleAndTextExactlySignUpForAnAccountIsDisplayed()
 
@@ -504,8 +505,8 @@ class AuthenticationContentTest5 {
 
         /**
          * This would fail the test when it should pass since the function
-         * [AuthenticationContentTestUtil.setContentAsAuthenticationContentAndAssertItIsDisplayed]
-         * calls [AuthenticationContentTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed].
+         * [AuthenticationContentTestUtil3.setContentAsAuthenticationContentAndAssertItIsDisplayed]
+         * calls [AuthenticationTitleTestUtil3.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed].
          * See this test case's KDoc.
          */
 //        authenticationContentTestUtil.setContentAsAuthenticationContentAndAssertItIsDisplayed(
@@ -548,8 +549,8 @@ class AuthenticationContentTest5 {
 
         /**
          * This would fail the test when it should pass since the function
-         * [AuthenticationContentTestUtil.setContentAsAuthenticationContentAndAssertItIsDisplayed]
-         * calls [AuthenticationContentTestUtil.assertAuthenticationTitleAndTextExactlySignUpForAnAccountIsDisplayed].
+         * [AuthenticationContentTestUtil3.setContentAsAuthenticationContentAndAssertItIsDisplayed]
+         * calls [AuthenticationTitleTestUtil3.assertAuthenticationTitleAndTextExactlySignUpForAnAccountIsDisplayed].
          * See this test case's KDoc.
          */
 //        authenticationContentTestUtil.setContentAsAuthenticationContentAndAssertItIsDisplayed(

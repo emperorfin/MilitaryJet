@@ -1150,8 +1150,9 @@ class AuthenticationScreenTest5 {
             .assertExists()
 
         /**
-         * This would fail the test if [AuthenticationScreenTestUtil.hasTestTagAuthenticationScreen] is used in the above
-         * [ComposeContentTestRule.waitUntilExists] function (NB: this is an extension function).
+         * This would fail the test if [AuthenticationScreenTestUtil3.hasTestTagAuthenticationScreen]
+         * is used in the above [ComposeContentTestRule.waitUntilExists] function (NB: this is an
+         * extension function).
          */
         authenticationScreenTestUtil
             .authenticationTitleTestUtil3
