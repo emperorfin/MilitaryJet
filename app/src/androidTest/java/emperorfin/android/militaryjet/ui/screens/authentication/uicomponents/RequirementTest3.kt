@@ -36,7 +36,9 @@ import org.junit.Test
 
 
 /**
- * [RequirementTest4] class is a revision of this class.
+ * The following classes are revisions of this class:
+ * [RequirementTest4]
+ * [RequirementTest5]
  *
  * Important:
  *

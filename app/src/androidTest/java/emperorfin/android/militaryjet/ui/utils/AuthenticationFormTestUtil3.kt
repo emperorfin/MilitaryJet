@@ -700,9 +700,11 @@ class AuthenticationFormTestUtil3(
     //For the sake of pattern, this function was created.
     private fun hasTestTagPasswordRequirement(): SemanticsMatcher {
 
-        return passwordRequirementsTestUtil3.hasTestTagsPasswordRequirementAnd(
-            otherTestTag = THIS_STRING_MUST_BE_EMPTY
-        )
+        return passwordRequirementsTestUtil3
+            .requirementTestUtil3
+            .hasTestTagsPasswordRequirementAnd(
+                otherTestTag = THIS_STRING_MUST_BE_EMPTY
+            )
 
     }
 

@@ -50,6 +50,12 @@ class PasswordRequirementsTestUtil3(
     private val composeTestRule: ComposeContentTestRule
 ) {
 
+    val requirementTestUtil3 = RequirementTestUtil3(
+        mContext = mContext,
+        mTargetContext = mTargetContext,
+        composeTestRule = composeTestRule
+    )
+
     fun setContentAsPasswordRequirementsAndAssertItIsDisplayed(
         composeTestRule: ComposeContentTestRule = this.composeTestRule,
         satisfiedRequirements: List<PasswordRequirement> = emptyList()
@@ -426,7 +432,7 @@ class PasswordRequirementsTestUtil3(
 
     fun hasTestTagsPasswordRequirementAndAtLeastEightCharactersSatisfied(): SemanticsMatcher {
 
-        return hasTestTagsPasswordRequirementAnd(
+        return requirementTestUtil3.hasTestTagsPasswordRequirementAnd(
             otherTestTag = mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED)
         )
 
@@ -434,7 +440,7 @@ class PasswordRequirementsTestUtil3(
 
     fun hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetterSatisfied(): SemanticsMatcher {
 
-        return hasTestTagsPasswordRequirementAnd(
+        return requirementTestUtil3.hasTestTagsPasswordRequirementAnd(
             otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_SATISFIED)
         )
 
@@ -442,7 +448,7 @@ class PasswordRequirementsTestUtil3(
 
     fun hasTestTagsPasswordRequirementAndAtLeastOneDigitSatisfied(): SemanticsMatcher {
 
-        return hasTestTagsPasswordRequirementAnd(
+        return requirementTestUtil3.hasTestTagsPasswordRequirementAnd(
             otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT_SATISFIED)
         )
 
@@ -450,7 +456,7 @@ class PasswordRequirementsTestUtil3(
 
     fun hasTestTagsPasswordRequirementAndAtLeastEightCharactersNeeded(): SemanticsMatcher {
 
-        return hasTestTagsPasswordRequirementAnd(
+        return requirementTestUtil3.hasTestTagsPasswordRequirementAnd(
             otherTestTag = mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS_NEEDED)
         )
 
@@ -458,7 +464,7 @@ class PasswordRequirementsTestUtil3(
 
     fun hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetterNeeded(): SemanticsMatcher {
 
-        return hasTestTagsPasswordRequirementAnd(
+        return requirementTestUtil3.hasTestTagsPasswordRequirementAnd(
             otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_NEEDED)
         )
 
@@ -466,7 +472,7 @@ class PasswordRequirementsTestUtil3(
 
     fun hasTestTagsPasswordRequirementAndAtLeastOneDigitNeeded(): SemanticsMatcher {
 
-        return hasTestTagsPasswordRequirementAnd(
+        return requirementTestUtil3.hasTestTagsPasswordRequirementAnd(
             otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT_NEEDED)
         )
 
@@ -476,7 +482,7 @@ class PasswordRequirementsTestUtil3(
 
     fun hasTestTagsPasswordRequirementAndAtLeastEightCharacters(): SemanticsMatcher {
 
-        return hasTestTagsPasswordRequirementAnd(
+        return requirementTestUtil3.hasTestTagsPasswordRequirementAnd(
             otherTestTag = mContext.getString(STRING_RES_AT_LEAST_EIGHT_CHARACTERS)
         )
 
@@ -484,7 +490,7 @@ class PasswordRequirementsTestUtil3(
 
     fun hasTestTagsPasswordRequirementAndAtLeastOneUppercaseLetter(): SemanticsMatcher {
 
-        return hasTestTagsPasswordRequirementAnd(
+        return requirementTestUtil3.hasTestTagsPasswordRequirementAnd(
             otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER)
         )
 
@@ -492,19 +498,20 @@ class PasswordRequirementsTestUtil3(
 
     fun hasTestTagsPasswordRequirementAndAtLeastOneDigit(): SemanticsMatcher {
 
-        return hasTestTagsPasswordRequirementAnd(
+        return requirementTestUtil3.hasTestTagsPasswordRequirementAnd(
             otherTestTag = mContext.getString(STRING_RES_AT_LEAST_ONE_DIGIT)
         )
 
     }
 
-    fun hasTestTagsPasswordRequirementAnd(otherTestTag: String): SemanticsMatcher {
-
-        return hasTestTag(
-            testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT + otherTestTag
-        )
-
-    }
+    // TODO: Remove this as it's no longer necessary.
+//    fun hasTestTagsPasswordRequirementAnd(otherTestTag: String): SemanticsMatcher {
+//
+//        return hasTestTag(
+//            testTag = TAG_AUTHENTICATION_PASSWORD_REQUIREMENT + otherTestTag
+//        )
+//
+//    }
 
     // Before using a semantics matcher, check the implementation of the utility functions in this
     // section if it's already available to avoid duplication.

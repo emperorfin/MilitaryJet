@@ -22,7 +22,7 @@ import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRequirement.EIGHT_CHARACTERS
-import emperorfin.android.militaryjet.ui.utils.RequirementTestUtil2
+import emperorfin.android.militaryjet.ui.utils.RequirementTestUtil3
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -31,15 +31,13 @@ import emperorfin.android.militaryjet.ui.constants.BooleanConstants.TRUE
 import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.MAIN_SOURCE_SET_STRING_RES_AT_LEAST_EIGHT_CHARACTERS
 
 
-/**
+/*
  * @Author: Francis Nwokelo (emperorfin)
- * @Date: Tuesday 04th April, 2023.
+ * @Date: Friday 05th May, 2023.
  */
 
 
 /**
- * [RequirementTest5] class is a revision of this class.
- *
  * Important:
  *
  * - Try not to run all the test cases by running this test class as some tests might fail. If you do
@@ -68,7 +66,7 @@ import emperorfin.android.militaryjet.ui.constants.StringResourceConstants.MAIN_
  * - https://stackoverflow.com/questions/36955608/espresso-how-to-use-r-string-resources-of-androidtest-folder
  * - https://stackoverflow.com/questions/26663539/configuring-res-srcdirs-for-androidtest-sourceset
  */
-class RequirementTest4 {
+class RequirementTest5 {
 
     /**
      * Use this when resources are coming from the main source set, whether directly
@@ -110,7 +108,7 @@ class RequirementTest4 {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
-    private lateinit var requirementTestUtil: RequirementTestUtil2
+    private lateinit var requirementTestUtil: RequirementTestUtil3
 
     @Before
     fun setUpContexts() {
@@ -121,7 +119,7 @@ class RequirementTest4 {
         // See field's KDoc for more info.
         mContext = InstrumentationRegistry.getInstrumentation().context
 
-        requirementTestUtil = RequirementTestUtil2(
+        requirementTestUtil = RequirementTestUtil3(
             mContext = mContext,
             mTargetContext = mTargetContext,
             composeTestRule = composeTestRule
