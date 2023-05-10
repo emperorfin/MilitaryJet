@@ -65,6 +65,7 @@ subsequent changes.
 ## Porting
 
 I look forward to see [this](https://github.com/emperorfin/MilitaryJet/tree/master/app/src/androidTest) 
-getting ported to other client frameworks and UI toolkits such as iOS, React, Flutter, etc.
+also getting ported to projects that depend on other client frameworks and UI toolkits such as iOS, 
+React, Flutter, etc.
 
 
