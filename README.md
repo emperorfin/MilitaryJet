@@ -58,6 +58,10 @@ Too many comments. For example, some comments are just for sample purposes for s
 interested in a particular test case. Note that newer test classes with higher numbers suffixed in 
 their names have very fewer and necessary comments.
 
+And the [semantic versioning](https://github.com/emperorfin/MilitaryJet/tags) is for sample purpose 
+in order to promote proper project versioning. Note that the incremental versions represent actual 
+subsequent changes.
+
 ## Porting
 
 I look forward to see [this](https://github.com/emperorfin/MilitaryJet/tree/master/app/src/androidTest) 
