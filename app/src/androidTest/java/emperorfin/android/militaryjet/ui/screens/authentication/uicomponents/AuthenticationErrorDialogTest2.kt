@@ -77,15 +77,15 @@ class AuthenticationErrorDialogTest2 {
         private const val THIS_STRING_MUST_BE_EMPTY: String = ""
 
         @StringRes
-        private const val MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE: Int =
+        private val MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE: Int =
             emperorfin.android.militaryjet.R.string.test_error_message
 
         @StringRes
-        private const val STRING_RES_OK: Int = R.string.error_action_ok
+        private val STRING_RES_OK: Int = R.string.error_action_ok
         @StringRes
-        private const val STRING_RES_SOME_ERROR: Int = R.string.test_error_message
+        private val STRING_RES_SOME_ERROR: Int = R.string.test_error_message
         @StringRes
-        private const val STRING_RES_WHOOPS: Int = R.string.error_title
+        private val STRING_RES_WHOOPS: Int = R.string.error_title
 
     }
 

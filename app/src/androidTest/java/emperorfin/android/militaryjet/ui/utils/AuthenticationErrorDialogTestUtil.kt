@@ -50,11 +50,11 @@ class AuthenticationErrorDialogTestUtil(
         private const val THIS_STRING_MUST_BE_EMPTY: String = ""
 
         @StringRes
-        private const val STRING_RES_OK: Int = R.string.error_action_ok
+        private val STRING_RES_OK: Int = R.string.error_action_ok
         @StringRes
-        private const val STRING_RES_SOME_ERROR: Int = R.string.test_error_message
+        private val STRING_RES_SOME_ERROR: Int = R.string.test_error_message
         @StringRes
-        private const val STRING_RES_WHOOPS: Int = R.string.error_title
+        private val STRING_RES_WHOOPS: Int = R.string.error_title
 
     }
 

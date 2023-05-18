@@ -2140,6 +2140,12 @@ class AuthenticationScreenTest5 {
 
     }
 
+    /**
+     * This test case used to pass in the previous commit ( 49b3e8f10c345a254f3d28a669216903501f2716 )
+     * before the update of most of this project's dependencies such as libraries and plugins.
+     * If it fails, please use this revised test case
+     * [sign_In_Email_Input_Soft_Keyboard_Closes_When_Next_Ime_Action_Clicked_2]
+     */
     @Test
     fun sign_In_Email_Input_Soft_Keyboard_Closes_When_Next_Ime_Action_Clicked() {
 
@@ -2175,6 +2181,44 @@ class AuthenticationScreenTest5 {
         keyboardHelper.waitForKeyboardVisibility(visible = FALSE)
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
+
+    }
+
+    @Test
+    fun sign_In_Email_Input_Soft_Keyboard_Closes_When_Next_Ime_Action_Clicked_2() {
+
+        // Since this has been replaced, it should be removed.
+//        authenticationScreenTestUtil.setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        authenticationScreenTestUtil
+            .setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+                keyboardHelper = keyboardHelper, isSignInMode = TRUE
+            )
+
+        // This is no longer necessary and should be removed.
+//        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
+
+        assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
+
+        authenticationScreenTestUtil
+            .emailInputTestUtil3
+            .onNodeWithEmailInputAndTextExactlyEmailAddress()
+            .performClick()
+
+        keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
+
+        assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
+
+        authenticationScreenTestUtil
+            .emailInputTestUtil3
+            .onNodeWithEmailInputAndTextExactlyEmailAddress()
+            .performImeAction()
+
+        keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
+
+        assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
 
     }
 
@@ -2216,7 +2260,12 @@ class AuthenticationScreenTest5 {
 
     }
 
-    // If this test fails, try a re-run (may be more than once - it should pass).
+    /**
+     * This test case sometimes passes after multiple re-runs when it fails in the previous commit
+     * ( 49b3e8f10c345a254f3d28a669216903501f2716 ) before the update of most of this project's dependencies such as libraries and plugins.
+     * If it fails, please use this revised test case
+     * [sign_In_Password_Input_Soft_Keyboard_Shown_When_Next_Ime_Action_Clicked_From_Email_Input_2]
+     */
     @Test
     fun sign_In_Password_Input_Soft_Keyboard_Shown_When_Next_Ime_Action_Clicked_From_Email_Input() {
 
@@ -2272,6 +2321,78 @@ class AuthenticationScreenTest5 {
         keyboardHelper.waitForKeyboardVisibility(visible = FALSE)
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
+
+        authenticationScreenTestUtil
+            .emailInputTestUtil3
+            .onNodeWithEmailInputAndTextExactlyEmailAddress()
+            .assertIsNotFocused()
+
+        authenticationScreenTestUtil
+            .passwordInputTestUtil3
+            .onNodeWithPasswordInputAndTextExactlyPassword()
+            .assertIsFocused()
+
+        keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
+
+        assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
+
+    }
+
+    @Test
+    fun sign_In_Password_Input_Soft_Keyboard_Shown_When_Next_Ime_Action_Clicked_From_Email_Input_2() {
+
+        // Since this has been replaced, it should be removed.
+//        authenticationScreenTestUtil.setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        authenticationScreenTestUtil
+            .setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+                keyboardHelper = keyboardHelper, isSignInMode = TRUE
+            )
+
+        // This is no longer necessary and should be removed.
+//        authenticationScreenTestUtil.assertAuthenticationTitleAndTextExactlySignInToYourAccountIsDisplayed()
+
+        authenticationScreenTestUtil
+            .emailInputTestUtil3
+            .onNodeWithEmailInputAndTextExactlyEmailAddress()
+            .assertIsNotFocused()
+
+        authenticationScreenTestUtil
+            .passwordInputTestUtil3
+            .onNodeWithPasswordInputAndTextExactlyPassword()
+            .assertIsNotFocused()
+
+        assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
+
+        authenticationScreenTestUtil
+            .emailInputTestUtil3
+            .onNodeWithEmailInputAndTextExactlyEmailAddress()
+            .performClick()
+
+        keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
+
+        assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
+
+        authenticationScreenTestUtil
+            .emailInputTestUtil3
+            .onNodeWithEmailInputAndTextExactlyEmailAddress()
+            .assertIsFocused()
+
+        authenticationScreenTestUtil
+            .passwordInputTestUtil3
+            .onNodeWithPasswordInputAndTextExactlyPassword()
+            .assertIsNotFocused()
+
+        authenticationScreenTestUtil
+            .emailInputTestUtil3
+            .onNodeWithEmailInputAndTextExactlyEmailAddress()
+            .performImeAction()
+
+        keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
+
+        assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
 
         authenticationScreenTestUtil
             .emailInputTestUtil3
@@ -2479,6 +2600,12 @@ class AuthenticationScreenTest5 {
 
     }
 
+    /**
+     * This test case used to pass in the previous commit ( 49b3e8f10c345a254f3d28a669216903501f2716 )
+     * before the update of most of this project's dependencies such as libraries and plugins.
+     * If it fails, please use this revised test case
+     * [sign_Up_Email_Input_Soft_Keyboard_Closes_When_Next_Ime_Action_Clicked_2]
+     */
     @Test
     fun sign_Up_Email_Input_Soft_Keyboard_Closes_When_Next_Ime_Action_Clicked() {
 
@@ -2514,6 +2641,44 @@ class AuthenticationScreenTest5 {
         keyboardHelper.waitForKeyboardVisibility(visible = FALSE)
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
+
+    }
+
+    @Test
+    fun sign_Up_Email_Input_Soft_Keyboard_Closes_When_Next_Ime_Action_Clicked_2() {
+
+        // Since this has been replaced, it should be removed.
+//        authenticationScreenTestUtil.setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        authenticationScreenTestUtil
+            .setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+                keyboardHelper = keyboardHelper, isSignInMode = FALSE
+            )
+
+        // This is no longer necessary and should be removed.
+//        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
+
+        assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
+
+        authenticationScreenTestUtil
+            .emailInputTestUtil3
+            .onNodeWithEmailInputAndTextExactlyEmailAddress()
+            .performClick()
+
+        keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
+
+        assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
+
+        authenticationScreenTestUtil
+            .emailInputTestUtil3
+            .onNodeWithEmailInputAndTextExactlyEmailAddress()
+            .performImeAction()
+
+        keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
+
+        assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
 
     }
 
@@ -2555,6 +2720,12 @@ class AuthenticationScreenTest5 {
 
     }
 
+    /**
+     * This test case used to pass in the previous commit ( 49b3e8f10c345a254f3d28a669216903501f2716 )
+     * before the update of most of this project's dependencies such as libraries and plugins.
+     * If it fails, please use this revised test case
+     * [sign_Up_Password_Input_Soft_Keyboard_Shown_When_Next_Ime_Action_Clicked_From_Email_Input_2]
+     */
     @Test
     fun sign_Up_Password_Input_Soft_Keyboard_Shown_When_Next_Ime_Action_Clicked_From_Email_Input() {
 
@@ -2610,6 +2781,80 @@ class AuthenticationScreenTest5 {
         keyboardHelper.waitForKeyboardVisibility(visible = FALSE)
 
         assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
+
+        authenticationScreenTestUtil
+            .emailInputTestUtil3
+            .onNodeWithEmailInputAndTextExactlyEmailAddress()
+            .assertIsNotFocused()
+
+        authenticationScreenTestUtil
+            .passwordInputTestUtil3
+            .onNodeWithPasswordInputAndTextExactlyPassword()
+            .assertIsFocused()
+
+        keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
+
+        assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
+
+    }
+
+    @Test
+    fun sign_Up_Password_Input_Soft_Keyboard_Shown_When_Next_Ime_Action_Clicked_From_Email_Input_2() {
+
+        // Since this has been replaced, it should be removed.
+//        authenticationScreenTestUtil.setContentAsAuthenticationScreenWithKeyboardHelperInitAndAssertItIsDisplayed(
+//            composeTestRule= composeTestRule, keyboardHelper = keyboardHelper
+//        )
+
+        authenticationScreenTestUtil
+            .setContentAsAuthenticationScreenAndAssertItIsDisplayed(
+                keyboardHelper = keyboardHelper, isSignInMode = FALSE
+            )
+
+        // This is no longer necessary and should be removed.
+//        authenticationScreenTestUtil.navigateFromSignInToSignUpModesAndConfirmTitles(composeTestRule)
+
+        authenticationScreenTestUtil
+            .emailInputTestUtil3
+            .onNodeWithEmailInputAndTextExactlyEmailAddress()
+            .assertIsNotFocused()
+
+        authenticationScreenTestUtil
+            .passwordInputTestUtil3
+            .onNodeWithPasswordInputAndTextExactlyPassword()
+            .assertIsNotFocused()
+
+        assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
+
+        authenticationScreenTestUtil
+            .emailInputTestUtil3
+            .onNodeWithEmailInputAndTextExactlyEmailAddress()
+            .performClick()
+
+        keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
+
+        assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
+
+        authenticationScreenTestUtil
+            .emailInputTestUtil3
+            .onNodeWithEmailInputAndTextExactlyEmailAddress()
+            .assertIsFocused()
+
+        authenticationScreenTestUtil
+            .passwordInputTestUtil3
+            .onNodeWithPasswordInputAndTextExactlyPassword()
+            .assertIsNotFocused()
+
+        authenticationScreenTestUtil
+            .emailInputTestUtil3
+            .onNodeWithEmailInputAndTextExactlyEmailAddress()
+            .performImeAction()
+
+//        keyboardHelper.waitForKeyboardVisibility(visible = FALSE)
+        keyboardHelper.waitForKeyboardVisibility(visible = TRUE)
+
+//        assertThat(keyboardHelper.isSoftwareKeyboardShown()).isFalse()
+        assertThat(keyboardHelper.isSoftwareKeyboardShown()).isTrue()
 
         authenticationScreenTestUtil
             .emailInputTestUtil3

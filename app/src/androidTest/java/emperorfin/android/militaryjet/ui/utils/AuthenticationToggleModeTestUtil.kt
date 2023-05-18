@@ -49,9 +49,9 @@ class AuthenticationToggleModeTestUtil(
         private const val THIS_STRING_MUST_BE_EMPTY: String = ""
 
         @StringRes
-        private const val STRING_RES_NEED_AN_ACCOUNT: Int = R.string.action_need_account
+        private val STRING_RES_NEED_AN_ACCOUNT: Int = R.string.action_need_account
         @StringRes
-        private const val STRING_RES_ALREADY_HAVE_AN_ACCOUNT: Int = R.string.action_already_have_account
+        private val STRING_RES_ALREADY_HAVE_AN_ACCOUNT: Int = R.string.action_already_have_account
 
     }
 

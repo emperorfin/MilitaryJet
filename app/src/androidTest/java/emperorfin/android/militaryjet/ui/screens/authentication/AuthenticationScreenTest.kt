@@ -119,7 +119,7 @@ class AuthenticationScreenTest {
         private const val INPUT_CONTENT_PASSWORD_PASS: String = "Pass"
         private const val INPUT_CONTENT_PASSWORD_1PASS: String = "1pass"
 
-        private const val MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE =
+        private val MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE =
             emperorfin.android.militaryjet.R.string.test_error_message
 
         /**
@@ -4321,6 +4321,7 @@ class AuthenticationScreenTest {
      *
      * For more info, see https://medium.com/androiddevelopers/alternatives-to-idling-resources-in-compose-tests-8ae71f9fc473
      */
+    @OptIn(ExperimentalTestApi::class)
     @Test
     fun sign_In_Ui_Components_Displayed_After_Loading_8() {
 

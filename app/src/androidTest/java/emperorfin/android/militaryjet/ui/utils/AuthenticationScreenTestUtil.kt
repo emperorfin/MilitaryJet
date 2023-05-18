@@ -60,47 +60,47 @@ class AuthenticationScreenTestUtil(
         private const val THIS_STRING_COULD_BE_ANYTHING: String = ""
 
         @StringRes
-        private const val MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE: Int =
+        private val MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE: Int =
             emperorfin.android.militaryjet.R.string.test_error_message
 
         @StringRes
-        private const val STRING_RES_SIGN_IN_TO_YOUR_ACCOUNT: Int = R.string.label_sign_in_to_account
+        private val STRING_RES_SIGN_IN_TO_YOUR_ACCOUNT: Int = R.string.label_sign_in_to_account
         @StringRes
-        private const val STRING_RES_SIGN_UP_FOR_AN_ACCOUNT: Int = R.string.label_sign_up_for_account
+        private val STRING_RES_SIGN_UP_FOR_AN_ACCOUNT: Int = R.string.label_sign_up_for_account
         @StringRes
-        private const val STRING_RES_EMAIL_ADDRESS: Int = R.string.label_email
+        private val STRING_RES_EMAIL_ADDRESS: Int = R.string.label_email
         @StringRes
-        private const val STRING_RES_PASSWORD: Int = R.string.label_password
+        private val STRING_RES_PASSWORD: Int = R.string.label_password
         @StringRes
-        private const val STRING_RES_NEED_AN_ACCOUNT: Int = R.string.action_need_account
+        private val STRING_RES_NEED_AN_ACCOUNT: Int = R.string.action_need_account
         @StringRes
-        private const val STRING_RES_ALREADY_HAVE_AN_ACCOUNT: Int = R.string.action_already_have_account
+        private val STRING_RES_ALREADY_HAVE_AN_ACCOUNT: Int = R.string.action_already_have_account
         @StringRes
-        private const val STRING_RES_SIGN_IN: Int = R.string.action_sign_in
+        private val STRING_RES_SIGN_IN: Int = R.string.action_sign_in
         @StringRes
-        private const val STRING_RES_SIGN_UP: Int = R.string.action_sign_up
+        private val STRING_RES_SIGN_UP: Int = R.string.action_sign_up
 
         @StringRes
-        private const val STRING_RES_AT_LEAST_EIGHT_CHARACTERS: Int = R.string.password_requirement_characters
+        private val STRING_RES_AT_LEAST_EIGHT_CHARACTERS: Int = R.string.password_requirement_characters
         @StringRes
-        private const val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER: Int = R.string.password_requirement_capital
+        private val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER: Int = R.string.password_requirement_capital
         @StringRes
-        private const val STRING_RES_AT_LEAST_ONE_DIGIT: Int = R.string.password_requirement_digit
+        private val STRING_RES_AT_LEAST_ONE_DIGIT: Int = R.string.password_requirement_digit
         @StringRes
-        private const val STRING_RES_AT_LEAST_EIGHT_CHARACTERS_NEEDED: Int = R.string.test_password_requirement_needed_characters
+        private val STRING_RES_AT_LEAST_EIGHT_CHARACTERS_NEEDED: Int = R.string.test_password_requirement_needed_characters
         @StringRes
-        private const val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_NEEDED: Int = R.string.test_password_requirement_needed_capital
+        private val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_NEEDED: Int = R.string.test_password_requirement_needed_capital
         @StringRes
-        private const val STRING_RES_AT_LEAST_ONE_DIGIT_NEEDED: Int = R.string.test_password_requirement_needed_digit
+        private val STRING_RES_AT_LEAST_ONE_DIGIT_NEEDED: Int = R.string.test_password_requirement_needed_digit
         @StringRes
-        private const val STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED: Int = R.string.test_password_requirement_satisfied_characters
+        private val STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED: Int = R.string.test_password_requirement_satisfied_characters
         @StringRes
-        private const val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_SATISFIED: Int = R.string.test_password_requirement_satisfied_capital
+        private val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_SATISFIED: Int = R.string.test_password_requirement_satisfied_capital
         @StringRes
-        private const val STRING_RES_AT_LEAST_ONE_DIGIT_SATISFIED: Int = R.string.test_password_requirement_satisfied_digit
+        private val STRING_RES_AT_LEAST_ONE_DIGIT_SATISFIED: Int = R.string.test_password_requirement_satisfied_digit
 
         @StringRes
-        private const val STRING_RES_WHOOPS: Int = R.string.error_title
+        private val STRING_RES_WHOOPS: Int = R.string.error_title
 
         /**
          * To easily find out the ARGB of a color to be used as the expected value during assertion,

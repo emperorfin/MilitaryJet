@@ -75,7 +75,8 @@ class AuthenticationErrorDialogTest {
         private const val TRUE: Boolean = true
         private const val FALSE: Boolean = false
 
-        @StringRes private const val MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE: Int =
+        @StringRes
+        private val MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE: Int =
             emperorfin.android.militaryjet.R.string.test_error_message
 
     }

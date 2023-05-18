@@ -55,7 +55,7 @@ class EmailInputTestUtil(
         private const val INPUT_CONTENT_EMAIL: String = "contact@email.com"
 
         @StringRes
-        private const val STRING_RES_EMAIL_ADDRESS: Int = R.string.label_email
+        private val STRING_RES_EMAIL_ADDRESS: Int = R.string.label_email
 
         private val IMAGE_VECTOR_ICONS_DEFAULT_EMAIL: ImageVector = Icons.Default.Email
 

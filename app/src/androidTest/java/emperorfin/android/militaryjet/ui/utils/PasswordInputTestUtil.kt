@@ -60,18 +60,18 @@ class PasswordInputTestUtil(
         private const val INPUT_CONTENT_PASSWORD: String = "passworD1"
 
         @StringRes
-        private const val STRING_RES_PASSWORD: Int = R.string.label_password
+        private val STRING_RES_PASSWORD: Int = R.string.label_password
         @StringRes
-        private const val STRING_RES_PASSWORD_SHOW: Int = R.string.content_description_show_password
+        private val STRING_RES_PASSWORD_SHOW: Int = R.string.content_description_show_password
         @StringRes
-        private const val STRING_RES_PASSWORD_HIDE: Int = R.string.content_description_hide_password
+        private val STRING_RES_PASSWORD_HIDE: Int = R.string.content_description_hide_password
         @StringRes
-        private const val STRING_RES_PASSWORD_INPUT_LEADING_ICON: Int = R.string.content_description_password_input_leading_icon
+        private val STRING_RES_PASSWORD_INPUT_LEADING_ICON: Int = R.string.content_description_password_input_leading_icon
         @StringRes
-        private const val STRING_RES_TRAILING_ICON_INDICATES_PASSWORD_SHOWN: Int =
+        private val STRING_RES_TRAILING_ICON_INDICATES_PASSWORD_SHOWN: Int =
             R.string.content_description_password_input_trailing_icon_password_shown
         @StringRes
-        private const val STRING_RES_TRAILING_ICON_INDICATES_PASSWORD_HIDDEN: Int =
+        private val STRING_RES_TRAILING_ICON_INDICATES_PASSWORD_HIDDEN: Int =
             R.string.content_description_password_input_trailing_icon_password_hidden
 
         private val IMAGE_VECTOR_ICONS_DEFAULT_LOCK: ImageVector = Icons.Default.Lock

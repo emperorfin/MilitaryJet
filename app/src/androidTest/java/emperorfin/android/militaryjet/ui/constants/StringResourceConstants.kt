@@ -35,74 +35,103 @@ import emperorfin.android.militaryjet.ui.screens.authentication.enums.PasswordRe
 object StringResourceConstants {
 
     // TODO: Should be renamed to MAIN_SOURCE_SET_RES_STRING_TEST_ERROR_MESSAGE
+    @JvmField
     @StringRes
-    const val MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE: Int =
+    val MAIN_SOURCE_SET_STRING_RES_TEST_ERROR_MESSAGE: Int =
         emperorfin.android.militaryjet.R.string.test_error_message
 
+    @JvmField
     @StringRes
     val MAIN_SOURCE_SET_STRING_RES_AT_LEAST_EIGHT_CHARACTERS: Int = PasswordRequirement.EIGHT_CHARACTERS.label
 
+    @JvmField
     @StringRes
-    const val STRING_RES_SIGN_IN_TO_YOUR_ACCOUNT: Int = R.string.label_sign_in_to_account
+    val STRING_RES_SIGN_IN_TO_YOUR_ACCOUNT: Int = R.string.label_sign_in_to_account
+    @JvmField
     @StringRes
-    const val STRING_RES_SIGN_UP_FOR_AN_ACCOUNT: Int = R.string.label_sign_up_for_account
+    val STRING_RES_SIGN_UP_FOR_AN_ACCOUNT: Int = R.string.label_sign_up_for_account
 
+    @JvmField
     @StringRes
-    const val STRING_RES_EMAIL_ADDRESS: Int = R.string.label_email
+    val STRING_RES_EMAIL_ADDRESS: Int = R.string.label_email
 
+    @JvmField
     @StringRes
-    const val STRING_RES_PASSWORD: Int = R.string.label_password
+    val STRING_RES_PASSWORD: Int = R.string.label_password
+    @JvmField
     @StringRes
-    const val STRING_RES_PASSWORD_SHOW: Int = R.string.content_description_show_password
+    val STRING_RES_PASSWORD_SHOW: Int = R.string.content_description_show_password
+    @JvmField
     @StringRes
-    const val STRING_RES_PASSWORD_HIDE: Int = R.string.content_description_hide_password
+    val STRING_RES_PASSWORD_HIDE: Int = R.string.content_description_hide_password
+    @JvmField
     @StringRes
-    const val STRING_RES_PASSWORD_INPUT_LEADING_ICON: Int = R.string.content_description_password_input_leading_icon
+    val STRING_RES_PASSWORD_INPUT_LEADING_ICON: Int = R.string.content_description_password_input_leading_icon
+    @JvmField
     @StringRes
-    const val STRING_RES_TRAILING_ICON_INDICATES_PASSWORD_SHOWN: Int =
+    val STRING_RES_TRAILING_ICON_INDICATES_PASSWORD_SHOWN: Int =
         R.string.content_description_password_input_trailing_icon_password_shown
+    @JvmField
     @StringRes
-    const val STRING_RES_TRAILING_ICON_INDICATES_PASSWORD_HIDDEN: Int =
+    val STRING_RES_TRAILING_ICON_INDICATES_PASSWORD_HIDDEN: Int =
         R.string.content_description_password_input_trailing_icon_password_hidden
 
+    @JvmField
     @StringRes
-    const val STRING_RES_NEED_AN_ACCOUNT: Int = R.string.action_need_account
+    val STRING_RES_NEED_AN_ACCOUNT: Int = R.string.action_need_account
+    @JvmField
     @StringRes
-    const val STRING_RES_ALREADY_HAVE_AN_ACCOUNT: Int = R.string.action_already_have_account
+    val STRING_RES_ALREADY_HAVE_AN_ACCOUNT: Int = R.string.action_already_have_account
+    @JvmField
     @StringRes
-    const val STRING_RES_SIGN_IN: Int = R.string.action_sign_in
+    val STRING_RES_SIGN_IN: Int = R.string.action_sign_in
+    @JvmField
     @StringRes
-    const val STRING_RES_SIGN_UP: Int = R.string.action_sign_up
+    val STRING_RES_SIGN_UP: Int = R.string.action_sign_up
 
+    @JvmField
     @StringRes
-    const val STRING_RES_AT_LEAST_EIGHT_CHARACTERS: Int = R.string.password_requirement_characters
+    val STRING_RES_AT_LEAST_EIGHT_CHARACTERS: Int = R.string.password_requirement_characters
+    @JvmField
     @StringRes
-    const val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER: Int = R.string.password_requirement_capital
+    val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER: Int = R.string.password_requirement_capital
+    @JvmField
     @StringRes
-    const val STRING_RES_AT_LEAST_ONE_DIGIT: Int = R.string.password_requirement_digit
+    val STRING_RES_AT_LEAST_ONE_DIGIT: Int = R.string.password_requirement_digit
+    @JvmField
     @StringRes
-    const val STRING_RES_AT_LEAST_EIGHT_CHARACTERS_NEEDED: Int = R.string.test_password_requirement_needed_characters
+    val STRING_RES_AT_LEAST_EIGHT_CHARACTERS_NEEDED: Int = R.string.test_password_requirement_needed_characters
+    @JvmField
     @StringRes
-    const val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_NEEDED: Int = R.string.test_password_requirement_needed_capital
+    val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_NEEDED: Int = R.string.test_password_requirement_needed_capital
+    @JvmField
     @StringRes
-    const val STRING_RES_AT_LEAST_ONE_DIGIT_NEEDED: Int = R.string.test_password_requirement_needed_digit
+    val STRING_RES_AT_LEAST_ONE_DIGIT_NEEDED: Int = R.string.test_password_requirement_needed_digit
+    @JvmField
     @StringRes
-    const val STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED: Int = R.string.test_password_requirement_satisfied_characters
+    val STRING_RES_AT_LEAST_EIGHT_CHARACTERS_SATISFIED: Int = R.string.test_password_requirement_satisfied_characters
+    @JvmField
     @StringRes
-    const val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_SATISFIED: Int = R.string.test_password_requirement_satisfied_capital
+    val STRING_RES_AT_LEAST_ONE_UPPERCASE_LETTER_SATISFIED: Int = R.string.test_password_requirement_satisfied_capital
+    @JvmField
     @StringRes
-    const val STRING_RES_AT_LEAST_ONE_DIGIT_SATISFIED: Int = R.string.test_password_requirement_satisfied_digit
+    val STRING_RES_AT_LEAST_ONE_DIGIT_SATISFIED: Int = R.string.test_password_requirement_satisfied_digit
 
+    @JvmField
     @StringRes
-    const val STRING_RES_PASSWORD_REQUIREMENT_NEEDED: Int = R.string.content_description_icon_password_requirement_needed
+    val STRING_RES_PASSWORD_REQUIREMENT_NEEDED: Int = R.string.content_description_icon_password_requirement_needed
+    @JvmField
     @StringRes
-    const val STRING_RES_PASSWORD_REQUIREMENT_SATISFIED: Int = R.string.content_description_icon_password_requirement_satisfied
+    val STRING_RES_PASSWORD_REQUIREMENT_SATISFIED: Int = R.string.content_description_icon_password_requirement_satisfied
 
+    @JvmField
     @StringRes
-    const val STRING_RES_WHOOPS: Int = R.string.error_title
+    val STRING_RES_WHOOPS: Int = R.string.error_title
+    @JvmField
     @StringRes
-    const val STRING_RES_OK: Int = R.string.error_action_ok
+    val STRING_RES_OK: Int = R.string.error_action_ok
+    @JvmField
     @StringRes
-    const val STRING_RES_SOME_ERROR: Int = R.string.test_error_message
+    val STRING_RES_SOME_ERROR: Int = R.string.test_error_message
 
 }

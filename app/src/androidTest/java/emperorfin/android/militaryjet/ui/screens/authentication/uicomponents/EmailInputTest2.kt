@@ -87,7 +87,7 @@ class EmailInputTest2 {
         private const val INPUT_CONTENT_EMAIL_SUFFIXED: String = ".uk"
 
         @StringRes
-        private const val STRING_RES_EMAIL_ADDRESS: Int = R.string.label_email
+        private val STRING_RES_EMAIL_ADDRESS: Int = R.string.label_email
 
         private val IMAGE_VECTOR_ICONS_DEFAULT_EMAIL: ImageVector = Icons.Default.Email
 

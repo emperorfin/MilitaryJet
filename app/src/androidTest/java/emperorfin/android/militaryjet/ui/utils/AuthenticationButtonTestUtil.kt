@@ -49,9 +49,9 @@ class AuthenticationButtonTestUtil(
         private const val THIS_STRING_MUST_BE_EMPTY: String = ""
 
         @StringRes
-        private const val STRING_RES_SIGN_IN: Int = R.string.action_sign_in
+        private val STRING_RES_SIGN_IN: Int = R.string.action_sign_in
         @StringRes
-        private const val STRING_RES_SIGN_UP: Int = R.string.action_sign_up
+        private val STRING_RES_SIGN_UP: Int = R.string.action_sign_up
 
     }
 
