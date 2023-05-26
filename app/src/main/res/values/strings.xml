@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2023 Francis Nwokelo (emperorfin)
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,49 +16,4 @@
 
 <resources>
     <string name="app_name">Military Jet</string>
-
-    <string name="password_requirement_characters">At least 8 characters</string>
-    <string name="password_requirement_capital">At least 1 upper-case letter</string>
-    <string name="password_requirement_digit">At least 1 digit</string>
-    <string name="password_requirement_satisfied">%s, satisfied</string>
-    <string name="password_requirement_needed">%s, needed</string>
-
-    <string name="label_sign_in_to_account">Sign In to your account</string>
-    <string name="label_sign_up_for_account">Sign Up for an account</string>
-
-    <string name="label_email">Email Address</string>
-    <string name="label_password">Password</string>
-
-    <string name="content_description_show_password">Show Password</string>
-    <string name="content_description_hide_password">Hide Password</string>
-
-    <string name="content_description_email_input_leading_icon">Email Icon</string>
-    <string name="content_description_password_input_leading_icon">Password input leading icon</string>
-    <string name="content_description_password_input_trailing_icon_password_hidden">Password input trailing icon indicating hidden password.</string>
-    <string name="content_description_password_input_trailing_icon_password_shown">Password input trailing icon indicating shown password.</string>
-    <string name="content_description_icon_password_requirement_needed">Password requirement needed.</string>
-    <string name="content_description_icon_password_requirement_satisfied">Password requirement satisfied.</string>
-
-    <string name="action_sign_in">Sign In</string>
-    <string name="action_sign_up">Sign Up</string>
-    <string name="action_need_account">Need an account?</string>
-    <string name="action_already_have_account">Already have an account?</string>
-
-    <string name="error_title">Whoops</string>
-    <string name="error_action_ok">OK</string>
-    <string name="error_message_something_went_wrong">Something went wrong!</string>
-
-    <!--  For Preview  -->
-    <string name="preview_message">Just a preview message</string>
-
-    <!--  For Test  -->
-    <string name="test_error_message">Some error.</string>
-    <string name="test_error_message_second">Some error.</string>
-    <string name="test_password_requirement_satisfied_characters">At least 8 characters, satisfied</string>
-    <string name="test_password_requirement_satisfied_capital">At least 1 upper-case letter, satisfied</string>
-    <string name="test_password_requirement_satisfied_digit">At least 1 digit, satisfied</string>
-    <string name="test_password_requirement_needed_characters">At least 8 characters, needed</string>
-    <string name="test_password_requirement_needed_capital">At least 1 upper-case letter, needed</string>
-    <string name="test_password_requirement_needed_digit">At least 1 digit, needed</string>
-
 </resources>

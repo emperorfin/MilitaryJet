@@ -1,8 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-//    id 'app.cash.paparazzi'
-//    id 'dev.chrisbanes.paparazzi'
+    id 'app.cash.paparazzi'
 }
 
 android {
@@ -32,14 +31,75 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        // Compose to Kotlin Compatibility Map ( https://developer.android.com/jetpack/androidx/releases/compose-kotlin )
+//        kotlinCompilerExtensionVersion '1.1.1'
+//        kotlinCompilerExtensionVersion '1.4.6'
+        kotlinCompilerExtensionVersion '1.4.7'
+    }
+
+    sourceSets {
+        androidTest {
+            java.srcDirs = ['src/androidTest/java']
+            res.srcDirs = ['src/androidTest/res']
+        }
+    }
+
+//    sourceSets { debug { res.srcDirs = ['src/main/res', 'src/test/res', 'src/androidTest/res', 'src/debug/res'] } }
+    // Works. Hovering the mouse on a resource id (e.g. R.string.test_error_message) shows actual
+    // values categorized under "main" and "debug" with the one from "main" with a strikethrough.
+    // Note that the both values are exactly the same.
+//    sourceSets { debug { res.srcDirs = ['src/androidTest/res'] } }
 }
 
 dependencies {
 
-    implementation "androidx.core:core-ktx:$androidx_core_ktx"
+    // IMPLEMENTATIONS
 //    implementation 'androidx.appcompat:appcompat:1.4.1'
 //    implementation 'com.google.android.material:material:1.5.0'
+    implementation "androidx.core:core-ktx:$androidx_core_ktx"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$androidx_lifecycle_runtime_ktx"
+    // Provides access to the ComponentActivity class that can be used to compose UI components
+    implementation "androidx.activity:activity-compose:$androidx_activity_compose"
+    // UI components from the Compose APIs
+    implementation "androidx.compose.ui:ui:$compose_version"
+    // Provides tooling functionality for Composables, such as design-time previews
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    // Provides Material Design 3 components from the Compose APIs
+    implementation "androidx.compose.material3:material3:$androidx_compose_material3"
+
+    // Provides an extended collection of Material Iconography
+    implementation "androidx.compose.material:material-icons-extended:$compose_version"
+    implementation  "androidx.lifecycle:lifecycle-viewmodel-compose:$androidx_lifecycle_viewmodel_compose"
+    // Provides foundational classes from the Compose APIs
+    implementation "androidx.compose.foundation:foundation:$compose_version"
+
+    // Force upgrade to 1.1.0 because its required by androidTestImplementation,
+    // and without this statement AGP will silently downgrade to tracing:1.0.0
+    // See ( https://github.com/android/android-test/issues/1755#issuecomment-1523810698 )
+    implementation "androidx.tracing:tracing:1.1.0"
+
+
+    // TEST IMPLEMENTATIONS
     testImplementation "junit:junit:$junit"
+
+
+    // ANDROID IMPLEMENTATIONS
     androidTestImplementation "androidx.test.ext:junit:$androidx_test_ext_junit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_test_espresso_core"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+
+    androidTestImplementation "org.mockito.kotlin:mockito-kotlin:$org_mockito_kotlin"
+    androidTestImplementation "org.mockito:mockito-android:$org_mockito_android"
+
+    androidTestImplementation "com.google.truth:truth:$com_google_truth"
+//    androidTestImplementation "com.google.truth.extensions:truth-java8-extension:1.1.3"
+
+
+    // DEBUG IMPLEMENTATIONS
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 }
