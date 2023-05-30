@@ -72,8 +72,7 @@ private fun AuthenticationButtonPreview() {
     ComposeEmailAuthenticationTheme {
         AuthenticationButton(
             authenticationMode = SIGN_UP,
-            enableAuthentication = TRUE
-            ,
+            enableAuthentication = TRUE,
             onAuthenticate = {}
         )
     }

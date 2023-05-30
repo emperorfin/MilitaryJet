@@ -66,6 +66,7 @@ fun ComposeEmailAuthenticationTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
+    isForScreenshotTest: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -77,10 +78,12 @@ fun ComposeEmailAuthenticationTheme(
         else -> LightColorScheme
     }
     val view = LocalView.current
-    if (!view.isInEditMode) {
-        SideEffect {
-            (view.context as Activity).window.statusBarColor = colorScheme.primary.toArgb()
-            ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = darkTheme
+    if (!isForScreenshotTest) {
+        if (!view.isInEditMode) {
+            SideEffect {
+                (view.context as Activity).window.statusBarColor = colorScheme.primary.toArgb()
+                ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = darkTheme
+            }
         }
     }
 
